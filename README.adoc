@@ -1,0 +1,36 @@
+= Mature Modular Meta-framework (mmm)
+
+image:https://raw.github.com/m-m-m/mmm/master/src/site/resources/images/logo.png[logo]
+
+*Welcome to the wonderful world of http://m-m-m.github.io/[mmm]*
+
+== mmm-base
+
+image:https://travis-ci.org/m-m-m/base.svg?branch=master["build-status",link="https://travis-ci.org/m-m-m/base"]
+
+The module `mmm-base` provides a minimal set of APIs and utils for general purpose usage.
+
+=== Features
+
+This library offers the following features:
+
+* `ApplicationException` for exceptions with `UUID`, `code`, and distinction between user and technical errors.
+* `CharFilter` interface
+* `Justification` to justify strings
+* Placements such as `Alignment`, `Direction`, `Orientation`, etc.
+* Converter and parser for `Temporal` values
+
+=== Usage
+
+Maven Dependency:
+```xml
+<dependency>
+  <groupId>io.github.m-m-m</groupId>
+  <artifactId>mmm-base</artifactId>
+</dependency>
+```
+
+Module Dependency:
+```java
+  requires transitive io.github.mmm.base;
+```
