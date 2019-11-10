@@ -1,16 +1,12 @@
-= Mature Modular Meta-framework (mmm)
+image:https://raw.github.com/m-m-m/mmm/master/src/site/resources/images/logo.png[logo,link="https://m-m-m.github.io"]
 
-image:https://raw.github.com/m-m-m/mmm/master/src/site/resources/images/logo.png[logo]
-
-*Welcome to the wonderful world of http://m-m-m.github.io/[mmm]*
-
-== mmm-base
+= mmm-base
 
 image:https://travis-ci.org/m-m-m/base.svg?branch=master["build-status",link="https://travis-ci.org/m-m-m/base"]
 
 The module `mmm-base` provides a minimal set of APIs and utils for general purpose usage.
 
-=== Features
+== Features
 
 This library offers the following features:
 
@@ -21,7 +17,7 @@ This library offers the following features:
 * Converter and parser for `Temporal` values
 * `CompareOperator` to compate strings, numbers, temporals, or any other comparable object
 
-=== Usage
+== Usage
 
 Maven Dependency:
 ```xml
