@@ -13,6 +13,7 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
+import io.github.mmm.base.impl.NumberHelper;
 import io.github.mmm.base.temporal.TemporalConverterLegacy;
 
 /**
@@ -314,42 +315,15 @@ public enum CompareOperator {
     } else if ((arg1 == null) || (arg2 == null)) {
       return !evalDelta(0); // incompatible arguments
     } else if (arg1 instanceof BigDecimal) {
-      return evalComparable((BigDecimal) arg1, toBigDecimal(arg2));
+      return evalComparable((BigDecimal) arg1, NumberHelper.toBigDecimal(arg2));
     } else if (arg1 instanceof BigInteger) {
       if (arg2 instanceof BigDecimal) {
         return evalComparable(new BigDecimal((BigInteger) arg1), (BigDecimal) arg2);
       } else {
-        return evalComparable((BigInteger) arg1, toBigInteger(arg2));
+        return evalComparable((BigInteger) arg1, NumberHelper.toBigInteger(arg2));
       }
     } else {
       return evalDouble(arg1.doubleValue(), arg2.doubleValue());
-    }
-  }
-
-  private static BigDecimal toBigDecimal(Number value) {
-
-    if (value instanceof BigDecimal) {
-      return (BigDecimal) value;
-    } else if (value instanceof BigInteger) {
-      return new BigDecimal((BigInteger) value);
-    } else if (isNonDecimalNumber(value)) {
-      return BigDecimal.valueOf(value.longValue());
-    } else {
-      return BigDecimal.valueOf(value.doubleValue());
-    }
-  }
-
-  private static boolean isNonDecimalNumber(Number value) {
-
-    return (value instanceof Long) || (value instanceof Integer) || (value instanceof Short) || (value instanceof Byte);
-  }
-
-  private static BigInteger toBigInteger(Number value) {
-
-    if (value instanceof BigInteger) {
-      return (BigInteger) value;
-    } else {
-      return BigInteger.valueOf(value.longValue());
     }
   }
 
