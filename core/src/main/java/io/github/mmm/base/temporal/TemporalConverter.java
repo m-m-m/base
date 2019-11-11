@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 
 /**
  * Simple utility class to convert to standard {@link java.time.temporal.Temporal} types.
- * 
+ *
  * @see #get()
  */
 public class TemporalConverter {
@@ -61,9 +61,9 @@ public class TemporalConverter {
     } else if (value instanceof LocalDate) {
       return ((LocalDate) value).atStartOfDay();
     } else if (value instanceof OffsetDateTime) {
-      return ((OffsetDateTime) value).toLocalDateTime();
+      return ((OffsetDateTime) value).withOffsetSameInstant(ZoneOffset.UTC).toLocalDateTime();
     } else if (value instanceof ZonedDateTime) {
-      return ((ZonedDateTime) value).toLocalDateTime();
+      return ((ZonedDateTime) value).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
     }
     return null;
   }
@@ -124,9 +124,9 @@ public class TemporalConverter {
     } else if (value instanceof LocalDateTime) {
       return ((LocalDateTime) value).toLocalDate();
     } else if (value instanceof OffsetDateTime) {
-      return ((OffsetDateTime) value).toLocalDate();
+      return ((OffsetDateTime) value).withOffsetSameInstant(ZoneOffset.UTC).toLocalDate();
     } else if (value instanceof ZonedDateTime) {
-      return ((ZonedDateTime) value).toLocalDate();
+      return ((ZonedDateTime) value).withZoneSameInstant(ZoneOffset.UTC).toLocalDate();
     }
     return null;
   }
@@ -145,9 +145,9 @@ public class TemporalConverter {
     } else if (value instanceof LocalDateTime) {
       return ((LocalDateTime) value).toLocalTime();
     } else if (value instanceof OffsetDateTime) {
-      return ((OffsetDateTime) value).toLocalTime();
+      return ((OffsetDateTime) value).withOffsetSameInstant(ZoneOffset.UTC).toLocalTime();
     } else if (value instanceof ZonedDateTime) {
-      return ((ZonedDateTime) value).toLocalTime();
+      return ((ZonedDateTime) value).withZoneSameInstant(ZoneOffset.UTC).toLocalTime();
     } else if (value instanceof Instant) {
       return ((Instant) value).atOffset(ZoneOffset.UTC).toLocalTime();
     }

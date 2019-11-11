@@ -9,13 +9,13 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.YearMonth;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import io.github.mmm.base.temporal.TemporalParser;
 
 /**
  *
@@ -83,7 +83,7 @@ public class TemporalParserTest extends Assertions {
   @Test
   public void testOffsetDateTime() {
 
-    OffsetDateTime now = OffsetDateTime.now();
+    OffsetDateTime now = Instant.now().atOffset(ZoneOffset.ofHours(1));
     Temporal temporal = TemporalParser.parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
@@ -94,7 +94,7 @@ public class TemporalParserTest extends Assertions {
   @Test
   public void testZonedDateTime() {
 
-    ZonedDateTime now = ZonedDateTime.now();
+    ZonedDateTime now = Instant.now().atZone(ZoneId.of("Europe/Paris"));
     Temporal temporal = TemporalParser.parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }

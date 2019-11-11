@@ -15,11 +15,10 @@ import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import io.github.mmm.base.compare.CompareOperator;
 
 /**
  * Test of {@link CompareOperator}.
@@ -129,16 +128,21 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testTemporals() {
 
+    TimeZone systemTimeZone = TimeZone.getDefault();
+    TimeZone utc = TimeZone.getTimeZone("UTC");
+    TimeZone.setDefault(utc);
+    @SuppressWarnings("deprecation")
+    Date date = new Date(1999 - 1900, 12 - 1, 31, 23, 59, 59);
     Calendar calendar = Calendar.getInstance();
-    calendar.set(1999, 11, 31, 23, 59, 59);
-    calendar.set(Calendar.MILLISECOND, 0);
-    Date date = calendar.getTime();
+    calendar.set(1999, 12 - 1, 31, 23, 59, 59);
     calendar.set(Calendar.MILLISECOND, 1);
     Instant instant = calendar.toInstant().plusMillis(1);
     OffsetDateTime offsetDateTime = instant.plusMillis(1).atOffset(ZoneOffset.ofHours(1));
-    LocalDateTime localDateTime = offsetDateTime.plusNanos(1000_000).toLocalDateTime();
-    ZonedDateTime zonedDateTime = localDateTime.plusNanos(1000_000).atZone(ZoneId.of("Europe/Paris"));
-    LocalTime localTime = zonedDateTime.plusNanos(1000_000).toLocalTime();
+    LocalDateTime localDateTime = offsetDateTime.plusNanos(1000_000).atZoneSameInstant(ZoneOffset.UTC)
+        .toLocalDateTime();
+    ZonedDateTime zonedDateTime = localDateTime.plusNanos(1000_000).atZone(ZoneOffset.UTC)
+        .withZoneSameInstant(ZoneId.of("Europe/Paris"));
+    LocalTime localTime = zonedDateTime.withZoneSameInstant(ZoneOffset.UTC).plusNanos(1000_000).toLocalTime();
     OffsetTime offsetTime = localTime.plusNanos(1000_000).atOffset(ZoneOffset.UTC);
     LocalDate localDate = LocalDate.of(2000, 01, 01);
     Object[] temporals = new Object[] { date, calendar, instant, offsetDateTime, localDateTime, zonedDateTime,
@@ -171,6 +175,7 @@ public class CompareOperatorTest extends Assertions {
         }
       }
     }
+    TimeZone.setDefault(systemTimeZone);
   }
 
 }

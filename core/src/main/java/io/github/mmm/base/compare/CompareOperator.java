@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
 import java.time.ZonedDateTime;
-import java.util.Date;
+import java.util.Calendar;
 
 import io.github.mmm.base.impl.NumberHelper;
 import io.github.mmm.base.temporal.TemporalConverterLegacy;
@@ -285,10 +285,10 @@ public enum CompareOperator {
             c2 = c.convertToZonedDateTime(c2);
           } else if (c2 instanceof ZonedDateTime) {
             c1 = c.convertToZonedDateTime(c1);
-          } else if (c1 instanceof Date) {
-            c2 = c.convertToDate(c2);
-          } else if (c2 instanceof Date) {
-            c1 = c.convertToDate(c1);
+          } else if (c1 instanceof Calendar) {
+            c2 = c.convertToCalendar(c2);
+          } else if (c2 instanceof Calendar) {
+            c1 = c.convertToCalendar(c1);
           }
         }
         try {
