@@ -4,17 +4,11 @@ package io.github.mmm.base.compare;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.OffsetDateTime;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
-import java.util.Calendar;
 
 import io.github.mmm.base.impl.NumberHelper;
-import io.github.mmm.base.temporal.TemporalConverterLegacy;
+import io.github.mmm.base.temporal.TemporalConverter;
 
 /**
  * A {@link CompareOperator} represents an operator able to {@link #evalComparable(Comparable, Comparable) compare} two
@@ -251,47 +245,14 @@ public enum CompareOperator {
       if ((arg1 instanceof Number) && (arg2 instanceof Number)) {
         return evalNumber((Number) arg1, (Number) arg2);
       } else if ((arg1 instanceof Comparable) && (arg2 instanceof Comparable)) {
-        Comparable c1 = (Comparable) arg1;
-        Comparable c2 = (Comparable) arg2;
-        Class<?> t1 = arg1.getClass();
-        Class<?> t2 = arg2.getClass();
-        if (!t1.equals(t2)) {
-          TemporalConverterLegacy c = TemporalConverterLegacy.get();
-          if (c1 instanceof LocalTime) {
-            c2 = c.convertToLocalTime(c2);
-          } else if (c2 instanceof LocalTime) {
-            c1 = c.convertToLocalTime(c1);
-          } else if (c1 instanceof OffsetTime) {
-            c2 = c.convertToOffsetTime(c2);
-          } else if (c2 instanceof OffsetTime) {
-            c1 = c.convertToOffsetTime(c1);
-          } else if (c1 instanceof LocalDate) {
-            c2 = c.convertToLocalDate(c2);
-          } else if (c2 instanceof LocalDate) {
-            c1 = c.convertToLocalDate(c1);
-          } else if (c1 instanceof Instant) {
-            c2 = c.convertToInstant(c2);
-          } else if (c2 instanceof Instant) {
-            c1 = c.convertToInstant(c1);
-          } else if (c1 instanceof LocalDateTime) {
-            c2 = c.convertToLocalDateTime(c2);
-          } else if (c2 instanceof LocalDateTime) {
-            c1 = c.convertToLocalDateTime(c1);
-          } else if (c1 instanceof OffsetDateTime) {
-            c2 = c.convertToOffsetDateTime(c2);
-          } else if (c2 instanceof OffsetDateTime) {
-            c1 = c.convertToOffsetDateTime(c1);
-          } else if (c1 instanceof ZonedDateTime) {
-            c2 = c.convertToZonedDateTime(c2);
-          } else if (c2 instanceof ZonedDateTime) {
-            c1 = c.convertToZonedDateTime(c1);
-          } else if (c1 instanceof Calendar) {
-            c2 = c.convertToCalendar(c2);
-          } else if (c2 instanceof Calendar) {
-            c1 = c.convertToCalendar(c1);
-          }
-        }
         try {
+          Boolean result = TemporalConverter.get().convertAndEvaluate(arg1, arg2,
+              (x1, x2) -> Boolean.valueOf(evalComparable((Comparable) x1, (Comparable) x2)));
+          if (result != null) {
+            return result.booleanValue();
+          }
+          Comparable c1 = (Comparable) arg1;
+          Comparable c2 = (Comparable) arg2;
           return evalComparable(c1, c2);
         } catch (ClassCastException e) {
         }

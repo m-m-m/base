@@ -20,6 +20,8 @@ import java.util.TimeZone;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import io.github.mmm.base.temporal.TemporalConverterLegacy;
+
 /**
  * Test of {@link CompareOperator}.
  */
@@ -128,9 +130,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testTemporals() {
 
+    TemporalConverterLegacy.get(); // activate legacy Date + Calendar support
     TimeZone systemTimeZone = TimeZone.getDefault();
     TimeZone utc = TimeZone.getTimeZone("UTC");
-    TimeZone.setDefault(utc);
+    TimeZone.setDefault(utc); // set system timezone to UTC
     @SuppressWarnings("deprecation")
     Date date = new Date(1999 - 1900, 12 - 1, 31, 23, 59, 59);
     Calendar calendar = Calendar.getInstance();
@@ -175,7 +178,7 @@ public class CompareOperatorTest extends Assertions {
         }
       }
     }
-    TimeZone.setDefault(systemTimeZone);
+    TimeZone.setDefault(systemTimeZone); // reset system timezone
   }
 
 }

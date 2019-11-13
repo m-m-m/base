@@ -12,18 +12,23 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.function.BiFunction;
 
 /**
  * Extends {@link TemporalConverter} with support for the legacy types {@link Date} and {@link Calendar}.
- * 
+ *
  * @see #get()
  */
 public class TemporalConverterLegacy extends TemporalConverter {
 
-  private static final TemporalConverterLegacy INSTANCE = new TemporalConverterLegacy();
+  private static TemporalConverterLegacy INSTANCE;
 
   TemporalConverterLegacy() {
 
+    super();
+    if (INSTANCE == null) {
+      INSTANCE = this;
+    }
   }
 
   @Override
@@ -148,11 +153,32 @@ public class TemporalConverterLegacy extends TemporalConverter {
     return null;
   }
 
+  @Override
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public <T> T convertAndEvaluate(Object temporal1, Object temporal2, BiFunction<?, ?, T> function) {
+
+    T result = super.convertAndEvaluate(temporal1, temporal2, function);
+    if (result == null) {
+      Object c1 = temporal1;
+      Object c2 = temporal2;
+      if (c1 instanceof Date) {
+        c2 = convertToDate(c2);
+      } else if (c2 instanceof Date) {
+        c1 = convertToDate(c1);
+      }
+      return (T) ((BiFunction) function).apply(c1, c2);
+    }
+    return result;
+  }
+
   /**
    * @return the singleton instance.
    */
   public static TemporalConverterLegacy get() {
 
+    if (INSTANCE == null) {
+      return new TemporalConverterLegacy();
+    }
     return INSTANCE;
   }
 
