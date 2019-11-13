@@ -3,7 +3,14 @@ language: java
 jdk:
   - openjdk11
 
-script: mvn install
+env:
+  global:
+    - SONARTYPE_USERNAME=awPAYN4P
+    - secure: "doscWY5qyhFUumlWhnps8K01FqApuY8BoTblgBpy7aeY1FnctRpIROkz6EIUaHkPE9Bd0x2YccQedQ9WsFAlGiJqu3nfVwRjpBD7pqbduJoDDCLOHw1OUc1M/6179vJEL4O6RwMvQRBO1fUwgwJC+qF9y0Lva5XiI+IbFbiIixz1OMpXeAeC67d1aDWotWAqSmDmv1ArUdGKcWLr+WOovPC/rqMVCDEFamBHcq9CI6rYoN6Iw8639rSxZRH/4nhIV/+xuJMeMVgiHLvQM83Nab5nA1v18ZAfNbV6aC79TcgLsyQMGj+GTr6BF64i85HI7BRRrE3mkLqSoala1qjzPmLu0s3Us05gNNno2gAK/fCxiamYnAnwioU2VIWbLENhf+XKWHzdppY10tRYeythmC0ldfs1HhrLa+SEVpsMz22mztwBV4hXUXMqtc2gi/yV6yd3OupW4wtltZsPPTNoA56sCV9QIrNN4+pGtH9Ae7gPd87cOZ4h/ArWjqVFcuQg6YqEKr0/nY0Mi1OK6Eg09qXsr5PhqG9ZyiyF+eEmBVf+/iTd8A2qR51wEvqEj0fU2qZg9haq9p5utaGDZLqFPSHtKTvja+u6hrPhk7GO4KphhNr9FSpeAEf4WmQtJsPwEjILDRtk4WYVYoYd3dxlfD9qzO1z39+DbHteSfGjJko="
+
+script: mvn --settings .mvn/settings.xml install
+after_success:
+  - "[[ $TRAVIS_BRANCH == \"master\" ]] && mvn --settings .mvn/settings.xml deploy
 
 sudo: false
 
