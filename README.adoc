@@ -5,7 +5,7 @@ image:https://raw.github.com/m-m-m/mmm/master/src/site/resources/images/logo.png
 image:https://img.shields.io/github/license/m-m-m/base.svg?label=License["Apache License, Version 2.0",link=https://github.com/m-m-m/base/blob/master/LICENSE]
 image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base.svg?label=Maven%20Central["Maven Central",link=https://search.maven.org/search?q=g:io.github.m-m-m]
 image:https://travis-ci.org/m-m-m/base.svg?branch=master["build-status",link="https://travis-ci.org/m-m-m/base"]
-image:ttps://github.com/m-m-m/base/workflows/.github/workflows/maven.yml/badge.svg["build-status",link="https://github.com/m-m-m/base/actions"]
+image:ttps://github.com/m-m-m/base/workflows/ci/badge.svg["build-status",link="https://github.com/m-m-m/base/actions"]
 
 The module `mmm-base` provides a minimal set of APIs and utils for general purpose usage.
 
