@@ -5,8 +5,8 @@ package io.github.mmm.base.text;
 import java.util.Locale;
 
 /**
- * This class is a simple helper for case conversion like {@link #toLowerCase(String)} or {@link #toUpperCase(String)}.
- * This seems pointless in the first place but prevents typical programming mistakes. Many developers will expect that
+ * Simple helper for case conversion like {@link #toLowerCase(String)} or {@link #toUpperCase(String)}. This seems
+ * pointless in the first place but prevents typical programming mistakes. Many developers will expect that
  * <code>"HI".{@link String#toLowerCase() toLowerCase()}</code> returns {@code "hi"}. However, this is not always the
  * case! {@link String#toLowerCase()} will actually do {@link String#toLowerCase(Locale)
  * toLowerCase}({@link Locale#getDefault()}). The latter operation is obviously a {@link Locale} sensitive operation and

@@ -9,6 +9,8 @@ import java.io.StringWriter;
 import java.util.Locale;
 import java.util.UUID;
 
+import io.github.mmm.base.text.Localizable;
+
 /**
  * Extends {@link RuntimeException} with the following features:
  * <ul>
@@ -21,19 +23,13 @@ import java.util.UUID;
  * <b>NOTE:</b><br>
  * Exceptions should only occur in unexpected or undesired situations. Never use exceptions for control flows.
  */
-public abstract class ApplicationException extends RuntimeException {
+public abstract class ApplicationException extends RuntimeException implements Localizable {
 
   private static final long serialVersionUID = 1L;
 
-  private UUID uuid;
+  private final Localizable message;
 
-  /**
-   * The constructor for de-serialization in GWT.
-   */
-  protected ApplicationException() {
-
-    super();
-  }
+  private final UUID uuid;
 
   /**
    * The constructor.
@@ -42,7 +38,18 @@ public abstract class ApplicationException extends RuntimeException {
    */
   public ApplicationException(String message) {
 
-    super(message);
+    this(Localizable.ofStatic(message));
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param message the {@link #getMessage() message} describing the problem briefly.
+   */
+  public ApplicationException(Localizable message) {
+
+    super();
+    this.message = message;
     this.uuid = createUuid();
   }
 
@@ -53,6 +60,17 @@ public abstract class ApplicationException extends RuntimeException {
    * @param cause is the {@link #getCause() cause} of this exception.
    */
   public ApplicationException(String message, Throwable cause) {
+
+    this(Localizable.ofStatic(message), cause, null);
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param message the {@link #getMessage() message} describing the problem briefly.
+   * @param cause is the {@link #getCause() cause} of this exception.
+   */
+  public ApplicationException(Localizable message, Throwable cause) {
 
     this(message, cause, null);
   }
@@ -65,9 +83,23 @@ public abstract class ApplicationException extends RuntimeException {
    * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
    *        {@link Throwable} or as new {@link UUID}).
    */
-  public ApplicationException(String message, Throwable cause, UUID uuid) {
+  protected ApplicationException(String message, Throwable cause, UUID uuid) {
 
-    super(message, cause);
+    this(Localizable.ofStatic(message));
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param message the {@link #getMessage() message} describing the problem briefly.
+   * @param cause is the {@link #getCause() cause} of this exception. May be <code>null</code>.
+   * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
+   *        {@link Throwable} or as new {@link UUID}).
+   */
+  protected ApplicationException(Localizable message, Throwable cause, UUID uuid) {
+
+    super(cause);
+    this.message = message;
     if (uuid == null) {
       if ((cause != null) && (cause instanceof ApplicationException)) {
         this.uuid = ((ApplicationException) cause).getUuid();
@@ -120,33 +152,25 @@ public abstract class ApplicationException extends RuntimeException {
   }
 
   /**
-   * This method gets the localized message as string.
-   *
-   * @see #getLocalizedMessage(Locale, Appendable)
-   *
-   * @param locale is the {@link Locale} to translate to.
-   * @return the localized message.
+   * @return the {@link Localizable} message describing the problem.
+   * @see #getMessage()
+   * @see #getLocalizedMessage(Locale)
    */
-  public String getLocalizedMessage(Locale locale) {
+  public Localizable getNlsMessage() {
 
-    return getLocalizedMessage();
+    return this.message;
   }
 
-  /**
-   * This method writes the localized message to the given string buffer. <br>
-   *
-   * @see #getLocalizedMessage(Locale, Appendable)
-   *
-   * @param locale is the {@link Locale} to translate to.
-   * @param appendable is where to {@link Appendable#append(CharSequence) append} the message to.
-   */
+  @Override
+  public String getLocalizedMessage(Locale locale) {
+
+    return this.message.getLocalizedMessage(locale);
+  }
+
+  @Override
   public void getLocalizedMessage(Locale locale, Appendable appendable) {
 
-    try {
-      appendable.append(getLocalizedMessage(locale));
-    } catch (IOException e) {
-      throw new IllegalStateException(e);
-    }
+    this.message.getLocalizedMessage(locale, appendable);
   }
 
   /**
@@ -168,7 +192,7 @@ public abstract class ApplicationException extends RuntimeException {
    * @param locale is the {@link Locale} to translate to.
    * @param buffer is where to write the stack trace to.
    */
-  static void printStackTrace(ApplicationException throwable, Locale locale, Appendable buffer) {
+  private static void printStackTrace(ApplicationException throwable, Locale locale, Appendable buffer) {
 
     try {
       synchronized (buffer) {

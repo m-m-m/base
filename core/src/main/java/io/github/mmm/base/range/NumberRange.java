@@ -10,7 +10,7 @@ import io.github.mmm.base.compare.NumberComparator;
 /**
  * This class extends {@link Range} to allow mixed types of {@link Number} to be used.
  *
- * @since 7.1.0
+ * @since 1.0.0
  */
 public class NumberRange extends GenericRange<Number> {
 

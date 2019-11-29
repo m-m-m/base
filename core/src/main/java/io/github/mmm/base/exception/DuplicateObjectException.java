@@ -17,14 +17,6 @@ public class DuplicateObjectException extends ApplicationException {
   public static final String MESSAGE_CODE = "DuplicateObject";
 
   /**
-   * The constructor for de-serialization in GWT.
-   */
-  protected DuplicateObjectException() {
-
-    super();
-  }
-
-  /**
    * The constructor.
    *
    * @param object is the object that was rejected because it is a duplicate.
