@@ -9,7 +9,7 @@ import java.io.StringWriter;
 import java.util.Locale;
 import java.util.UUID;
 
-import io.github.mmm.base.text.Localizable;
+import io.github.mmm.base.i18n.Localizable;
 
 /**
  * Extends {@link RuntimeException} with the following features:

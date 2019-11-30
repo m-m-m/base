@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import io.github.mmm.base.exception.RuntimeIoException;
-import io.github.mmm.base.text.Localizable;
+import io.github.mmm.base.i18n.Localizable;
 
 /**
  * Dummy implementation of {@link Localizable} that does not support localization and simply ignores any given

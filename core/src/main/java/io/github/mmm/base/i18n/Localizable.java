@@ -1,6 +1,6 @@
 /* Copyright (c) The m-m-m Team, Licensed under the Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0 */
-package io.github.mmm.base.text;
+package io.github.mmm.base.i18n;
 
 import java.util.Locale;
 
@@ -8,9 +8,9 @@ import io.github.mmm.base.impl.NotLocalizable;
 
 /**
  * Interface for an object that can be {@link #getLocalizedMessage(Locale) translated} to a given {@link Locale}. It is
- * the API to abstract from {@code NlsMessage} of {@code mmm-nls}. To minimize dependencies you can mock it with
- * {@link #ofStatic(String)} wrapping a regular {@link String}. For read native language support (NLS) add
- * {@code mmm-nls} as dependency.
+ * the API to abstract from {@code NlsMessage} provided by {@code mmm-nls}. To minimize dependencies you can mock it
+ * with {@link #ofStatic(String)} wrapping a regular {@link String}. For real native language support (NLS) add
+ * {@code mmm-nls} as dependency and require module {@code io.github.mmm.nls}.
  */
 public interface Localizable extends LocalizableObject {
 
