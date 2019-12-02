@@ -18,4 +18,4 @@ jobs:
       with:
         java-version: 11
     - name: Build with Maven
-      run: mvn --settings .mvn/settings.xml deploy -Dchangelist=-alpha1
+      run: mvn --settings .mvn/settings.xml -Dmaven.wagon.http.pool=false deploy
