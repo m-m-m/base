@@ -300,7 +300,7 @@ public enum CompareOperator {
    * @param value is the {@link #getSymbol() symbol} of the requested {@link CompareOperator}.
    * @return the requested {@link CompareOperator} or {@code null} if no such {@link CompareOperator} exists.
    */
-  public static CompareOperator fromValue(String value) {
+  public static CompareOperator ofSymbol(String value) {
 
     for (CompareOperator comparator : values()) {
       if (comparator.symbol.equals(value)) {
