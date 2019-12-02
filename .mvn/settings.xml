@@ -3,6 +3,17 @@
   <servers>
     <server>
       <id>deploy-releases</id>
+      <username>${env.SONARTYPE_USERNAME}</username>
+      <password>${env.SONARTYPE_PASSWORD}</password>
+    </server>
+    <server>
+      <id>deploy-snapshots</id>
+      <username>${env.SONARTYPE_USERNAME}</username>
+      <password>${env.SONARTYPE_PASSWORD}</password>
+    </server>
+    <!--
+    <server>
+      <id>deploy-releases</id>
       <username>${env.GITHUB_USERNAME}</username>
       <password>${env.GITHUB_TOKEN}</password>
     </server>
@@ -16,6 +27,7 @@
       <username>${env.GITHUB_USERNAME}</username>
       <password>${env.GITHUB_TOKEN}</password>
     </server>
+    -->
   </servers>
 
   <profiles>
@@ -24,17 +36,17 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <properties>
+      <!--properties>
         <mmm.deploy.release.repository>https://maven.pkg.github.com/m-m-m/base</mmm.deploy.release.repository>
         <mmm.deploy.snapshot.repository>https://maven.pkg.github.com/m-m-m/base</mmm.deploy.snapshot.repository>
-      </properties>
-      <repositories>
+      </properties-->
+      <!--repositories>
        <repository>
          <id>github</id>
          <name>GitHub Packages</name>
          <url>https://maven.pkg.github.com/m-m-m/base</url>
        </repository>
-     </repositories>
+     </repositories-->
     </profile>
   </profiles>
 </settings>
