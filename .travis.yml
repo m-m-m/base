@@ -1,30 +1,16 @@
 language: java
-
-jdk:
-  - openjdk11
-
+jdk: openjdk11
 env:
   global:
-    - SONARTYPE_USERNAME=awPAYN4P
-    - secure: "doscWY5qyhFUumlWhnps8K01FqApuY8BoTblgBpy7aeY1FnctRpIROkz6EIUaHkPE9Bd0x2YccQedQ9WsFAlGiJqu3nfVwRjpBD7pqbduJoDDCLOHw1OUc1M/6179vJEL4O6RwMvQRBO1fUwgwJC+qF9y0Lva5XiI+IbFbiIixz1OMpXeAeC67d1aDWotWAqSmDmv1ArUdGKcWLr+WOovPC/rqMVCDEFamBHcq9CI6rYoN6Iw8639rSxZRH/4nhIV/+xuJMeMVgiHLvQM83Nab5nA1v18ZAfNbV6aC79TcgLsyQMGj+GTr6BF64i85HI7BRRrE3mkLqSoala1qjzPmLu0s3Us05gNNno2gAK/fCxiamYnAnwioU2VIWbLENhf+XKWHzdppY10tRYeythmC0ldfs1HhrLa+SEVpsMz22mztwBV4hXUXMqtc2gi/yV6yd3OupW4wtltZsPPTNoA56sCV9QIrNN4+pGtH9Ae7gPd87cOZ4h/ArWjqVFcuQg6YqEKr0/nY0Mi1OK6Eg09qXsr5PhqG9ZyiyF+eEmBVf+/iTd8A2qR51wEvqEj0fU2qZg9haq9p5utaGDZLqFPSHtKTvja+u6hrPhk7GO4KphhNr9FSpeAEf4WmQtJsPwEjILDRtk4WYVYoYd3dxlfD9qzO1z39+DbHteSfGjJko="
-
-script:
-  - mvn --settings .mvn/settings.xml install
-
-after_success:
-  - "[[ $TRAVIS_BRANCH == \"master\" ]] && mvn --settings .mvn/settings.xml deploy"
-
-sudo:
-  - false
-
+  - secure: F+iDnYuyj4/WrWlmo/SK1wCTmj1XbvtFn9vAFmNC4uZtLLQcnnGzxHjTlgZjvgxDRZePVQvlC53pS6AONw6ge9fB5+AEb29Nf7xIBr00LP7WWmyfxImZikhMcYMz/4VhYha9Vxq2LCDlmA0akMXREPzriYM143lPutgehn+f7tp/5Z5e5C3aHIaZJoJmAbR0pD24TrRPaEHlLzW7hzLO/7K+AXw8HQKl7UHJqlHW9VsxMDMDi2coTDXh+ArZMUBuF0UJaWZe/oYbxp9HIfIMYSdvjG32/x8ZBTP+he7/MQD7wcoGw84+k6/OYPWney4dmQSSUiDByjpfnsDkqpOczY0CMfZLFNWVSpVrxpFZCeM5EeDYRJpXjmtwkBV3WjPM/myP/ypBvaXUdNvyCyGU8XtrYV1KzKgxByp/dSprcR1WLJTD8rwc0BfTK8JC7w8Ybkvv7uaetLJEk83Am1axWLGWvsIi6rIEUElQznh1RGoreoi5eQR5b+kiScOz4EVcEONskEYGdGr14Ex01ujXHNqjVTw7Ba7uvrq5WGAsYG/dYHJl5r7zlQr6O/79FujL3bkgTOBiEYbqz+Yj/rk0ds+QpKIC/10zrmvE2QifTqiFtvXw5Z1SvplWH+9tKSPJPH6Pzug/BlUSRz55ITz86Vy/kRBAFVYcaawJl8uifl0=
+  - secure: q4NRCMuDep5x2/pKivlA7Z7SuSNXZKR6D1KE5y1YPC73Hfld+FIOHRdN3z0rV0aSjD3LEanhdUtpigHjqShTJtTLlj1qBSyblvSAipUYD+lOb0YZgoCTVq4v7IoKklXkZ0kKDtv4MxJNaNiBMObcgGE+VdpB6eAHfv9+egEMehbWZRaCFe26qKgM8eS8HQWLHn/ocaQE+h24TuIK5hI/bgOdiDqpCaqHNTMZyo7wMnPOvnwXKE5M5S0lb/v16bvWWuJgYub3K51X8CL329hPKkeRgVf6IwQ59BREftok05nkytkdkBCS+u0LRSPuygMPCyynOTsVAU1MqXkxX/hBylGU73+HYSz/IK6GGzoloR1a9tmucrzDdndd4YFy22yBML9Dm+L6XW21FstHMAk69FCtGTv7nHS3o4i7IEnNLDosZt2Q3cbrzfqg3xzsCu/syU7a4bTUchbJ+IhflAvu/LEsBS1tyi03qYcSQ4w3AvVACvSkGUzokyf9QvmNSYwUXZp300aDtySGaaA+ArWtrl38rMyYgGU2h7ZGEZ+jGRIVdwsOFtSP1t2Cqhkn4kKX+6WfZyNe7p2+YsKdIIaMlSsulElyji/fy+oTSiwexw+yQGijA0Fd1Kk6dOBoTjXjqjpgDvvYPF55NayFxUO3EGAu7DWXStze5bRz4Y89qkY=
+script: mvn --settings .mvn/settings.xml install
+after_script: '[[ $TRAVIS_BRANCH == "master" ]] && mvn --settings .mvn/settings.xml
+  deploy'
+sudo: false
 cache:
-  directories:
-    - $HOME/.m2
-
+  directories: "$HOME/.m2"
 branches:
-  except:
-    - gh-pages
-
+  except: gh-pages
 notifications:
-  email:
-    - joerg.hohwiller@googlemail.com
+  email: joerg.hohwiller@googlemail.com
