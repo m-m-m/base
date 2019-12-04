@@ -206,7 +206,7 @@ public enum Conjunction {
   public abstract boolean evalEmpty();
 
   /**
-   * @return the symbolic {@link String} representation (e.g. '&&' for {@link #AND}).
+   * @return the symbolic {@link String} representation (e.g. '{@literal &&}' for {@link #AND}).
    */
   public String getSymbol() {
 

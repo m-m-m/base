@@ -332,7 +332,7 @@ public abstract class ApplicationException extends RuntimeException implements L
    * defined as following:
    *
    * <pre>
-   * &lt;{@link Class#getName() classname}>: [&lt;custom-{@link #getCode() code}>: ]&lt;{@link #getLocalizedMessage(Locale) message}>
+   * «{@link Class#getName() classname}»: [«{@link #getCode() custom-code}»: ]«{@link #getLocalizedMessage(Locale) message}»
    * </pre>
    *
    * @param locale is the {@link Locale} used for {@link #getLocalizedMessage(Locale)}.

@@ -151,7 +151,8 @@ public enum CompareOperator {
   }
 
   /**
-   * @return the symbol of this {@link CompareOperator} ("==", ">", ">=", "<", or "<=")
+   * @return the symbol of this {@link CompareOperator} ("==", "{@literal >}", "{@literal >=}", "{@literal <}", or
+   *         "{@literal <=}")
    */
   public String getSymbol() {
 
