@@ -13,6 +13,8 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.filter;
 
+  exports io.github.mmm.base.i18n;
+
   exports io.github.mmm.base.justification;
 
   exports io.github.mmm.base.lang;
@@ -25,5 +27,5 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.temporal;
 
-  exports io.github.mmm.base.i18n;
+  exports io.github.mmm.base.text;
 }
