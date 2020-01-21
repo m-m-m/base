@@ -86,4 +86,20 @@ public final class CaseHelper {
     return string.toUpperCase(locale);
   }
 
+  /**
+   * @param string is the {@link String}. May be {@code null}.
+   * @return the capitalized {@link String}.
+   */
+  public static String capitalize(String string) {
+
+    if ((string != null) && !string.isEmpty()) {
+      char first = string.charAt(0);
+      char upper = Character.toUpperCase(first);
+      if (upper != first) {
+        return upper + string.substring(1);
+      }
+    }
+    return string;
+  }
+
 }
