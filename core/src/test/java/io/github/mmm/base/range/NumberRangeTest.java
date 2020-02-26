@@ -27,11 +27,11 @@ public class NumberRangeTest extends Assertions {
     assertThat(numberRange).hasToString("[-0.000000001，1]");
     assertThat(numberRange.getMin()).isEqualTo(min);
     assertThat(numberRange.getMax()).isEqualTo(max);
-    assertThat(numberRange.isContained(Double.valueOf(-0.000000001))).isTrue();
-    assertThat(numberRange.isContained(min)).isTrue();
-    assertThat(numberRange.isContained(new BigDecimal("0.99999999999999999999"))).isTrue();
-    assertThat(numberRange.isContained(max)).isTrue();
-    assertThat(numberRange.isContained(new BigDecimal("1.00000000000000000001"))).isFalse();
+    assertThat(numberRange.contains(Double.valueOf(-0.000000001))).isTrue();
+    assertThat(numberRange.contains(min)).isTrue();
+    assertThat(numberRange.contains(new BigDecimal("0.99999999999999999999"))).isTrue();
+    assertThat(numberRange.contains(max)).isTrue();
+    assertThat(numberRange.contains(new BigDecimal("1.00000000000000000001"))).isFalse();
   }
 
 }

@@ -74,7 +74,7 @@ public interface Range<V> {
    *         {@link #getMax() maximum}), {@code false} otherwise. If the given value is {@code null}, {@code false} will
    *         be returned.
    */
-  default boolean isContained(V value) {
+  default boolean contains(V value) {
 
     if (value == null) {
       return false;
@@ -102,7 +102,7 @@ public interface Range<V> {
   }
 
   /**
-   * @param <T> type of the {@link #isContained(Object) contained value}.
+   * @param <T> type of the {@link #contains(Object) contained value}.
    * @return the unbounded {@link Range} instance (with {@link #getMin()} and {@link #getMax()} being {@code null}).
    */
   static <T> Range<T> unbounded() {

@@ -20,8 +20,8 @@ public class RangeTest extends Assertions {
     assertThat(unbounded.getMin()).isNull();
     assertThat(unbounded.getMax()).isNull();
     assertThat(unbounded.toString()).isEqualTo("(−∞，+∞)");
-    assertThat(unbounded.isContained("value")).isTrue();
-    assertThat(unbounded.isContained(null)).isFalse();
+    assertThat(unbounded.contains("value")).isTrue();
+    assertThat(unbounded.contains(null)).isFalse();
   }
 
 }
