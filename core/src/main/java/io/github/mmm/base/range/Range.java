@@ -8,14 +8,33 @@ import java.util.Comparator;
  * This class represents a range from {@link #getMin() minimum} to {@link #getMax() maximum}. Implementations shall
  * validate at construction so a given {@link Range} should always be valid. <br>
  * <b>ATTENTION:</b><br>
- * The {@link #getMin() minimum} and {@link #getMax() maximum} may be {@code null} for unbounded ranges. It is still
- * recommended to use fixed bounds such as {@link Long#MAX_VALUE}. However, for types such as
+ * The {@link #getMin() minimum} and {@link #getMax() maximum} may be {@code null} for {@link #unbounded() unbounded
+ * ranges}. It is still recommended to use fixed bounds such as {@link Long#MAX_VALUE}. However, for types such as
  * {@link java.math.BigDecimal} this is not possible.
  *
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
 public interface Range<V> {
+
+  /** Char indicating start with inclusive minimum. */
+  char BOUND_START_INCLUSIVE = '[';
+
+  /** Char indicating start with exclusive minimum. */
+  char BOUND_START_EXCLUSIVE = '(';
+
+  /** Char indicating end with inclusive maximum. */
+  char BOUND_END_INCLUSIVE = ']';
+
+  /** Char indicating end with exclusive maximum. */
+  char BOUND_END_EXCLUSIVE = ')';
+
+  /**
+   * Char to separate minimum and maximum. Mathematical convention would be to use a comma (','), but this causes
+   * problems when parsing {@link Object#toString() string representations} as a comma may also occur in the minimum or
+   * maximum value.
+   */
+  char BOUND_SEPARATOR = '\uFF0C';
 
   /** The unbound minimum. */
   String MIN_UNBOUND = "\u2212\u221E";
@@ -80,6 +99,15 @@ public interface Range<V> {
       }
     }
     return true;
+  }
+
+  /**
+   * @param <T> type of the {@link #isContained(Object) contained value}.
+   * @return the unbounded {@link Range} instance (with {@link #getMin()} and {@link #getMax()} being {@code null}).
+   */
+  static <T> Range<T> unbounded() {
+
+    return GenericRange.UNBOUNDED;
   }
 
 }

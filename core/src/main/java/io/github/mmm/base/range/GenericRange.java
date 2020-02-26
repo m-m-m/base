@@ -2,6 +2,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.range;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -11,6 +12,9 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public class GenericRange<V> implements Range<V> {
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  static final GenericRange UNBOUNDED = new GenericRange(null, null);
 
   private final V min;
 
@@ -90,23 +94,33 @@ public class GenericRange<V> implements Range<V> {
     return Objects.hash(this.min, this.max);
   }
 
+  private String toString(V value) {
+
+    if (value instanceof BigDecimal) {
+      return ((BigDecimal) value).stripTrailingZeros().toPlainString();
+    }
+    return value.toString();
+  }
+
   @Override
   public String toString() {
 
     StringBuilder buffer = new StringBuilder();
-    buffer.append('[');
     if (this.min == null) {
+      buffer.append(BOUND_START_EXCLUSIVE);
       buffer.append(MIN_UNBOUND);
     } else {
-      buffer.append(this.min);
+      buffer.append(BOUND_START_INCLUSIVE);
+      buffer.append(toString(this.min));
     }
-    buffer.append(',');
+    buffer.append(BOUND_SEPARATOR);
     if (this.max == null) {
       buffer.append(MAX_UNBOUND);
+      buffer.append(BOUND_END_EXCLUSIVE);
     } else {
-      buffer.append(this.max);
+      buffer.append(toString(this.max));
+      buffer.append(BOUND_END_INCLUSIVE);
     }
-    buffer.append(']');
     return buffer.toString();
   }
 }

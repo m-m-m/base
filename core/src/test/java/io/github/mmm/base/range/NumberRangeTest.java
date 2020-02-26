@@ -1,0 +1,37 @@
+/* Copyright (c) The m-m-m Team, Licensed under the Apache License, Version 2.0
+ * http://www.apache.org/licenses/LICENSE-2.0 */
+package io.github.mmm.base.range;
+
+import java.math.BigDecimal;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+/**
+ * Test of {@link NumberRange}.
+ */
+public class NumberRangeTest extends Assertions {
+
+  /** Test of {@link NumberRange}. */
+  @Test
+  public void test() {
+
+    // given
+    BigDecimal min = new BigDecimal("-0.000000001");
+    Long max = Long.valueOf(1);
+
+    // when
+    NumberRange numberRange = new NumberRange(min, max);
+
+    // then
+    assertThat(numberRange).hasToString("[-0.000000001，1]");
+    assertThat(numberRange.getMin()).isEqualTo(min);
+    assertThat(numberRange.getMax()).isEqualTo(max);
+    assertThat(numberRange.isContained(Double.valueOf(-0.000000001))).isTrue();
+    assertThat(numberRange.isContained(min)).isTrue();
+    assertThat(numberRange.isContained(new BigDecimal("0.99999999999999999999"))).isTrue();
+    assertThat(numberRange.isContained(max)).isTrue();
+    assertThat(numberRange.isContained(new BigDecimal("1.00000000000000000001"))).isFalse();
+  }
+
+}

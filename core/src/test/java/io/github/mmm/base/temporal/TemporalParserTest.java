@@ -18,7 +18,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- *
+ * Test of {@link TemporalParser}.
  */
 public class TemporalParserTest extends Assertions {
 
