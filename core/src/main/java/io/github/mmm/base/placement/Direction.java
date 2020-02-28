@@ -7,29 +7,29 @@ package io.github.mmm.base.placement;
  */
 public enum Direction {
 
-  /** Direction to the south (down/bottom). */
-  SOUTH("S", "south"),
+  /** Direction down (south/bottom). */
+  DOWN("v", "down"),
 
-  /** Direction to the east (right). */
-  EAST("E", "east"),
+  /** Direction right (east). */
+  RIGHT(">", "right"),
 
-  /** Direction the the west (left). */
-  WEST("W", "west"),
+  /** Direction left (west). */
+  LEFT("<", "left"),
 
-  /** Direction the the north (up/top). */
-  NORTH("N", "north"),
+  /** Direction up (north/top). */
+  UP("^", "up"),
 
-  /** Direction to the south-east (down/bottom and right). */
-  SOUTH_EAST("SE", "south-east"),
+  /** Direction down-right (south-east). */
+  DOWN_RIGHT("v>", "down-right"),
 
-  /** Direction to the south-west (down/bottom and left). */
-  SOUTH_WEST("SW", "south-west"),
+  /** Direction down-left (south-west). */
+  DOWN_LEFT("v<", "down-left"),
 
-  /** Direction to the north-east (up/top and right). */
-  NORTH_EAST("NE", "north-east"),
+  /** Direction up-right (north-east). */
+  UP_RIGHT("^>", "up-right"),
 
-  /** Direction to the north-west (up/top and left). */
-  NORTH_WEST("NW", "north-west");
+  /** Direction up-left (north-west). */
+  UP_LEFT("^<", "up-left");
 
   private final String value;
 
@@ -62,39 +62,38 @@ public enum Direction {
   }
 
   /**
-   * @return {@code true} if pointing to the east ({@link #EAST}, {@link #SOUTH_EAST}, or {@link #NORTH_EAST}),
-   *         {@code false} otherwise.
+   * @return {@code true} if pointing right ({@link #RIGHT}, {@link #DOWN_RIGHT}, or {@link #UP_RIGHT}), {@code false}
+   *         otherwise.
    */
-  public boolean isToEast() {
+  public boolean isRight() {
 
-    return (this == EAST) || (this == SOUTH_EAST) || (this == NORTH_EAST);
+    return (this == RIGHT) || (this == DOWN_RIGHT) || (this == UP_RIGHT);
   }
 
   /**
-   * @return {@code true} if pointing to the west ({@link #WEST}, {@link #SOUTH_WEST}, or {@link #NORTH_WEST}),
-   *         {@code false} otherwise.
+   * @return {@code true} if pointing left ({@link #LEFT}, {@link #DOWN_LEFT}, or {@link #UP_LEFT}), {@code false}
+   *         otherwise.
    */
-  public boolean isToWest() {
+  public boolean isLeft() {
 
-    return (this == WEST) || (this == SOUTH_WEST) || (this == NORTH_WEST);
+    return (this == LEFT) || (this == DOWN_LEFT) || (this == UP_LEFT);
   }
 
   /**
-   * @return {@code true} if pointing to the south ({@link #SOUTH}, {@link #SOUTH_EAST}, or {@link #SOUTH_WEST}),
-   *         {@code false} otherwise.
+   * @return {@code true} if pointing down ({@link #DOWN}, {@link #DOWN_RIGHT}, or {@link #DOWN_LEFT}), {@code false}
+   *         otherwise.
    */
-  public boolean isToSouth() {
+  public boolean isDown() {
 
-    return (this == SOUTH) || (this == SOUTH_EAST) || (this == SOUTH_WEST);
+    return (this == DOWN) || (this == DOWN_RIGHT) || (this == DOWN_LEFT);
   }
 
   /**
-   * @return {@code true} if pointing to the north ({@link #NORTH}, {@link #NORTH_EAST}, or {@link #NORTH_WEST}),
-   *         {@code false} otherwise.
+   * @return {@code true} if pointing up ({@link #UP}, {@link #UP_RIGHT}, or {@link #UP_LEFT}), {@code false} otherwise.
    */
-  public boolean isToNorth() {
+  public boolean isUp() {
 
-    return (this == NORTH) || (this == NORTH_EAST) || (this == NORTH_WEST);
+    return (this == UP) || (this == UP_RIGHT) || (this == UP_LEFT);
   }
 
 }

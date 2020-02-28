@@ -280,23 +280,23 @@ public enum Alignment {
 
     switch (this) {
       case BOTTOM:
-        return Direction.SOUTH;
+        return Direction.DOWN;
       case BOTTOM_LEFT:
-        return Direction.SOUTH_WEST;
+        return Direction.DOWN_LEFT;
       case BOTTOM_RIGHT:
-        return Direction.SOUTH_EAST;
+        return Direction.DOWN_RIGHT;
       case CENTER:
         return null;
       case LEFT:
-        return Direction.WEST;
+        return Direction.LEFT;
       case RIGHT:
-        return Direction.EAST;
+        return Direction.RIGHT;
       case TOP:
-        return Direction.NORTH;
+        return Direction.UP;
       case TOP_LEFT:
-        return Direction.NORTH_WEST;
+        return Direction.UP_LEFT;
       case TOP_RIGHT:
-        return Direction.NORTH_EAST;
+        return Direction.UP_RIGHT;
       default:
         throw new IllegalStateException(name());
     }
@@ -315,21 +315,21 @@ public enum Alignment {
       return CENTER;
     }
     switch (direction) {
-      case EAST:
+      case RIGHT:
         return RIGHT;
-      case WEST:
+      case LEFT:
         return LEFT;
-      case NORTH:
+      case UP:
         return BOTTOM;
-      case SOUTH:
+      case DOWN:
         return TOP;
-      case SOUTH_EAST:
+      case DOWN_RIGHT:
         return BOTTOM_RIGHT;
-      case SOUTH_WEST:
+      case DOWN_LEFT:
         return BOTTOM_LEFT;
-      case NORTH_EAST:
+      case UP_RIGHT:
         return TOP_RIGHT;
-      case NORTH_WEST:
+      case UP_LEFT:
         return TOP_LEFT;
       default:
         throw new IllegalStateException(direction.name());
