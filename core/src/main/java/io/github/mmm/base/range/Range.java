@@ -42,6 +42,12 @@ public interface Range<V> {
   /** The unbound maximum. */
   String MAX_UNBOUND = "+\u221E";
 
+  /** Property name of {@link #getMin()}. */
+  String PROPERTY_MIN = "min";
+
+  /** Property name of {@link #getMax()}. */
+  String PROPERTY_MAX = "max";
+
   /**
    * @return the lower bound of this range or {@code null} if no lower bound is defined. Has to be less than
    *         {@link #getMax() max} if both boundaries are not {@code null}.
