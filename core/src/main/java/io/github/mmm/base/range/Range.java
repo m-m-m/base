@@ -85,6 +85,24 @@ public interface Range<V> {
     if (value == null) {
       return false;
     }
+    return value == clip(value);
+  }
+
+  /**
+   * This method clips the given {@code value} so the result is {@link #contains(Object) contained} in this
+   * {@link Range} unless the given {@code value} is {@code null}.
+   *
+   * @param value is the vale to clip. May be {@code null}.
+   * @return the given {@code value} clipped to this range. If the given {@code value} is less than the {@link #getMin()
+   *         minimum}, that {@link #getMin() minimum} will be returned. If the given {@code value} is greater than the
+   *         {@link #getMax() maximum}, that {@link #getMax() maximum} will be returned. Otherwise the given
+   *         {@code value} is returned.
+   */
+  default V clip(V value) {
+
+    if (value == null) {
+      return null;
+    }
 
     Comparator<? super V> comparator = getComparator();
     int delta;
@@ -93,7 +111,7 @@ public interface Range<V> {
       delta = comparator.compare(value, min);
       if (delta < 0) {
         // value < min
-        return false;
+        return min;
       }
     }
     V max = getMax();
@@ -101,10 +119,10 @@ public interface Range<V> {
       delta = comparator.compare(value, max);
       if (delta > 0) {
         // value > max
-        return false;
+        return max;
       }
     }
-    return true;
+    return value;
   }
 
   /**
@@ -113,7 +131,7 @@ public interface Range<V> {
    */
   static <T> Range<T> unbounded() {
 
-    return GenericRange.UNBOUNDED;
+    return RangeType.UNBOUNDED;
   }
 
 }

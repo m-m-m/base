@@ -9,11 +9,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test of {@link GenericRange}.
+ * Test of {@link RangeType}.
  */
-public class GenericRangeTest extends Assertions {
+public class RangeTypeTest extends Assertions {
 
-  /** Test of {@link GenericRange}. */
+  /** Test of {@link RangeType}. */
   @Test
   public void test() {
 
@@ -22,7 +22,7 @@ public class GenericRangeTest extends Assertions {
     Year max = Year.of(2020);
 
     // when
-    GenericRange<Year> yearRange = new GenericRange<>(min, max);
+    RangeType<Year> yearRange = new RangeType<>(min, max);
 
     // then
     assertThat(yearRange).hasToString("[2000，2020]");
@@ -36,7 +36,7 @@ public class GenericRangeTest extends Assertions {
     assertThat(yearRange.contains(Year.of(2021))).isFalse();
   }
 
-  /** Test of {@link GenericRange#parse(String, java.util.function.Function)}. */
+  /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
   @Test
   public void testParse() {
 
@@ -44,11 +44,11 @@ public class GenericRangeTest extends Assertions {
     Function<String, Year> yearParser = (s) -> Year.of(Integer.parseInt(s));
 
     // when + then
-    assertThat(GenericRange.parse(null, yearParser)).isEqualTo(Range.unbounded());
-    assertThat(GenericRange.parse("", yearParser)).isEqualTo(Range.unbounded());
-    assertThat(GenericRange.parse(Range.unbounded().toString(), yearParser)).isEqualTo(Range.unbounded());
-    assertThat(GenericRange.parse("[2000，2020]", yearParser))
-        .isEqualTo(new GenericRange<>(Year.of(2000), Year.of(2020)));
+    assertThat(RangeType.parse(null, yearParser)).isEqualTo(Range.unbounded());
+    assertThat(RangeType.parse("", yearParser)).isEqualTo(Range.unbounded());
+    assertThat(RangeType.parse(Range.unbounded().toString(), yearParser)).isEqualTo(Range.unbounded());
+    assertThat(RangeType.parse("[2000，2020]", yearParser))
+        .isEqualTo(new RangeType<>(Year.of(2000), Year.of(2020)));
   }
 
 }

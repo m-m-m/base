@@ -8,11 +8,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test of {@link NumberRange}.
+ * Test of {@link NumberRangeType}.
  */
-public class NumberRangeTest extends Assertions {
+public class NumberRangeTypeTest extends Assertions {
 
-  /** Test of {@link NumberRange}. */
+  /** Test of {@link NumberRangeType}. */
   @Test
   public void test() {
 
@@ -21,7 +21,7 @@ public class NumberRangeTest extends Assertions {
     Long max = Long.valueOf(1);
 
     // when
-    NumberRange numberRange = new NumberRange(min, max);
+    NumberRangeType numberRange = new NumberRangeType(min, max);
 
     // then
     assertThat(numberRange).hasToString("[-0.000000001，1]");

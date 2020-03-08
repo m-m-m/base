@@ -12,7 +12,7 @@ import io.github.mmm.base.compare.NumberComparator;
  *
  * @since 1.0.0
  */
-public class NumberRange extends GenericRange<Number> {
+public class NumberRangeType extends RangeType<Number> {
 
   /**
    * The constructor.
@@ -20,7 +20,7 @@ public class NumberRange extends GenericRange<Number> {
    * @param min - see {@link #getMin()}. To create an open range use the minimum value.
    * @param max - see {@link #getMax()}. To create an open range use the maximum value.
    */
-  public NumberRange(Number min, Number max) {
+  public NumberRangeType(Number min, Number max) {
 
     super(min, max);
   }
@@ -32,21 +32,21 @@ public class NumberRange extends GenericRange<Number> {
   }
 
   @Override
-  public NumberRange withMin(Number minimum) {
+  public NumberRangeType withMin(Number minimum) {
 
     if (Objects.equals(getMin(), minimum)) {
       return this;
     }
-    return new NumberRange(minimum, getMax());
+    return new NumberRangeType(minimum, getMax());
   }
 
   @Override
-  public NumberRange withMax(Number maximum) {
+  public NumberRangeType withMax(Number maximum) {
 
     if (Objects.equals(getMax(), maximum)) {
       return this;
     }
-    return new NumberRange(getMin(), maximum);
+    return new NumberRangeType(getMin(), maximum);
   }
 
 }
