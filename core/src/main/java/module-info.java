@@ -9,6 +9,8 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.compare;
 
+  exports io.github.mmm.base.config;
+
   exports io.github.mmm.base.exception;
 
   exports io.github.mmm.base.filter;

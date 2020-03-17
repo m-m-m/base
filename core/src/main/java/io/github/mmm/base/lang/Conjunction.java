@@ -12,7 +12,7 @@ public enum Conjunction {
   /**
    * This conjunction is {@code true} if and only if all arguments are {@code true}.
    */
-  AND("&&", "and") {
+  AND("and", "&&") {
 
     @Override
     public boolean evalEmpty() {
@@ -39,7 +39,7 @@ public enum Conjunction {
   /**
    * This conjunction is {@code true} if and only if at least one argument is {@code true}.
    */
-  OR("||", "or") {
+  OR("or", "||") {
 
     @Override
     public boolean evalEmpty() {
@@ -66,7 +66,7 @@ public enum Conjunction {
   /**
    * This is the negation of {@link #AND}. It is only {@code true} if at least one argument is {@code false}.
    */
-  NAND("!&", "nand") {
+  NAND("nand", "!&") {
 
     @Override
     public boolean evalEmpty() {
@@ -93,7 +93,7 @@ public enum Conjunction {
   /**
    * This is the negation of {@link #OR}. It is only {@code true} if all arguments are {@code false} .
    */
-  NOR("!|", "nor") {
+  NOR("nor", "!|") {
 
     @Override
     public boolean evalEmpty() {
@@ -121,7 +121,7 @@ public enum Conjunction {
    * This conjunction is {@code true} if and only if two arguments differ (exactly one of two arguments if
    * {@code true}).
    */
-  XOR("!=", "xor") {
+  XOR("xor", "!=") {
 
     @Override
     public boolean evalEmpty() {
@@ -158,20 +158,20 @@ public enum Conjunction {
     }
   };
 
-  private final String symbol;
+  private final String syntax;
 
-  private final String title;
+  private final String name;
 
   /**
    * The constructor.
    *
-   * @param symbol is the {@link #getSymbol() symbol}.
-   * @param title is the {@link #toString() string representation}.
+   * @param name is the {@link #getName() name}.
+   * @param syntax is the {@link #getSyntax() syntax}.
    */
-  private Conjunction(String symbol, String title) {
+  private Conjunction(String name, String syntax) {
 
-    this.symbol = symbol;
-    this.title = title;
+    this.syntax = syntax;
+    this.name = name;
   }
 
   /**
@@ -206,11 +206,19 @@ public enum Conjunction {
   public abstract boolean evalEmpty();
 
   /**
-   * @return the symbolic {@link String} representation (e.g. '{@literal &&}' for {@link #AND}).
+   * @return the syntax used for technical representation (e.g. '{@literal &&}' for {@link #AND}).
    */
-  public String getSymbol() {
+  public String getSyntax() {
 
-    return this.symbol;
+    return this.syntax;
+  }
+
+  /**
+   * @return the name and {@link Object#toString() string representation} (e.g. "and" for {@link #AND}).
+   */
+  public String getName() {
+
+    return this.name;
   }
 
   /**
@@ -221,18 +229,32 @@ public enum Conjunction {
   @Override
   public String toString() {
 
-    return this.title;
+    return this.name;
   }
 
   /**
-   * @param symbol is the {@link #getSymbol() symbol} of the requested {@link Conjunction}.
-   * @return the requested {@link Conjunction}.
+   * @param symbol is the {@link #getSyntax() symbol} of the requested {@link Conjunction}.
+   * @return the requested {@link Conjunction} or {@code null} if no such {@link Conjunction} exists.
    */
   public static Conjunction ofSymbol(String symbol) {
 
-    for (Conjunction alignment : values()) {
-      if (alignment.symbol.equals(symbol)) {
-        return alignment;
+    for (Conjunction conjunction : values()) {
+      if (conjunction.syntax.equals(symbol)) {
+        return conjunction;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * @param name is the {@link #getName() name} of the requested {@link Conjunction}.
+   * @return the requested {@link Conjunction} or {@code null} if no such {@link Conjunction} exists.
+   */
+  public static Conjunction ofName(String name) {
+
+    for (Conjunction conjunction : values()) {
+      if (conjunction.name.equals(name)) {
+        return conjunction;
       }
     }
     return null;
