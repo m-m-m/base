@@ -13,9 +13,9 @@ public enum Alignment {
   /**
    * the component will be horizontally and vertically centered. <br>
    * <code>
-   * ___<br>
-   * _<b>*</b>_<br>
-   * ___<br>
+   * ...<br>
+   * .<b>X</b>.<br>
+   * ...<br>
    * </code>
    */
   CENTER("-~", "center") {
@@ -30,9 +30,9 @@ public enum Alignment {
   /**
    * the component will be located at the top and horizontally centered. <br>
    * <code>
-   * _<b>*</b>_<br>
-   * ___<br>
-   * ___<br>
+   * .<b>X</b>.<br>
+   * ...<br>
+   * ...<br>
    * </code>
    */
   TOP("^~", "top") {
@@ -47,9 +47,9 @@ public enum Alignment {
   /**
    * the component will be located at the bottom and horizontally centered. <br>
    * <code>
-   * ___<br>
-   * ___<br>
-   * _<b>*</b>_<br>
+   * ...<br>
+   * ...<br>
+   * .<b>X</b>.<br>
    * </code>
    */
   BOTTOM("_~", "bottom") {
@@ -65,9 +65,9 @@ public enum Alignment {
   /**
    * the component will be located at the left and vertically centered. <br>
    * <code>
-   * ___<br>
-   * <b>*</b>__<br>
-   * ___<br>
+   * ...<br>
+   * <b>X</b>..<br>
+   * ...<br>
    * </code>
    */
   LEFT("--", "left") {
@@ -83,9 +83,9 @@ public enum Alignment {
   /**
    * the component will be located at the right and vertically centered. <br>
    * <code>
-   * ___<br>
-   * __<b>*</b><br>
-   * ___<br>
+   * ...<br>
+   * ..<b>X</b><br>
+   * ...<br>
    * </code>
    */
   RIGHT("-+", "right") {
@@ -101,9 +101,9 @@ public enum Alignment {
   /**
    * the component will be located at the right and vertically centered. <br>
    * <code>
-   * <b>*</b>__<br>
-   * ___<br>
-   * ___<br>
+   * <b>X</b>..<br>
+   * ...<br>
+   * ...<br>
    * </code>
    */
   TOP_LEFT("^-", "top left") {
@@ -119,9 +119,9 @@ public enum Alignment {
   /**
    * the component will be located at the right and vertically centered. <br>
    * <code>
-   * __<b>*</b><br>
-   * ___<br>
-   * ___<br>
+   * ..<b>X</b><br>
+   * ...<br>
+   * ...<br>
    * </code>
    */
   TOP_RIGHT("^+", "top right") {
@@ -137,9 +137,9 @@ public enum Alignment {
   /**
    * the component will be located at the right and vertically centered. <br>
    * <code>
-   * ___<br>
-   * ___<br>
-   * <b>*</b>__<br>
+   * ...<br>
+   * ...<br>
+   * <b>X</b>..<br>
    * </code>
    */
   BOTTOM_LEFT("_-", "bottom left") {
@@ -155,9 +155,9 @@ public enum Alignment {
   /**
    * the component will be located at the right and vertically centered. <br>
    * <code>
-   * ___<br>
-   * ___<br>
-   * __<b>*</b><br>
+   * ...<br>
+   * ...<br>
+   * ..<b>X</b><br>
    * </code>
    */
   BOTTOM_RIGHT("_+", "bottom right") {

@@ -8,28 +8,28 @@ package io.github.mmm.base.placement;
 public enum Direction {
 
   /** Direction down (south/bottom). */
-  DOWN("v", "down"),
+  DOWN("s", "down"),
 
   /** Direction right (east). */
-  RIGHT(">", "right"),
+  RIGHT("e", "right"),
 
   /** Direction left (west). */
-  LEFT("<", "left"),
+  LEFT("w", "left"),
 
   /** Direction up (north/top). */
-  UP("^", "up"),
+  UP("n", "up"),
 
   /** Direction down-right (south-east). */
-  DOWN_RIGHT("v>", "down-right"),
+  DOWN_RIGHT("se", "down-right"),
 
   /** Direction down-left (south-west). */
-  DOWN_LEFT("v<", "down-left"),
+  DOWN_LEFT("sw", "down-left"),
 
   /** Direction up-right (north-east). */
-  UP_RIGHT("^>", "up-right"),
+  UP_RIGHT("ne", "up-right"),
 
   /** Direction up-left (north-west). */
-  UP_LEFT("^<", "up-left");
+  UP_LEFT("nw", "up-left");
 
   private final String value;
 
