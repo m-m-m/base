@@ -29,6 +29,8 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.range;
 
+  exports io.github.mmm.base.sort;
+
   exports io.github.mmm.base.temporal;
 
   exports io.github.mmm.base.text;
