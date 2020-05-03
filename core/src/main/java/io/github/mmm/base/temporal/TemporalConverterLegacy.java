@@ -15,11 +15,11 @@ import java.util.Date;
 import java.util.function.BiFunction;
 
 /**
- * Extends {@link TemporalConverter} with support for the legacy types {@link Date} and {@link Calendar}.
+ * Extends {@link TemporalConverterDefault} with support for the legacy types {@link Date} and {@link Calendar}.
  *
  * @see #get()
  */
-public class TemporalConverterLegacy extends TemporalConverter {
+public class TemporalConverterLegacy extends TemporalConverterDefault {
 
   private static TemporalConverterLegacy INSTANCE;
 

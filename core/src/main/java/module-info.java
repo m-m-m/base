@@ -2,10 +2,16 @@
  * Copyright (c) The m-m-m Team, Licensed under the Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0
  */
+
 /**
  * Provides fundamental APIs and helper classes.
  */
 module io.github.mmm.base {
+
+  uses io.github.mmm.base.temporal.TemporalConverter;
+
+  provides io.github.mmm.base.temporal.TemporalConverter with //
+      io.github.mmm.base.temporal.impl.TemporalConverterImpl;
 
   exports io.github.mmm.base.compare;
 
