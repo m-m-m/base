@@ -23,6 +23,8 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.i18n;
 
+  exports io.github.mmm.base.io;
+
   exports io.github.mmm.base.justification;
 
   exports io.github.mmm.base.lang;

@@ -365,4 +365,19 @@ public abstract class ApplicationException extends RuntimeException implements L
       throw new IllegalStateException("Failed to write to appendable", e);
     }
   }
+
+  /**
+   * @param error the {@link Throwable}.
+   * @return the {@link #getNlsMessage() NLS message}.
+   */
+  public static Localizable getNlsMessage(Throwable error) {
+
+    if (error == null) {
+      return Localizable.ofStatic("null");
+    }
+    if (error instanceof ApplicationException) {
+      return ((ApplicationException) error).getNlsMessage();
+    }
+    return Localizable.ofStatic(error.getLocalizedMessage());
+  }
 }
