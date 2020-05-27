@@ -97,10 +97,7 @@ public interface Localizable extends LocalizableObject {
    */
   static String createBundleName(Class<?> type) {
 
-    String simpleName = type.getSimpleName();
-    String pkg = type.getName();
-    pkg = pkg.substring(0, pkg.length() - simpleName.length());
-    return pkg + "nls." + simpleName;
+    return "l10n." + type.getName();
   }
 
 }
