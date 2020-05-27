@@ -90,4 +90,17 @@ public interface Localizable extends LocalizableObject {
     return new NotLocalizable(message);
   }
 
+  /**
+   * @param type the {@link Class} reflecting the context of the localization (e.g. {@link Enum} or {@code NlsMessage}).
+   * @return the derived {@link java.util.ResourceBundle#getBundle(String, Locale) bundle name} for the given
+   *         {@link Class}.
+   */
+  static String createBundleName(Class<?> type) {
+
+    String simpleName = type.getSimpleName();
+    String pkg = type.getName();
+    pkg = pkg.substring(0, pkg.length() - simpleName.length());
+    return pkg + "nls." + simpleName;
+  }
+
 }
