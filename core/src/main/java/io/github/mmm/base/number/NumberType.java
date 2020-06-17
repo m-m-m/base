@@ -144,6 +144,26 @@ public abstract class NumberType<N extends Number> {
       return new BigInteger(number);
     }
 
+    BigInteger doAdd(Number summand1, Number summand2) {
+
+      return toBigDecimal(summand1).add(toBigDecimal(summand2)).toBigInteger();
+    }
+
+    BigInteger doSubtract(Number minuend, Number subtrahend) {
+
+      return toBigDecimal(minuend).subtract(toBigDecimal(subtrahend)).toBigInteger();
+    }
+
+    BigInteger doMultiply(Number multiplier, Number multiplicand) {
+
+      return toBigDecimal(multiplier).multiply(toBigDecimal(multiplicand)).toBigInteger();
+    }
+
+    BigInteger doDivide(Number dividend, Number divisor) {
+
+      return toBigDecimal(dividend).divide(toBigDecimal(divisor)).toBigInteger();
+    }
+
   };
 
   /** The {@link NumberType} for {@link BigDecimal}. */
@@ -164,6 +184,25 @@ public abstract class NumberType<N extends Number> {
       return new BigDecimal(number);
     }
 
+    BigDecimal doAdd(Number summand1, Number summand2) {
+
+      return toBigDecimal(summand1).add(toBigDecimal(summand2));
+    }
+
+    BigDecimal doSubtract(Number minuend, Number subtrahend) {
+
+      return toBigDecimal(minuend).subtract(toBigDecimal(subtrahend));
+    }
+
+    BigDecimal doMultiply(Number multiplier, Number multiplicand) {
+
+      return toBigDecimal(multiplier).multiply(toBigDecimal(multiplicand));
+    }
+
+    BigDecimal doDivide(Number dividend, Number divisor) {
+
+      return toBigDecimal(dividend).divide(toBigDecimal(divisor));
+    }
   };
 
   private final Class<N> type;
@@ -173,6 +212,10 @@ public abstract class NumberType<N extends Number> {
   private final N min;
 
   private final N max;
+
+  private final N zero;
+
+  private final N one;
 
   /**
    * The constructor.
@@ -189,6 +232,8 @@ public abstract class NumberType<N extends Number> {
     this.exactness = exactness;
     this.min = min;
     this.max = max;
+    this.zero = valueOf(Byte.valueOf((byte) 0));
+    this.one = valueOf(Byte.valueOf((byte) 1));
   }
 
   /**
@@ -284,10 +329,121 @@ public abstract class NumberType<N extends Number> {
     return this.max;
   }
 
+  /**
+   * @return the value zero ({@code 0}).
+   */
+  public N getZero() {
+
+    return this.zero;
+  }
+
+  /**
+   * @return the value one ({@code 1}).
+   */
+  public N getOne() {
+
+    return this.one;
+  }
+
+  /**
+   * @param summand1 the first summand.
+   * @param summand2 the second summand.
+   * @return the sum of all given summands. If both arguments are {@code null} the result will be {@code null}.
+   *         Otherwise {@code null} behaves like the neutral element.
+   */
+  public N add(Number summand1, Number summand2) {
+
+    if (summand1 == null) {
+      return valueOf(summand2);
+    } else if (summand2 == null) {
+      return valueOf(summand1);
+    }
+    return doAdd(summand1, summand2);
+  }
+
+  N doAdd(Number summand1, Number summand2) {
+
+    return valueOf(Double.valueOf(summand1.doubleValue() + summand2.doubleValue()));
+  }
+
+  /**
+   * @param minuend the value to be subtracted.
+   * @param subtrahend the value to subtract.
+   * @return the difference of the {@code minuend} and the {@code subtrahend}. If both arguments are {@code null} the
+   *         result will be {@code null}. Otherwise {@code null} behaves like the neutral element.
+   */
+  public N subtract(Number minuend, Number subtrahend) {
+
+    if (subtrahend == null) {
+      return valueOf(minuend);
+    } else if (minuend == null) {
+      minuend = this.zero;
+    }
+    return doSubtract(minuend, subtrahend);
+  }
+
+  N doSubtract(Number minuend, Number subtrahend) {
+
+    return valueOf(Double.valueOf(minuend.doubleValue() - subtrahend.doubleValue()));
+  }
+
+  /**
+   * @param multiplier the first factor.
+   * @param multiplicand the second factor.
+   * @return the product of the given factors. If both arguments are {@code null} the result will be {@code null}.
+   *         Otherwise {@code null} behaves like the neutral element.
+   */
+  public N multiply(Number multiplier, Number multiplicand) {
+
+    if (multiplier == null) {
+      return valueOf(multiplicand);
+    } else if (multiplicand == null) {
+      return valueOf(multiplier);
+    }
+    return doMultiply(multiplier, multiplicand);
+  }
+
+  N doMultiply(Number multiplier, Number multiplicand) {
+
+    return valueOf(Double.valueOf(multiplier.doubleValue() * multiplicand.doubleValue()));
+  }
+
+  /**
+   * @param dividend the value to be divided.
+   * @param divisor the value to divide by.
+   * @return the quotient of the given values. If both arguments are {@code null} the result will be {@code null}.
+   *         Otherwise {@code null} behaves like the neutral element.
+   */
+  public N divide(Number dividend, Number divisor) {
+
+    if (divisor == null) {
+      return valueOf(dividend);
+    } else if (dividend == null) {
+      dividend = this.one;
+    }
+    return doDivide(dividend, divisor);
+  }
+
+  N doDivide(Number dividend, Number divisor) {
+
+    return valueOf(Double.valueOf(dividend.doubleValue() / divisor.doubleValue()));
+  }
+
   @Override
   public String toString() {
 
     return this.type.getSimpleName();
+  }
+
+  private static BigDecimal toBigDecimal(Number number) {
+
+    if (number instanceof BigDecimal) {
+      return (BigDecimal) number;
+    } else if (number instanceof BigInteger) {
+      return new BigDecimal((BigInteger) number);
+    } else {
+      return BigDecimal.valueOf(number.doubleValue());
+    }
   }
 
   /**
