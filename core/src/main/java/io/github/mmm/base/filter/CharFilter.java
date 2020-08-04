@@ -49,7 +49,7 @@ public interface CharFilter {
   CharFilter OCTAL_DIGIT_FILTER = (c) -> (c >= '0') && (c <= '7');
 
   /** {@link CharFilter} that {@link #accept(char) accepts} only the hex digits '0'-'9', 'a'-'f', or 'A'-'F'. */
-  CharFilter HEX_DIGIT_FILTER = (c) -> ((c >= '0') && (c <= '7')) || ((c >= 'a') && (c <= 'f'))
+  CharFilter HEX_DIGIT_FILTER = (c) -> ((c >= '0') && (c <= '9')) || ((c >= 'a') && (c <= 'f'))
       || ((c >= 'A') && (c <= 'F'));
 
   /**
