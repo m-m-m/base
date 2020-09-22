@@ -39,18 +39,19 @@ public class ConfigMap {
 
   /**
    * @param <T> type of config value.
-   * @param key the {@link ConfigOption}.
+   * @param option the {@link ConfigOption}.
    * @return the configuration value for the given {@link ConfigOption}.
    */
   @SuppressWarnings("unchecked")
-  public <T> T get(ConfigOption<T> key) {
+  public <T> T get(ConfigOption<T> option) {
 
-    if (key == null) {
+    if (option == null) {
       return null;
     }
-    T value = (T) this.map.get(key.getKey());
-    if (value == null) {
-      value = key.getDefaultValue();
+    String key = option.getKey();
+    T value = (T) this.map.get(key);
+    if ((value == null) && !this.map.containsKey(key)) {
+      value = option.getDefaultValue();
     }
     return value;
   }
