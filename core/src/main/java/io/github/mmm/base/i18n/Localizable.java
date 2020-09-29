@@ -58,8 +58,8 @@ public interface Localizable extends LocalizableObject {
    *
    * @see #getLocalizedMessage(Locale)
    *
-   * @param locale is the locale to translate to.
-   * @param buffer is the {@link Appendable} where to {@link Appendable#append(CharSequence) write} the message to.
+   * @param locale the {@link Locale} to translate to.
+   * @param buffer the {@link Appendable} where to {@link Appendable#append(CharSequence) write} the message to.
    */
   void getLocalizedMessage(Locale locale, Appendable buffer);
 
