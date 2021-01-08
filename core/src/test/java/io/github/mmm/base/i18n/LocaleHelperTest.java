@@ -7,8 +7,6 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import io.github.mmm.base.i18n.LocaleHelper;
-
 /**
  * Test of {@link LocaleHelper}.
  */

@@ -7,8 +7,6 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import io.github.mmm.base.text.CaseHelper;
-
 /**
  * Test of {@link CaseHelper}.
  */
