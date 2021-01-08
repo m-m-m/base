@@ -29,7 +29,7 @@ public class TemporalParserTest extends Assertions {
   public void testInstant() {
 
     Instant now = Instant.now();
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -40,7 +40,7 @@ public class TemporalParserTest extends Assertions {
   public void testLocalDate() {
 
     LocalDate now = LocalDate.now();
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -51,7 +51,7 @@ public class TemporalParserTest extends Assertions {
   public void testLocalTime() {
 
     LocalTime now = LocalTime.now();
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -62,7 +62,7 @@ public class TemporalParserTest extends Assertions {
   public void testLocalDateTime() {
 
     LocalDateTime now = LocalDateTime.now();
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -73,7 +73,7 @@ public class TemporalParserTest extends Assertions {
   public void testOffsetTime() {
 
     OffsetTime now = OffsetTime.now();
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -84,7 +84,7 @@ public class TemporalParserTest extends Assertions {
   public void testOffsetDateTime() {
 
     OffsetDateTime now = Instant.now().atOffset(ZoneOffset.ofHours(1));
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -95,7 +95,7 @@ public class TemporalParserTest extends Assertions {
   public void testZonedDateTime() {
 
     ZonedDateTime now = Instant.now().atZone(ZoneId.of("Europe/Paris"));
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -106,7 +106,7 @@ public class TemporalParserTest extends Assertions {
   public void testYearMonth() {
 
     YearMonth now = YearMonth.now();
-    Temporal temporal = TemporalParser.parse(now.toString());
+    Temporal temporal = TemporalParser.get().parse(now.toString());
     assertThat(temporal).isEqualTo(now);
   }
 
@@ -116,13 +116,14 @@ public class TemporalParserTest extends Assertions {
   @Test
   public void testInvalid() {
 
-    assertThat(TemporalParser.parse(null)).isNull();
-    assertThat(TemporalParser.parse("")).isNull();
-    assertThat(TemporalParser.parse("2000")).isNull();
-    assertThat(TemporalParser.parse("--12-31")).isNull();
-    assertThat(TemporalParser.parse("23:59")).isNull();
-    assertThat(TemporalParser.parse("23.59:59")).isNull();
-    assertThat(TemporalParser.parse("2000:12-31")).isNull();
+    TemporalParser parser = TemporalParser.get();
+    assertThat(parser.parse(null)).isNull();
+    assertThat(parser.parse("")).isNull();
+    assertThat(parser.parse("2000")).isNull();
+    assertThat(parser.parse("--12-31")).isNull();
+    assertThat(parser.parse("23:59")).isNull();
+    assertThat(parser.parse("23.59:59")).isNull();
+    assertThat(parser.parse("2000:12-31")).isNull();
   }
 
 }

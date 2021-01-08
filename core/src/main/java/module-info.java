@@ -5,6 +5,9 @@
 
 /**
  * Provides fundamental APIs and helper classes.
+ *
+ * @provides io.github.mmm.base.temporal.TemporalConverter
+ * @uses io.github.mmm.base.temporal.TemporalConverter
  */
 module io.github.mmm.base {
 
@@ -42,4 +45,6 @@ module io.github.mmm.base {
   exports io.github.mmm.base.temporal;
 
   exports io.github.mmm.base.text;
+
+  exports io.github.mmm.base.uuid;
 }
