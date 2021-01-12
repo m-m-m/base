@@ -4,6 +4,8 @@ package io.github.mmm.base.config;
 
 import java.util.ServiceLoader;
 
+import io.github.mmm.base.exception.ObjectNotFoundException;
+
 /**
  * Helper class for {@link ServiceLoader}.
  */
@@ -50,8 +52,7 @@ public final class ServiceHelper {
     }
     if (service == null) {
       String type = serviceLoader.toString();
-      throw new IllegalStateException(type);
-      // throw new ObjectNotFoundException(type);
+      throw new ObjectNotFoundException(type);
     }
     return service;
   }
