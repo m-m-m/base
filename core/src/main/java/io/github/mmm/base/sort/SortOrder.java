@@ -10,34 +10,10 @@ package io.github.mmm.base.sort;
 public enum SortOrder {
 
   /** Indicating that values are in increasing order (e.g. "1, 2, 3"). */
-  ASCENDING("asc", "ascending"),
+  ASC,
 
   /** Indicating that values are in decreasing order (e.g. "3, 2, 1"). */
-  DESCENDING("desc", "descending");
-
-  private final String value;
-
-  private final String title;
-
-  /**
-   * The constructor.
-   *
-   * @param value is the {@link #getValue() value}.
-   * @param title is the {@link #toString() string representation}.
-   */
-  private SortOrder(String value, String title) {
-
-    this.value = value;
-    this.title = title;
-  }
-
-  /**
-   * @return the short representation of this {@link SortOrder}.
-   */
-  public String getValue() {
-
-    return this.value;
-  }
+  DESC;
 
   /**
    * Adjusts the {@link Math#signum(double)} of a {@link Comparable#compareTo(Object) compare to} result with this
@@ -45,21 +21,15 @@ public enum SortOrder {
    * other words *
    *
    * @param compareTo is the result of a regular {@link Comparable#compareTo(Object) compare to} operation.
-   * @return the given value ({@code compareTo}) for {@link #ASCENDING} and the negation ( {@code -compareTo}) otherwise
-   *         (for {@link #DESCENDING}).
+   * @return the given value ({@code compareTo}) for {@link #ASC} and the negation ( {@code -compareTo}) otherwise (for
+   *         {@link #DESC}).
    */
   public int adjustSignum(int compareTo) {
 
-    if (this == DESCENDING) {
+    if (this == DESC) {
       return -compareTo;
     }
     return compareTo;
-  }
-
-  @Override
-  public String toString() {
-
-    return this.title;
   }
 
 }
