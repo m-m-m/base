@@ -10,7 +10,7 @@ import java.io.Writer;
 import io.github.mmm.base.exception.RuntimeIoException;
 
 /**
- * {@link Writer} that adapts an {@link Appendable}.
+ * {@link Writer} that adapts an {@link Appendable} to avoid checked {@link IOException}s.
  *
  * @since 1.0.0
  */
@@ -88,6 +88,16 @@ public class AppendableWriter extends Writer {
   }
 
   @Override
+  public void write(int c) throws IOException {
+
+    try {
+      this.appendable.append((char) c);
+    } catch (IOException e) {
+      throw new RuntimeIoException(e);
+    }
+  }
+
+  @Override
   public void write(char[] buffer) throws RuntimeIoException {
 
     append(new String(buffer));
@@ -119,6 +129,12 @@ public class AppendableWriter extends Writer {
   public Appendable getAppendable() {
 
     return this.appendable;
+  }
+
+  @Override
+  public String toString() {
+
+    return this.appendable.toString();
   }
 
   /**
