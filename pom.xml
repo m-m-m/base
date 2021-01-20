@@ -15,7 +15,7 @@
   <description>Basic interfaces and classes for reuse in other modules.</description>
 
   <properties>
-    <revision>1.0.0</revision>
+    <revision>0.1.0</revision>
     <changelist>-SNAPSHOT</changelist>
     <mmm.repository>base</mmm.repository>
   </properties>
