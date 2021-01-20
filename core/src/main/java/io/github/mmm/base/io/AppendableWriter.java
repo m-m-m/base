@@ -27,7 +27,11 @@ public class AppendableWriter extends Writer {
   public AppendableWriter(Appendable appendable) {
 
     super();
-    this.appendable = appendable;
+    if (appendable == null) {
+      this.appendable = new StringBuilder();
+    } else {
+      this.appendable = appendable;
+    }
   }
 
   @Override
