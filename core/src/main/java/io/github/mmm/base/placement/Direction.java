@@ -96,4 +96,30 @@ public enum Direction {
     return (this == UP) || (this == UP_RIGHT) || (this == UP_LEFT);
   }
 
+  /**
+   * @return the {@link Alignment} corresponding to this {@link Direction}.
+   */
+  public Alignment toAlignment() {
+
+    switch (this) {
+      case UP:
+        return Alignment.TOP;
+      case DOWN:
+        return Alignment.BOTTOM;
+      case LEFT:
+        return Alignment.LEFT;
+      case RIGHT:
+        return Alignment.RIGHT;
+      case UP_LEFT:
+        return Alignment.TOP_LEFT;
+      case UP_RIGHT:
+        return Alignment.TOP_RIGHT;
+      case DOWN_LEFT:
+        return Alignment.BOTTOM_LEFT;
+      case DOWN_RIGHT:
+        return Alignment.BOTTOM_RIGHT;
+    }
+    throw new IllegalStateException(toString());
+  }
+
 }

@@ -18,7 +18,7 @@ public enum Alignment {
    * ...<br>
    * </code>
    */
-  CENTER("-~", "center") {
+  CENTER("c", "center") {
 
     @Override
     public Alignment getMirrored() {
@@ -35,7 +35,7 @@ public enum Alignment {
    * ...<br>
    * </code>
    */
-  TOP("^~", "top") {
+  TOP("n", "top") {
 
     @Override
     public Alignment getMirrored() {
@@ -52,7 +52,7 @@ public enum Alignment {
    * .<b>X</b>.<br>
    * </code>
    */
-  BOTTOM("_~", "bottom") {
+  BOTTOM("s", "bottom") {
 
     @Override
     public Alignment getMirrored() {
@@ -70,7 +70,7 @@ public enum Alignment {
    * ...<br>
    * </code>
    */
-  LEFT("--", "left") {
+  LEFT("w", "left") {
 
     @Override
     public Alignment getMirrored() {
@@ -88,7 +88,7 @@ public enum Alignment {
    * ...<br>
    * </code>
    */
-  RIGHT("-+", "right") {
+  RIGHT("e", "right") {
 
     @Override
     public Alignment getMirrored() {
@@ -106,7 +106,7 @@ public enum Alignment {
    * ...<br>
    * </code>
    */
-  TOP_LEFT("^-", "top left") {
+  TOP_LEFT("nw", "top left") {
 
     @Override
     public Alignment getMirrored() {
@@ -124,7 +124,7 @@ public enum Alignment {
    * ...<br>
    * </code>
    */
-  TOP_RIGHT("^+", "top right") {
+  TOP_RIGHT("ne", "top right") {
 
     @Override
     public Alignment getMirrored() {
@@ -142,7 +142,7 @@ public enum Alignment {
    * <b>X</b>..<br>
    * </code>
    */
-  BOTTOM_LEFT("_-", "bottom left") {
+  BOTTOM_LEFT("sw", "bottom left") {
 
     @Override
     public Alignment getMirrored() {
@@ -160,7 +160,7 @@ public enum Alignment {
    * ..<b>X</b><br>
    * </code>
    */
-  BOTTOM_RIGHT("_+", "bottom right") {
+  BOTTOM_RIGHT("se", "bottom right") {
 
     @Override
     public Alignment getMirrored() {
@@ -221,7 +221,7 @@ public enum Alignment {
    *
    * @return the {@link HorizontalAlignment}.
    */
-  public HorizontalAlignment getHorizontalAlignment() {
+  public HorizontalAlignment toHorizontalAlignment() {
 
     if ((this == TOP_LEFT) || (this == LEFT) || (this == BOTTOM_LEFT)) {
       return HorizontalAlignment.LEFT;
@@ -237,7 +237,7 @@ public enum Alignment {
    *
    * @return the {@link VerticalAlignment}.
    */
-  public VerticalAlignment getVerticalAlignment() {
+  public VerticalAlignment toVerticalAlignment() {
 
     if ((this == TOP_LEFT) || (this == TOP) || (this == TOP_RIGHT)) {
       return VerticalAlignment.TOP;
@@ -253,15 +253,15 @@ public enum Alignment {
    * this alignment.
    *
    * @param orientation is the {@link Orientation} of the requested part.
-   * @return {@link #getHorizontalAlignment()} if orientation is {@link Orientation#HORIZONTAL},
-   *         {@link #getVerticalAlignment()} otherwise.
+   * @return the {@link Alignment} from {@link #toHorizontalAlignment()} if orientation is
+   *         {@link Orientation#HORIZONTAL}, or {@link #toVerticalAlignment()} otherwise.
    */
-  public Alignment getPart(Orientation orientation) {
+  public Alignment toAlignment(Orientation orientation) {
 
     if (orientation == Orientation.HORIZONTAL) {
-      return getHorizontalAlignment().getAlignment();
+      return toHorizontalAlignment().toAlignment();
     } else {
-      return getVerticalAlignment().getAlignment();
+      return toVerticalAlignment().toAlignment();
     }
   }
 

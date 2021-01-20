@@ -28,15 +28,15 @@ package io.github.mmm.base.placement;
 public enum HorizontalAlignment {
 
   /** Align content to the left side. */
-  LEFT("-", "left"),
+  LEFT("w", "left"),
 
   /** Align content to the right side. */
-  RIGHT("+", "right"),
+  RIGHT("e", "right"),
 
   /**
    * Align content centered to the middle (same space to the left and the right).
    */
-  CENTER("~", "center");
+  CENTER("c", "center");
 
   private final String value;
 
@@ -67,7 +67,7 @@ public enum HorizontalAlignment {
    *
    * @return the corresponding {@link Alignment}.
    */
-  public Alignment getAlignment() {
+  public Alignment toAlignment() {
 
     switch (this) {
       case LEFT:

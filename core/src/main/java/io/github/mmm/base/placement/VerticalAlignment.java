@@ -10,15 +10,15 @@ package io.github.mmm.base.placement;
 public enum VerticalAlignment {
 
   /** Align content to the top. */
-  TOP("^", "top"),
+  TOP("n", "top"),
 
   /** Align content to the bottom. */
-  BOTTOM("_", "bottom"),
+  BOTTOM("s", "bottom"),
 
   /**
    * Align content centered to the middle (same space at top and bottom).
    */
-  CENTER("-", "center");
+  CENTER("c", "center");
 
   private final String value;
 
@@ -49,7 +49,7 @@ public enum VerticalAlignment {
    *
    * @return the corresponding {@link Alignment}.
    */
-  public Alignment getAlignment() {
+  public Alignment toAlignment() {
 
     switch (this) {
       case TOP:
