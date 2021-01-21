@@ -51,9 +51,19 @@ public class JustificationImpl implements Justification {
       illegalFormat(format);
     }
     this.filler = format.charAt(0);
-    this.alignment = HorizontalAlignment.fromValue(Character.toString(format.charAt(1)));
-    if (this.alignment == null) {
-      illegalFormat(format);
+    char align = format.charAt(1);
+    switch (align) {
+      case '+':
+        this.alignment = HorizontalAlignment.RIGHT;
+        break;
+      case '-':
+        this.alignment = HorizontalAlignment.LEFT;
+        break;
+      case '~':
+        this.alignment = HorizontalAlignment.CENTER;
+        break;
+      default:
+        throw illegalFormat(format);
     }
     int endIndex = format.length();
     char modeChar = format.charAt(format.length() - 1);
@@ -69,7 +79,7 @@ public class JustificationImpl implements Justification {
     this.width = Integer.parseInt(format.substring(2, endIndex));
   }
 
-  private void illegalFormat(String format) {
+  private RuntimeException illegalFormat(String format) {
 
     throw new IllegalArgumentException("Illegal format '" + format + "' - has to match " + FORMAT_PATTERN);
   }
