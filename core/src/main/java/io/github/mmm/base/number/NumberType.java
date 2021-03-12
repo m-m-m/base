@@ -23,9 +23,15 @@ public abstract class NumberType<N extends Number> {
       Byte.valueOf(Byte.MAX_VALUE)) {
 
     @Override
-    protected Byte convert(Number number) {
+    protected Byte convert(Number number, boolean exact) {
 
-      return Byte.valueOf(number.byteValue());
+      byte b = number.byteValue();
+      if (exact) {
+        if (b != number.doubleValue()) {
+          return null;
+        }
+      }
+      return Byte.valueOf(b);
     }
 
     @Override
@@ -41,9 +47,15 @@ public abstract class NumberType<N extends Number> {
       Short.valueOf(Short.MAX_VALUE)) {
 
     @Override
-    protected Short convert(Number number) {
+    protected Short convert(Number number, boolean exact) {
 
-      return Short.valueOf(number.shortValue());
+      short s = number.shortValue();
+      if (exact) {
+        if (s != number.doubleValue()) {
+          return null;
+        }
+      }
+      return Short.valueOf(s);
     }
 
     @Override
@@ -59,9 +71,15 @@ public abstract class NumberType<N extends Number> {
       Integer.valueOf(Integer.MIN_VALUE), Integer.valueOf(Integer.MAX_VALUE)) {
 
     @Override
-    protected Integer convert(Number number) {
+    protected Integer convert(Number number, boolean exact) {
 
-      return Integer.valueOf(number.intValue());
+      int i = number.intValue();
+      if (exact) {
+        if (i != number.doubleValue()) {
+          return null;
+        }
+      }
+      return Integer.valueOf(i);
     }
 
     @Override
@@ -77,9 +95,15 @@ public abstract class NumberType<N extends Number> {
       Long.valueOf(Long.MAX_VALUE)) {
 
     @Override
-    protected Long convert(Number number) {
+    protected Long convert(Number number, boolean exact) {
 
-      return Long.valueOf(number.longValue());
+      long l = number.longValue();
+      if (exact) {
+        if (l != number.doubleValue()) {
+          return null;
+        }
+      }
+      return Long.valueOf(l);
     }
 
     @Override
@@ -95,9 +119,15 @@ public abstract class NumberType<N extends Number> {
       Float.valueOf(Float.MAX_VALUE)) {
 
     @Override
-    protected Float convert(Number number) {
+    protected Float convert(Number number, boolean exact) {
 
-      return Float.valueOf(number.floatValue());
+      float f = number.floatValue();
+      if (exact) {
+        if (Float.isNaN(f) || Float.isInfinite(f) || (f != number.doubleValue())) {
+          return null;
+        }
+      }
+      return Float.valueOf(f);
     }
 
     @Override
@@ -113,9 +143,15 @@ public abstract class NumberType<N extends Number> {
       Double.valueOf(Double.MAX_VALUE)) {
 
     @Override
-    protected Double convert(Number number) {
+    protected Double convert(Number number, boolean exact) {
 
-      return Double.valueOf(number.doubleValue());
+      double d = number.doubleValue();
+      if (exact) {
+        if (Double.isNaN(d) || Double.isInfinite(d)) {
+          return null;
+        }
+      }
+      return Double.valueOf(d);
     }
 
     @Override
@@ -130,10 +166,14 @@ public abstract class NumberType<N extends Number> {
   public static final NumberType<BigInteger> BIG_INTEGER = new NumberType<>(BigInteger.class, 7, null, null) {
 
     @Override
-    protected BigInteger convert(Number number) {
+    protected BigInteger convert(Number number, boolean exact) {
 
       if (number instanceof BigDecimal) {
-        return ((BigDecimal) number).toBigInteger();
+        BigDecimal bd = (BigDecimal) number;
+        if (exact && bd.stripTrailingZeros().scale() > 0) {
+          return null;
+        }
+        return bd.toBigInteger();
       }
       return BigInteger.valueOf(number.longValue());
     }
@@ -170,12 +210,9 @@ public abstract class NumberType<N extends Number> {
   public static final NumberType<BigDecimal> BIG_DECIMAL = new NumberType<>(BigDecimal.class, 8, null, null) {
 
     @Override
-    protected BigDecimal convert(Number number) {
+    protected BigDecimal convert(Number number, boolean exact) {
 
-      if (number instanceof BigInteger) {
-        return new BigDecimal((BigInteger) number);
-      }
-      return BigDecimal.valueOf(number.doubleValue());
+      return toBigDecimal(number);
     }
 
     @Override
@@ -205,9 +242,12 @@ public abstract class NumberType<N extends Number> {
     }
   };
 
+  private static final NumberType<?>[] TYPES = { null, BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, BIG_INTEGER,
+  BIG_DECIMAL };
+
   private final Class<N> type;
 
-  private final int exactness;
+  final int exactness;
 
   private final N min;
 
@@ -246,9 +286,11 @@ public abstract class NumberType<N extends Number> {
 
   /**
    * @param number is the number to convert.
+   * @param exact {@code true} if {@code null} shall be returned in case the conversion looses precision, {@code false}
+   *        otherwise (to always return the converted value).
    * @return the converted number.
    */
-  protected abstract N convert(Number number);
+  protected abstract N convert(Number number, boolean exact);
 
   /**
    * This method determines if the represented {@link #getType() Number} is a decimal value. <br>
@@ -291,17 +333,29 @@ public abstract class NumberType<N extends Number> {
    *         {@code number} if the type already matches. Otherwise conversion may loose precision. See
    *         {@link #getExactness() exactness} to predict.
    */
-  @SuppressWarnings("unchecked")
   public N valueOf(Number number) {
+
+    return valueOf(number, false);
+  }
+
+  /**
+   * @param number is the {@link Number} to convert.
+   * @param exact {@code true} if {@code null} shall be returned in case the conversion looses precision, {@code false}
+   *        otherwise (to always return the converted value).
+   * @return the given {@link Number} converted to this {@link #getType() type}. This will be the same instance as
+   *         {@code number} if the type already matches. Otherwise conversion may loose precision. See
+   *         {@link #getExactness() exactness} to predict.
+   */
+  @SuppressWarnings("unchecked")
+  public N valueOf(Number number, boolean exact) {
 
     if (number == null) {
       return null;
     }
-    Class<? extends Number> givenNumberClass = number.getClass();
-    if (this.type.equals(givenNumberClass)) {
+    if (this.type.equals(number.getClass())) {
       return (N) number;
     }
-    return convert(number);
+    return convert(number, exact);
   }
 
   /**
@@ -429,6 +483,8 @@ public abstract class NumberType<N extends Number> {
     return valueOf(Double.valueOf(dividend.doubleValue() / divisor.doubleValue()));
   }
 
+  // abstract <T extends Number> Number doSimplify(NumberType<T> t, T n);
+
   @Override
   public String toString() {
 
@@ -441,6 +497,9 @@ public abstract class NumberType<N extends Number> {
       return (BigDecimal) number;
     } else if (number instanceof BigInteger) {
       return new BigDecimal((BigInteger) number);
+    } else if ((number instanceof Long) || (number instanceof Integer) || (number instanceof Short)
+        || (number instanceof Byte)) {
+      return BigDecimal.valueOf(number.longValue());
     } else {
       return BigDecimal.valueOf(number.doubleValue());
     }
@@ -473,6 +532,39 @@ public abstract class NumberType<N extends Number> {
       result = BYTE;
     }
     return result;
+  }
+
+  public static NumberType<?> ofExactness(int exactness) {
+
+    if ((exactness >= 0) && (exactness < TYPES.length)) {
+      return TYPES[exactness];
+    }
+    return null;
+  }
+
+  public static Number simplify(Number value) {
+
+    return simplify(value, BYTE);
+  }
+
+  public static Number simplify(Number value, NumberType min) {
+
+    if (value == null) {
+      return null;
+    }
+    NumberType<?> type = of(value.getClass());
+    if (type.exactness == min.exactness) {
+      return value;
+    } else if (type.exactness < min.exactness) {
+      return min.convert(value, false);
+    }
+    for (int i = min.exactness; i < type.exactness; i++) {
+      Number n = TYPES[i].convert(value, true);
+      if (n != null) {
+        return n;
+      }
+    }
+    return value;
   }
 
 }

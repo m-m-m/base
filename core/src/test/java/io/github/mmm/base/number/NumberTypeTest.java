@@ -21,6 +21,7 @@ public class NumberTypeTest extends Assertions {
   protected <N extends Number> void check(NumberType<N> type, N value) {
 
     assertThat(type.getType()).isEqualTo(value.getClass());
+    assertThat(type).isSameAs(NumberType.ofExactness(type.getExactness()));
     assertThat(type.valueOf(value.toString())).isEqualTo(value);
     if (type.getExactness() < 7) {
       Double d = Double.valueOf(value.doubleValue());
@@ -115,7 +116,7 @@ public class NumberTypeTest extends Assertions {
     checkNonDecimal(type, bi);
     assertThat(type.getMin()).isNull();
     assertThat(type.getMax()).isNull();
-    assertThat(type.convert(BIG_DECIMAL)).isEqualTo(BIG_DECIMAL.toBigInteger());
+    assertThat(type.valueOf(BIG_DECIMAL)).isEqualTo(BIG_DECIMAL.toBigInteger());
   }
 
   @Test
@@ -155,6 +156,38 @@ public class NumberTypeTest extends Assertions {
     checkDecimal(type, bd);
     assertThat(type.getMin()).isNull();
     assertThat(type.getMax()).isNull();
-    assertThat(type.convert(BIG_INTEGER)).isEqualTo(new BigDecimal(BIG_INTEGER));
+    assertThat(type.valueOf(BIG_INTEGER)).isEqualTo(new BigDecimal(BIG_INTEGER));
+  }
+
+  @Test
+  public void testSimplify() {
+
+    Byte one = NumberType.BYTE.getOne();
+    for (int exactness = NumberType.BYTE.getExactness(); exactness <= NumberType.BIG_DECIMAL
+        .getExactness(); exactness++) {
+      NumberType t = NumberType.ofExactness(exactness);
+      assertThat(NumberType.simplify(t.getOne())).isEqualTo(one);
+      Number max = t.getMax();
+      BigDecimal bd = NumberType.BIG_DECIMAL.valueOf(max);
+      assertThat(NumberType.simplify(bd)).isEqualTo(max);
+      Number min = t.getMin();
+      bd = NumberType.BIG_DECIMAL.valueOf(min);
+      assertThat(NumberType.simplify(bd)).isEqualTo(min);
+    }
+    assertThat(NumberType.simplify(BigDecimal.valueOf(4.2))).isEqualTo(Double.valueOf(4.2));
+    assertThat(NumberType.simplify(BigDecimal.valueOf(4.2f))).isEqualTo(Float.valueOf(4.2f));
+    assertThat(NumberType.simplify(new BigInteger("12345678901"))).isEqualTo(Long.valueOf(12345678901L));
+  }
+
+  @Test
+  public void testSimplifyMin() {
+
+    NumberType<Integer> min = NumberType.INTEGER;
+    Integer one = min.getOne();
+    for (int exactness = NumberType.BYTE.getExactness(); exactness <= NumberType.BIG_DECIMAL
+        .getExactness(); exactness++) {
+      NumberType t = NumberType.ofExactness(exactness);
+      assertThat(NumberType.simplify(t.getOne(), min)).isEqualTo(one);
+    }
   }
 }
