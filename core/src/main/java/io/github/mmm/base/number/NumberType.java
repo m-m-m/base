@@ -534,6 +534,11 @@ public abstract class NumberType<N extends Number> {
     return result;
   }
 
+  /**
+   * @param exactness the {@link #getExactness() exactness}.
+   * @return the {@link NumberType} with the given {@link #getExactness() exactness} or {@code null} if no such
+   *         {@link NumberType} exists.
+   */
   public static NumberType<?> ofExactness(int exactness) {
 
     if ((exactness >= 0) && (exactness < TYPES.length)) {
@@ -542,12 +547,26 @@ public abstract class NumberType<N extends Number> {
     return null;
   }
 
+  /**
+   * @param value the {@link Number} to simplify.
+   * @return the simplest {@link Number} with the exact same value. E.g. {@link BigDecimal#ONE} will be simplified to
+   *         {@link Byte} with value {@code 1}.
+   */
   public static Number simplify(Number value) {
 
     return simplify(value, BYTE);
   }
 
-  public static Number simplify(Number value, NumberType min) {
+  /**
+   * @param value the {@link Number} to simplify.
+   * @param min the minimum {@link NumberType} to simplify to. In case the given {@link Number} is simpler than the
+   *        given {@link NumberType} it will be {@link NumberType#valueOf(Number) converted} and is actually
+   *        unsimplified. E.g. use {@link #INTEGER} to ensure int exactness and avoid getting a {@link Byte} or
+   *        {@link Short} value as result.
+   * @return the simplest {@link Number} with the exact same value but with at least the
+   *         {@link NumberType#getExactness() exactness} of the given minimum {@link NumberType}.
+   */
+  public static Number simplify(Number value, NumberType<?> min) {
 
     if (value == null) {
       return null;
