@@ -145,9 +145,26 @@ public abstract class NumberType<N extends Number> {
     @Override
     protected Double convert(Number number, boolean exact) {
 
+      BigDecimal bd = null;
+      if (exact) {
+        if (number instanceof BigDecimal) {
+          bd = (BigDecimal) number;
+          int precision = bd.precision();
+          if (precision >= 19) {
+            return null;
+          }
+        } else if (number instanceof BigInteger) {
+          int bits = ((BigInteger) number).bitCount();
+          if (bits >= 54) {
+            return null;
+          }
+        }
+      }
       double d = number.doubleValue();
       if (exact) {
         if (Double.isNaN(d) || Double.isInfinite(d)) {
+          return null;
+        } else if ((bd != null) && BigDecimal.valueOf(d).compareTo(bd) != 0) {
           return null;
         }
       }

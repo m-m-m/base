@@ -177,6 +177,19 @@ public class NumberTypeTest extends Assertions {
     assertThat(NumberType.simplify(BigDecimal.valueOf(4.2))).isEqualTo(Double.valueOf(4.2));
     assertThat(NumberType.simplify(BigDecimal.valueOf(4.2f))).isEqualTo(Float.valueOf(4.2f));
     assertThat(NumberType.simplify(new BigInteger("12345678901"))).isEqualTo(Long.valueOf(12345678901L));
+    assertThat(NumberType.simplify(BIG_INTEGER)).isSameAs(BIG_INTEGER);
+    assertThat(NumberType.simplify(BIG_DECIMAL)).isSameAs(BIG_DECIMAL);
+    BigDecimal bd = new BigDecimal("0.12345678901234567");
+    assertThat(NumberType.simplify(bd)).isSameAs(bd);
+    checkSimplify(new BigDecimal("0.1234567890123456789"));
+  }
+
+  private void checkSimplify(Number n) {
+
+    Number simplified = NumberType.simplify(n);
+    if (simplified != n) {
+      assertThat(simplified).hasToString(n.toString());
+    }
   }
 
   @Test
