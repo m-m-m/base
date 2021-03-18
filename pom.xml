@@ -9,13 +9,14 @@
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
   <artifactId>mmm-base-parent</artifactId>
-  <version>${revision}${changelist}</version>
+  <version>${revision}</version>
   <packaging>pom</packaging>
   <name>${project.artifactId}</name>
   <description>Basic interfaces and classes for reuse in other modules.</description>
 
   <properties>
     <mmm.repository>base</mmm.repository>
+    <revision>0-SNAPSHOT</revision>
   </properties>
 
   <modules>
