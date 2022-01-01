@@ -2,6 +2,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.config;
 
+import java.util.Collection;
 import java.util.ServiceLoader;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
@@ -44,7 +45,6 @@ public final class ServiceHelper {
         if (unique) {
           String type = serviceLoader.toString();
           throw new IllegalStateException(type);
-          // throw new DuplicateObjectException(currentService, type, service);
         } else if (!currentService.getClass().getName().startsWith("io.github.mmm.")) {
           service = currentService;
         }
@@ -55,6 +55,36 @@ public final class ServiceHelper {
       throw new ObjectNotFoundException(type);
     }
     return service;
+  }
+
+  /**
+   * @param <S> type of the service.
+   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
+   *        and holds the {@code uses} statement in its {@code module-info}.
+   * @param services the {@link Collection} where to add the services from the given {@link ServiceLoader}.
+   */
+  public static final <S> void add(ServiceLoader<S> serviceLoader, Collection<S> services) {
+
+    add(serviceLoader, services, 1);
+  }
+
+  /**
+   * @param <S> type of the service.
+   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
+   *        and holds the {@code uses} statement in its {@code module-info}.
+   * @param services the {@link Collection} where to add the services from the given {@link ServiceLoader}.
+   * @param min the minimum number of services required.
+   */
+  public static final <S> void add(ServiceLoader<S> serviceLoader, Collection<S> services, int min) {
+
+    int serviceCount = 0;
+    for (S service : serviceLoader) {
+      services.add(service);
+      serviceCount++;
+    }
+    if (serviceCount < min) {
+      throw new IllegalStateException("Required at least " + min + " service(s) for " + serviceLoader);
+    }
   }
 
 }
