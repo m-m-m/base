@@ -102,4 +102,20 @@ public final class CaseHelper {
     return string;
   }
 
+  /**
+   * @param string is the {@link String}. May be {@code null}.
+   * @return the capitalized {@link String}.
+   */
+  public static String uncapitalize(String string) {
+
+    if ((string != null) && !string.isEmpty()) {
+      char first = string.charAt(0);
+      char lower = Character.toLowerCase(first);
+      if (lower != first) {
+        return lower + string.substring(1);
+      }
+    }
+    return string;
+  }
+
 }
