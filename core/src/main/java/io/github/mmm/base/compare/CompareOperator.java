@@ -21,7 +21,7 @@ import io.github.mmm.base.temporal.TemporalConverter;
  * @see #evalDelta(int)
  * @see #negate()
  */
-enum broken CompareOperator {
+enum CompareOperator2 {
 
   /** {@link CompareOperator} to check if some value is greater than another. */
   GREATER_THAN(">", "greater than") {
