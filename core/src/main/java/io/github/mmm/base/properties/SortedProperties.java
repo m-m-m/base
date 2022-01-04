@@ -8,12 +8,13 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import io.github.mmm.base.collection.ArrayIterator;
+
 /**
  * This class extends {@link Properties} and makes them sorted by their {@link #keys() keys}. Sorting the properties is
  * useful when changes shall be compared using diff-algorithms.
  *
- * @author Joerg Hohwiller (hohwille at users.sourceforge.net)
- * @since 4.0.0
+ * @since 1.0.0
  */
 public class SortedProperties extends Properties {
 
@@ -48,7 +49,7 @@ public class SortedProperties extends Properties {
     }
     assert (i == keys.length);
     Arrays.sort(keys);
-    return new ArrayEnumeration<>(keys);
+    return new ArrayIterator<>(keys);
   }
 
   @Override
@@ -57,28 +58,4 @@ public class SortedProperties extends Properties {
     return new TreeSet<>(super.keySet());
   }
 
-  private static class ArrayEnumeration<E> implements Enumeration<E> {
-
-    private final E[] array;
-
-    private int i = 0;
-
-    public ArrayEnumeration(E[] array) {
-
-      super();
-      this.array = array;
-    }
-
-    @Override
-    public boolean hasMoreElements() {
-
-      return (this.i < this.array.length);
-    }
-
-    @Override
-    public E nextElement() {
-
-      return this.array[this.i++];
-    }
-  }
 }

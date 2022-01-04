@@ -9,6 +9,8 @@ import io.github.mmm.base.exception.ObjectNotFoundException;
 
 /**
  * Helper class for {@link ServiceLoader}.
+ *
+ * @since 1.0.0
  */
 public final class ServiceHelper {
 

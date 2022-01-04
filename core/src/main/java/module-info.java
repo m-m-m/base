@@ -16,6 +16,8 @@ module io.github.mmm.base {
   provides io.github.mmm.base.temporal.TemporalConverter with //
       io.github.mmm.base.temporal.impl.TemporalConverterImpl;
 
+  exports io.github.mmm.base.collection;
+
   exports io.github.mmm.base.compare;
 
   exports io.github.mmm.base.config;

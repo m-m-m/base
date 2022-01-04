@@ -2,6 +2,10 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.text;
 
+import static io.github.mmm.base.text.CaseConversion.LOWER_CASE;
+import static io.github.mmm.base.text.CaseConversion.ORIGINAL_CASE;
+import static io.github.mmm.base.text.CaseConversion.UPPER_CASE;
+
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
@@ -14,8 +18,7 @@ import java.util.regex.Pattern;
  * Defines the different styles of lower-/upper-case usage such as {@link #CAML_CASE camlCase}, {@link #TRAIN_CASE
  * train-case}, etc. For further examples see the constants defined here in {@link CaseSyntax}.
  *
- * @author Joerg Hohwiller (hohwille at users.sourceforge.net)
- * @since 7.4.0
+ * @since 1.0.0
  */
 public class CaseSyntax {
 
@@ -32,91 +35,86 @@ public class CaseSyntax {
   public static final Character KEEP_SPECIAL_CHARS = Character.valueOf('\0');
 
   /** {@link CaseSyntax} for {@code lowercase} (e.g. for Java package segments). */
-  public static final CaseSyntax LOWERCASE = new CaseSyntax(null, CaseConversion.LOWER_CASE, "lowercase");
+  public static final CaseSyntax LOWERCASE = new CaseSyntax(null, LOWER_CASE, "lowercase");
 
   /** {@link CaseSyntax} for {@code UPPERCASE}. */
-  public static final CaseSyntax UPPERCASE = new CaseSyntax(null, CaseConversion.UPPER_CASE, "UPPERCASE");
+  public static final CaseSyntax UPPERCASE = new CaseSyntax(null, UPPER_CASE, "UPPERCASE");
 
   /** {@link CaseSyntax} for {@code camlCase} (e.g. for Java fields). */
-  public static final CaseSyntax CAML_CASE = new CaseSyntax(null, CaseConversion.LOWER_CASE, CaseConversion.UPPER_CASE,
-      CaseConversion.LOWER_CASE, "camlCase");
+  public static final CaseSyntax CAML_CASE = new CaseSyntax(null, LOWER_CASE, UPPER_CASE, LOWER_CASE, "camlCase");
 
   /** {@link CaseSyntax} for {@code PascalCase} (e.g. for Java types). */
-  public static final CaseSyntax PASCAL_CASE = new CaseSyntax(null, CaseConversion.UPPER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "PascalCase");
+  public static final CaseSyntax PASCAL_CASE = new CaseSyntax(null, UPPER_CASE, UPPER_CASE, LOWER_CASE, "PascalCase");
 
   /** {@link CaseSyntax} for {@code train-case} (e.g. for URLs or Angular). */
-  public static final CaseSyntax TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), CaseConversion.LOWER_CASE,
-      "train-case");
+  public static final CaseSyntax TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), LOWER_CASE, "train-case");
 
   /** {@link CaseSyntax} for {@code UPPER-TRAIN-CASE}. */
-  public static final CaseSyntax UPPER_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), CaseConversion.UPPER_CASE,
+  public static final CaseSyntax UPPER_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), UPPER_CASE,
       "UPPER-TRAIN-CASE");
 
   /** {@link CaseSyntax} for {@code Pascal-Train-Case}. */
-  public static final CaseSyntax PASCAL_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), CaseConversion.UPPER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "Pascal-Train-Case");
+  public static final CaseSyntax PASCAL_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), UPPER_CASE, UPPER_CASE,
+      LOWER_CASE, "Pascal-Train-Case");
 
   /** {@link CaseSyntax} for {@code caml-Train-Case}. */
-  public static final CaseSyntax CAML_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), CaseConversion.LOWER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "caml-Train-Case");
+  public static final CaseSyntax CAML_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), LOWER_CASE, UPPER_CASE,
+      LOWER_CASE, "caml-Train-Case");
 
   /** {@link CaseSyntax} for {@code lower_snake_case} (e.g. for Ruby). */
-  public static final CaseSyntax LOWER_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), CaseConversion.LOWER_CASE,
+  public static final CaseSyntax LOWER_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), LOWER_CASE,
       "lower_snake_case");
 
   /** {@link CaseSyntax} for {@code UPPER_SNAKE_CASE} (e.g. for Java constants). */
-  public static final CaseSyntax UPPER_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), CaseConversion.UPPER_CASE,
+  public static final CaseSyntax UPPER_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), UPPER_CASE,
       "UPPER_SNAKE_CASE");
 
   /** {@link CaseSyntax} for {@code Pascal_Snake_Case}. */
-  public static final CaseSyntax PASCAL_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), CaseConversion.UPPER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "Pascal_Snake_Case");
+  public static final CaseSyntax PASCAL_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), UPPER_CASE, UPPER_CASE,
+      LOWER_CASE, "Pascal_Snake_Case");
 
   /** {@link CaseSyntax} for {@code caml_Snake_Case}. */
-  public static final CaseSyntax CAML_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), CaseConversion.LOWER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "caml_Snake_Case");
+  public static final CaseSyntax CAML_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), LOWER_CASE, UPPER_CASE,
+      LOWER_CASE, "caml_Snake_Case");
 
   /** {@link CaseSyntax} for {@code lower space case}. */
-  public static final CaseSyntax LOWER_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), CaseConversion.LOWER_CASE,
+  public static final CaseSyntax LOWER_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), LOWER_CASE,
       "lower space case");
 
   /** {@link CaseSyntax} for {@code UPPER SPACE CASE}. */
-  public static final CaseSyntax UPPER_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), CaseConversion.UPPER_CASE,
+  public static final CaseSyntax UPPER_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), UPPER_CASE,
       "UPPER SPACE CASE");
 
   /** {@link CaseSyntax} for {@code Pascal Space Case}. */
-  public static final CaseSyntax PASCAL_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), CaseConversion.UPPER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "Pascal Space Case");
+  public static final CaseSyntax PASCAL_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), UPPER_CASE, UPPER_CASE,
+      LOWER_CASE, "Pascal Space Case");
 
   /** {@link CaseSyntax} for {@code caml Space Case}. */
-  public static final CaseSyntax CAML_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), CaseConversion.LOWER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.LOWER_CASE, "caml Space Case");
+  public static final CaseSyntax CAML_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), LOWER_CASE, UPPER_CASE,
+      LOWER_CASE, "caml Space Case");
 
   /**
    * {@link CaseSyntax} for {@code $$$unmodified} (keep all characters untouched).
    */
-  public static final CaseSyntax UNMODIFIED = new CaseSyntax(null, CaseConversion.ORIGINAL_CASE, "$$$unmodified");
+  public static final CaseSyntax UNMODIFIED = new CaseSyntax(null, ORIGINAL_CASE, "$$$unmodified");
 
   /**
    * {@link CaseSyntax} for {@code C$$apitalized} (only convert first char to upper case, keep other case untouched).
    */
-  public static final CaseSyntax CAPITALIZED = new CaseSyntax(null, CaseConversion.UPPER_CASE,
-      CaseConversion.ORIGINAL_CASE, "C$$apitalized");
+  public static final CaseSyntax CAPITALIZED = new CaseSyntax(null, UPPER_CASE, ORIGINAL_CASE, "C$$apitalized");
 
   /**
    * {@link CaseSyntax} for {@code u$$capitalized} (only convert first char to lower case, keep other case untouched).
    */
-  public static final CaseSyntax UNCAPITALIZED = new CaseSyntax(null, CaseConversion.UPPER_CASE,
-      CaseConversion.ORIGINAL_CASE, "u$$capitalized");
+  public static final CaseSyntax UNCAPITALIZED = new CaseSyntax(null, UPPER_CASE, ORIGINAL_CASE, "u$$capitalized");
 
   /** {@link CaseSyntax} for {@code Capitalizedlower}. */
-  public static final CaseSyntax CAPITALIZED_LOWER = new CaseSyntax(null, CaseConversion.UPPER_CASE,
-      CaseConversion.LOWER_CASE, CaseConversion.LOWER_CASE, "Capitalizedlower");
+  public static final CaseSyntax CAPITALIZED_LOWER = new CaseSyntax(null, UPPER_CASE, LOWER_CASE, LOWER_CASE,
+      "Capitalizedlower");
 
   /** {@link CaseSyntax} for {@code Capitalizedlower}. */
-  public static final CaseSyntax UNCAPITALIZED_UPPER = new CaseSyntax(null, CaseConversion.LOWER_CASE,
-      CaseConversion.UPPER_CASE, CaseConversion.UPPER_CASE, "uNCAPITALIZEDUPPER");
+  public static final CaseSyntax UNCAPITALIZED_UPPER = new CaseSyntax(null, LOWER_CASE, UPPER_CASE, UPPER_CASE,
+      "uNCAPITALIZEDUPPER");
 
   private final Character wordSeparator;
 
@@ -136,7 +134,7 @@ public class CaseSyntax {
   private CaseSyntax(Character separator, CaseConversion firstCharCase, CaseConversion wordStartCharCase,
       String example) {
 
-    this(separator, firstCharCase, wordStartCharCase, CaseConversion.ORIGINAL_CASE, example, true);
+    this(separator, firstCharCase, wordStartCharCase, ORIGINAL_CASE, example, true);
   }
 
   private CaseSyntax(Character separator, CaseConversion firstCharCase, CaseConversion wordStartCharCase,
@@ -281,8 +279,8 @@ public class CaseSyntax {
             appendCasedChar(buffer, c, this.wordStartCase);
             start++;
           } else if (currentCase != previousCase) {
-            if ((currentCase == CaseConversion.UPPER_CASE) && (end > 1)) {
-              assert (previousCase == CaseConversion.LOWER_CASE);
+            if ((currentCase == UPPER_CASE) && (end > 1)) {
+              assert (previousCase == LOWER_CASE);
               start = appendOthers(string, buffer, start, end);
               if (hasWordSeparator()) {
                 buffer.append(this.wordSeparator);
@@ -327,7 +325,7 @@ public class CaseSyntax {
 
   private void appendCasedChar(StringBuilder buffer, char c, CaseConversion targetCase) {
 
-    if (targetCase == CaseConversion.ORIGINAL_CASE) {
+    if (targetCase == ORIGINAL_CASE) {
       buffer.append(c);
     } else {
       CaseConversion currentCase = CaseConversion.ofExample(c, false);
@@ -338,7 +336,7 @@ public class CaseSyntax {
         if ((this.otherCase != targetCase) && (string.length() > 1)) {
           buffer.append(string.charAt(0));
           CaseConversion restCase;
-          if (this.otherCase == CaseConversion.ORIGINAL_CASE) {
+          if (this.otherCase == ORIGINAL_CASE) {
             restCase = currentCase;
           } else {
             restCase = this.otherCase;
@@ -411,7 +409,7 @@ public class CaseSyntax {
    */
   public static CaseSyntax of(Character separator, CaseConversion firstCharCase, CaseConversion wordStartCharCase) {
 
-    return of(separator, firstCharCase, wordStartCharCase, CaseConversion.LOWER_CASE);
+    return of(separator, firstCharCase, wordStartCharCase, LOWER_CASE);
   }
 
   /**
@@ -437,15 +435,15 @@ public class CaseSyntax {
     StringBuilder buffer = new StringBuilder(11);
     buffer.append(this.firstCase.convert('C'));
     int i = 0;
-    if (this.firstCase == CaseConversion.ORIGINAL_CASE) {
+    if (this.firstCase == ORIGINAL_CASE) {
       buffer.insert(i, CaseConversion.EXAMPLE_CHAR_FOR_ORIGINAL_CASE);
     } else {
       i++;
     }
-    if (this.wordStartCase == CaseConversion.ORIGINAL_CASE) {
+    if (this.wordStartCase == ORIGINAL_CASE) {
       buffer.insert(i, CaseConversion.EXAMPLE_CHAR_FOR_ORIGINAL_CASE);
     }
-    if (this.otherCase == CaseConversion.ORIGINAL_CASE) {
+    if (this.otherCase == ORIGINAL_CASE) {
       buffer.insert(i, CaseConversion.EXAMPLE_CHAR_FOR_ORIGINAL_CASE);
     }
     buffer.append(this.otherCase.convert("ustom"));
@@ -479,7 +477,7 @@ public class CaseSyntax {
     if (example == null) {
       return null;
     }
-    return CaseConversion.LOWER_CASE.convert(removeSpecialCharacters(example));
+    return LOWER_CASE.convert(removeSpecialCharacters(example));
   }
 
   private static String removeSpecialCharacters(String string) {
@@ -537,9 +535,9 @@ public class CaseSyntax {
         case DOLLAR:
           letterOrDollarCount++;
           if ((other == null) && (index < 3)) { // $$ or $A$
-            other = CaseConversion.ORIGINAL_CASE;
+            other = ORIGINAL_CASE;
           } else if ((wordStart == null) && (index < 3)) { // $$$ or $A$$ or AB$
-            wordStart = CaseConversion.ORIGINAL_CASE;
+            wordStart = ORIGINAL_CASE;
           } else {
             throw new IllegalArgumentException(
                 example + ": the special character '" + CaseConversion.EXAMPLE_CHAR_FOR_ORIGINAL_CASE

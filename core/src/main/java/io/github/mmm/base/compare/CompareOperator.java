@@ -20,6 +20,7 @@ import io.github.mmm.base.temporal.TemporalConverter;
  * @see #evalDouble(double, double)
  * @see #evalDelta(int)
  * @see #negate()
+ * @since 1.0.0
  */
 public enum CompareOperator {
 

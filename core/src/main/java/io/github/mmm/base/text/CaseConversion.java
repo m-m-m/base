@@ -7,8 +7,7 @@ import java.util.Locale;
 /**
  * Represents the different character cases and allows {@link #convert(String) conversion}.
  *
- * @author Joerg Hohwiller (hohwille at users.sourceforge.net)
- * @since 7.4.0
+ * @since 1.0.0
  */
 public enum CaseConversion {
 

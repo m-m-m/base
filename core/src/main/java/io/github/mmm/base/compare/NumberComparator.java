@@ -10,6 +10,8 @@ import io.github.mmm.base.impl.NumberHelper;
 
 /**
  * Implementation of {@link Comparator} for {@link Number}s capable to compare different types.
+ *
+ * @since 1.0.0
  */
 public class NumberComparator implements Comparator<Number> {
 

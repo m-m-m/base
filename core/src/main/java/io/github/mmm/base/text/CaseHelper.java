@@ -17,6 +17,8 @@ import java.util.Locale;
  * 8.5.1 when it was released.<br>
  * Simply use this small helper as indirection to the standard {@link String} case operations to prevent such mistakes
  * and also to document this fact.
+ *
+ * @since 1.0.0
  */
 public final class CaseHelper {
 
