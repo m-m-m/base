@@ -4,8 +4,10 @@ package io.github.mmm.base.properties;
 
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.SortedSet;
 import java.util.TreeSet;
 
 import io.github.mmm.base.collection.ArrayIterator;
@@ -50,6 +52,15 @@ public class SortedProperties extends Properties {
     assert (i == keys.length);
     Arrays.sort(keys);
     return new ArrayIterator<>(keys);
+  }
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @Override
+  public Set<Entry<Object, Object>> entrySet() {
+
+    SortedSet<Entry<Object, Object>> set = new TreeSet<>((e1, e2) -> ((Comparable) e1.getKey()).compareTo(e2.getKey()));
+    set.addAll(super.entrySet());
+    return set;
   }
 
   @Override
