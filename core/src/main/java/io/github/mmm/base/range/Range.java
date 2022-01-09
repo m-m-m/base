@@ -15,7 +15,8 @@ import java.util.Comparator;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-public interface Range<V> {
+@SuppressWarnings("rawtypes")
+public interface Range<V extends Comparable> {
 
   /** Char indicating start with inclusive minimum. */
   char BOUND_START_INCLUSIVE = '[';
@@ -65,7 +66,7 @@ public interface Range<V> {
    *         {@link Range}. The default implementation assumes that the value type implements {@link Comparable}. If you
    *         want to use other value types you need to override this method.
    */
-  @SuppressWarnings({ "unchecked", "rawtypes" })
+  @SuppressWarnings({ "unchecked" })
   default Comparator<? super V> getComparator() {
 
     return (Comparator) Comparator.naturalOrder();
@@ -89,7 +90,7 @@ public interface Range<V> {
   }
 
   /**
-   * This method clips the given {@code value} so the result is {@link #contains(Object) contained} in this
+   * This method clips the given {@code value} so the result is {@link #contains(Comparable) contained} in this
    * {@link Range} unless the given {@code value} is {@code null}.
    *
    * @param value is the vale to clip. May be {@code null}.
@@ -126,10 +127,10 @@ public interface Range<V> {
   }
 
   /**
-   * @param <T> type of the {@link #contains(Object) contained value}.
+   * @param <T> type of the {@link #contains(Comparable) contained value}.
    * @return the unbounded {@link Range} instance (with {@link #getMin()} and {@link #getMax()} being {@code null}).
    */
-  static <T> Range<T> unbounded() {
+  static <T extends Comparable> Range<T> unbounded() {
 
     return RangeType.UNBOUNDED;
   }

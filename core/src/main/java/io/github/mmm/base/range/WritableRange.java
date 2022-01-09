@@ -3,12 +3,13 @@
 package io.github.mmm.base.range;
 
 /**
- * A mutable {@link Range} allowing to {@link #setMin(Object) set minimum} and {@link #setMax(Object) maximum}.
+ * A mutable {@link Range} allowing to {@link #setMin(Comparable) set minimum} and {@link #setMax(Comparable) maximum}.
  *
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-public interface WritableRange<V> extends Range<V> {
+@SuppressWarnings("rawtypes")
+public interface WritableRange<V extends Comparable> extends Range<V> {
 
   /**
    * @param min the new value of {@link #getMin()}.

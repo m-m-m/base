@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 public class NumberRangeTypeTest extends Assertions {
 
   /** Test of {@link NumberRangeType}. */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
   @Test
   public void test() {
 

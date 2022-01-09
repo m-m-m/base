@@ -30,8 +30,10 @@ public class NumberComparator implements Comparator<Number> {
 
     if (arg1 == arg2) {
       return 0;
-    } else if ((arg1 == null) || (arg2 == null)) {
-      return -1; // incompatible arguments
+    } else if (arg1 == null) {
+      return -1;
+    } else if (arg2 == null) {
+      return 1;
     } else if (arg1 instanceof BigDecimal) {
       return ((BigDecimal) arg1).compareTo(NumberHelper.toBigDecimal(arg2));
     } else if (arg1 instanceof BigInteger) {

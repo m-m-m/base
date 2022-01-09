@@ -11,7 +11,8 @@ import java.util.Objects;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-public abstract class AbstractRange<V> implements Range<V> {
+@SuppressWarnings("rawtypes")
+public abstract class AbstractRange<V extends Comparable> implements Range<V> {
 
   @Override
   public boolean equals(Object obj) {

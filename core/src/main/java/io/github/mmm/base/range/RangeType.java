@@ -11,9 +11,10 @@ import java.util.function.Function;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-public class RangeType<V> extends AbstractRange<V> {
+@SuppressWarnings("rawtypes")
+public class RangeType<V extends Comparable> extends AbstractRange<V> {
 
-  @SuppressWarnings({ "rawtypes", "unchecked" })
+  @SuppressWarnings({ "unchecked" })
   static final RangeType UNBOUNDED = new RangeType(null, null);
 
   private final V min;
@@ -76,12 +77,12 @@ public class RangeType<V> extends AbstractRange<V> {
   }
 
   /**
-   * @param <T> type of the {@link #contains(Object) contained value}.
+   * @param <T> type of the {@link #contains(Comparable) contained value}.
    * @param range the {@link Object#toString() string representation} of the {@link Range} to parse.
    * @param boundParser the {@link Function} capable to parse the individual bound values (min and max).
    * @return the parsed {@link RangeType}.
    */
-  public static <T> RangeType<T> parse(String range, Function<String, T> boundParser) {
+  public static <T extends Comparable> RangeType<T> parse(String range, Function<String, T> boundParser) {
 
     if ((range == null) || range.isEmpty()) {
       return UNBOUNDED;

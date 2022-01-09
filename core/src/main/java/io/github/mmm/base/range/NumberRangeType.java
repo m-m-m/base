@@ -10,9 +10,11 @@ import io.github.mmm.base.compare.NumberComparator;
 /**
  * This class extends {@link Range} to allow mixed types of {@link Number} to be used.
  *
+ * @param <N> type of the {@link Number} value. Unfortunately {@link Number} does not implement {@link Comparable}.
  * @since 1.0.0
  */
-public class NumberRangeType extends RangeType<Number> {
+@SuppressWarnings("rawtypes")
+public class NumberRangeType<N extends Number & Comparable> extends RangeType<N> {
 
   /**
    * The constructor.
@@ -20,7 +22,7 @@ public class NumberRangeType extends RangeType<Number> {
    * @param min - see {@link #getMin()}. To create an open range use the minimum value.
    * @param max - see {@link #getMax()}. To create an open range use the maximum value.
    */
-  public NumberRangeType(Number min, Number max) {
+  public NumberRangeType(N min, N max) {
 
     super(min, max);
   }
@@ -31,6 +33,7 @@ public class NumberRangeType extends RangeType<Number> {
     return NumberComparator.INSTANCE;
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public NumberRangeType withMin(Number minimum) {
 
@@ -40,6 +43,7 @@ public class NumberRangeType extends RangeType<Number> {
     return new NumberRangeType(minimum, getMax());
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public NumberRangeType withMax(Number maximum) {
 
