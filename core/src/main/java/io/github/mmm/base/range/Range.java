@@ -127,12 +127,62 @@ public interface Range<V extends Comparable> {
   }
 
   /**
+   * @param minimum the new {@link #getMin() minimum}.
+   * @return a new {@link RangeType} where the {@link #getMin() minimum} is set to the given {@code minimum} value.
+   */
+  Range<V> withMin(V minimum);
+
+  /**
+   * @param maximum the new {@link #getMax() maximum}.
+   * @return a new {@link RangeType} where the {@link #getMax() maximum} is set to the given {@code maximum} value.
+   */
+  Range<V> withMax(V maximum);
+
+  /**
+   * @param range the {@link Range} to build the intersection with.
+   * @return the intersection of this {@link Range} with the given {@link Range} that is a {@link Range} with the
+   *         highest {@link #getMin() minimum} and the lowest {@link #getMax() maximum} of the two ranges to intersect.
+   *         In case the {@link Range}s the intersection of
+   */
+  Range<V> intersection(Range<V> range);
+
+  /**
+   * @return true if this {@link Range} is {@link #unbounded() unbounded}.
+   */
+  default boolean isUnbounded() {
+
+    return ((getMin() == null) && (getMax() == null));
+  }
+
+  /**
    * @param <T> type of the {@link #contains(Comparable) contained value}.
-   * @return the unbounded {@link Range} instance (with {@link #getMin()} and {@link #getMax()} being {@code null}).
+   * @param min the {@link #getMin() minimum}.
+   * @param max the {@link #getMax() maximum}.
+   * @return the specified {@link Range}.
+   */
+  static <T extends Comparable> Range<T> of(T min, T max) {
+
+    return RangeType.of(min, max);
+  }
+
+  /**
+   * @param <T> type of the {@link #contains(Comparable) contained value}.
+   * @return the unbounded {@link Range} instance {@link #contains(Comparable) containing} all values (with
+   *         {@link #getMin()} and {@link #getMax()} being {@code null}).
    */
   static <T extends Comparable> Range<T> unbounded() {
 
     return RangeType.UNBOUNDED;
+  }
+
+  /**
+   * @param <T> type of the {@link #contains(Comparable) contained value}.
+   * @return the invalid {@link Range} instance {@link #contains(Comparable) containing} no values at all (with
+   *         {@link #getMin()} and {@link #getMax()} being {@code null}).
+   */
+  static <T extends Comparable> Range<T> invalid() {
+
+    return RangeType.INVALID;
   }
 
 }

@@ -24,4 +24,18 @@ public class RangeTest extends Assertions {
     assertThat(unbounded.contains(null)).isFalse();
   }
 
+  /** Test of {@link Range#unbounded()}. */
+  @Test
+  public void testInvalid() {
+
+    Range<String> invalid = Range.invalid();
+
+    assertThat(invalid).isNotNull();
+    assertThat(invalid.getMin()).isNull();
+    assertThat(invalid.getMax()).isNull();
+    assertThat(invalid.toString()).isEqualTo("[+∞，−∞]");
+    assertThat(invalid.contains("value")).isFalse();
+    assertThat(invalid.contains(null)).isFalse();
+  }
+
 }

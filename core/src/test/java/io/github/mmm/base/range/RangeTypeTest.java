@@ -38,7 +38,7 @@ public class RangeTypeTest extends Assertions {
 
   /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
   @Test
-  public void testParse() {
+  public void testParseYear() {
 
     // given
     Function<String, Year> yearParser = (s) -> Year.of(Integer.parseInt(s));
@@ -47,8 +47,49 @@ public class RangeTypeTest extends Assertions {
     assertThat(RangeType.parse(null, yearParser)).isEqualTo(Range.unbounded());
     assertThat(RangeType.parse("", yearParser)).isEqualTo(Range.unbounded());
     assertThat(RangeType.parse(Range.unbounded().toString(), yearParser)).isEqualTo(Range.unbounded());
-    assertThat(RangeType.parse("[2000，2020]", yearParser))
-        .isEqualTo(new RangeType<>(Year.of(2000), Year.of(2020)));
+    assertThat(RangeType.parse("[2000，2020]", yearParser)).isEqualTo(new RangeType<>(Year.of(2000), Year.of(2020)));
   }
 
+  /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
+  @Test
+  public void testParseSpecial() {
+
+    // given
+    Range<Long> unbounded = Range.unbounded();
+    Range<Long> invalid = Range.invalid();
+    Function<String, Long> longParser = (s) -> Long.valueOf(s);
+
+    // when + then
+    assertThat(RangeType.parse(unbounded.toString(), longParser)).isSameAs(Range.unbounded());
+    assertThat(RangeType.parse(invalid.toString(), longParser)).isSameAs(Range.invalid());
+  }
+
+  /**
+   * Test of {@link Range#intersection(Range)}.
+   */
+  @Test
+  public void testIntersection() {
+
+    Range<Integer> range1 = Range.unbounded();
+    Range<Integer> range2 = RangeType.of(null, 42);
+    Range<Integer> intersection = range1.intersection(range2);
+    assertThat(intersection).isSameAs(range2);
+    Range<Integer> range3 = RangeType.of(null, 43);
+    intersection = intersection.intersection(range3);
+    assertThat(intersection).isSameAs(range2);
+    Range<Integer> range4 = RangeType.of(null, 41);
+    intersection = intersection.intersection(range4);
+    assertThat(intersection).isSameAs(range4);
+    Range<Integer> range5 = RangeType.of(-2, null);
+    intersection = intersection.intersection(range5);
+    assertThat(intersection.getMin()).isEqualTo(-2);
+    assertThat(intersection.getMax()).isEqualTo(41);
+    Range<Integer> range6 = RangeType.of(-4, 99);
+    assertThat(intersection.intersection(range6)).isSameAs(intersection);
+    Range<Integer> range7 = RangeType.of(0, 40);
+    intersection = intersection.intersection(range7);
+    assertThat(intersection).isSameAs(range7);
+    Range<Integer> range8 = RangeType.of(100, 200);
+    assertThat(intersection.intersection(range8)).isSameAs(Range.invalid());
+  }
 }

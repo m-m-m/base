@@ -15,7 +15,38 @@ import java.util.function.Function;
 public class RangeType<V extends Comparable> extends AbstractRange<V> {
 
   @SuppressWarnings({ "unchecked" })
-  static final RangeType UNBOUNDED = new RangeType(null, null);
+  static final RangeType UNBOUNDED = new RangeType(null, null) {
+    @Override
+    public Range intersection(Range range) {
+
+      return range;
+    }
+  };
+
+  static final String INVALID_STRING = BOUND_START_INCLUSIVE + MAX_UNBOUND + BOUND_SEPARATOR + MIN_UNBOUND
+      + BOUND_END_INCLUSIVE;
+
+  @SuppressWarnings("unchecked")
+  static final RangeType INVALID = new RangeType(null, null) {
+
+    @Override
+    public Range intersection(Range range) {
+
+      return this;
+    }
+
+    @Override
+    public boolean contains(Comparable value) {
+
+      return false;
+    }
+
+    @Override
+    public String toString() {
+
+      return INVALID_STRING;
+    }
+  };
 
   private final V min;
 
@@ -27,7 +58,7 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
    * @param min - see {@link #getMin()}. To create an open range use the minimum value.
    * @param max - see {@link #getMax()}. To create an open range use the maximum value.
    */
-  public RangeType(V min, V max) {
+  protected RangeType(V min, V max) {
 
     super();
     if ((min != null) && (max != null)) {
@@ -56,6 +87,7 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
    * @param minimum the new {@link #getMin() minimum}.
    * @return a new {@link RangeType} where the {@link #getMin() minimum} is set to the given {@code minimum} value.
    */
+  @Override
   public RangeType<V> withMin(V minimum) {
 
     if (Objects.equals(this.min, minimum)) {
@@ -68,12 +100,27 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
    * @param maximum the new {@link #getMax() maximum}.
    * @return a new {@link RangeType} where the {@link #getMax() maximum} is set to the given {@code maximum} value.
    */
+  @Override
   public RangeType<V> withMax(V maximum) {
 
     if (Objects.equals(this.max, maximum)) {
       return this;
     }
     return new RangeType<>(this.min, maximum);
+  }
+
+  /**
+   * @param <T> type of the {@link #contains(Comparable) contained value}.
+   * @param min the {@link #getMin() minimum}.
+   * @param max the {@link #getMax() maximum}.
+   * @return the specified {@link RangeType}.
+   */
+  public static <T extends Comparable> RangeType<T> of(T min, T max) {
+
+    if ((min == null) && (max == null)) {
+      return UNBOUNDED;
+    }
+    return new RangeType<>(min, max);
   }
 
   /**
@@ -86,6 +133,9 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
 
     if ((range == null) || range.isEmpty()) {
       return UNBOUNDED;
+    }
+    if (INVALID_STRING.equals(range)) {
+      return INVALID;
     }
     int seperatorIndex = range.indexOf(BOUND_SEPARATOR);
     if (seperatorIndex > 0) {
@@ -109,7 +159,7 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
           max = boundParser.apply(maxString);
         }
         if (((min != null) == startInclusive.booleanValue()) && (max != null) == endInclusive.booleanValue()) {
-          return new RangeType<>(min, max);
+          return RangeType.of(min, max);
         }
       }
     }

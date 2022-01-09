@@ -3,6 +3,7 @@
 package io.github.mmm.base.range;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -13,6 +14,56 @@ import java.util.Objects;
  */
 @SuppressWarnings("rawtypes")
 public abstract class AbstractRange<V extends Comparable> implements Range<V> {
+
+  @Override
+  public Range<V> intersection(Range<V> range) {
+
+    if ((range == null) || (range == RangeType.UNBOUNDED)) {
+      return this;
+    } else if (range == RangeType.INVALID) {
+      return range;
+    }
+    Comparator<? super V> comparator = getComparator();
+    Range<V> result = this;
+    V min1 = getMin();
+    V min2 = range.getMin();
+    V min = min1;
+    if (min == null) {
+      min = min2;
+    } else if (min2 != null) {
+      int delta = comparator.compare(min, min2);
+      if (delta <= 0) { // min > min2?
+        min = min2;
+      }
+    }
+    V max1 = getMax();
+    V max2 = range.getMax();
+    V max = max1;
+    if (max == null) {
+      max = max2;
+    } else if (max2 != null) {
+      int delta = comparator.compare(max, max2);
+      if (delta >= 0) { // max < max2?
+        max = max2;
+      }
+    }
+    if (((min != min1) || (max != max1)) && (min != null) && (max != null)) {
+      int delta = comparator.compare(min, max);
+      if (delta > 0) {
+        return Range.invalid();
+      }
+    }
+    if ((min == min2) && (max == max2)) {
+      return range;
+    }
+    if (min != min1) {
+      result = result.withMin(min);
+    }
+    if (max != max1) {
+      result = result.withMax(max);
+    }
+    return result;
+  }
 
   @Override
   public boolean equals(Object obj) {
