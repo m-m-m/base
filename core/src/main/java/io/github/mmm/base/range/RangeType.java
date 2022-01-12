@@ -11,10 +11,9 @@ import java.util.function.Function;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
-public class RangeType<V extends Comparable> extends AbstractRange<V> {
+public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
 
-  @SuppressWarnings({ "unchecked" })
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   static final RangeType UNBOUNDED = new RangeType(null, null) {
     @Override
     public Range intersection(Range range) {
@@ -26,7 +25,7 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
   static final String INVALID_STRING = BOUND_START_INCLUSIVE + MAX_UNBOUND + BOUND_SEPARATOR + MIN_UNBOUND
       + BOUND_END_INCLUSIVE;
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   static final RangeType INVALID = new RangeType(null, null) {
 
     @Override
@@ -115,7 +114,7 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
    * @param max the {@link #getMax() maximum}.
    * @return the specified {@link RangeType}.
    */
-  public static <T extends Comparable> RangeType<T> of(T min, T max) {
+  public static <T extends Comparable<?>> RangeType<T> of(T min, T max) {
 
     if ((min == null) && (max == null)) {
       return UNBOUNDED;
@@ -129,7 +128,7 @@ public class RangeType<V extends Comparable> extends AbstractRange<V> {
    * @param boundParser the {@link Function} capable to parse the individual bound values (min and max).
    * @return the parsed {@link RangeType}.
    */
-  public static <T extends Comparable> RangeType<T> parse(String range, Function<String, T> boundParser) {
+  public static <T extends Comparable<?>> RangeType<T> parse(String range, Function<String, T> boundParser) {
 
     if ((range == null) || range.isEmpty()) {
       return UNBOUNDED;

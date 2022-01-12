@@ -13,8 +13,7 @@ import io.github.mmm.base.compare.NumberComparator;
  * @param <N> type of the {@link Number} value. Unfortunately {@link Number} does not implement {@link Comparable}.
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
-public class NumberRangeType<N extends Number & Comparable> extends RangeType<N> {
+public class NumberRangeType<N extends Number & Comparable<?>> extends RangeType<N> {
 
   /**
    * The constructor.
@@ -33,7 +32,7 @@ public class NumberRangeType<N extends Number & Comparable> extends RangeType<N>
     return NumberComparator.INSTANCE;
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
   public NumberRangeType withMin(Number minimum) {
 
@@ -43,7 +42,7 @@ public class NumberRangeType<N extends Number & Comparable> extends RangeType<N>
     return new NumberRangeType(minimum, getMax());
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Override
   public NumberRangeType withMax(Number maximum) {
 

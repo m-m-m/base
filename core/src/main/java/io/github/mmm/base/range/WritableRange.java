@@ -8,8 +8,7 @@ package io.github.mmm.base.range;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
-public interface WritableRange<V extends Comparable> extends Range<V> {
+public interface WritableRange<V extends Comparable<?>> extends Range<V> {
 
   /**
    * @param min the new value of {@link #getMin()}.

@@ -15,8 +15,7 @@ import java.util.Comparator;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
-public interface Range<V extends Comparable> {
+public interface Range<V extends Comparable<?>> {
 
   /** Char indicating start with inclusive minimum. */
   char BOUND_START_INCLUSIVE = '[';
@@ -66,7 +65,7 @@ public interface Range<V extends Comparable> {
    *         {@link Range}. The default implementation assumes that the value type implements {@link Comparable}. If you
    *         want to use other value types you need to override this method.
    */
-  @SuppressWarnings({ "unchecked" })
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   default Comparator<? super V> getComparator() {
 
     return (Comparator) Comparator.naturalOrder();
@@ -160,7 +159,7 @@ public interface Range<V extends Comparable> {
    * @param max the {@link #getMax() maximum}.
    * @return the specified {@link Range}.
    */
-  static <T extends Comparable> Range<T> of(T min, T max) {
+  static <T extends Comparable<?>> Range<T> of(T min, T max) {
 
     return RangeType.of(min, max);
   }
@@ -170,7 +169,7 @@ public interface Range<V extends Comparable> {
    * @return the unbounded {@link Range} instance {@link #contains(Comparable) containing} all values (with
    *         {@link #getMin()} and {@link #getMax()} being {@code null}).
    */
-  static <T extends Comparable> Range<T> unbounded() {
+  static <T extends Comparable<?>> Range<T> unbounded() {
 
     return RangeType.UNBOUNDED;
   }
@@ -180,7 +179,7 @@ public interface Range<V extends Comparable> {
    * @return the invalid {@link Range} instance {@link #contains(Comparable) containing} no values at all (with
    *         {@link #getMin()} and {@link #getMax()} being {@code null}).
    */
-  static <T extends Comparable> Range<T> invalid() {
+  static <T extends Comparable<?>> Range<T> invalid() {
 
     return RangeType.INVALID;
   }

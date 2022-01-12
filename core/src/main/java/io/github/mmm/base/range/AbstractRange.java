@@ -12,8 +12,7 @@ import java.util.Objects;
  * @param <V> type of the contained values.
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
-public abstract class AbstractRange<V extends Comparable> implements Range<V> {
+public abstract class AbstractRange<V extends Comparable<?>> implements Range<V> {
 
   @Override
   public Range<V> intersection(Range<V> range) {
