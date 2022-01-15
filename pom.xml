@@ -17,6 +17,7 @@
   <properties>
     <mmm.repository>base</mmm.repository>
     <revision>0-SNAPSHOT</revision>
+    <jacoco.version>0.8.7</jacoco.version>
   </properties>
 
   <modules>
