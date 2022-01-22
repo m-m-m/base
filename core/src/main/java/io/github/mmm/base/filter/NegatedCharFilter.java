@@ -8,7 +8,7 @@ import java.util.Objects;
  * Implementation of {@link CharFilter} resulting in the negation of a given {@link CharFilter} so it filters what the
  * given {@link CharFilter} {@link #accept(char) accepts} and vice versa.
  */
-public class NegatedCharFilter implements CharFilter {
+public class NegatedCharFilter extends AbstractCharFilter {
 
   private final CharFilter filter;
 
@@ -19,7 +19,7 @@ public class NegatedCharFilter implements CharFilter {
    */
   public NegatedCharFilter(CharFilter filter) {
 
-    super();
+    super(null);
     Objects.requireNonNull(filter, "filter");
     this.filter = filter;
   }
@@ -34,6 +34,12 @@ public class NegatedCharFilter implements CharFilter {
   public CharFilter negate() {
 
     return this.filter;
+  }
+
+  @Override
+  protected String computeDescription() {
+
+    return "!" + this.filter.getDescription();
   }
 
 }

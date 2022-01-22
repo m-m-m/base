@@ -32,7 +32,7 @@ public final class LongParser implements FromStringParser<Long> {
       return null;
     }
     char c = string.charAt(0);
-    if (CharFilter.LATIN_DIGIT_FILTER.accept(c)) {
+    if (CharFilter.LATIN_DIGIT.accept(c)) {
       if (length > 19) {
         return null;
       }
@@ -42,7 +42,7 @@ public final class LongParser implements FromStringParser<Long> {
     int i = 1;
     while (i < length) {
       c = string.charAt(i);
-      if (!CharFilter.LATIN_DIGIT_FILTER.accept(c)) {
+      if (!CharFilter.LATIN_DIGIT.accept(c)) {
         return null;
       }
       i++;

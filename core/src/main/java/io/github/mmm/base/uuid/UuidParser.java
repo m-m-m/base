@@ -44,7 +44,7 @@ public final class UuidParser implements FromStringParser<UUID> {
         expected = '-';
       }
       if (expected == 0) {
-        if (!CharFilter.HEX_DIGIT_FILTER.accept(c)) {
+        if (!CharFilter.HEX_DIGIT.accept(c)) {
           return null;
         }
       } else if (expected != c) {

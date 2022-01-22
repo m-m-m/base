@@ -8,7 +8,7 @@ import java.util.Objects;
  * Implementation of {@link CharFilter} that combines multiple given {@link CharFilter}s with a logical OR so that if
  * any of the given {@link CharFilter}s {@link #accept(char) matches} then this {@link ComposedCharFilter} will match.
  */
-public class ComposedCharFilter implements CharFilter {
+public class ComposedCharFilter extends AbstractCharFilter {
 
   private final CharFilter[] filters;
 
@@ -19,7 +19,7 @@ public class ComposedCharFilter implements CharFilter {
    */
   public ComposedCharFilter(CharFilter... filters) {
 
-    super();
+    super(null);
     Objects.requireNonNull(filters, "filters");
     this.filters = filters;
   }
@@ -33,6 +33,16 @@ public class ComposedCharFilter implements CharFilter {
       }
     }
     return false;
+  }
+
+  @Override
+  protected String computeDescription() {
+
+    StringBuilder sb = new StringBuilder(this.filters.length * 4);
+    for (CharFilter filter : this.filters) {
+      sb.append(filter.getDescription());
+    }
+    return sb.toString();
   }
 
 }

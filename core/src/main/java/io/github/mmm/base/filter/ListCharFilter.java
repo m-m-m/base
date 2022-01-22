@@ -2,15 +2,13 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.filter;
 
-import java.util.Arrays;
-
 /**
  * Implementation of the {@link CharFilter} that {@link #accept(char) accepts} characters from a whitelist given at
  * {@link ListCharFilter#ListCharFilter(char...) construction}.
  */
-public class ListCharFilter implements CharFilter {
+public class ListCharFilter extends AbstractCharFilter {
 
-  private final char[] chars;
+  private final String chars;
 
   /**
    * The constructor.
@@ -19,19 +17,42 @@ public class ListCharFilter implements CharFilter {
    */
   public ListCharFilter(char... charArray) {
 
-    super();
-    this.chars = charArray;
+    this(new String(charArray));
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param chars are the chars to accept. Have to be unique and should be ordered.
+   */
+  public ListCharFilter(String chars) {
+
+    super(null);
+    this.chars = chars;
+    assert (isUnique()) : chars;
+  }
+
+  private boolean isUnique() {
+
+    int i = 0;
+    int length = this.chars.length();
+    while (i < length) {
+      char c = this.chars.charAt(i);
+      if (this.chars.indexOf(c) != i) {
+        return false;
+      } else if (this.chars.lastIndexOf(c) != i) {
+        return false;
+      }
+      i++;
+    }
+    return true;
   }
 
   @Override
   public boolean accept(char c) {
 
-    for (char currentChar : this.chars) {
-      if (c == currentChar) {
-        return true;
-      }
-    }
-    return false;
+    int i = this.chars.indexOf(c);
+    return (i >= 0);
   }
 
   /**
@@ -44,22 +65,19 @@ public class ListCharFilter implements CharFilter {
     if ((characters == null) || (characters.length == 0)) {
       return this;
     }
-    char[] composed = new char[this.chars.length + this.chars.length];
-    System.arraycopy(this.chars, 0, composed, 0, this.chars.length);
-    int i = this.chars.length;
+    int length = this.chars.length();
+    char[] composed = new char[length + characters.length];
+    this.chars.getChars(0, length, composed, 0);
+    int i = length;
     for (char c : characters) {
-      if (!accept(c)) {
+      if (this.chars.indexOf(c) < 0) {
         composed[i++] = c;
       }
     }
-    if (i < composed.length) {
-      if (i == this.chars.length) {
-        return this;
-      } else {
-        composed = Arrays.copyOf(composed, i);
-      }
+    if (i == length) {
+      return this;
     }
-    return new ListCharFilter(composed);
+    return new ListCharFilter(new String(composed, 0, i));
   }
 
   /**
@@ -69,7 +87,7 @@ public class ListCharFilter implements CharFilter {
    */
   public ListCharFilter join(ListCharFilter filter) {
 
-    return join(filter.chars);
+    return join(filter.chars.toCharArray());
   }
 
   @Override
@@ -78,7 +96,29 @@ public class ListCharFilter implements CharFilter {
     if (filter instanceof ListCharFilter) {
       return join((ListCharFilter) filter);
     }
-    return CharFilter.super.compose(filter);
+    return super.compose(filter);
+  }
+
+  /**
+   * @return a {@link String} composed of all {@link #accept(char) accepted} characters.
+   */
+  public String getChars() {
+
+    return this.chars;
+  }
+
+  @Override
+  protected String computeDescription() {
+
+    int length = this.chars.length();
+    StringBuilder sb = new StringBuilder(length + 4);
+    sb.append('{');
+    for (int i = 0; i < length; i++) {
+      char c = this.chars.charAt(i);
+      CharFilter.append(c, sb);
+    }
+    sb.append('}');
+    return sb.toString();
   }
 
 }

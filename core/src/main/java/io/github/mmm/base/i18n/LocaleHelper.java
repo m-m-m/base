@@ -263,7 +263,7 @@ public final class LocaleHelper {
       }
       if (end == start + 1) {
         char extensionKey = locale.charAt(start);
-        if (CharFilter.LATIN_DIGIT_OR_LETTER_FILTER.accept(extensionKey)) {
+        if (CharFilter.LATIN_LETTER_OR_DIGIT.accept(extensionKey)) {
           return start;
         }
       } else {
