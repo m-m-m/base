@@ -33,6 +33,7 @@ public class NumberRangeTypeTest extends Assertions {
     assertThat(numberRange.contains(new BigDecimal("0.99999999999999999999"))).isTrue();
     assertThat(numberRange.contains(max)).isTrue();
     assertThat(numberRange.contains(new BigDecimal("1.00000000000000000001"))).isFalse();
+    assertThat(numberRange.clip(new BigDecimal("1.00000000000000000001"))).isEqualTo(max);
   }
 
 }

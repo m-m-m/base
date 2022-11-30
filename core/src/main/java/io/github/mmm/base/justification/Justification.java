@@ -2,6 +2,8 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.justification;
 
+import io.github.mmm.base.impl.JustificationImpl;
+
 /**
  * This is the interface for a specific justification.
  *

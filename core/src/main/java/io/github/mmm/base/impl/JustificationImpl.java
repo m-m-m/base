@@ -1,11 +1,11 @@
 /* Copyright (c) The m-m-m Team, Licensed under the Apache License, Version 2.0
  * http://www.apache.org/licenses/LICENSE-2.0 */
-package io.github.mmm.base.justification;
+package io.github.mmm.base.impl;
 
 import java.io.IOException;
 
 import io.github.mmm.base.exception.RuntimeIoException;
-import io.github.mmm.base.placement.HorizontalAlignment;
+import io.github.mmm.base.justification.Justification;
 
 /**
  * Implementation of a {@link Justification}.
@@ -21,8 +21,14 @@ public class JustificationImpl implements Justification {
   /** The pattern for the format. */
   private static final String FORMAT_PATTERN = ".[-+~][0-9]+[|]?";
 
+  private static final char ALIGN_LEFT = '-';
+
+  private static final char ALIGN_RIGHT = '+';
+
+  private static final char ALIGN_CENTER = '~';
+
   /** The alignment. */
-  private final HorizontalAlignment alignment;
+  private final char alignment;
 
   /**
    * The character used to fill up.
@@ -54,13 +60,9 @@ public class JustificationImpl implements Justification {
     char align = format.charAt(1);
     switch (align) {
       case '+':
-        this.alignment = HorizontalAlignment.RIGHT;
-        break;
       case '-':
-        this.alignment = HorizontalAlignment.LEFT;
-        break;
       case '~':
-        this.alignment = HorizontalAlignment.CENTER;
+        this.alignment = align;
         break;
       default:
         throw illegalFormat(format);
@@ -101,18 +103,18 @@ public class JustificationImpl implements Justification {
       int rightSpace = 0;
       if (space > 0) {
         switch (this.alignment) {
-          case CENTER:
+          case ALIGN_CENTER:
             leftSpace = space / 2;
             rightSpace = space - leftSpace;
             break;
-          case LEFT:
+          case ALIGN_LEFT:
             rightSpace = space;
             break;
-          case RIGHT:
+          case ALIGN_RIGHT:
             leftSpace = space;
             break;
           default:
-            throw new IllegalStateException(this.alignment.name());
+            throw new IllegalStateException("" + this.alignment);
         }
       }
       for (int i = 0; i < leftSpace; i++) {

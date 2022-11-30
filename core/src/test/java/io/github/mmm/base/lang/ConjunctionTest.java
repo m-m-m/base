@@ -23,6 +23,8 @@ public class ConjunctionTest extends Assertions {
     assertThat(and.eval(true, true, true)).isTrue();
     assertThat(and.evalEmpty()).isTrue();
     assertThat(and.negate()).isSameAs(Conjunction.NAND);
+    assertThat(and.getSyntax()).isEqualTo("&");
+    assertThat(and.toString()).isEqualTo("and");
   }
 
   /** Test of {@link Conjunction#OR}. */
@@ -38,6 +40,8 @@ public class ConjunctionTest extends Assertions {
     assertThat(or.eval(false, false, true)).isTrue();
     assertThat(or.evalEmpty()).isFalse();
     assertThat(or.negate()).isSameAs(Conjunction.NOR);
+    assertThat(or.getSyntax()).isEqualTo("|");
+    assertThat(or.toString()).isEqualTo("or");
   }
 
   /** Test of {@link Conjunction#NAND}. */
@@ -53,6 +57,8 @@ public class ConjunctionTest extends Assertions {
     assertThat(nand.eval(true, true, false)).isTrue();
     assertThat(nand.evalEmpty()).isFalse();
     assertThat(nand.negate()).isSameAs(Conjunction.AND);
+    assertThat(nand.getSyntax()).isEqualTo("!&");
+    assertThat(nand.toString()).isEqualTo("nand");
   }
 
   /** Test of {@link Conjunction#NOR}. */
@@ -68,6 +74,8 @@ public class ConjunctionTest extends Assertions {
     assertThat(nor.eval(false, false, false)).isTrue();
     assertThat(nor.evalEmpty()).isTrue();
     assertThat(nor.negate()).isSameAs(Conjunction.OR);
+    assertThat(nor.getSyntax()).isEqualTo("!|");
+    assertThat(nor.toString()).isEqualTo("nor");
   }
 
   /** Test of {@link Conjunction#XOR}. */
@@ -79,10 +87,58 @@ public class ConjunctionTest extends Assertions {
     assertThat(xor.eval(true, false)).isTrue();
     assertThat(xor.eval(false, true)).isTrue();
     assertThat(xor.eval(false, false)).isFalse();
-    assertThat(xor.eval(false, true, true)).isFalse();
+    assertThat(xor.eval(false, true, true)).isTrue();
     assertThat(xor.eval(false, true, false)).isTrue();
     assertThat(xor.evalEmpty()).isFalse();
-    assertThat(xor.negate()).isSameAs(xor);
+    assertThat(xor.negate()).isSameAs(Conjunction.EQ);
+    assertThat(xor.getSyntax()).isEqualTo("!=");
+    assertThat(xor.toString()).isEqualTo("xor");
+  }
+
+  /** Test of {@link Conjunction#EQ}. */
+  @Test
+  public void testEq() {
+
+    Conjunction eq = Conjunction.EQ;
+    assertThat(eq.eval(true, true)).isTrue();
+    assertThat(eq.eval(true, false)).isFalse();
+    assertThat(eq.eval(false, true)).isFalse();
+    assertThat(eq.eval(false, false)).isTrue();
+    assertThat(eq.eval(false, true, true)).isFalse();
+    assertThat(eq.eval(false, true, false)).isFalse();
+    assertThat(eq.eval(true, true, true)).isTrue();
+    assertThat(eq.eval(false, false, false)).isTrue();
+    assertThat(eq.evalEmpty()).isTrue();
+    assertThat(eq.negate()).isSameAs(Conjunction.XOR);
+    assertThat(eq.getSyntax()).isEqualTo("=");
+    assertThat(eq.toString()).isEqualTo("eq");
+  }
+
+  /**
+   * Generic test for all {@link Conjunction}s.
+   */
+  @Test
+  public void testGeneric() {
+
+    for (Conjunction conjunction : Conjunction.values()) {
+      assertThat(Conjunction.ofName(conjunction.getName())).isSameAs(conjunction);
+      assertThat(Conjunction.ofSyntax(conjunction.getSyntax())).isSameAs(conjunction);
+      Conjunction negation = conjunction.negate();
+      assertThat(negation).isNotEqualTo(conjunction);
+      assertThat(negation.negate()).isSameAs(conjunction);
+      assertThat(negation.eval(true, true)).isSameAs(!conjunction.eval(true, true));
+      assertThat(negation.eval(true, false)).isSameAs(!conjunction.eval(true, false));
+      assertThat(negation.eval(false, true)).isSameAs(!conjunction.eval(false, true));
+      assertThat(negation.eval(false, false)).isSameAs(!conjunction.eval(false, false));
+      assertThat(negation.eval(true, true, true)).isSameAs(!conjunction.eval(true, true, true));
+      assertThat(negation.eval(true, true, false)).isSameAs(!conjunction.eval(true, true, false));
+      assertThat(negation.eval(true, false, true)).isSameAs(!conjunction.eval(true, false, true));
+      assertThat(negation.eval(true, false, false)).isSameAs(!conjunction.eval(true, false, false));
+      assertThat(negation.eval(false, true, true)).isSameAs(!conjunction.eval(false, true, true));
+      assertThat(negation.eval(false, true, false)).isSameAs(!conjunction.eval(false, true, false));
+      assertThat(negation.eval(false, false, true)).isSameAs(!conjunction.eval(false, false, true));
+      assertThat(negation.eval(false, false, false)).isSameAs(!conjunction.eval(false, false, false));
+    }
   }
 
 }

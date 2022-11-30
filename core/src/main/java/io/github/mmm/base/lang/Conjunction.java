@@ -12,7 +12,13 @@ public enum Conjunction {
   /**
    * This conjunction is {@code true} if and only if all arguments are {@code true}.
    */
-  AND("and", "&&") {
+  AND("and", "&") {
+
+    @Override
+    public boolean eval(boolean arg1, boolean arg2) {
+
+      return arg1 && arg2;
+    }
 
     @Override
     public boolean evalEmpty() {
@@ -21,12 +27,9 @@ public enum Conjunction {
     }
 
     @Override
-    public Boolean evalSingle(boolean argument) {
+    public boolean isNegating() {
 
-      if (!argument) {
-        return Boolean.FALSE;
-      }
-      return null;
+      return false;
     }
 
     @Override
@@ -39,7 +42,13 @@ public enum Conjunction {
   /**
    * This conjunction is {@code true} if and only if at least one argument is {@code true}.
    */
-  OR("or", "||") {
+  OR("or", "|") {
+
+    @Override
+    public boolean eval(boolean arg1, boolean arg2) {
+
+      return arg1 || arg2;
+    }
 
     @Override
     public boolean evalEmpty() {
@@ -48,12 +57,9 @@ public enum Conjunction {
     }
 
     @Override
-    public Boolean evalSingle(boolean argument) {
+    public boolean isNegating() {
 
-      if (argument) {
-        return Boolean.TRUE;
-      }
-      return null;
+      return false;
     }
 
     @Override
@@ -69,18 +75,21 @@ public enum Conjunction {
   NAND("nand", "!&") {
 
     @Override
+    public boolean eval(boolean arg1, boolean arg2) {
+
+      return !(arg1 && arg2);
+    }
+
+    @Override
     public boolean evalEmpty() {
 
       return false;
     }
 
     @Override
-    public Boolean evalSingle(boolean argument) {
+    public boolean isNegating() {
 
-      if (!argument) {
-        return Boolean.TRUE;
-      }
-      return null;
+      return true;
     }
 
     @Override
@@ -96,18 +105,21 @@ public enum Conjunction {
   NOR("nor", "!|") {
 
     @Override
+    public boolean eval(boolean arg1, boolean arg2) {
+
+      return !(arg1 || arg2);
+    }
+
+    @Override
     public boolean evalEmpty() {
 
       return true;
     }
 
     @Override
-    public Boolean evalSingle(boolean argument) {
+    public boolean isNegating() {
 
-      if (argument) {
-        return Boolean.FALSE;
-      }
-      return null;
+      return true;
     }
 
     @Override
@@ -124,31 +136,68 @@ public enum Conjunction {
   XOR("xor", "!=") {
 
     @Override
+    public boolean eval(boolean arg1, boolean arg2) {
+
+      return arg1 ^ arg2;
+    }
+
+    @Override
     public boolean evalEmpty() {
 
       return false;
     }
 
     @Override
-    public Boolean evalSingle(boolean argument) {
+    public boolean isNegating() {
 
-      return null;
+      return true;
+    }
+
+    @Override
+    public Conjunction negate() {
+
+      return EQ;
+    }
+  },
+
+  /**
+   * This conjunction is {@code true} if and only if two arguments equal.
+   */
+  EQ("eq", "=") {
+
+    @Override
+    public boolean eval(boolean arg1, boolean arg2) {
+
+      return arg1 == arg2;
     }
 
     @Override
     public boolean eval(boolean... arguments) {
 
-      boolean result = false;
-      boolean first = true;
-      for (boolean b : arguments) {
-        if (first) {
-          result = b;
-          first = false;
-        } else {
-          result = (result != b);
+      if (arguments.length == 0) {
+        return evalEmpty();
+      }
+      int i = 0;
+      boolean first = arguments[i++];
+      while (i < arguments.length) {
+        boolean next = arguments[i++];
+        if (first != next) {
+          return false;
         }
       }
-      return result;
+      return true;
+    }
+
+    @Override
+    public boolean evalEmpty() {
+
+      return true;
+    }
+
+    @Override
+    public boolean isNegating() {
+
+      return false;
     }
 
     @Override
@@ -177,28 +226,42 @@ public enum Conjunction {
   /**
    * This method evaluates this conjunction for the given boolean {@code arguments}.
    *
-   * @param arguments are the boolean values to evaluate.
-   * @return the result of this conjunction applied to the given {@code arguments}.
+   * @param arg1 the first argument.
+   * @param arg2 the second argument.
+   * @return the result of this conjunction applied to the given two arguments.
+   */
+  public abstract boolean eval(boolean arg1, boolean arg2);
+
+  /**
+   * @return {@code true} if this {@link Conjunction} is negating the final result and therefore not left-associative,
+   *         {@code false} otherwise.
+   */
+  public abstract boolean isNegating();
+
+  /**
+   * Evaluates this {@link Conjunction} for the given boolean {@code arguments}. <br>
+   * <b>ATTENTION:</b> The result is NOT the same as a applying the {@link Conjunction} left-associative as
+   * {@link #eval(boolean, boolean) binary} operation because a {@link #negate() negation} is applied to the final
+   * result. Example: {@code NOR(a, b, c) = !(OR(a, b, c))} what is not the same as {@code NOR(NOR(a, b), c)}.
+   *
+   * @param arguments the boolean values to evaluate.
+   * @return the result of this {@link Conjunction} applied to the given {@code arguments}.
    */
   public boolean eval(boolean... arguments) {
 
-    for (boolean b : arguments) {
-      Boolean single = evalSingle(b);
-      if (single != null) {
-        return single.booleanValue();
-      }
+    if (isNegating()) {
+      return !negate().eval(arguments);
     }
-    return evalEmpty();
+    if (arguments.length == 0) {
+      return evalEmpty();
+    }
+    int i = 0;
+    boolean result = arguments[i++];
+    while (i < arguments.length) {
+      result = eval(result, arguments[i++]);
+    }
+    return result;
   }
-
-  /**
-   * @param argument is a literal boolean argument.
-   * @return {@link Boolean#TRUE} if {@link #eval(boolean...)} will return {@code true} if any of the given arguments
-   *         has the value of the given {@code argument}, {@link Boolean#FALSE} if {@link #eval(boolean...)} will return
-   *         {@code false} if any of the given arguments has the value of the given {@code argument}, {@code null}
-   *         otherwise.
-   */
-  public abstract Boolean evalSingle(boolean argument);
 
   /**
    * @return the result of {@link #eval(boolean...)} for no argument (an empty argument array).
@@ -233,13 +296,13 @@ public enum Conjunction {
   }
 
   /**
-   * @param symbol is the {@link #getSyntax() symbol} of the requested {@link Conjunction}.
+   * @param syntax the {@link #getSyntax() syntax} of the requested {@link Conjunction}.
    * @return the requested {@link Conjunction} or {@code null} if no such {@link Conjunction} exists.
    */
-  public static Conjunction ofSymbol(String symbol) {
+  public static Conjunction ofSyntax(String syntax) {
 
     for (Conjunction conjunction : values()) {
-      if (conjunction.syntax.equals(symbol)) {
+      if (conjunction.syntax.equals(syntax)) {
         return conjunction;
       }
     }

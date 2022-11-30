@@ -92,7 +92,7 @@ public class AppendableWriter extends Writer {
   }
 
   @Override
-  public void write(int c) throws IOException {
+  public void write(int c) throws RuntimeIoException {
 
     try {
       this.appendable.append((char) c);

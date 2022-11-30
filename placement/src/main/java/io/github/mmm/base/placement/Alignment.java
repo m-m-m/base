@@ -170,28 +170,28 @@ public enum Alignment {
 
   };
 
-  private final String value;
+  private final String syntax;
 
   private final String title;
 
   /**
    * The constructor.
    *
-   * @param value is the {@link #getValue() raw value} (symbol).
+   * @param syntax is the {@link #getSyntax() syntax}.
    * @param title is the {@link #toString() string representation}.
    */
-  private Alignment(String value, String title) {
+  private Alignment(String syntax, String title) {
 
-    this.value = value;
+    this.syntax = syntax;
     this.title = title;
   }
 
   /**
-   * @return the ascii symbol.
+   * @return the compact ASCII syntax.
    */
-  public String getValue() {
+  public String getSyntax() {
 
-    return this.value;
+    return this.syntax;
   }
 
   @Override
@@ -201,15 +201,15 @@ public enum Alignment {
   }
 
   /**
-   * This method gets the {@link Alignment} with the given {@link #getValue() value}.
+   * This method gets the {@link Alignment} with the given {@link #getSyntax() value}.
    *
-   * @param value is the {@link #getValue() value} of the requested {@link Alignment}.
+   * @param value is the {@link #getSyntax() value} of the requested {@link Alignment}.
    * @return the requested {@link Alignment}.
    */
   public static Alignment fromValue(String value) {
 
     for (Alignment alignment : values()) {
-      if (alignment.value.equals(value)) {
+      if (alignment.syntax.equals(value)) {
         return alignment;
       }
     }

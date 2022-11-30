@@ -36,8 +36,6 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.number;
 
-  exports io.github.mmm.base.placement;
-
   exports io.github.mmm.base.properties;
 
   exports io.github.mmm.base.range;
