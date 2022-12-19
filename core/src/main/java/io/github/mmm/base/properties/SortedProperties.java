@@ -41,7 +41,7 @@ public class SortedProperties extends Properties {
   }
 
   @Override
-  public synchronized Enumeration<Object> keys() {
+  public Enumeration<Object> keys() {
 
     Enumeration<Object> keyEnumeration = super.keys();
     Object[] keys = new Object[size()];

@@ -15,7 +15,9 @@ import java.util.Date;
 import java.util.function.BiFunction;
 
 /**
- * Extends {@link TemporalConverterDefault} with support for the legacy types {@link Date} and {@link Calendar}.
+ * Extends {@link TemporalConverterDefault} with support for the legacy types {@link Date} and {@link Calendar}. We
+ * consider {@link java.util.Date} and {@link java.util.Calendar} to be dead and therefore do not support them out of
+ * the box. In case you need support for them, see {@link TemporalConverter#get()} how to change the default.
  *
  * @see #get()
  */

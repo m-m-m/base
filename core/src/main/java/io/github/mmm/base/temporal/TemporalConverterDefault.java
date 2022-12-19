@@ -62,7 +62,8 @@ public class TemporalConverterDefault implements TemporalConverter {
     if (value instanceof LocalDateTime) {
       return (LocalDateTime) value;
     } else if (value instanceof Instant) {
-      return LocalDateTime.ofInstant((Instant) value, ZoneOffset.UTC);
+      Instant instant = (Instant) value;
+      return LocalDateTime.ofEpochSecond(instant.getEpochSecond(), instant.getNano(), ZoneOffset.UTC);
     } else if (value instanceof LocalDate) {
       return ((LocalDate) value).atStartOfDay();
     } else if (value instanceof OffsetDateTime) {
@@ -125,7 +126,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     if (value instanceof LocalDate) {
       return (LocalDate) value;
     } else if (value instanceof Instant) {
-      return LocalDate.ofInstant((Instant) value, ZoneOffset.UTC);
+      Instant instant = (Instant) value;
+      long localEpochDay = Math.floorDiv(instant.getEpochSecond(), 24 * 60 * 60);
+      return LocalDate.ofEpochDay(localEpochDay);
     } else if (value instanceof LocalDateTime) {
       return ((LocalDateTime) value).toLocalDate();
     } else if (value instanceof OffsetDateTime) {

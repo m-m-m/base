@@ -19,24 +19,17 @@ public interface Composable<C> extends Iterable<C> {
    * @see #getChild(int)
    * @see java.util.Collection#size()
    */
-  default int getChildCount() {
-
-    return 0;
-  }
+  int getChildCount();
 
   /**
    * Gets the child-object at the given {@code index}.
    *
    * @param index is the index of the child to get.
-   * @return the requested child.
-   * @throws IndexOutOfBoundsException if the given {@code index} is not in the range from {@code 0} to
-   *         <code>{@link #getChildCount() child-count} - 1</code>.
+   * @return the requested child or {@code null} if no such child exists because the given {@code index} is not in the
+   *         range from {@code 0} to <code>{@link #getChildCount() child-count} - 1</code>.
    * @see java.util.List#get(int)
    */
-  default C getChild(int index) {
-
-    throw new IndexOutOfBoundsException(index);
-  }
+  C getChild(int index);
 
   @Override
   default Iterator<C> iterator() {
