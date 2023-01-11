@@ -115,8 +115,9 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Float}. */
-  public static final NumberType<Float> FLOAT = new NumberType<>(Float.class, 5, Float.valueOf(Float.MIN_VALUE),
-      Float.valueOf(Float.MAX_VALUE)) {
+  public static final NumberType<Float> FLOAT = new NumberType<>(Float.class, 5, Float.valueOf(-Float.MAX_VALUE),
+      Float.valueOf(Float.MAX_VALUE), Float.valueOf(Float.NaN), Float.valueOf(Float.POSITIVE_INFINITY),
+      Float.valueOf(Float.NEGATIVE_INFINITY)) {
 
     @Override
     protected Float convert(Number number, boolean exact) {
@@ -139,8 +140,9 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Double}. */
-  public static final NumberType<Double> DOUBLE = new NumberType<>(Double.class, 6, Double.valueOf(Double.MIN_VALUE),
-      Double.valueOf(Double.MAX_VALUE)) {
+  public static final NumberType<Double> DOUBLE = new NumberType<>(Double.class, 6, Double.valueOf(-Double.MAX_VALUE),
+      Double.valueOf(Double.MAX_VALUE), Double.valueOf(Double.NaN), Double.valueOf(Double.POSITIVE_INFINITY),
+      Double.valueOf(Double.NEGATIVE_INFINITY)) {
 
     @Override
     protected Double convert(Number number, boolean exact) {
@@ -274,6 +276,12 @@ public abstract class NumberType<N extends Number> {
 
   private final N one;
 
+  private final N nan;
+
+  private final N positiveInfinity;
+
+  private final N negativeInfinity;
+
   /**
    * The constructor.
    *
@@ -284,6 +292,22 @@ public abstract class NumberType<N extends Number> {
    */
   protected NumberType(Class<N> type, int exactness, N min, N max) {
 
+    this(type, exactness, min, max, null, null, null);
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param type the {@link #getType() type}.
+   * @param exactness the {@link #getExactness() exactness}.
+   * @param min the {@link #getMin() minimum value}.
+   * @param max the {@link #getMax() maximum value}.
+   * @param nan the {@link #getNaN() not-a-number value}.
+   * @param positiveInfinity the {@link #getPositiveInfinity() positive infinity value}.
+   * @param negativeInfinity the {@link #getNegativeInfinity() negative infinity value}.
+   */
+  protected NumberType(Class<N> type, int exactness, N min, N max, N nan, N positiveInfinity, N negativeInfinity) {
+
     super();
     this.type = type;
     this.exactness = exactness;
@@ -291,6 +315,9 @@ public abstract class NumberType<N extends Number> {
     this.max = max;
     this.zero = valueOf(Byte.valueOf((byte) 0));
     this.one = valueOf(Byte.valueOf((byte) 1));
+    this.nan = nan;
+    this.positiveInfinity = positiveInfinity;
+    this.negativeInfinity = negativeInfinity;
   }
 
   /**
@@ -383,6 +410,11 @@ public abstract class NumberType<N extends Number> {
   public abstract N valueOf(String number);
 
   /**
+   * <b>ATTENTION</b>:<br>
+   * We define the minimum value as the smallest actual number that can be represented by this {@link NumberType}.
+   * However, this will never be {@link Double#MIN_VALUE} or {@link Float#MIN_VALUE} as those are the smallest
+   * <b>positive</b> nonzero values.
+   *
    * @return the minimum allowed value. Will return {@code null} in case of an unbounded type such as
    *         {@link java.math.BigInteger}.
    */
@@ -414,6 +446,32 @@ public abstract class NumberType<N extends Number> {
   public N getOne() {
 
     return this.one;
+  }
+
+  /**
+   * @return the value NaN (not a number) or {@code null} if no such value exists for this {@link NumberType}.
+   */
+  public N getNaN() {
+
+    return this.nan;
+  }
+
+  /**
+   * @return the positive infinity value or {@code null} if no such value exists for this {@link NumberType}.
+   * @see Double#POSITIVE_INFINITY
+   */
+  public N getPositiveInfinity() {
+
+    return this.positiveInfinity;
+  }
+
+  /**
+   * @return the negative infinity value or {@code null} if no such value exists for this {@link NumberType}.
+   * @see Double#NEGATIVE_INFINITY
+   */
+  public N getNegativeInfinity() {
+
+    return this.negativeInfinity;
   }
 
   /**
@@ -500,7 +558,90 @@ public abstract class NumberType<N extends Number> {
     return valueOf(Double.valueOf(dividend.doubleValue() / divisor.doubleValue()));
   }
 
-  // abstract <T extends Number> Number doSimplify(NumberType<T> t, T n);
+  /**
+   * @param n1 the first {@link Number} to compare.
+   * @param n2 the second {@link Number} to compare.
+   * @return {@code true} if the first {@link Number} is greater than the second.
+   */
+  public boolean isGreater(N n1, N n2) {
+
+    if ((n1 == null) || (n2 == null)) {
+      return false;
+    }
+    return (compareTo(n1, n2) > 0);
+  }
+
+  /**
+   * @param n1 the first {@link Number} to compare.
+   * @param n2 the second {@link Number} to compare.
+   * @return {@code true} if the first {@link Number} is greater than or equal to the second.
+   */
+  public boolean isGreaterEqual(N n1, N n2) {
+
+    if ((n1 == null) || (n2 == null)) {
+      return false;
+    }
+    return (compareTo(n1, n2) >= 0);
+  }
+
+  /**
+   * @param n1 the first {@link Number} to compare.
+   * @param n2 the second {@link Number} to compare.
+   * @return {@code true} if the first {@link Number} is less than the second.
+   */
+  public boolean isLess(N n1, N n2) {
+
+    if ((n1 == null) || (n2 == null)) {
+      return false;
+    }
+    return (compareTo(n1, n2) < 0);
+  }
+
+  /**
+   * @param n1 the first {@link Number} to compare.
+   * @param n2 the second {@link Number} to compare.
+   * @return {@code true} if the first {@link Number} is less than or equal to the second.
+   */
+  public boolean isLessEqual(N n1, N n2) {
+
+    if ((n1 == null) || (n2 == null)) {
+      return false;
+    }
+    return (compareTo(n1, n2) <= 0);
+  }
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  private int compareTo(N n1, N n2) {
+
+    return ((Comparable) n1).compareTo(n2);
+  }
+
+  /**
+   * @param number the {@link Number} to check.
+   * @return {@code true} if the given {@link Number} is negative, {@code false} otherwise.
+   */
+  public boolean isNegative(N number) {
+
+    return isLess(number, getZero());
+  }
+
+  /**
+   * @param number the {@link Number} to check.
+   * @return {@code true} if the given {@link Number} is positive (greater than zero), {@code false} otherwise.
+   */
+  public boolean isPositive(N number) {
+
+    return isGreater(number, getZero());
+  }
+
+  /**
+   * @param number the {@link Number} to check.
+   * @return {@code true} if the given {@link Number} is positive (greater than zero), {@code false} otherwise.
+   */
+  public boolean isPositiveOrZero(N number) {
+
+    return isGreaterEqual(number, getZero());
+  }
 
   @Override
   public String toString() {
