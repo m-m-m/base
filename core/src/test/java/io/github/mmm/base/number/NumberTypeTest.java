@@ -128,7 +128,7 @@ public class NumberTypeTest extends Assertions {
     NumberType<Float> type = NumberType.FLOAT;
     // then
     checkDecimal(type, Float.valueOf(f));
-    assertThat(type.getMin()).isEqualTo(Float.MIN_VALUE);
+    assertThat(type.getMin()).isEqualTo(-Float.MAX_VALUE);
     assertThat(type.getMax()).isEqualTo(Float.MAX_VALUE);
   }
 
@@ -141,7 +141,7 @@ public class NumberTypeTest extends Assertions {
     NumberType<Double> type = NumberType.DOUBLE;
     // then
     checkDecimal(type, Double.valueOf(d));
-    assertThat(type.getMin()).isEqualTo(Double.MIN_VALUE);
+    assertThat(type.getMin()).isEqualTo(-Double.MAX_VALUE);
     assertThat(type.getMax()).isEqualTo(Double.MAX_VALUE);
   }
 
