@@ -35,9 +35,9 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Byte valueOf(String number) {
+    public Byte valueOf(String number, int radix) {
 
-      return Byte.valueOf(number);
+      return Byte.valueOf(number, radix);
     }
 
   };
@@ -59,9 +59,9 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Short valueOf(String number) {
+    public Short valueOf(String number, int radix) {
 
-      return Short.valueOf(number);
+      return Short.valueOf(number, radix);
     }
 
   };
@@ -83,9 +83,9 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Integer valueOf(String number) {
+    public Integer valueOf(String number, int radix) {
 
-      return Integer.valueOf(number);
+      return Integer.valueOf(number, radix);
     }
 
   };
@@ -107,9 +107,17 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Long valueOf(String number) {
+    public Long valueOf(String number, int radix) {
 
-      return Long.valueOf(number);
+      return Long.valueOf(number, radix);
+    }
+
+    public String format(Long number, int radix) {
+
+      if (number == null) {
+        return null;
+      }
+      return Long.toString(number.longValue(), radix);
     }
 
   };
@@ -132,9 +140,28 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Float valueOf(String number) {
+    public Float valueOf(String number, int radix) {
 
+      if (radix == 16) {
+        number = "0x" + number;
+      } else if (radix != 10) {
+        throw illegalRadixException(radix);
+      }
       return Float.valueOf(number);
+    }
+
+    public String format(Float number, int radix) {
+
+      if (number == null) {
+        return null;
+      }
+      if (radix == 10) {
+        return number.toString();
+      } else if (radix == 16) {
+        return Float.toHexString(number.floatValue());
+      } else {
+        throw illegalRadixException(radix);
+      }
     }
 
   };
@@ -174,9 +201,28 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Double valueOf(String number) {
+    public Double valueOf(String number, int radix) {
 
+      if (radix == 16) {
+        number = "0x" + number;
+      } else if (radix != 10) {
+        throw illegalRadixException(radix);
+      }
       return Double.valueOf(number);
+    }
+
+    public String format(Double number, int radix) {
+
+      if (number == null) {
+        return null;
+      }
+      if (radix == 10) {
+        return number.toString();
+      } else if (radix == 16) {
+        return Double.toHexString(number.doubleValue());
+      } else {
+        throw illegalRadixException(radix);
+      }
     }
 
   };
@@ -198,9 +244,9 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public BigInteger valueOf(String number) {
+    public BigInteger valueOf(String number, int radix) {
 
-      return new BigInteger(number);
+      return new BigInteger(number, radix);
     }
 
     BigInteger doAdd(Number summand1, Number summand2) {
@@ -223,6 +269,14 @@ public abstract class NumberType<N extends Number> {
       return toBigDecimal(dividend).divide(toBigDecimal(divisor)).toBigInteger();
     }
 
+    public String format(BigInteger number, int radix) {
+
+      if (number == null) {
+        return null;
+      }
+      return number.toString(radix);
+    }
+
   };
 
   /** The {@link NumberType} for {@link BigDecimal}. */
@@ -235,8 +289,11 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public BigDecimal valueOf(String number) {
+    public BigDecimal valueOf(String number, int radix) {
 
+      if (radix != 10) {
+        throw illegalRadixException(radix);
+      }
       return new BigDecimal(number);
     }
 
@@ -258,6 +315,17 @@ public abstract class NumberType<N extends Number> {
     BigDecimal doDivide(Number dividend, Number divisor) {
 
       return toBigDecimal(dividend).divide(toBigDecimal(divisor));
+    }
+
+    public String format(BigDecimal number, int radix) {
+
+      if (number == null) {
+        return null;
+      }
+      if (radix != 10) {
+        throw illegalRadixException(radix);
+      }
+      return number.toString();
     }
   };
 
@@ -356,6 +424,23 @@ public abstract class NumberType<N extends Number> {
   }
 
   /**
+   * This method determines if the represented {@link #getType() Number} is an imprecise decimal value. <br>
+   * E.g. {@link Double}, {@link Float}, or {@link java.math.BigDecimal} represent decimal values while {@link Integer}
+   * or {@link Long} are NOT decimal.
+   *
+   * @return {@code true} if the {@link #getType() number type} represents a decimal value.
+   */
+  public final boolean isImpreciseDecimal() {
+
+    if (this.type == Double.class) {
+      return true;
+    } else if (this.type == Float.class) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * This method gets the and the given {@code otherType}. <br>
    * <b>ATTENTION:</b><br>
    * Some types such as {@link Double} and {@link java.math.BigInteger} are NOT really comparable so the exactness
@@ -407,7 +492,39 @@ public abstract class NumberType<N extends Number> {
    * @return the parsed number of the according {@link #getType() type}.
    * @throws NumberFormatException if the given {@link String} has an invalid format for this {@link #getType() type}.
    */
-  public abstract N valueOf(String number);
+  public N valueOf(String number) throws NumberFormatException {
+
+    return valueOf(number, 10);
+  }
+
+  /**
+   * @param number is the {@link Object#toString() string representation} of the {@link Number} to be parsed.
+   * @param radix the radix. Typically {@code 10} for decimal format, may be {@code 16} for hex, etc.
+   * @return the parsed number of the according {@link #getType() type}.
+   * @throws NumberFormatException if the given {@link String} has an invalid format for this {@link #getType() type}.
+   * @throws IllegalArgumentException if the given {@code radix} is not supported. The radix {@code 10} is always
+   *         supported, and {@code 16} is supported for types other than {@link #BIG_DECIMAL}.
+   */
+  public abstract N valueOf(String number, int radix) throws NumberFormatException;
+
+  /**
+   * @param number the {@link Number} to format a {@link String}.
+   * @param radix the radix. Typically {@code 10} for decimal format, may be {@code 16} for hex, etc.
+   * @return the given {@link Number} as {@link String}.
+   * @throws IllegalArgumentException if the given {@code radix} is not supported. The radix {@code 10} is always
+   *         supported, and {@code 16} is supported for types other than {@link #BIG_DECIMAL}.
+   * @see Long#toString(long, int)
+   * @see Integer#toString(int, int)
+   * @see Double#toHexString(double)
+   * @see BigInteger#toString(int)
+   */
+  public String format(N number, int radix) throws IllegalArgumentException {
+
+    if (number == null) {
+      return null;
+    }
+    return Integer.toString(number.intValue(), radix);
+  }
 
   /**
    * <b>ATTENTION</b>:<br>
@@ -641,6 +758,11 @@ public abstract class NumberType<N extends Number> {
   public boolean isPositiveOrZero(N number) {
 
     return isGreaterEqual(number, getZero());
+  }
+
+  private static IllegalArgumentException illegalRadixException(int radix) {
+
+    throw new IllegalArgumentException("Radix " + radix + " is not supported.");
   }
 
   @Override
