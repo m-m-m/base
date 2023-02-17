@@ -152,6 +152,8 @@ public class CaseSyntaxTest extends Assertions {
     assertThat(CaseSyntax.PASCAL_CASE.convert("InConSISTENTCase")).isEqualTo("InConSistentcase");
     assertThat(CaseSyntax.CAML_SNAKE_CASE.convert("inconSistentcASE")).isEqualTo("incon_Sistentc_Ase");
     assertThat(CaseSyntax.of(CaseSyntax.KEEP_SPECIAL_CHARS, UPPER_CASE).convert("ab-_c. d")).isEqualTo("AB-_C. D");
+    assertThat(CaseSyntax.ofExample("_UPPERCASE").convert("ab-_c. d")).isEqualTo("AB-_C. D");
+    assertThat(CaseSyntax.UPPERCASE.convert("ab-_c. d")).isEqualTo("ABCD");
     assertThat(CaseSyntax.CAML_CASE.convert(TestValues.THAI_SENTENCE))
         .isEqualTo("เดกทมปญหาทางการเรยนรบางคนสามารถเรยนรวมกบเดกปกตได");
   }

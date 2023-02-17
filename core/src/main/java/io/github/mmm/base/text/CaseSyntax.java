@@ -16,7 +16,36 @@ import java.util.regex.Pattern;
 
 /**
  * Defines the different styles of lower-/upper-case usage such as {@link #CAML_CASE camlCase}, {@link #TRAIN_CASE
- * train-case}, etc. For further examples see the constants defined here in {@link CaseSyntax}.
+ * train-case}, etc. For further examples see the constants defined here in {@link CaseSyntax}.<br>
+ * The main idea is that you "parse" a given variable name syntax via {@link #ofExample(String, boolean)} and then you
+ * can transform the value of such variable via {@link #convert(String)}. As a small teaser and motivation here are some
+ * examples assuming that the value for "VaraibleName" would be "MyValue":
+ * <table border="1">
+ * <tr>
+ * <th>VariableSyntax</th>
+ * <th>Result</th>
+ * </tr>
+ * <tr>
+ * <td>VariableName</td>
+ * <td>MyValue</td>
+ * </tr>
+ * <tr>
+ * <td>variablename</td>
+ * <td>myvalue</td>
+ * </tr>
+ * <tr>
+ * <td>variable-name</td>
+ * <td>my-value</td>
+ * </tr>
+ * <tr>
+ * <td>VARIABLE_NAME</td>
+ * <td>MY_VALUE</td>
+ * </tr>
+ * <tr>
+ * <td>variableName</td>
+ * <td>myValue</td>
+ * </tr>
+ * </table>
  *
  * @since 1.0.0
  */
@@ -492,15 +521,27 @@ public class CaseSyntax {
 
   /**
    * @param example an example for the requested {@link CaseSyntax} such as {@code PascalCase} or {@code MyVariableName}
+   *        for {@link #PASCAL_CASE}. For further details see {@link #ofExample(String, boolean)}.
+   * @return the {@link CaseSyntax} for the given {@code example} as described above.
+   * @see #ofExample(String, boolean)
+   */
+  public static CaseSyntax ofExample(String example) {
+
+    return ofExample(example, false);
+  }
+
+  /**
+   * @param example an example for the requested {@link CaseSyntax} such as {@code PascalCase} or {@code MyVariableName}
    *        for {@link #PASCAL_CASE} and {@code train-case} or {@code my-variable-name} for {@link #TRAIN_CASE}. See
    *        other {@link CaseSyntax} constants for more examples. The given {@code example} {@link String} has to start
-   *        with a {@link Character#isLetter(char) letter} (or {@link CaseConversion#EXAMPLE_CHAR_FOR_ORIGINAL_CASE
-   *        $-Sign}) and contain at least two more such characters (letter or $-sign) next to each other. Digits are
-   *        more or less ignored. If you use variable names as example consider naming such variables with more than one
-   *        word and no characters other than {@link Character#isLetterOrDigit(char) letters or digits}. Otherwise you
-   *        would have to write things such as {@code ComPonent} or {@code com-ponent} to indicate PascalCase or
-   *        train-case for the variable {@code component}. Also when using variables as {@link CaseSyntax} example you
-   *        should {@link #normalizeExample(String)} normalize} them before resolving.
+   *        with a {@link Character#isLetter(char) letter} with an underscore for {@link #KEEP_SPECIAL_CHARS}, or with
+   *        {@link CaseConversion#EXAMPLE_CHAR_FOR_ORIGINAL_CASE $-Sign}) and contain at least two more such characters
+   *        (letter or $-sign) next to each other. Digits are more or less ignored. If you use variable names as example
+   *        consider naming such variables with more than one word and no characters other than
+   *        {@link Character#isLetterOrDigit(char) letters or digits}. Otherwise you would have to write things such as
+   *        {@code ComPonent} or {@code com-ponent} to indicate PascalCase or train-case for the variable
+   *        {@code component}. Also when using variables as {@link CaseSyntax} example you should
+   *        {@link #normalizeExample(String)} normalize} them before resolving.
    * @param standardize - {@code true} if existing constants such as {@link #PASCAL_CASE} or {@link #TRAIN_CASE} shall
    *        be returned if {@link #equals(Object) equal} to the requested {@link CaseSyntax}, {@code false} otherwise.
    * @return the {@link CaseSyntax} for the given {@code example} as described above.
