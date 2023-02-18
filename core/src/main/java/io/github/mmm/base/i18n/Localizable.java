@@ -15,6 +15,12 @@ import io.github.mmm.base.impl.NotLocalizable;
 public interface Localizable extends LocalizableObject {
 
   /**
+   * The internal bundle prefix used to for namespace separation and as workaround for limitations of the Java Module
+   * System.
+   */
+  public static final String BUNDLE_PREFIX = "l10n.";
+
+  /**
    * <b>ATTENTION:</b><br>
    * In most cases you wand to use {@link #getLocalizedMessage(Locale)} instead of this method.
    *
@@ -97,7 +103,7 @@ public interface Localizable extends LocalizableObject {
    */
   static String createBundleName(Class<?> type) {
 
-    return "l10n." + type.getName();
+    return BUNDLE_PREFIX + type.getName();
   }
 
 }
