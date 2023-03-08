@@ -93,6 +93,7 @@ public class CaseSyntaxTest extends Assertions {
     verifyOfExampleStandardized("Variablename", CaseSyntax.CAPITALIZED_LOWER);
     // edge cases...
     verifyOfExampleStandardized("V$$ariablename", CaseSyntax.CAPITALIZED);
+    verifyOfExampleStandardized("v$$ariablename", CaseSyntax.UNCAPITALIZED);
     verifyOfExampleStandardized("vARIABLENAME", CaseSyntax.UNCAPITALIZED_UPPER);
   }
 
@@ -147,6 +148,7 @@ public class CaseSyntaxTest extends Assertions {
     assertThat(CaseSyntax.PASCAL_CASE.convert("a0b-cd")).isEqualTo("A0bCd");
     assertThat(CaseSyntax.PASCAL_CASE.convert("aBC DE")).isEqualTo("AbcDe");
     assertThat(CaseSyntax.CAPITALIZED.convert("aBc-DEfg")).isEqualTo("ABcDEfg");
+    assertThat(CaseSyntax.UNCAPITALIZED.convert("ABc-DEfg")).isEqualTo("aBcDEfg");
     assertThat(CaseSyntax.TRAIN_CASE.convert(" ")).isEqualTo("-");
     assertThat(CaseSyntax.TRAIN_CASE.convert("._")).isEqualTo("-");
     assertThat(CaseSyntax.PASCAL_CASE.convert("InConSISTENTCase")).isEqualTo("InConSistentcase");

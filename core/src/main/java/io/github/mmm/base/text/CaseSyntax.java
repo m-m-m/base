@@ -135,7 +135,7 @@ public class CaseSyntax {
   /**
    * {@link CaseSyntax} for {@code u$$capitalized} (only convert first char to lower case, keep other case untouched).
    */
-  public static final CaseSyntax UNCAPITALIZED = new CaseSyntax(null, UPPER_CASE, ORIGINAL_CASE, "u$$capitalized");
+  public static final CaseSyntax UNCAPITALIZED = new CaseSyntax(null, LOWER_CASE, ORIGINAL_CASE, "u$$capitalized");
 
   /** {@link CaseSyntax} for {@code Capitalizedlower}. */
   public static final CaseSyntax CAPITALIZED_LOWER = new CaseSyntax(null, UPPER_CASE, LOWER_CASE, LOWER_CASE,
