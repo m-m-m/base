@@ -7,14 +7,23 @@
  * Provides fundamental APIs and helper classes.
  *
  * @provides io.github.mmm.base.temporal.TemporalConverter
+ * @provides io.github.mmm.base.exception.GlobalExceptionHandler
+ * @uses io.github.mmm.base.exception.GlobalExceptionHandler
  * @uses io.github.mmm.base.temporal.TemporalConverter
  */
 module io.github.mmm.base {
+
+  requires static org.slf4j;
 
   uses io.github.mmm.base.temporal.TemporalConverter;
 
   provides io.github.mmm.base.temporal.TemporalConverter with //
       io.github.mmm.base.temporal.impl.TemporalConverterImpl;
+
+  uses io.github.mmm.base.exception.GlobalExceptionHandler;
+
+  provides io.github.mmm.base.exception.GlobalExceptionHandler
+      with io.github.mmm.base.exception.GlobalExceptionHandlerSysout;
 
   exports io.github.mmm.base.collection;
 
