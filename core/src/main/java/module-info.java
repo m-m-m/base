@@ -56,4 +56,7 @@ module io.github.mmm.base {
   exports io.github.mmm.base.text;
 
   exports io.github.mmm.base.uuid;
+
+  exports io.github.mmm.base.variable;
+
 }
