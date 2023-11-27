@@ -94,10 +94,4 @@ public class ArrayIterator<E> implements Enumeration<E>, Iterator<E> {
     return this.array[this.index++];
   }
 
-  @Override
-  public void remove() {
-
-    throw new UnsupportedOperationException();
-  }
-
 }
