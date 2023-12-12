@@ -83,12 +83,18 @@ public abstract class AbstractMetaInfo implements MetaInfo {
   @Override
   public MetaInfo with(Map<String, String> map, String keyPrefix) {
 
+    if (map == null) {
+      return this;
+    }
     return new MetaInfoMap(map, asParent(), keyPrefix);
   }
 
   @Override
   public MetaInfo with(Properties properties, String keyPrefix) {
 
+    if (properties == null) {
+      return this;
+    }
     return new MetaInfoProperties(properties, asParent(), keyPrefix);
   }
 
