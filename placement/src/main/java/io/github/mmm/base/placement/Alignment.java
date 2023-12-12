@@ -274,7 +274,6 @@ public enum Alignment {
 
   /**
    * @return the corresponding {@link Direction} or {@code null} for {@link #CENTER}.
-   * @since 4.0.0
    */
   public Direction toDirection() {
 
@@ -307,7 +306,6 @@ public enum Alignment {
    *
    * @param direction is the {@link Direction}. May be {@code null} for {@link #CENTER}.
    * @return the corresponding {@link Alignment}.
-   * @since 4.0.0
    */
   public static Alignment fromDirection(Direction direction) {
 

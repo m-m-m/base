@@ -15,12 +15,13 @@ The module `io.github.mmm.base` (artifactId `mmm-base`) provides a minimal set o
 This library offers the following features:
 
 * `ApplicationException` for exceptions with `UUID`, `code`, and distinction between user and technical errors.
-* `CharFilter` interface
+* `CharFilter` interface and implementations
 * `Justification` to justify strings
 * Placements such as `Alignment`, `Direction`, `Orientation`, etc.
 * Converter and parser for `Temporal` values
 * `CompareOperator` to compate strings, numbers, temporals, or any other comparable object
 * `CaseHelper` to deal with lower/upper case
+* etc.
 
 == Usage
 
@@ -36,4 +37,67 @@ Maven Dependency:
 Module Dependency:
 ```java
   requires transitive io.github.mmm.base;
+```
+
+= mmm-base-metainfo
+
+image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base-metainfo.svg?label=Maven%20Central["Maven Central",link=https://search.maven.org/search?q=g:io.github.m-m-m]
+image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base-metainfo/javadoc.svg["base JavaDoc", link=https://javadoc.io/doc/io.github.m-m-m/mmm-base-metainfo]
+
+The module `io.github.mmm.base.metainfo` (artifactId `mmm-base-metainfo`) provides a minimal set of APIs for dealing with meta-information.
+
+== Features
+
+This library offers the following features:
+
+* `MetaInfo` interface to instantiate and access meta-information.
+* `MetaInfos` to annotate meta-information.
+
+== Usage
+
+Maven Dependency:
+```xml
+<dependency>
+  <groupId>io.github.m-m-m</groupId>
+  <artifactId>mmm-base-metainfo</artifactId>
+  <version>${mmm.base.version}</version>
+</dependency>
+```
+
+Module Dependency:
+```java
+  requires transitive io.github.mmm.base.metainfo;
+```
+
+= mmm-base-placement
+
+image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base-placement.svg?label=Maven%20Central["Maven Central",link=https://search.maven.org/search?q=g:io.github.m-m-m]
+image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base-placement/javadoc.svg["base JavaDoc", link=https://javadoc.io/doc/io.github.m-m-m/mmm-base-placement]
+
+The module `io.github.mmm.base.placement` (artifactId `mmm-base-placement`) provides a enums for placement.
+
+== Features
+
+This library offers the following enums:
+
+* `Alignment` for 2-D alignments.
+* `Direction` for 2-D direction.
+* `HorizontalAlignment` for horizontal alignment (1-D).
+* `Orientation` with `HORIZONTAL` and `VERTICAL`.
+* `VerticalAlignment` for vertical alignment (1-D).
+
+== Usage
+
+Maven Dependency:
+```xml
+<dependency>
+  <groupId>io.github.m-m-m</groupId>
+  <artifactId>mmm-base-placement</artifactId>
+  <version>${mmm.base.version}</version>
+</dependency>
+```
+
+Module Dependency:
+```java
+  requires transitive io.github.mmm.base.placement;
 ```
