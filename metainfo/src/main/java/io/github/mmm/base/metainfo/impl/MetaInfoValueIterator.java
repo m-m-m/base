@@ -3,62 +3,56 @@
 package io.github.mmm.base.metainfo.impl;
 
 import java.util.Iterator;
-import java.util.NoSuchElementException;
+
+import io.github.mmm.base.collection.AbstractIterator;
 
 /**
  * Implementation of {@link Iterator} for {@link MetaInfoValue}.
  */
-public class MetaInfoValueIterator implements Iterator<String> {
+public class MetaInfoValueIterator extends AbstractIterator<String> {
+
+  private final MetaInfoValues values;
 
   private MetaInfoValue value;
 
   private Iterator<String> parentIterator;
 
-  private String next;
-
   /**
    * The constructor.
    *
    * @param values the {@link MetaInfoValues} to iterate.
+   * @param inherit - {@code true} to also iterate the inherited keys, {@code false} otherwise.
    */
-  public MetaInfoValueIterator(MetaInfoValues values) {
+  public MetaInfoValueIterator(MetaInfoValues values, boolean inherit) {
 
     super();
+    this.values = values;
     this.value = values.first;
-    if (values.parent != null) {
+    if (inherit && (values.parent != null)) {
       this.parentIterator = values.parent.iterator();
     }
-    this.next = findNext();
+    findFirst();
   }
 
-  private String findNext() {
+  @Override
+  protected String findNext() {
 
     if (this.value != null) {
       String key = this.value.key;
       this.value = this.value.next;
       return key;
-    } else if ((this.parentIterator != null) && this.parentIterator.hasNext()) {
-      return this.parentIterator.next();
+    } else if (this.parentIterator != null) {
+      while (this.parentIterator.hasNext()) {
+        String key = this.parentIterator.next();
+        // avoid iterating duplicated keys...
+        // inefficient solution but intended trade-off as MetaInfoValues is for small size with minimum memory overhead
+        if (this.values.getPlain(true, key) == null) {
+          return key;
+        }
+      }
     }
     this.parentIterator = null;
     return null;
-  }
-
-  @Override
-  public boolean hasNext() {
-
-    return this.next != null;
-  }
-
-  @Override
-  public String next() {
-
-    if (this.next == null) {
-      throw new NoSuchElementException();
-    }
-    String key = this.next;
-    this.next = findNext();
-    return key;
   }
 
 }

@@ -27,7 +27,7 @@ public final class MetaInfoEmpty extends AbstractMetaInfo {
   }
 
   @Override
-  public String getPlain(String key) {
+  public String getPlain(boolean inherit, String key) {
 
     return null;
   }
@@ -48,6 +48,12 @@ public final class MetaInfoEmpty extends AbstractMetaInfo {
   public MetaInfo with(String key, String value) {
 
     return new MetaInfoValues(new MetaInfoValue(key, value), null);
+  }
+
+  @Override
+  public MetaInfo with(String keyPrefix) {
+
+    return this;
   }
 
   @Override

@@ -2,11 +2,11 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.metainfo.impl;
 
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
+import io.github.mmm.base.collection.SingleElementIterator;
 import io.github.mmm.base.metainfo.MetaInfo;
 
 /**
@@ -14,7 +14,7 @@ import io.github.mmm.base.metainfo.MetaInfo;
  *
  * @since 1.0.0
  */
-public final class MetaInfoSingle extends InheritedMetaInfo {
+public final class MetaInfoSingle extends MetaInfoInherited {
 
   private final String key;
 
@@ -27,7 +27,7 @@ public final class MetaInfoSingle extends InheritedMetaInfo {
    * @param key the {@link #get(String) key}.
    * @param value the {@link #get(String) value}.
    */
-  public MetaInfoSingle(InheritedMetaInfo parent, String key, String value) {
+  public MetaInfoSingle(MetaInfoInherited parent, String key, String value) {
 
     super(parent, "");
     Objects.requireNonNull(key);
@@ -37,7 +37,7 @@ public final class MetaInfoSingle extends InheritedMetaInfo {
   }
 
   @Override
-  protected String getPlain(String metaKey) {
+  protected String getPlain(boolean inherit, String metaKey) {
 
     if (this.key.equals(metaKey)) {
       return this.value;
@@ -46,15 +46,9 @@ public final class MetaInfoSingle extends InheritedMetaInfo {
   }
 
   @Override
-  protected Set<String> getKeysPlain() {
+  protected Iterator<String> plainIterator() {
 
-    return Collections.singleton(this.key);
-  }
-
-  @Override
-  protected int getSizePlain() {
-
-    return 1;
+    return new SingleElementIterator<>(this.key);
   }
 
   @Override
@@ -68,6 +62,12 @@ public final class MetaInfoSingle extends InheritedMetaInfo {
       }
     }
     return size;
+  }
+
+  @Override
+  public boolean isEmpty() {
+
+    return false;
   }
 
 }

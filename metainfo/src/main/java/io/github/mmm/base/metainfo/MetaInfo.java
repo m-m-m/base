@@ -199,7 +199,7 @@ public interface MetaInfo extends Iterable<String> {
    */
   default boolean isEmpty() {
 
-    return size() == 0;
+    return !iterator().hasNext();
   }
 
   /**
@@ -208,6 +208,17 @@ public interface MetaInfo extends Iterable<String> {
   default MetaInfo getParent() {
 
     return null;
+  }
+
+  /**
+   * @return the prefix for the {@link #get(String) keys} as namespace. E.g. if the key prefix is "spring.datasource."
+   *         and you call {@link #get(String)} with "password" it will return the property for the key
+   *         "spring.datasource.password" from the underlying mapping. The default key prefix is the empty
+   *         {@link String}.
+   */
+  default String getKeyPrefix() {
+
+    return "";
   }
 
   /**
@@ -233,9 +244,7 @@ public interface MetaInfo extends Iterable<String> {
 
   /**
    * @param map the {@link Map} with the meta-information to wrap.
-   * @param keyPrefix the prefix for the {@link #get(String) keys} as namespace. E.g. when using "spring.datasource."
-   *        and you call {@link #get(String)} with "password" it will return the property for the key
-   *        "spring.datasource.password" from the given {@link Properties}.
+   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
    * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
    */
   MetaInfo with(Map<String, String> map, String keyPrefix);
@@ -257,9 +266,7 @@ public interface MetaInfo extends Iterable<String> {
    * the parent defaults) the result will be inefficient.
    *
    * @param properties the {@link Properties} with the meta-information to wrap.
-   * @param keyPrefix the prefix for the {@link #get(String) keys} as namespace. E.g. when using "spring.datasource."
-   *        and you call {@link #get(String)} with "password" it will return the property for the key
-   *        "spring.datasource.password" from the given {@link Properties}.
+   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
    * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
    */
   MetaInfo with(Properties properties, String keyPrefix);
@@ -286,6 +293,14 @@ public interface MetaInfo extends Iterable<String> {
    * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
    */
   MetaInfo with(MetaInfos metaValues);
+
+  /**
+   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
+   * @return a new {@link MetaInfo} that wraps this {@link MetaInfo} with all its parents using the given
+   *         {@link #getKeyPrefix() key prefix}. The resulting {@link MetaInfo} will return {@code null} as
+   *         {@link #getParent() parent}.
+   */
+  MetaInfo with(String keyPrefix);
 
   /**
    * @return an instance of {@link MetaInfo} that is {@link #isEmpty() empty}.

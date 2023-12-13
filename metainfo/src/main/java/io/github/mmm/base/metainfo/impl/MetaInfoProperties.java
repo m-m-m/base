@@ -14,7 +14,7 @@ import io.github.mmm.base.metainfo.MetaInfo;
  *
  * @since 1.0.0
  */
-public final class MetaInfoProperties extends InheritedMetaInfo {
+public final class MetaInfoProperties extends MetaInfoCollection {
 
   private final Properties properties;
 
@@ -25,7 +25,7 @@ public final class MetaInfoProperties extends InheritedMetaInfo {
    * @param parent the {@link #getParent() parent}.
    * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
    */
-  public MetaInfoProperties(Properties properties, InheritedMetaInfo parent, String keyPrefix) {
+  public MetaInfoProperties(Properties properties, MetaInfoInherited parent, String keyPrefix) {
 
     super(parent, keyPrefix);
     Objects.requireNonNull(properties);
@@ -39,7 +39,7 @@ public final class MetaInfoProperties extends InheritedMetaInfo {
   }
 
   @Override
-  protected String getPlain(String key) {
+  protected String getPlain(boolean inherit, String key) {
 
     return this.properties.getProperty(key);
   }

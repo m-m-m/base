@@ -15,7 +15,7 @@ import io.github.mmm.base.metainfo.MetaInfos;
  *
  * @since 1.0.0
  */
-public final class MetaInfoValues extends InheritedMetaInfo {
+public final class MetaInfoValues extends MetaInfoInherited {
 
   final MetaInfoValue first;
 
@@ -27,7 +27,7 @@ public final class MetaInfoValues extends InheritedMetaInfo {
    * @param first the first {@link MetaInfoValue}.
    * @param parent the {@link #getParent() parent}.
    */
-  public MetaInfoValues(MetaInfoValue first, InheritedMetaInfo parent) {
+  public MetaInfoValues(MetaInfoValue first, MetaInfoInherited parent) {
 
     super(parent, "");
     this.first = first;
@@ -55,7 +55,7 @@ public final class MetaInfoValues extends InheritedMetaInfo {
   }
 
   @Override
-  protected String getPlain(String key) {
+  protected String getPlain(boolean inherit, String key) {
 
     MetaInfoValue current = this.first;
     while (current != null) {
@@ -68,27 +68,15 @@ public final class MetaInfoValues extends InheritedMetaInfo {
   }
 
   @Override
-  protected Set<String> getKeysPlain() {
-
-    Set<String> keys = new HashSet<>(this.size);
-    MetaInfoValue current = this.first;
-    while (current != null) {
-      keys.add(current.key);
-      current = current.next;
-    }
-    return keys;
-  }
-
-  @Override
-  protected int getSizePlain() {
-
-    return this.size;
-  }
-
-  @Override
   public Iterator<String> iterator() {
 
-    return new MetaInfoValueIterator(this);
+    return new MetaInfoValueIterator(this, true);
+  }
+
+  @Override
+  protected Iterator<String> plainIterator() {
+
+    return new MetaInfoValueIterator(this, false);
   }
 
   @Override
@@ -98,6 +86,12 @@ public final class MetaInfoValues extends InheritedMetaInfo {
       return this.size;
     }
     return super.size();
+  }
+
+  @Override
+  public boolean isEmpty() {
+
+    return false;
   }
 
   @Override

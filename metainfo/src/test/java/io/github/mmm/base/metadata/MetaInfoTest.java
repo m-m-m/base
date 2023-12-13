@@ -1,5 +1,6 @@
 package io.github.mmm.base.metadata;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
@@ -123,6 +124,32 @@ public class MetaInfoTest extends Assertions {
     assertThat(metaInfo.getAsBoolean(true, "key2", false)).isTrue();
     assertThat(metaInfo.get("key3")).isEqualTo("magicValue");
     assertThat(toString(metaInfo)).isEqualTo("{key1=42, key2=true, key3=magicValue}");
+  }
+
+  /** Test of {@link MetaInfo#with(String)}. */
+  @Test
+  public void testWithPrefix() {
+
+    // arrange
+    Map<String, String> map = Map.of("prefix.name", "Name", "other.value", "Value", "prefix.version", "1.0", "prefix",
+        "Prefix");
+    MetaInfo metaInfo = MetaInfo.empty().with(map);
+    // act
+    metaInfo = metaInfo.with("prefix.");
+    // assert
+    assertThat(metaInfo.size()).isEqualTo(2);
+    assertThat(metaInfo).containsExactlyInAnyOrder("name", "version");
+    assertThat(metaInfo.get("name")).isEqualTo("Name");
+    assertThat(metaInfo.get("version")).isEqualTo("1.0");
+    assertThat(toString(metaInfo)).isEqualTo("{name=Name, version=1.0}");
+    assertThat(metaInfo.getParent()).isNull();
+    // and act
+    map = new HashMap<>(map);
+    map.put("version", "1.1");
+    MetaInfo metaInfo2 = metaInfo.with(map);
+    // and assert
+    assertThat(toString(metaInfo2))
+        .isEqualTo("{name=Name, other.value=Value, prefix=Prefix, prefix.name=Name, prefix.version=1.0, version=1.1}");
   }
 
 }

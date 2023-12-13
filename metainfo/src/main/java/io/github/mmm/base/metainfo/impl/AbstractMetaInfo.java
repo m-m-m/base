@@ -24,30 +24,45 @@ public abstract class AbstractMetaInfo implements MetaInfo {
   }
 
   /**
-   * @return {@code this} instance as {@link InheritedMetaInfo} to be used as {@link #getParent() parent} of a new child
+   * @return {@code this} instance as {@link MetaInfoInherited} to be used as {@link #getParent() parent} of a new child
    *         (see {@code with} methods) or {@code null} if this is the empty instance.
    */
-  protected InheritedMetaInfo asParent() {
+  protected MetaInfoInherited asParent() {
 
     return null;
   }
 
   /**
+   * @param inherit the inherit flag from {@link #get(boolean, String)}. Typically to be ignored but may be used in
+   *        special cases.
    * @param key the key of the requested meta-information.
    * @return the value of the meta-information for the given {@code key} without inheritance from {@link #getParent()
    *         parent}. Will be {@code null} if no value is defined for the given {@code key}.
    * @see #get(boolean, String)
    */
-  protected abstract String getPlain(String key);
+  protected abstract String getPlain(boolean inherit, String key);
 
   @Override
   public String get(boolean inherit, String key) {
 
-    String value = getPlain(getKey(key));
+    return get(inherit, key, null);
+  }
+
+  /**
+   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
+   *        only return plain meta-information defined in this {@link MetaInfo} itself.
+   * @param key the key of the requested meta-information.
+   * @param stop the ancestor {@link AbstractMetaInfo} where to stop inheriting.
+   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
+   *         for the given {@code key}.
+   */
+  public String get(boolean inherit, String key, MetaInfo stop) {
+
+    String value = getPlain(inherit, qualifyKey(key));
 
     if ((value == null) && inherit) {
       AbstractMetaInfo parent = getParent();
-      if (parent != null) {
+      if ((parent != null) && (parent != stop)) {
         value = parent.get(true, key);
       }
     }
@@ -55,23 +70,45 @@ public abstract class AbstractMetaInfo implements MetaInfo {
   }
 
   /**
-   * @return the prefix for the {@link #get(String) keys} as namespace. E.g. when using "spring.datasource." and you
-   *         call {@link #get(String)} with "password" it will return the property for the key
-   *         "spring.datasource.password" from the given {@link Properties}. The default value is the empty
-   *         {@link String}.
+   * @param key the raw key.
+   * @return the qualified key with the {@link #getKeyPrefix() key prefix} prepended.
    */
-  public String getKeyPrefix() {
+  protected String qualifyKey(String key) {
 
-    return null;
+    String keyPrefix = getKeyPrefix();
+    if (keyPrefix.isEmpty() || (key == null)) {
+      return key;
+    }
+    return keyPrefix + key;
   }
 
   /**
    * @param key the raw key.
-   * @return the qualified key with the {@link #getKeyPrefix() key prefix}.
+   * @return the unqualified key with the {@link #getKeyPrefix() key prefix} removed. Will be {@code null} if the key
+   *         was {@code null} or the key did not {@link String#startsWith(String) start with} the {@link #getKeyPrefix()
+   *         key prefix}.
    */
-  protected String getKey(String key) {
+  protected String unqualifyKey(String key) {
 
-    return key;
+    String keyPrefix = getKeyPrefix();
+    if (keyPrefix.isEmpty()) {
+      return key;
+    }
+    if ((key != null) && key.startsWith(keyPrefix)) {
+      return key.substring(keyPrefix.length());
+    }
+    return null;
+  }
+
+  @Override
+  public int size() {
+
+    int size = 0;
+    for (String key : this) {
+      assert (key != null);
+      size++;
+    }
+    return size;
   }
 
   @Override

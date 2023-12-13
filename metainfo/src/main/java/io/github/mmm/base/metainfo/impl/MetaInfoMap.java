@@ -13,9 +13,9 @@ import io.github.mmm.base.metainfo.MetaInfo;
  *
  * @since 1.0.0
  */
-public final class MetaInfoMap extends InheritedMetaInfo {
+public final class MetaInfoMap extends MetaInfoCollection {
 
-  /** @see #getPlain(String) */
+  /** @see #getPlain(boolean, String) */
   protected final Map<String, String> map;
 
   /**
@@ -35,7 +35,7 @@ public final class MetaInfoMap extends InheritedMetaInfo {
    * @param parent the {@link #getParent() parent}.
    * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
    */
-  public MetaInfoMap(Map<String, String> map, InheritedMetaInfo parent, String keyPrefix) {
+  public MetaInfoMap(Map<String, String> map, MetaInfoInherited parent, String keyPrefix) {
 
     super(parent, keyPrefix);
     Objects.requireNonNull(map);
@@ -49,15 +49,9 @@ public final class MetaInfoMap extends InheritedMetaInfo {
   }
 
   @Override
-  protected String getPlain(String key) {
+  protected String getPlain(boolean inherit, String key) {
 
     return this.map.get(key);
-  }
-
-  @Override
-  protected int getSizePlain() {
-
-    return this.map.size();
   }
 
 }
