@@ -309,4 +309,12 @@ public interface MetaInfo extends Iterable<String> {
 
     return MetaInfoEmpty.INSTANCE;
   }
+
+  /**
+   * @return the {@link MetaInfo} with the configuration for the running application.
+   */
+  static MetaInfo config() {
+
+    return io.github.mmm.base.metainfo.impl.AppConfigHolder.CONFIG;
+  }
 }
