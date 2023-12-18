@@ -60,7 +60,9 @@ public class ObjectNotFoundException extends ApplicationException {
     sb.append(object);
     if (key != null) {
       sb.append(" for key ");
+      sb.append('\'');
       sb.append(key);
+      sb.append('\'');
     }
     sb.append(".");
     return sb.toString();

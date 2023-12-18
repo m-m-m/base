@@ -45,7 +45,7 @@ public abstract class AbstractMetaInfo implements MetaInfo {
   @Override
   public String get(boolean inherit, String key) {
 
-    return get(inherit, key, null);
+    return getInternal(inherit, key, null);
   }
 
   /**
@@ -56,7 +56,7 @@ public abstract class AbstractMetaInfo implements MetaInfo {
    * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
    *         for the given {@code key}.
    */
-  public String get(boolean inherit, String key, MetaInfo stop) {
+  public String getInternal(boolean inherit, String key, MetaInfo stop) {
 
     String value = getPlain(inherit, qualifyKey(key));
 

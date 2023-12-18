@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import io.github.mmm.base.exception.ObjectNotFoundException;
 import io.github.mmm.base.metainfo.MetaInfo;
 import io.github.mmm.base.metainfo.MetaInfos;
 import io.github.mmm.base.metainfo.impl.AbstractMetaInfo;
@@ -37,6 +38,25 @@ public class MetaInfoTest extends Assertions {
     assertThat(metaInfo.get("key2")).isEqualTo(null);
     assertThat(metaInfo.getParent()).isNull();
     assertThat(toString(metaInfo)).isEqualTo("{}");
+  }
+
+  /** Test of {@link MetaInfo#getRequired(String)}. */
+  @Test
+  public void testGetRequired() {
+
+    // arrange
+    // act
+    MetaInfo metaInfo = MetaInfo.empty().with(Map.of("key", "value", "long", "123456789012345567", "boolean", "true"));
+    // assert
+    assertThat(metaInfo.getRequired("key")).isEqualTo("value");
+    assertThat(metaInfo.getAsLongRequired("long")).isEqualTo(123456789012345567L);
+    assertThat(metaInfo.getAsBooleanRequired("boolean")).isTrue();
+    try {
+      metaInfo.getRequired("key2");
+      failBecauseExceptionWasNotThrown(ObjectNotFoundException.class);
+    } catch (ObjectNotFoundException e) {
+      assertThat(e).hasMessageContaining("Could not find MetaInfo-value for key 'key2'.");
+    }
   }
 
   /** Test of {@link MetaInfo#with(String, String)}. */
