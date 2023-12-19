@@ -29,8 +29,6 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.compare;
 
-  exports io.github.mmm.base.config;
-
   exports io.github.mmm.base.exception;
 
   exports io.github.mmm.base.filter;
@@ -48,6 +46,8 @@ module io.github.mmm.base {
   exports io.github.mmm.base.properties;
 
   exports io.github.mmm.base.range;
+
+  exports io.github.mmm.base.service;
 
   exports io.github.mmm.base.sort;
 

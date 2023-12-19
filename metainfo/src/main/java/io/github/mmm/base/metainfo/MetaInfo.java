@@ -115,14 +115,7 @@ public interface MetaInfo extends Iterable<String> {
    *         for the given {@code key}.
    * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
    */
-  default String get(boolean inherit, boolean required, String key) {
-
-    String value = get(inherit, key);
-    if (value == null) {
-      throw new ObjectNotFoundException("MetaInfo-value", key);
-    }
-    return value;
-  }
+  String get(boolean inherit, boolean required, String key);
 
   /**
    * @param key the key of the requested meta-information.

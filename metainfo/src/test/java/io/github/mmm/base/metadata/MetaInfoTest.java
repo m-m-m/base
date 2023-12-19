@@ -163,6 +163,13 @@ public class MetaInfoTest extends Assertions {
     assertThat(metaInfo.get("version")).isEqualTo("1.0");
     assertThat(toString(metaInfo)).isEqualTo("{name=Name, version=1.0}");
     assertThat(metaInfo.getParent()).isNull();
+    try {
+      metaInfo.getRequired("key2");
+      failBecauseExceptionWasNotThrown(ObjectNotFoundException.class);
+    } catch (ObjectNotFoundException e) {
+      assertThat(e.getNlsMessage().getMessage()).isEqualTo("Could not find MetaInfo-value for key 'prefix.key2'.");
+    }
+
     // and act
     map = new HashMap<>(map);
     map.put("version", "1.1");

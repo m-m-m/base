@@ -7,6 +7,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import io.github.mmm.base.exception.ObjectNotFoundException;
 import io.github.mmm.base.metainfo.MetaInfo;
 import io.github.mmm.base.metainfo.MetaInfos;
 
@@ -46,6 +47,16 @@ public abstract class AbstractMetaInfo implements MetaInfo {
   public String get(boolean inherit, String key) {
 
     return getInternal(inherit, key, null);
+  }
+
+  @Override
+  public String get(boolean inherit, boolean required, String key) {
+
+    String value = get(inherit, key);
+    if (value == null) {
+      throw new ObjectNotFoundException("MetaInfo-value", qualifyKey(key));
+    }
+    return value;
   }
 
   /**
