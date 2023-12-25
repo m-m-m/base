@@ -44,7 +44,7 @@ public abstract class ApplicationException extends RuntimeException implements L
   /**
    * The constructor.
    *
-   * @param message the {@link #getMessage() message} describing the problem briefly.
+   * @param message the {@link #getLocalizedMessage() message} describing the problem briefly.
    */
   public ApplicationException(Localizable message) {
 
@@ -67,7 +67,7 @@ public abstract class ApplicationException extends RuntimeException implements L
   /**
    * The constructor.
    *
-   * @param message the {@link #getMessage() message} describing the problem briefly.
+   * @param message the {@link #getLocalizedMessage() message} describing the problem briefly.
    * @param cause is the {@link #getCause() cause} of this exception.
    */
   public ApplicationException(Localizable message, Throwable cause) {
@@ -91,7 +91,7 @@ public abstract class ApplicationException extends RuntimeException implements L
   /**
    * The constructor.
    *
-   * @param message the {@link #getMessage() message} describing the problem briefly.
+   * @param message the {@link #getLocalizedMessage() message} describing the problem briefly.
    * @param cause is the {@link #getCause() cause} of this exception. May be <code>null</code>.
    * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
    *        {@link Throwable} or as new {@link UUID}).
