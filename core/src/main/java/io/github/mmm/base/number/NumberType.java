@@ -5,21 +5,23 @@ package io.github.mmm.base.number;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import io.github.mmm.base.lang.ValueType;
+
 /**
  * A {@link NumberType} represents a specific {@link Number} {@link Class}. It allows to check attributes like
  * {@link #isDecimal()} or {@link #getExactness()}. <br>
- * Further it acts as factory to create according numbers {@link #valueOf(String) from string} or
- * {@link #valueOf(Number) from number}. <br>
+ * Further it acts as factory to create according numbers {@link #parse(String) from string} or {@link #valueOf(Number)
+ * from number}. <br>
  * This is a class and NOT an {@link Enum} to be extensible.
  *
  * @param <N> type of the {@link #getType() represented number-class}.
  *
  * @since 1.0.0
  */
-public abstract class NumberType<N extends Number> {
+public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   /** The {@link NumberType} for {@link Byte}. */
-  public static final NumberType<Byte> BYTE = new NumberType<>(Byte.class, 1, Byte.valueOf(Byte.MIN_VALUE),
+  public static final NumberType<Byte> BYTE = new NumberType<>(Byte.class, byte.class, 1, Byte.valueOf(Byte.MIN_VALUE),
       Byte.valueOf(Byte.MAX_VALUE)) {
 
     @Override
@@ -35,7 +37,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Byte valueOf(String number, int radix) {
+    public Byte parse(String number, int radix) {
 
       return Byte.valueOf(number, radix);
     }
@@ -43,8 +45,8 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Short}. */
-  public static final NumberType<Short> SHORT = new NumberType<>(Short.class, 2, Short.valueOf(Short.MIN_VALUE),
-      Short.valueOf(Short.MAX_VALUE)) {
+  public static final NumberType<Short> SHORT = new NumberType<>(Short.class, short.class, 2,
+      Short.valueOf(Short.MIN_VALUE), Short.valueOf(Short.MAX_VALUE)) {
 
     @Override
     protected Short convert(Number number, boolean exact) {
@@ -59,7 +61,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Short valueOf(String number, int radix) {
+    public Short parse(String number, int radix) {
 
       return Short.valueOf(number, radix);
     }
@@ -67,7 +69,7 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Integer}. */
-  public static final NumberType<Integer> INTEGER = new NumberType<>(Integer.class, 3,
+  public static final NumberType<Integer> INTEGER = new NumberType<>(Integer.class, int.class, 3,
       Integer.valueOf(Integer.MIN_VALUE), Integer.valueOf(Integer.MAX_VALUE)) {
 
     @Override
@@ -83,7 +85,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Integer valueOf(String number, int radix) {
+    public Integer parse(String number, int radix) {
 
       return Integer.valueOf(number, radix);
     }
@@ -91,7 +93,7 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Long}. */
-  public static final NumberType<Long> LONG = new NumberType<>(Long.class, 4, Long.valueOf(Long.MIN_VALUE),
+  public static final NumberType<Long> LONG = new NumberType<>(Long.class, long.class, 4, Long.valueOf(Long.MIN_VALUE),
       Long.valueOf(Long.MAX_VALUE)) {
 
     @Override
@@ -107,7 +109,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Long valueOf(String number, int radix) {
+    public Long parse(String number, int radix) {
 
       return Long.valueOf(number, radix);
     }
@@ -123,9 +125,9 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Float}. */
-  public static final NumberType<Float> FLOAT = new NumberType<>(Float.class, 5, Float.valueOf(-Float.MAX_VALUE),
-      Float.valueOf(Float.MAX_VALUE), Float.valueOf(Float.NaN), Float.valueOf(Float.POSITIVE_INFINITY),
-      Float.valueOf(Float.NEGATIVE_INFINITY)) {
+  public static final NumberType<Float> FLOAT = new NumberType<>(Float.class, float.class, 5,
+      Float.valueOf(-Float.MAX_VALUE), Float.valueOf(Float.MAX_VALUE), Float.valueOf(Float.NaN),
+      Float.valueOf(Float.POSITIVE_INFINITY), Float.valueOf(Float.NEGATIVE_INFINITY)) {
 
     @Override
     protected Float convert(Number number, boolean exact) {
@@ -140,7 +142,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Float valueOf(String number, int radix) {
+    public Float parse(String number, int radix) {
 
       if (radix == 16) {
         number = "0x" + number;
@@ -167,9 +169,9 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link Double}. */
-  public static final NumberType<Double> DOUBLE = new NumberType<>(Double.class, 6, Double.valueOf(-Double.MAX_VALUE),
-      Double.valueOf(Double.MAX_VALUE), Double.valueOf(Double.NaN), Double.valueOf(Double.POSITIVE_INFINITY),
-      Double.valueOf(Double.NEGATIVE_INFINITY)) {
+  public static final NumberType<Double> DOUBLE = new NumberType<>(Double.class, double.class, 6,
+      Double.valueOf(-Double.MAX_VALUE), Double.valueOf(Double.MAX_VALUE), Double.valueOf(Double.NaN),
+      Double.valueOf(Double.POSITIVE_INFINITY), Double.valueOf(Double.NEGATIVE_INFINITY)) {
 
     @Override
     protected Double convert(Number number, boolean exact) {
@@ -201,7 +203,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public Double valueOf(String number, int radix) {
+    public Double parse(String number, int radix) {
 
       if (radix == 16) {
         number = "0x" + number;
@@ -228,7 +230,7 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link BigInteger}. */
-  public static final NumberType<BigInteger> BIG_INTEGER = new NumberType<>(BigInteger.class, 7, null, null) {
+  public static final NumberType<BigInteger> BIG_INTEGER = new NumberType<>(BigInteger.class, null, 7, null, null) {
 
     @Override
     protected BigInteger convert(Number number, boolean exact) {
@@ -244,7 +246,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public BigInteger valueOf(String number, int radix) {
+    public BigInteger parse(String number, int radix) {
 
       return new BigInteger(number, radix);
     }
@@ -280,7 +282,7 @@ public abstract class NumberType<N extends Number> {
   };
 
   /** The {@link NumberType} for {@link BigDecimal}. */
-  public static final NumberType<BigDecimal> BIG_DECIMAL = new NumberType<>(BigDecimal.class, 8, null, null) {
+  public static final NumberType<BigDecimal> BIG_DECIMAL = new NumberType<>(BigDecimal.class, null, 8, null, null) {
 
     @Override
     protected BigDecimal convert(Number number, boolean exact) {
@@ -289,7 +291,7 @@ public abstract class NumberType<N extends Number> {
     }
 
     @Override
-    public BigDecimal valueOf(String number, int radix) {
+    public BigDecimal parse(String number, int radix) {
 
       if (radix != 10) {
         throw illegalRadixException(radix);
@@ -332,8 +334,6 @@ public abstract class NumberType<N extends Number> {
   private static final NumberType<?>[] TYPES = { null, BYTE, SHORT, INTEGER, LONG, FLOAT, DOUBLE, BIG_INTEGER,
   BIG_DECIMAL };
 
-  private final Class<N> type;
-
   final int exactness;
 
   private final N min;
@@ -354,19 +354,21 @@ public abstract class NumberType<N extends Number> {
    * The constructor.
    *
    * @param type the {@link #getType() type}.
+   * @param primitiveType the {@link #getPrimitiveType() primitive type}.
    * @param exactness the {@link #getExactness() exactness}.
    * @param min the {@link #getMin() minimum value}.
    * @param max the {@link #getMax() maximum value}.
    */
-  protected NumberType(Class<N> type, int exactness, N min, N max) {
+  protected NumberType(Class<N> type, Class<N> primitiveType, int exactness, N min, N max) {
 
-    this(type, exactness, min, max, null, null, null);
+    this(type, primitiveType, exactness, min, max, null, null, null);
   }
 
   /**
    * The constructor.
    *
    * @param type the {@link #getType() type}.
+   * @param primitiveType the {@link #getPrimitiveType() primitive type}.
    * @param exactness the {@link #getExactness() exactness}.
    * @param min the {@link #getMin() minimum value}.
    * @param max the {@link #getMax() maximum value}.
@@ -374,10 +376,10 @@ public abstract class NumberType<N extends Number> {
    * @param positiveInfinity the {@link #getPositiveInfinity() positive infinity value}.
    * @param negativeInfinity the {@link #getNegativeInfinity() negative infinity value}.
    */
-  protected NumberType(Class<N> type, int exactness, N min, N max, N nan, N positiveInfinity, N negativeInfinity) {
+  protected NumberType(Class<N> type, Class<N> primitiveType, int exactness, N min, N max, N nan, N positiveInfinity,
+      N negativeInfinity) {
 
-    super();
-    this.type = type;
+    super(type, primitiveType);
     this.exactness = exactness;
     this.min = min;
     this.max = max;
@@ -386,14 +388,6 @@ public abstract class NumberType<N extends Number> {
     this.nan = nan;
     this.positiveInfinity = positiveInfinity;
     this.negativeInfinity = negativeInfinity;
-  }
-
-  /**
-   * @return the {@link Class} reflecting the {@link Number} represented by this {@link NumberType}.
-   */
-  public Class<N> getType() {
-
-    return this.type;
   }
 
   /**
@@ -492,9 +486,10 @@ public abstract class NumberType<N extends Number> {
    * @return the parsed number of the according {@link #getType() type}.
    * @throws NumberFormatException if the given {@link String} has an invalid format for this {@link #getType() type}.
    */
-  public N valueOf(String number) throws NumberFormatException {
+  @Override
+  public N parse(String number) throws NumberFormatException {
 
-    return valueOf(number, 10);
+    return parse(number, 10);
   }
 
   /**
@@ -505,7 +500,7 @@ public abstract class NumberType<N extends Number> {
    * @throws IllegalArgumentException if the given {@code radix} is not supported. The radix {@code 10} is always
    *         supported, and {@code 16} is supported for types other than {@link #BIG_DECIMAL}.
    */
-  public abstract N valueOf(String number, int radix) throws NumberFormatException;
+  public abstract N parse(String number, int radix) throws NumberFormatException;
 
   /**
    * @param number the {@link Number} to format a {@link String}.
@@ -523,6 +518,7 @@ public abstract class NumberType<N extends Number> {
     if (number == null) {
       return null;
     }
+    // overridden for Long, BigInteger and decimal types
     return Integer.toString(number.intValue(), radix);
   }
 

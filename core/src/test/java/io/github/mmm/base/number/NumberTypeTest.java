@@ -22,14 +22,14 @@ public class NumberTypeTest extends Assertions {
 
     assertThat(type.getType()).isEqualTo(value.getClass());
     assertThat(type).isSameAs(NumberType.ofExactness(type.getExactness()));
-    assertThat(type.valueOf(value.toString())).isEqualTo(value);
+    assertThat(type.parse(value.toString())).isEqualTo(value);
     if (type.getExactness() < 7) {
       Double d = Double.valueOf(value.doubleValue());
       assertThat(type.valueOf(d)).isEqualTo(value);
     }
     assertThat(type.valueOf(value)).isSameAs(value);
     try {
-      type.valueOf("illegal number");
+      type.parse("illegal number");
       failBecauseExceptionWasNotThrown(NumberFormatException.class);
     } catch (NumberFormatException e) {
     }
