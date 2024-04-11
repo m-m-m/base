@@ -195,12 +195,46 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testSimplifyMin() {
 
-    NumberType<Integer> min = NumberType.INTEGER;
-    Integer one = min.getOne();
+    NumberType<Integer> integer = NumberType.INTEGER;
+    Integer one = integer.getOne();
     for (int exactness = NumberType.BYTE.getExactness(); exactness <= NumberType.BIG_DECIMAL
         .getExactness(); exactness++) {
       NumberType t = NumberType.ofExactness(exactness);
-      assertThat(NumberType.simplify(t.getOne(), min)).isEqualTo(one);
+      assertThat(NumberType.simplify(t.getOne(), integer)).isEqualTo(one);
     }
+  }
+
+  @Test
+  public void testWrap() {
+
+    // already within bounds
+    checkWrapInt(5, 0, 10, 5);
+    checkWrapInt(10, 0, 10, 10);
+    checkWrapInt(-10, -10, 10, -10);
+    // wrap above max
+    checkWrapInt(11, 0, 10, 0);
+    checkWrapInt(12, 0, 10, 1);
+    checkWrapInt(15, 0, 10, 4);
+    checkWrapInt(19, 0, 10, 8);
+    checkWrapInt(20, 0, 10, 9);
+    checkWrapInt(21, 0, 10, 10);
+    checkWrapInt(22, 0, 10, 10);
+    // wrap below min
+    checkWrapInt(-11, -10, 10, 10);
+    checkWrapInt(-12, -10, 10, 9);
+    checkWrapInt(-19, -10, 10, 2);
+    checkWrapInt(-20, -10, 10, 1);
+    checkWrapInt(-21, -10, 10, 0);
+    checkWrapInt(-22, -10, 10, -1);
+    checkWrapInt(-30, -10, 10, -9);
+    checkWrapInt(-31, -10, 10, -10);
+    checkWrapInt(-32, -10, 10, -10);
+
+  }
+
+  private void checkWrapInt(int value, int min, int max, int expected) {
+
+    Integer actual = NumberType.INTEGER.wrap(value, min, max);
+    assertThat(actual).isEqualTo(expected);
   }
 }

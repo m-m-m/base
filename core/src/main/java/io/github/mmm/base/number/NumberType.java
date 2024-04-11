@@ -672,6 +672,167 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
   }
 
   /**
+   * Wraps a value within a range from {@code min} to {@code max} using a simplified approach. The following table give
+   * you an easy overview of what this method does by examples:
+   * <table border="1">
+   * <tr>
+   * <th>value</th>
+   * <th>min</th>
+   * <th>max</th>
+   * <th>{@code wrap(value, min, max)}</th>
+   * </tr>
+   * <tr>
+   * <td>5</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>5</td>
+   * </tr>
+   * <tr>
+   * <td>11</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>0</td>
+   * </tr>
+   * <tr>
+   * <td>12</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>1</td>
+   * </tr>
+   * <tr>
+   * <td>15</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>4</td>
+   * </tr>
+   * <tr>
+   * <td>20</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>9</td>
+   * </tr>
+   * <tr>
+   * <td>21</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>10</td>
+   * </tr>
+   * <tr>
+   * <td>22</td>
+   * <td>0</td>
+   * <td>10</td>
+   * <td>10</td>
+   * </tr>
+   * <tr>
+   * <td>5</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>5</td>
+   * </tr>
+   * <tr>
+   * <td>-11</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>10</td>
+   * </tr>
+   * <tr>
+   * <td>-12</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>9</td>
+   * </tr>
+   * <tr>
+   * <td>-21</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>0</td>
+   * </tr>
+   * <tr>
+   * <td>-30</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>-9</td>
+   * </tr>
+   * <tr>
+   * <td>-31</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>-10</td>
+   * </tr>
+   * <tr>
+   * <td>-32</td>
+   * <td>-10</td>
+   * <td>10</td>
+   * <td>-10</td>
+   * </tr>
+   * <tr>
+   * <td>{@code null}</td>
+   * <td>*</td>
+   * <td>*</td>
+   * <td>{@code null}</td>
+   * </tr>
+   * <tr>
+   * <td>&lt;«min»</td>
+   * <td>«min»</td>
+   * <td>{@code null}</td>
+   * <td>«min»</td>
+   * </tr>
+   * <tr>
+   * <td>&gt;«max»</td>
+   * <td>{@code null}</td>
+   * <td>«max»</td>
+   * <td>«max»</td>
+   * </tr>
+   * <tr>
+   * <td>«value»</td>
+   * <td>{@code null}</td>
+   * <td>{@code null}</td>
+   * <td>«value»</td>
+   * </tr>
+   * </table>
+   *
+   * @param value the value to wrap.
+   * @param minimum the minimum allowed value or {@code null} for no lower bound.
+   * @param maximum the maximum allowed value or {@code null} for no upper bound.
+   * @return the given {@code value} if within the given bounds. Otherwise a wrapped value within the given bounds. If
+   *         the value lies further out of the bounds than the entire range, it will be set to {@code min} or
+   *         {@code max} accordingly.
+   */
+  public N wrap(N value, Number minimum, Number maximum) {
+
+    if (value == null) {
+      return null;
+    }
+    if (minimum != null) {
+      N delta = doSubtract(value, minimum);
+      if (isNegative(delta)) { // value < min?
+        N minValue = valueOf(minimum);
+        if (maximum != null) {
+          N result = add(maximum, add(delta, getOne()));
+          if (isGreaterEqual(result, minValue) && isLessEqual(result, valueOf(maximum))) {
+            return result;
+          }
+        }
+        return minValue;
+      }
+    }
+    if (maximum != null) {
+      N delta = doSubtract(value, maximum);
+      if (isPositive(delta)) { // value > max?
+        N maxValue = valueOf(maximum);
+        if (minimum != null) {
+          N result = add(minimum, subtract(delta, getOne()));
+          if (isGreaterEqual(result, valueOf(minimum)) && isLessEqual(result, maxValue)) {
+            return result;
+          }
+        }
+        return maxValue;
+      }
+    }
+    return value;
+  }
+
+  /**
    * @param n1 the first {@link Number} to compare.
    * @param n2 the second {@link Number} to compare.
    * @return {@code true} if the first {@link Number} is greater than the second.

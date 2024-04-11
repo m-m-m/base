@@ -2,7 +2,6 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.range;
 
-import java.util.Objects;
 import java.util.function.Function;
 
 /**
@@ -47,9 +46,11 @@ public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
     }
   };
 
-  private final V min;
+  /** @see #getMin() */
+  protected final V min;
 
-  private final V max;
+  /** @see #getMax() */
+  protected final V max;
 
   /**
    * The constructor.
@@ -82,30 +83,16 @@ public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
     return this.max;
   }
 
-  /**
-   * @param minimum the new {@link #getMin() minimum}.
-   * @return a new {@link RangeType} where the {@link #getMin() minimum} is set to the given {@code minimum} value.
-   */
   @Override
-  public RangeType<V> withMin(V minimum) {
+  public final Range<V> with(V minimum, V maximum) {
 
-    if (Objects.equals(this.min, minimum)) {
-      return this;
-    }
-    return new RangeType<>(minimum, this.max);
+    return super.with(minimum, maximum);
   }
 
-  /**
-   * @param maximum the new {@link #getMax() maximum}.
-   * @return a new {@link RangeType} where the {@link #getMax() maximum} is set to the given {@code maximum} value.
-   */
   @Override
-  public RangeType<V> withMax(V maximum) {
+  protected Range<V> create(V minimum, V maximum) {
 
-    if (Objects.equals(this.max, maximum)) {
-      return this;
-    }
-    return new RangeType<>(this.min, maximum);
+    return of(minimum, maximum);
   }
 
   /**

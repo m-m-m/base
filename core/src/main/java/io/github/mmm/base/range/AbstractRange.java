@@ -23,7 +23,6 @@ public abstract class AbstractRange<V extends Comparable<?>> implements Range<V>
       return range;
     }
     Comparator<? super V> comparator = getComparator();
-    Range<V> result = this;
     V min1 = getMin();
     V min2 = range.getMin();
     V min = min1;
@@ -54,15 +53,28 @@ public abstract class AbstractRange<V extends Comparable<?>> implements Range<V>
     }
     if ((min == min2) && (max == max2)) {
       return range;
+    } else if ((min == min1) && (max == max1)) {
+      return this;
     }
-    if (min != min1) {
-      result = result.withMin(min);
-    }
-    if (max != max1) {
-      result = result.withMax(max);
-    }
-    return result;
+    return with(min, max);
   }
+
+  @Override
+  public Range<V> with(V minimum, V maximum) {
+
+    if (Objects.equals(minimum, getMin()) && Objects.equals(maximum, getMax())) {
+      return this;
+    }
+    return create(minimum, maximum);
+  }
+
+  /**
+   * @param minimum the new {@link #getMin() minimum}.
+   * @param maximum the new {@link #getMax() maximum}.
+   * @return a new {@link Range} with the given boundaries.
+   * @see #with(Comparable, Comparable)
+   */
+  protected abstract Range<V> create(V minimum, V maximum);
 
   @Override
   public boolean equals(Object obj) {

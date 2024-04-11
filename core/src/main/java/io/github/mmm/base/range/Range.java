@@ -103,7 +103,6 @@ public interface Range<V extends Comparable<?>> {
     if (value == null) {
       return null;
     }
-
     Comparator<? super V> comparator = getComparator();
     int delta;
     V min = getMin();
@@ -127,15 +126,28 @@ public interface Range<V extends Comparable<?>> {
 
   /**
    * @param minimum the new {@link #getMin() minimum}.
-   * @return a new {@link RangeType} where the {@link #getMin() minimum} is set to the given {@code minimum} value.
+   * @param maximum the new {@link #getMax() maximum}.
+   * @return a new {@link Range} with the given boundaries.
    */
-  Range<V> withMin(V minimum);
+  Range<V> with(V minimum, V maximum);
+
+  /**
+   * @param minimum the new {@link #getMin() minimum}.
+   * @return a new {@link Range} where the {@link #getMin() minimum} is set to the given {@code minimum} value.
+   */
+  default Range<V> withMin(V minimum) {
+
+    return with(minimum, getMax());
+  }
 
   /**
    * @param maximum the new {@link #getMax() maximum}.
-   * @return a new {@link RangeType} where the {@link #getMax() maximum} is set to the given {@code maximum} value.
+   * @return a new {@link Range} where the {@link #getMax() maximum} is set to the given {@code maximum} value.
    */
-  Range<V> withMax(V maximum);
+  default Range<V> withMax(V maximum) {
+
+    return with(getMin(), maximum);
+  }
 
   /**
    * @param range the {@link Range} to build the intersection with.
