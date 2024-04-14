@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.function.Function;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.github.mmm.base.exception.DuplicateObjectException;
 import io.github.mmm.base.exception.ObjectNotFoundException;
 
@@ -16,6 +19,8 @@ import io.github.mmm.base.exception.ObjectNotFoundException;
  * @since 1.0.0
  */
 public final class ServiceHelper {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ServiceHelper.class);
 
   private ServiceHelper() {
 
@@ -47,12 +52,7 @@ public final class ServiceHelper {
       if (service == null) {
         service = currentService;
       } else {
-        if (unique) {
-          String type = serviceLoader.toString();
-          throw new IllegalStateException(type);
-        } else if (!currentService.getClass().getName().startsWith("io.github.mmm.")) {
-          service = currentService;
-        }
+        service = handleDuplicate(currentService, service, serviceLoader, unique, null);
       }
     }
     if (service == null) {
@@ -60,6 +60,41 @@ public final class ServiceHelper {
       throw new ObjectNotFoundException(type);
     }
     return service;
+  }
+
+  private static <S> S handleDuplicate(S current, S existing, ServiceLoader<S> serviceLoader, boolean requireUnique,
+      Object key) {
+
+    if (existing == null) {
+      return current;
+    } else if (current == null) {
+      return existing; // actually invalid usage but lets be tolerant
+    }
+    String currentType = current.getClass().getName();
+    String existingType = existing.getClass().getName();
+    boolean currentInternal = isInternalImplementation(currentType);
+    boolean existingInternal = isInternalImplementation(existingType);
+    if (requireUnique || (currentInternal == existingInternal)) {
+      String duplicateKey = serviceLoader.toString();
+      if (key != null) {
+        duplicateKey = duplicateKey + "[" + key + "]";
+      }
+      throw new DuplicateObjectException(existingType, duplicateKey, currentType);
+    }
+    if (currentInternal) {
+      current = existing;
+      String type = currentType;
+      currentType = existingType;
+      existingType = type;
+    }
+    LOG.info("For service {} the implementation {} is overridden with {}", serviceLoader.toString(), existingType,
+        currentType);
+    return current;
+  }
+
+  private static boolean isInternalImplementation(String className) {
+
+    return className.startsWith("io.github.mmm.");
   }
 
   /**
@@ -120,13 +155,23 @@ public final class ServiceHelper {
     int serviceCount = 0;
     for (S service : serviceLoader) {
       K key = keyFunction.apply(service);
-      S duplicate = services.put(key, service);
+      S duplicate = services.get(key);
+      if (duplicate == null) {
+        services.put(key, service);
+      } else {
+        S resolved = handleDuplicate(service, duplicate, serviceLoader, false, key);
+        if (resolved == service) {
+          services.put(key, service);
+        }
+      }
       if (duplicate != null) {
         throw new DuplicateObjectException(duplicate, key, service);
       }
       serviceCount++;
     }
-    if (serviceCount < min) {
+    if (serviceCount < min)
+
+    {
       throw new IllegalStateException("Required at least " + min + " service(s) for " + serviceLoader);
     }
   }
