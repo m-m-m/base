@@ -21,6 +21,14 @@ public class AppendableWriter extends Writer {
 
   /**
    * The constructor.
+   */
+  public AppendableWriter() {
+
+    this(new StringBuilder());
+  }
+
+  /**
+   * The constructor.
    *
    * @param appendable is the {@link Appendable} to adapt.
    */
