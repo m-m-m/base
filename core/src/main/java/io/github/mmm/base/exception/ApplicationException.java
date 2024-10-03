@@ -57,7 +57,7 @@ public abstract class ApplicationException extends RuntimeException implements L
    * The constructor.
    *
    * @param message the {@link #getMessage() message} describing the problem briefly.
-   * @param cause is the {@link #getCause() cause} of this exception.
+   * @param cause the {@link #getCause() cause} of this exception.
    */
   public ApplicationException(String message, Throwable cause) {
 
@@ -67,8 +67,8 @@ public abstract class ApplicationException extends RuntimeException implements L
   /**
    * The constructor.
    *
-   * @param message the {@link #getLocalizedMessage() message} describing the problem briefly.
-   * @param cause is the {@link #getCause() cause} of this exception.
+   * @param message the {@link #getNlsMessage() NLS message} describing the problem briefly.
+   * @param cause the {@link #getCause() cause} of this exception.
    */
   public ApplicationException(Localizable message, Throwable cause) {
 
@@ -79,7 +79,7 @@ public abstract class ApplicationException extends RuntimeException implements L
    * The constructor.
    *
    * @param message the {@link #getMessage() message} describing the problem briefly.
-   * @param cause is the {@link #getCause() cause} of this exception. May be <code>null</code>.
+   * @param cause the {@link #getCause() cause} of this exception. May be <code>null</code>.
    * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
    *        {@link Throwable} or as new {@link UUID}).
    */
@@ -91,8 +91,8 @@ public abstract class ApplicationException extends RuntimeException implements L
   /**
    * The constructor.
    *
-   * @param message the {@link #getLocalizedMessage() message} describing the problem briefly.
-   * @param cause is the {@link #getCause() cause} of this exception. May be <code>null</code>.
+   * @param message the {@link #getNlsMessage() NLS message} describing the problem briefly.
+   * @param cause the {@link #getCause() cause} of this exception. May be <code>null</code>.
    * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
    *        {@link Throwable} or as new {@link UUID}).
    */
@@ -136,18 +136,28 @@ public abstract class ApplicationException extends RuntimeException implements L
     return this.uuid;
   }
 
+  /**
+   * ATTENTION: Logging frameworks like logback do not follow Java exception standards and write {@link #toString()} but
+   * only {@link #getMessage()} of the {@link Exception} together with the stacktrace into the log. Since an
+   * {@link ApplicationException} contains additional information like {@link #getUuid() UUID} and {@link #getCode()
+   * code} that needs to be logged we are forced to return the message from this method in the following form:
+   *
+   * <pre>[{@link #getCode() «code»}: ]{@link #getNlsMessage() «message»}
+   * «uuid»
+   * </pre>
+   *
+   * Please note that the {@link #getCode() code} is omitted if the {@link #getCode()} method is not overridden and
+   * returning a custom code.<br>
+   * In case you want to get the plain exception message, you therefore need to either call
+   * {@link #getLocalizedMessage()} or use {@link #getNlsMessage()}.
+   *
+   * @return the untranslated message in the form specified above.
+   */
   @Override
   public String getMessage() {
 
     StringBuilder buffer = new StringBuilder();
-    getLocalizedMessage(Locale.ROOT, buffer);
-    buffer.append(System.lineSeparator());
-    buffer.append(this.uuid);
-    String code = getCode();
-    if (!getClass().getSimpleName().equals(code)) {
-      buffer.append(":");
-      buffer.append(code);
-    }
+    toString(Locale.ROOT, buffer, true);
     return buffer.toString();
   }
 
@@ -159,6 +169,12 @@ public abstract class ApplicationException extends RuntimeException implements L
   public Localizable getNlsMessage() {
 
     return this.message;
+  }
+
+  @Override
+  public String getLocalizedMessage() {
+
+    return getLocalizedMessage(Locale.getDefault());
   }
 
   @Override
@@ -196,22 +212,14 @@ public abstract class ApplicationException extends RuntimeException implements L
 
     try {
       synchronized (buffer) {
-        buffer.append(throwable.getClass().getName());
-        buffer.append(": ");
-        throwable.getLocalizedMessage(locale, buffer);
-        buffer.append(System.lineSeparator());
-        UUID uuid = throwable.getUuid();
-        if (uuid != null) {
-          buffer.append(uuid.toString());
-          buffer.append(System.lineSeparator());
-        }
+        throwable.toString(locale, buffer);
         StackTraceElement[] trace = throwable.getStackTrace();
         for (int i = 0; i < trace.length; i++) {
           buffer.append("\tat ");
           buffer.append(trace[i].toString());
           buffer.append(System.lineSeparator());
         }
-        for (Throwable suppressed : ((Throwable) throwable).getSuppressed()) {
+        for (Throwable suppressed : throwable.getSuppressed()) {
           buffer.append("Suppressed: ");
           buffer.append(System.lineSeparator());
           printStackTraceCause(suppressed, locale, buffer);
@@ -342,14 +350,21 @@ public abstract class ApplicationException extends RuntimeException implements L
    */
   public Appendable toString(Locale locale, Appendable appendable) {
 
+    return toString(locale, appendable, false);
+  }
+
+  private Appendable toString(Locale locale, Appendable appendable, boolean omitClass) {
+
     Appendable buffer = appendable;
     if (buffer == null) {
       buffer = new StringBuilder(32);
     }
     try {
       Class<?> myClass = getClass();
-      buffer.append(myClass.getName());
-      buffer.append(": ");
+      if (!omitClass) {
+        buffer.append(myClass.getName());
+        buffer.append(": ");
+      }
       String code = getCode();
       if (!myClass.getSimpleName().equals(code)) {
         buffer.append(code);

@@ -55,7 +55,7 @@ public class MetaInfoTest extends Assertions {
       metaInfo.getRequired("key2");
       failBecauseExceptionWasNotThrown(ObjectNotFoundException.class);
     } catch (ObjectNotFoundException e) {
-      assertThat(e).hasMessageContaining("Could not find MetaInfo-value for key 'key2'.");
+      assertThat(e).hasMessageContaining("Could not find MetaInfo-value for key 'key2'");
     }
   }
 
@@ -167,7 +167,7 @@ public class MetaInfoTest extends Assertions {
       metaInfo.getRequired("key2");
       failBecauseExceptionWasNotThrown(ObjectNotFoundException.class);
     } catch (ObjectNotFoundException e) {
-      assertThat(e.getNlsMessage().getMessage()).isEqualTo("Could not find MetaInfo-value for key 'prefix.key2'.");
+      assertThat(e.getNlsMessage().getMessage()).isEqualTo("Could not find MetaInfo-value for key 'prefix.key2'");
     }
 
     // and act

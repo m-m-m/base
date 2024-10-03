@@ -2,6 +2,8 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.exception;
 
+import java.util.Collection;
+
 import io.github.mmm.base.i18n.Localizable;
 
 /**
@@ -24,7 +26,7 @@ public class ObjectNotFoundException extends ApplicationException {
   /**
    * The constructor.
    *
-   * @param object is a description (e.g. the classname) of the object that was required but could not be found.
+   * @param object the description (e.g. the classname) of the object that was required but could NOT be found.
    */
   public ObjectNotFoundException(Object object) {
 
@@ -34,8 +36,8 @@ public class ObjectNotFoundException extends ApplicationException {
   /**
    * The constructor.
    *
-   * @param object is a description (e.g. the classname) of the object that was required but could not be found.
-   * @param key is the key to the required object.
+   * @param object the description (e.g. the classname) of the object that was required but could NOT be found.
+   * @param key the key to the required object.
    */
   public ObjectNotFoundException(Object object, Object key) {
 
@@ -45,16 +47,30 @@ public class ObjectNotFoundException extends ApplicationException {
   /**
    * The constructor.
    *
-   * @param object is a description (e.g. the classname) of the object that was required but could NOT be found.
-   * @param key is the key to the required object.
-   * @param cause is the {@link #getCause() cause} of this exception.
+   * @param object the description (e.g. the classname) of the object that was required but could NOT be found.
+   * @param key the key to the required object.
+   * @param cause the {@link #getCause() cause} of this exception.
    */
   public ObjectNotFoundException(Object object, Object key, Throwable cause) {
 
-    super(createMessage(object, key), cause);
+    this(object, key, null, cause);
   }
 
-  private static String createMessage(Object object, Object key) {
+  /**
+   * The constructor.
+   *
+   * @param object the description (e.g. the classname) of the object that was required but could NOT be found.
+   * @param key the key to the required object.
+   * @param options the available options (e.g. {@link Collection} of comma separated {@link String} of the available
+   *        keys).
+   * @param cause the {@link #getCause() cause} of this exception.
+   */
+  public ObjectNotFoundException(Object object, Object key, Object options, Throwable cause) {
+
+    super(createMessage(object, key, options), cause);
+  }
+
+  private static String createMessage(Object object, Object key, Object options) {
 
     StringBuilder sb = new StringBuilder("Could not find ");
     sb.append(object);
@@ -64,7 +80,10 @@ public class ObjectNotFoundException extends ApplicationException {
       sb.append(key);
       sb.append('\'');
     }
-    sb.append(".");
+    if (options != null) {
+      sb.append(" in ");
+      sb.append(options);
+    }
     return sb.toString();
   }
 
@@ -72,7 +91,7 @@ public class ObjectNotFoundException extends ApplicationException {
    * The constructor.
    *
    * @param message the {@link #getNlsMessage() NLS message}.
-   * @param cause is the {@link #getCause() cause} of this exception. May be <code>null</code>.
+   * @param cause the {@link #getCause() cause} of this exception. May be <code>null</code>.
    */
   protected ObjectNotFoundException(Localizable message, Throwable cause) {
 
