@@ -12,13 +12,49 @@ import java.util.Locale;
 public enum CaseConversion {
 
   /** Convert {@link String#toLowerCase() to lower case}. */
-  LOWER_CASE,
+  LOWER_CASE {
+    @Override
+    public void append(StringBuilder sb, String text) {
+
+      int len = text.length();
+      for (int i = 0; i < len; i++) {
+        int c = text.codePointAt(i);
+        if ((c >= 'A') && (c <= 'Z')) {
+          c += 32; // A = 65, a = 97 (65+32)
+        } else if ((c < 0) || (c > 256)) {
+          c = Character.toLowerCase(c);
+        }
+        sb.appendCodePoint(c);
+      }
+    }
+  },
 
   /** Convert {@link String#toUpperCase() to upper case}. */
-  UPPER_CASE,
+  UPPER_CASE {
+    @Override
+    public void append(StringBuilder sb, String text) {
+
+      int len = text.length();
+      for (int i = 0; i < len; i++) {
+        int c = text.codePointAt(i);
+        if ((c >= 'a') && (c <= 'z')) {
+          c -= 32; // a = 97, A = 65 (97-32)
+        } else if ((c < 0) || (c > 256)) {
+          c = Character.toUpperCase(c);
+        }
+        sb.appendCodePoint(c);
+      }
+    }
+  },
 
   /** Do not convert (keep original case). */
-  ORIGINAL_CASE;
+  ORIGINAL_CASE {
+    @Override
+    public void append(StringBuilder sb, String text) {
+
+      sb.append(text);
+    }
+  };
 
   /**
    * The character representing {@link #ORIGINAL_CASE} in {@link #ofExample(char, boolean) examples}. Was chosen so it
@@ -73,6 +109,12 @@ public enum CaseConversion {
         return c;
     }
   }
+
+  /**
+   * @param sb the {@link StringBuilder} to {@link StringBuilder#append(String) append} to.
+   * @param text the text to append.
+   */
+  public abstract void append(StringBuilder sb, String text);
 
   /**
    * @param c the character to {@link #convert(char) convert}.

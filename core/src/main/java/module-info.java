@@ -47,6 +47,8 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.range;
 
+  exports io.github.mmm.base.score;
+
   exports io.github.mmm.base.service;
 
   exports io.github.mmm.base.sort;
