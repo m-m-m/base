@@ -20,12 +20,19 @@
 
   <modules>
     <module>core</module>
-    <module>placement</module>
     <module>metainfo</module>
+    <module>placement</module>
   </modules>
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>mmm-l10n-parent</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
