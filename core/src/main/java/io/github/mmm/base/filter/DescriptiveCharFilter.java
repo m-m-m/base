@@ -28,9 +28,9 @@ class DescriptiveCharFilter extends AbstractCharFilter {
   }
 
   @Override
-  public boolean accept(char c) {
+  public boolean accept(int codePoint) {
 
-    return this.filter.accept(c);
+    return this.filter.accept(codePoint);
   }
 
 }

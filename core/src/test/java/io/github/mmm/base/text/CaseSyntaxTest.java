@@ -186,7 +186,7 @@ public class CaseSyntaxTest extends Assertions {
     CaseSyntax syntax = CaseSyntax.ofExample("Capitalizedlower", false);
     String value = "hI";
     assertThat(syntax.convert(value)).isEqualTo("Hi");
-    assertThat(syntax.convert(value, new Locale("TR", "tr"))).isEqualTo("Hı");
+    assertThat(syntax.convert(value, new Locale.Builder().setLanguage("tr").setRegion("TR").build())).isEqualTo("Hı");
   }
 
   private void verifyCombined(String example, String expected, String... values) {

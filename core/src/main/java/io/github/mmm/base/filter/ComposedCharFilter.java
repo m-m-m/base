@@ -5,8 +5,9 @@ package io.github.mmm.base.filter;
 import java.util.Objects;
 
 /**
- * Implementation of {@link CharFilter} that combines multiple given {@link CharFilter}s with a logical OR so that if
- * any of the given {@link CharFilter}s {@link #accept(char) matches} then this {@link ComposedCharFilter} will match.
+ * Implementation of {@link CharFilter} that combines multiple given {@link CharFilter}s with a logical OR so this
+ * {@link ComposedCharFilter} will {@link #accept(int) accept} a {@link String#codePointAt(int) code-point} if any of
+ * the given {@link CharFilter}s {@link #accept(int) accepts}.
  */
 public class ComposedCharFilter extends AbstractCharFilter {
 
@@ -25,10 +26,10 @@ public class ComposedCharFilter extends AbstractCharFilter {
   }
 
   @Override
-  public boolean accept(char c) {
+  public boolean accept(int codePoint) {
 
     for (CharFilter filter : this.filters) {
-      if (filter.accept(c)) {
+      if (filter.accept(codePoint)) {
         return true;
       }
     }

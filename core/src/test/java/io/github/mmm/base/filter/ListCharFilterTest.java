@@ -14,7 +14,7 @@ public class ListCharFilterTest extends Assertions {
   @Test
   public void test() {
 
-    ListCharFilter filter1 = new ListCharFilter(' ', '\r', '\t');
+    ListCharFilter filter1 = new ListCharFilter(" \r\t");
     assertThat(filter1.accept(' ')).isTrue();
     assertThat(filter1.accept('\r')).isTrue();
     assertThat(filter1.accept('\t')).isTrue();
@@ -25,7 +25,7 @@ public class ListCharFilterTest extends Assertions {
     assertThat(filter1.compose(filter1)).isSameAs(filter1);
     assertThat(filter1).hasToString("{ \\r\\t}").hasToString(filter1.getDescription());
     char nonBreakingSpace = '\u00A0';
-    ListCharFilter filter2 = new ListCharFilter(' ', nonBreakingSpace);
+    ListCharFilter filter2 = new ListCharFilter(" " + nonBreakingSpace);
     assertThat(filter2.accept(' ')).isTrue();
     assertThat(filter2.accept(nonBreakingSpace)).isTrue();
     assertThat(filter2.accept('\r')).isFalse();

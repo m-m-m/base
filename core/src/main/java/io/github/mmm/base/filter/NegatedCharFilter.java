@@ -5,8 +5,8 @@ package io.github.mmm.base.filter;
 import java.util.Objects;
 
 /**
- * Implementation of {@link CharFilter} resulting in the negation of a given {@link CharFilter} so it filters what the
- * given {@link CharFilter} {@link #accept(char) accepts} and vice versa.
+ * Implementation of {@link CharFilter} resulting in the negation of a given {@link CharFilter} so it rejects what the
+ * given {@link CharFilter} {@link #accept(int) accepts} and vice versa.
  */
 public class NegatedCharFilter extends AbstractCharFilter {
 
@@ -25,9 +25,9 @@ public class NegatedCharFilter extends AbstractCharFilter {
   }
 
   @Override
-  public boolean accept(char c) {
+  public boolean accept(int codePoint) {
 
-    return !this.filter.accept(c);
+    return !this.filter.accept(codePoint);
   }
 
   @Override

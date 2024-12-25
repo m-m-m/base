@@ -19,7 +19,7 @@ public class CaseHelperTest extends Assertions {
     assertThat(CaseHelper.toLowerCase("ABC")).isEqualTo("abc");
     // Here is rationale for CaseHelper: "HI".toLowerCase() can "fail" to return "hi" depending on your system locale
     Locale system = Locale.getDefault();
-    Locale turkish = new Locale("tr");
+    Locale turkish = new Locale.Builder().setLanguage("tr").build();
     Locale.setDefault(turkish);
     assertThat(CaseHelper.toLowerCase("HI")).isEqualTo("hi").isNotEqualTo("HI".toLowerCase());
     Locale.setDefault(system);

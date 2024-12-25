@@ -46,7 +46,9 @@ public class CaseConversionTest extends Assertions {
     assertThat(CaseConversion.LOWER_CASE.convert("HI ÄÖÜßSS")).isEqualTo("hi äöüßss");
     assertThat(CaseConversion.UPPER_CASE.convert("hi äöüßss")).isEqualTo("HI ÄÖÜSSSS");
     assertThat(CaseConversion.ORIGINAL_CASE.convert("Hi ÄöüßsS")).isEqualTo("Hi ÄöüßsS");
-    assertThat(CaseConversion.LOWER_CASE.convert("HI ÄÖÜßSS", new Locale("TR", "tr"))).isEqualTo("hı äöüßss");
+    assertThat(
+        CaseConversion.LOWER_CASE.convert("HI ÄÖÜßSS", new Locale.Builder().setLanguage("tr").setRegion("TR").build()))
+            .isEqualTo("hı äöüßss");
   }
 
 }

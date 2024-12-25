@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 public class ApplicationExceptionTest extends Assertions {
 
+  /** Test {@link ApplicationException#getCode()} */
   @Test
   public void testWithCode() {
 

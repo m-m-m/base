@@ -3,22 +3,12 @@
 package io.github.mmm.base.filter;
 
 /**
- * Implementation of the {@link CharFilter} that {@link #accept(char) accepts} characters from a whitelist given at
- * {@link ListCharFilter#ListCharFilter(char...) construction}.
+ * Implementation of the {@link CharFilter} that {@link #accept(int) accepts} characters from a white-list given at
+ * {@link ListCharFilter#ListCharFilter(String) construction}.
  */
 public class ListCharFilter extends AbstractCharFilter {
 
   private final String chars;
-
-  /**
-   * The constructor.
-   *
-   * @param charArray are the chars to accept.
-   */
-  public ListCharFilter(char... charArray) {
-
-    this(new String(charArray));
-  }
 
   /**
    * The constructor.
@@ -49,15 +39,15 @@ public class ListCharFilter extends AbstractCharFilter {
   }
 
   @Override
-  public boolean accept(char c) {
+  public boolean accept(int codePoint) {
 
-    int i = this.chars.indexOf(c);
+    int i = this.chars.indexOf(codePoint);
     return (i >= 0);
   }
 
   /**
-   * @param characters the additional characters to {@link #accept(char) accept}.
-   * @return a new {@link ListCharFilter} that {@link #accept(char) accepts} both the characters from {@code this}
+   * @param characters the additional characters to {@link #accept(int) accept}.
+   * @return a new {@link ListCharFilter} that {@link #accept(int) accepts} both the characters from {@code this}
    *         {@link CharFilter} as well as the given {@code characters}.
    */
   public ListCharFilter join(char... characters) {
@@ -82,7 +72,7 @@ public class ListCharFilter extends AbstractCharFilter {
 
   /**
    * @param filter the additional {@link ListCharFilter} to {@link #join(char...) join}.
-   * @return a new {@link ListCharFilter} that {@link #accept(char) accepts} both the characters from {@code this} as
+   * @return a new {@link ListCharFilter} that {@link #accept(int) accepts} both the characters from {@code this} as
    *         well as the given {@link CharFilter}.
    */
   public ListCharFilter join(ListCharFilter filter) {
@@ -100,7 +90,7 @@ public class ListCharFilter extends AbstractCharFilter {
   }
 
   /**
-   * @return a {@link String} composed of all {@link #accept(char) accepted} characters.
+   * @return a {@link String} composed of all {@link #accept(int) accepted} characters.
    */
   public String getChars() {
 

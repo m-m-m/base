@@ -3,24 +3,24 @@
 package io.github.mmm.base.filter;
 
 /**
- * {@link CharFilter} that only {@link #accept(char) accepts} characters in a range from {@link #getMin() min} to
+ * {@link CharFilter} that only {@link #accept(int) accepts} characters in a range from {@link #getMin() min} to
  * {@link #getMax() max}.
  *
  * @since 1.0.0
  */
 public class RangeCharFilter extends AbstractCharFilter {
 
-  private final char min;
+  private final int min;
 
-  private final char max;
+  private final int max;
 
   /**
    * The constructor.
    *
-   * @param min the {@link #getMin() minimum} {@link #accept(char) accepted} character.
-   * @param max the {@link #getMax() maximum} {@link #accept(char) accepted} character.
+   * @param min the {@link #getMin() minimum} {@link #accept(int) accepted} character.
+   * @param max the {@link #getMax() maximum} {@link #accept(int) accepted} character.
    */
-  public RangeCharFilter(char min, char max) {
+  public RangeCharFilter(int min, int max) {
 
     super(null);
     this.min = min;
@@ -43,23 +43,23 @@ public class RangeCharFilter extends AbstractCharFilter {
   }
 
   @Override
-  public boolean accept(char c) {
+  public boolean accept(int codePoint) {
 
-    return (c >= this.min) && (c <= this.max);
+    return (codePoint >= this.min) && (codePoint <= this.max);
   }
 
   /**
-   * @return the minimum {@link #accept(char) accepted} character.
+   * @return the minimum {@link #accept(int) accepted} character.
    */
-  public char getMin() {
+  public int getMin() {
 
     return this.min;
   }
 
   /**
-   * @return the maximum {@link #accept(char) accepted} character.
+   * @return the maximum {@link #accept(int) accepted} character.
    */
-  public char getMax() {
+  public int getMax() {
 
     return this.max;
   }
@@ -69,11 +69,11 @@ public class RangeCharFilter extends AbstractCharFilter {
 
     if (filter instanceof RangeCharFilter) {
       RangeCharFilter range = (RangeCharFilter) filter;
-      char newMin = this.min;
+      int newMin = this.min;
       if (range.min < newMin) {
         newMin = range.min;
       }
-      char newMax = this.max;
+      int newMax = this.max;
       if (range.max > newMax) {
         newMax = range.max;
       }

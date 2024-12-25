@@ -91,11 +91,11 @@ public final class LocaleHelper {
    * <td><code>{"_de_DE", "_de", ""}</code></td>
    * </tr>
    * <tr>
-   * <td><code>new {@link Locale#Locale(String, String) Locale}("", "CM")</code></td>
+   * <td><code>new Locale("", "CM")</code></td>
    * <td><code>{"__CM", ""}</code></td>
    * </tr>
    * <tr>
-   * <td><code>new {@link Locale#Locale(String, String, String) Locale}("", "", "variant")</code></td>
+   * <td><code>new Locale("", "", "variant")</code></td>
    * <td><code>{"___variant", ""}</code></td>
    * </tr>
    * </table>
@@ -193,7 +193,7 @@ public final class LocaleHelper {
         builder.setRegion(region);
         String variant = fromStringDetails(locale, end + 1, builder);
         if (variant != null) {
-          return new Locale(language, region, variant);
+          return new Locale.Builder().setLanguage(language).setRegion(region).setVariant(variant).build();
         }
       }
     }

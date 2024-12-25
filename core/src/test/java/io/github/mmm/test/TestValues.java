@@ -12,7 +12,7 @@ import java.util.Locale;
 public interface TestValues {
 
   /** Spanish {@link Locale}. */
-  Locale SPANISH = new Locale("es");
+  Locale SPANISH = new Locale.Builder().setLanguage("es").build();
 
   /**
    * Thai sentence: "The language barrier is a major problem for today's global communication."
