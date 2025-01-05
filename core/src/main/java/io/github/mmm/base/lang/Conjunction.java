@@ -27,7 +27,7 @@ public enum Conjunction {
     }
 
     @Override
-    public boolean isNegating() {
+    public boolean isNegated() {
 
       return false;
     }
@@ -57,7 +57,7 @@ public enum Conjunction {
     }
 
     @Override
-    public boolean isNegating() {
+    public boolean isNegated() {
 
       return false;
     }
@@ -87,7 +87,7 @@ public enum Conjunction {
     }
 
     @Override
-    public boolean isNegating() {
+    public boolean isNegated() {
 
       return true;
     }
@@ -117,7 +117,7 @@ public enum Conjunction {
     }
 
     @Override
-    public boolean isNegating() {
+    public boolean isNegated() {
 
       return true;
     }
@@ -148,7 +148,7 @@ public enum Conjunction {
     }
 
     @Override
-    public boolean isNegating() {
+    public boolean isNegated() {
 
       return true;
     }
@@ -195,7 +195,7 @@ public enum Conjunction {
     }
 
     @Override
-    public boolean isNegating() {
+    public boolean isNegated() {
 
       return false;
     }
@@ -233,10 +233,10 @@ public enum Conjunction {
   public abstract boolean eval(boolean arg1, boolean arg2);
 
   /**
-   * @return {@code true} if this {@link Conjunction} is negating the final result and therefore not left-associative,
-   *         {@code false} otherwise.
+   * @return {@code true} if this {@link Conjunction} is {@link #negate() negated} and therefore not left-associative,
+   *         {@code false} otherwise (normal form).
    */
-  public abstract boolean isNegating();
+  public abstract boolean isNegated();
 
   /**
    * Evaluates this {@link Conjunction} for the given boolean {@code arguments}. <br>
@@ -249,7 +249,7 @@ public enum Conjunction {
    */
   public boolean eval(boolean... arguments) {
 
-    if (isNegating()) {
+    if (isNegated()) {
       return !negate().eval(arguments);
     }
     if (arguments.length == 0) {
