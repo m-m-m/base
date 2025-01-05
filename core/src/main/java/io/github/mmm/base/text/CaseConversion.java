@@ -17,14 +17,20 @@ public enum CaseConversion {
     public void append(StringBuilder sb, String text) {
 
       int len = text.length();
-      for (int i = 0; i < len; i++) {
-        int c = text.codePointAt(i);
-        if ((c >= 'A') && (c <= 'Z')) {
-          c += 32; // A = 65, a = 97 (65+32)
-        } else if ((c < 0) || (c > 256)) {
-          c = Character.toLowerCase(c);
+      int i = 0;
+      while (i < len) {
+        int cp = text.codePointAt(i);
+        if ((cp >= 'A') && (cp <= 'Z')) {
+          cp += 32; // A = 65, a = 97 (65+32)
+        } else if ((cp < 0) || (cp > 256)) {
+          cp = Character.toLowerCase(cp);
         }
-        sb.appendCodePoint(c);
+        sb.appendCodePoint(cp);
+        if (cp > 0x010000) {
+          i = i + 2;
+        } else {
+          i++;
+        }
       }
     }
   },
@@ -35,14 +41,20 @@ public enum CaseConversion {
     public void append(StringBuilder sb, String text) {
 
       int len = text.length();
-      for (int i = 0; i < len; i++) {
-        int c = text.codePointAt(i);
-        if ((c >= 'a') && (c <= 'z')) {
-          c -= 32; // a = 97, A = 65 (97-32)
-        } else if ((c < 0) || (c > 256)) {
-          c = Character.toUpperCase(c);
+      int i = 0;
+      while (i < len) {
+        int cp = text.codePointAt(i);
+        if ((cp >= 'a') && (cp <= 'z')) {
+          cp -= 32; // a = 97, A = 65 (97-32)
+        } else if ((cp < 0) || (cp > 256)) {
+          cp = Character.toUpperCase(cp);
         }
-        sb.appendCodePoint(c);
+        sb.appendCodePoint(cp);
+        if (cp > 0x010000) {
+          i = i + 2;
+        } else {
+          i++;
+        }
       }
     }
   },
