@@ -26,7 +26,7 @@ public abstract class ValueType<V> {
     }
   };
 
-  /** {@link ValueType} for {@link String}. */
+  /** {@link ValueType} for {@link Boolean}. */
   public static final ValueType<Boolean> BOOLEAN = new ValueType<>(Boolean.class, boolean.class) {
     @Override
     public Boolean parse(String value) {
