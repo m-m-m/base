@@ -9,6 +9,10 @@ image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base.svg?label=
 image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base/javadoc.svg["base JavaDoc", link=https://javadoc.io/doc/io.github.m-m-m/mmm-base]
 
 The module `io.github.mmm.base` (artifactId `mmm-base`) provides a minimal set of APIs and utils for general purpose usage.
+It is mainly designed for usage in our own project.
+If you find something helpful in there, feel free to also reuse it outside of this `m-m-m` project.
+However, we intentionally do not want to be tempted to create another "apache-commons-*" here.
+So do not expect generic feature requests to be implemented and keep in mind that we might consider doing a breaking API change in future releases (while we try to avoid this when easily possible).
 
 == Features
 
