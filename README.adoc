@@ -6,7 +6,7 @@ image:https://github.com/m-m-m/base/actions/workflows/build.yml/badge.svg["Build
 = mmm-base
 
 image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base.svg?label=Maven%20Central["Maven Central",link=https://search.maven.org/search?q=g:io.github.m-m-m]
-image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base/javadoc.svg["base JavaDoc", link=https://javadoc.io/doc/io.github.m-m-m/mmm-base]
+image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base/javadoc.svg["JavaDoc",link=https://javadoc.io/doc/io.github.m-m-m/mmm-base]
 
 The module `io.github.mmm.base` (artifactId `mmm-base`) provides a minimal set of APIs and utils for general purpose usage.
 It is mainly designed for usage in our own project.
@@ -46,7 +46,7 @@ Module Dependency:
 = mmm-base-metainfo
 
 image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base-metainfo.svg?label=Maven%20Central["Maven Central",link=https://search.maven.org/search?q=g:io.github.m-m-m]
-image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base-metainfo/javadoc.svg["base JavaDoc", link=https://javadoc.io/doc/io.github.m-m-m/mmm-base-metainfo]
+image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base-metainfo/javadoc.svg["JavaDoc",link=https://javadoc.io/doc/io.github.m-m-m/mmm-base-metainfo]
 
 The module `io.github.mmm.base.metainfo` (artifactId `mmm-base-metainfo`) provides a minimal set of APIs for dealing with meta-information.
 
@@ -76,7 +76,7 @@ Module Dependency:
 = mmm-base-placement
 
 image:https://img.shields.io/maven-central/v/io.github.m-m-m/mmm-base-placement.svg?label=Maven%20Central["Maven Central",link=https://search.maven.org/search?q=g:io.github.m-m-m]
-image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base-placement/javadoc.svg["base JavaDoc", link=https://javadoc.io/doc/io.github.m-m-m/mmm-base-placement]
+image:https://javadoc.io/badge2/io.github.m-m-m/mmm-base-placement/javadoc.svg["JavaDoc",link=https://javadoc.io/doc/io.github.m-m-m/mmm-base-placement]
 
 The module `io.github.mmm.base.placement` (artifactId `mmm-base-placement`) provides a enums for placement.
 
