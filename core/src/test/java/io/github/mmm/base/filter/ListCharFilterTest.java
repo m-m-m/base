@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link ListCharFilter}.
  */
-public class ListCharFilterTest extends Assertions {
+class ListCharFilterTest extends Assertions {
 
   /** Test of {@link ListCharFilter}. */
   @Test
-  public void test() {
+  void test() {
 
     ListCharFilter filter1 = new ListCharFilter(" \r\t");
     assertThat(filter1.accept(' ')).isTrue();

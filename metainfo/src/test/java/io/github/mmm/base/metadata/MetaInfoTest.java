@@ -16,7 +16,7 @@ import io.github.mmm.base.metainfo.impl.AbstractMetaInfo;
  * Test of {@link MetaInfo}.
  */
 @MetaInfos({ "key1=value1", "key2=value2" })
-public class MetaInfoTest extends Assertions {
+class MetaInfoTest extends Assertions {
 
   private String toString(MetaInfo metaInfo) {
 
@@ -25,7 +25,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#empty()}. */
   @Test
-  public void testEmpty() {
+  void testEmpty() {
 
     // arrange
     // act
@@ -42,7 +42,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#getRequired(String)}. */
   @Test
-  public void testGetRequired() {
+  void testGetRequired() {
 
     // arrange
     // act
@@ -61,7 +61,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#with(String, String)}. */
   @Test
-  public void testWithSingle() {
+  void testWithSingle() {
 
     // arrange
     String key = "key1";
@@ -81,7 +81,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#with(java.lang.reflect.AnnotatedElement)}. */
   @Test
-  public void testWithClass() {
+  void testWithClass() {
 
     // arrange
     Class<MetaInfoTest> annotatedClass = MetaInfoTest.class;
@@ -109,7 +109,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#with(Map)}. */
   @Test
-  public void testWithMap() {
+  void testWithMap() {
 
     // arrange
     Map<String, String> map = Map.of("key1", "42", "key2", "true", "key3", "magicValue");
@@ -126,7 +126,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#with(Properties)}. */
   @Test
-  public void testWithProperties() {
+  void testWithProperties() {
 
     // arrange
     Properties root = new Properties();
@@ -148,7 +148,7 @@ public class MetaInfoTest extends Assertions {
 
   /** Test of {@link MetaInfo#with(String)}. */
   @Test
-  public void testWithPrefix() {
+  void testWithPrefix() {
 
     // arrange
     Map<String, String> map = Map.of("prefix.name", "Name", "other.value", "Value", "prefix.version", "1.0", "prefix",

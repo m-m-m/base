@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link Alignment}.
  */
-public class AlignmentTest extends Assertions {
+class AlignmentTest extends Assertions {
 
   /** Test of {@link Alignment#BOTTOM}. */
   @Test
-  public void testBottom() {
+  void testBottom() {
 
     Alignment a = Alignment.BOTTOM;
     assertThat(a.getSyntax()).isEqualTo("s");

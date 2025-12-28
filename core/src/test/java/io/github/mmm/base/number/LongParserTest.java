@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link LongParser}.
  */
-public class LongParserTest extends Assertions {
+class LongParserTest extends Assertions {
 
   /**
    * Test of {@link LongParser#parse(String)}.
    */
   @Test
-  public void testParseInstant() {
+  void testParseInstant() {
 
     LongParser parser = LongParser.get();
     assertThat(parser.parse(null)).isNull();

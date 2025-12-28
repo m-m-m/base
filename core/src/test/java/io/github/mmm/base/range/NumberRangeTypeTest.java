@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link NumberRangeType}.
  */
-public class NumberRangeTypeTest extends Assertions {
+class NumberRangeTypeTest extends Assertions {
 
   /** Test of {@link NumberRangeType}. */
   @SuppressWarnings({ "rawtypes", "unchecked" })
   @Test
-  public void test() {
+  void test() {
 
     // arrange
     BigDecimal min = new BigDecimal("-0.000000001");

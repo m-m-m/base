@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link Localizable}.
  */
-public class LocalizableTest extends Assertions {
+class LocalizableTest extends Assertions {
 
   /** Test of {@link Localizable#ofStatic(String)}. */
   @Test
-  public void testOfStatic() {
+  void testOfStatic() {
 
     Localizable nonNls = Localizable.ofStatic("message");
     assertThat(nonNls.getMessage()).isEqualTo("message");
@@ -28,7 +28,7 @@ public class LocalizableTest extends Assertions {
 
   /** Test of {@link Localizable#createBundleName(Class)}. */
   @Test
-  public void testOf() {
+  void testOf() {
 
     assertThat(Localizable.createBundleName(Localizable.class)).isEqualTo("l10n.io.github.mmm.base.i18n.Localizable");
   }

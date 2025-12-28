@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link RangeType}.
  */
-public class RangeTypeTest extends Assertions {
+class RangeTypeTest extends Assertions {
 
   /** Test of {@link RangeType}. */
   @Test
-  public void test() {
+  void test() {
 
     // arrange
     Year min = Year.of(2000);
@@ -38,7 +38,7 @@ public class RangeTypeTest extends Assertions {
 
   /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
   @Test
-  public void testParseYear() {
+  void testParseYear() {
 
     // arrange
     Function<String, Year> yearParser = (s) -> Year.of(Integer.parseInt(s));
@@ -52,7 +52,7 @@ public class RangeTypeTest extends Assertions {
 
   /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
   @Test
-  public void testParseSpecial() {
+  void testParseSpecial() {
 
     // arrange
     Range<Long> unbounded = Range.unbounded();
@@ -68,7 +68,7 @@ public class RangeTypeTest extends Assertions {
    * Test of {@link Range#intersection(Range)}.
    */
   @Test
-  public void testIntersection() {
+  void testIntersection() {
 
     Range<Integer> range1 = Range.unbounded();
     Range<Integer> range2 = RangeType.of(null, 42);

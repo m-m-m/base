@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link CaseHelper}.
  */
-public class CaseHelperTest extends Assertions {
+class CaseHelperTest extends Assertions {
 
   /** Test of {@link CaseHelper#toLowerCase(String)}. */
   @Test
-  public void testToLowerCase() {
+  void testToLowerCase() {
 
     assertThat(CaseHelper.toLowerCase("ABC")).isEqualTo("abc");
     // Here is rationale for CaseHelper: "HI".toLowerCase() can "fail" to return "hi" depending on your system locale
@@ -27,7 +27,7 @@ public class CaseHelperTest extends Assertions {
 
   /** Test of {@link CaseHelper#toUpperCase(String)}. */
   @Test
-  public void testToUpperCase() {
+  void testToUpperCase() {
 
     assertThat(CaseHelper.toUpperCase("abc")).isEqualTo("ABC");
     assertThat(CaseHelper.toUpperCase("Füße")).isEqualTo("FÜSSE");

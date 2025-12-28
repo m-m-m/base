@@ -17,14 +17,14 @@ import io.github.mmm.test.TestValues;
 /**
  * Test of {@link CaseSyntax}.
  */
-public class CaseSyntaxTest extends Assertions {
+class CaseSyntaxTest extends Assertions {
 
   /**
    * Test of {@link CaseSyntax#of(Character, CaseConversion, CaseConversion, CaseConversion)} with standardized
    * {@link CaseSyntax} constants.
    */
   @Test
-  public void testOfStandardized() {
+  void testOfStandardized() {
 
     Character separator = null;
     assertThat(CaseSyntax.of(separator, LOWER_CASE)).isSameAs(CaseSyntax.LOWERCASE);
@@ -59,7 +59,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#of(Character, CaseConversion, CaseConversion, CaseConversion)} with customized variants.
    */
   @Test
-  public void testOfCustomized() {
+  void testOfCustomized() {
 
     Character separator = Character.valueOf('~');
     assertThat(CaseSyntax.of(separator, UPPER_CASE).toString()).isEqualTo("CUSTOM~CASE");
@@ -74,7 +74,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#ofExample(String, boolean)} with {@code standardize} parameter set to {@code true}.
    */
   @Test
-  public void testOfExampleStandardized() {
+  void testOfExampleStandardized() {
 
     verifyOfExampleStandardized("variablename", CaseSyntax.LOWERCASE);
     verifyOfExampleStandardized("VARIABLENAME", CaseSyntax.UPPERCASE);
@@ -114,7 +114,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#ofExample(String, boolean)} with examples of minimal length.
    */
   @Test
-  public void testOfExampleMinimal() {
+  void testOfExampleMinimal() {
 
     assertThat(CaseSyntax.ofExample("abc", true)).isSameAs(CaseSyntax.LOWERCASE);
     assertThat(CaseSyntax.ofExample("ABC", true)).isSameAs(CaseSyntax.UPPERCASE);
@@ -140,7 +140,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#convert(String)} with some specific cases not covered else where.
    */
   @Test
-  public void testConvert() {
+  void testConvert() {
 
     assertThat(CaseSyntax.PASCAL_CASE.convert(null)).isNull();
     assertThat(CaseSyntax.PASCAL_CASE.convert("")).isEmpty();
@@ -164,7 +164,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#ofExample(String, boolean)} in combination with {@link CaseSyntax#convert(String)}.
    */
   @Test
-  public void testCombined() {
+  void testCombined() {
 
     String[] VARIANTS = { "MyVariableName", "myVariableName", "my-variable-name", "my variable name",
     "my variable-name", "my.variable_name", "my~#,variable§$name" };
@@ -202,7 +202,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#ofExample(String, boolean)} with invalid values.
    */
   @Test
-  public void testOfExampleInvalidValues() {
+  void testOfExampleInvalidValues() {
 
     verifyExampleInvalid(null, "example", NullPointerException.class);
     String atLeast3Letters = ": at least 3 letters are required!";
@@ -256,7 +256,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#normalizeExample(String)}.
    */
   @Test
-  public void testNormalizeExample() {
+  void testNormalizeExample() {
 
     assertThat(CaseSyntax.normalizeExample(null)).isNull();
     assertThat(CaseSyntax.normalizeExample("")).isEmpty();
@@ -270,7 +270,7 @@ public class CaseSyntaxTest extends Assertions {
    * Test of {@link CaseSyntax#equals(Object)} and {@link CaseSyntax#hashCode()}.
    */
   @Test
-  public void testEqualsAndHashCode() {
+  void testEqualsAndHashCode() {
 
     ObjectHelper.checkEqualsAndHashCode(CaseSyntax.CAML_CASE, CaseSyntax.ofExample("myCase", false), true);
     ObjectHelper.checkEqualsAndHashCode(CaseSyntax.CAML_CASE, CaseSyntax.PASCAL_CASE, false);

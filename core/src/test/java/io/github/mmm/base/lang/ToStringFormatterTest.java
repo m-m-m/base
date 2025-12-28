@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link ToStringFormatter}.
  */
-public class ToStringFormatterTest extends Assertions {
+class ToStringFormatterTest extends Assertions {
 
   /** Tests {@link ToStringFormatter#apply(Object)}. */
   @Test
-  public void test() {
+  void test() {
 
     ToStringFormatter<Object> formatter = ToStringFormatter.get();
     assertThat(formatter.apply("hello world")).isEqualTo("hello world");

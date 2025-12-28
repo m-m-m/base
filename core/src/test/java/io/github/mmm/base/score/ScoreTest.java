@@ -8,14 +8,14 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link Score}.
  */
-public class ScoreTest extends Assertions {
+class ScoreTest extends Assertions {
 
   private static final Score[] SCORES = new Score[] { Score.MIN, Score.VERY_LOW, Score.LOWER, Score.LOW,
   Score.LOW_MEDIUM, Score.MEDIUM, Score.HIGH_MEDIUM, Score.HIGH, Score.HIGHER, Score.VERY_HIGH, Score.MAX };
 
   /** Test {@link Score#of(double)}. */
   @Test
-  public void testOf() {
+  void testOf() {
 
     assertThat(Score.of(0.0)).isSameAs(Score.MIN);
     assertThat(Score.of(0.1)).isSameAs(Score.VERY_LOW);
@@ -33,7 +33,7 @@ public class ScoreTest extends Assertions {
 
   /** Test {@link Score#getValue()}. */
   @Test
-  public void testGetValue() {
+  void testGetValue() {
 
     assertThat(Score.MIN.getValue()).isEqualTo(0.0);
     assertThat(Score.VERY_LOW.getValue()).isEqualTo(0.1);
@@ -51,7 +51,7 @@ public class ScoreTest extends Assertions {
 
   /** Test {@link Score#multiply(Score)}. */
   @Test
-  public void testMultiply() {
+  void testMultiply() {
 
     for (Score score : SCORES) {
       assertThat(Score.MIN.multiply(score)).isSameAs(Score.MIN);

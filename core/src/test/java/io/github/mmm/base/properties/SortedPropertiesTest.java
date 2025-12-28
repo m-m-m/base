@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link SortedProperties}.
  */
-public class SortedPropertiesTest extends Assertions {
+class SortedPropertiesTest extends Assertions {
 
   /**
    * Test of {@link SortedProperties}.
@@ -18,7 +18,7 @@ public class SortedPropertiesTest extends Assertions {
    * @throws IOException on error.
    */
   @Test
-  public void test() throws IOException {
+  void test() throws IOException {
 
     // arrange
     String unsorted = "key=value\n" //

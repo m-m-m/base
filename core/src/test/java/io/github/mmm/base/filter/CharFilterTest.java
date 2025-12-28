@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link CharFilter}.
  */
-public class CharFilterTest extends Assertions {
+class CharFilterTest extends Assertions {
 
   /** Test of {@link CharFilter#LATIN_LETTER_OR_DIGIT}. */
   @Test
-  public void testDigitOrLetter() {
+  void testDigitOrLetter() {
 
     CharFilter letterOrDigit = CharFilter.LATIN_LETTER_OR_DIGIT;
     assertThat(letterOrDigit).hasToString("[a-z][A-Z][0-9]").hasToString(letterOrDigit.getDescription());

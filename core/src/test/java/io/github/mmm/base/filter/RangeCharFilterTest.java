@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
  *
  * @since 1.0.0
  */
-public class RangeCharFilterTest extends Assertions {
+class RangeCharFilterTest extends Assertions {
 
   /** Test of {@link RangeCharFilter}. */
   @Test
-  public void test() {
+  void test() {
 
     RangeCharFilter c_f = new RangeCharFilter('c', 'f');
     assertThat(c_f).hasToString("[c-f]").hasToString(c_f.getDescription());

@@ -25,11 +25,11 @@ import io.github.mmm.base.temporal.TemporalConverterLegacy;
 /**
  * Test of {@link CompareOperator}.
  */
-public class CompareOperatorTest extends Assertions {
+class CompareOperatorTest extends Assertions {
 
   /** Test of {@link CompareOperator#EQUAL}. */
   @Test
-  public void testEqual() {
+  void testEqual() {
 
     // arrange
     CompareOperator op = CompareOperator.EQUAL;
@@ -43,7 +43,7 @@ public class CompareOperatorTest extends Assertions {
 
   /** Test of {@link CompareOperator#NOT_EQUAL}. */
   @Test
-  public void testNotEqual() {
+  void testNotEqual() {
 
     // arrange
     CompareOperator op = CompareOperator.NOT_EQUAL;
@@ -57,7 +57,7 @@ public class CompareOperatorTest extends Assertions {
 
   /** Test of {@link CompareOperator#GREATER_THAN}. */
   @Test
-  public void testGreaterThan() {
+  void testGreaterThan() {
 
     // arrange
     CompareOperator op = CompareOperator.GREATER_THAN;
@@ -71,7 +71,7 @@ public class CompareOperatorTest extends Assertions {
 
   /** Test of {@link CompareOperator#GREATER_OR_EQUAL}. */
   @Test
-  public void testGreaterOrEqual() {
+  void testGreaterOrEqual() {
 
     // arrange
     CompareOperator op = CompareOperator.GREATER_OR_EQUAL;
@@ -85,7 +85,7 @@ public class CompareOperatorTest extends Assertions {
 
   /** Test of {@link CompareOperator#LESS_THAN}. */
   @Test
-  public void testLessThan() {
+  void testLessThan() {
 
     // arrange
     CompareOperator op = CompareOperator.LESS_THAN;
@@ -99,7 +99,7 @@ public class CompareOperatorTest extends Assertions {
 
   /** Test of {@link CompareOperator#LESS_OR_EQUAL}. */
   @Test
-  public void testLessOrEqual() {
+  void testLessOrEqual() {
 
     // arrange
     CompareOperator op = CompareOperator.LESS_OR_EQUAL;
@@ -128,7 +128,7 @@ public class CompareOperatorTest extends Assertions {
    * values.
    */
   @Test
-  public void testTemporals() {
+  void testTemporals() {
 
     TemporalConverterLegacy.get(); // activate legacy Date + Calendar support
     TimeZone systemTimeZone = TimeZone.getDefault();

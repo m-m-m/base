@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link InstantParser}.
  */
-public class InstantParserTest extends Assertions {
+class InstantParserTest extends Assertions {
 
   /**
    * Test of {@link InstantParser#parse(String)}.
    */
   @Test
-  public void testParseInstant() {
+  void testParseInstant() {
 
     InstantParser parser = InstantParser.get();
     assertThat(parser.parse(null)).isNull();

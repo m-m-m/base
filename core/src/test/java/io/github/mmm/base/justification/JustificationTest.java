@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link Justification}.
  */
-public class JustificationTest extends Assertions {
+class JustificationTest extends Assertions {
 
   /**
    * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
    */
   @Test
-  public void testPadLeadingZeros() {
+  void testPadLeadingZeros() {
 
     Justification justification = Justification.of("0+4");
     assertThat(justification.justify("42")).isEqualTo("0042");
@@ -24,7 +24,7 @@ public class JustificationTest extends Assertions {
    * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
    */
   @Test
-  public void testPadTrailingDots() {
+  void testPadTrailingDots() {
 
     Justification justification = Justification.of(".-5");
     assertThat(justification.justify("xx")).isEqualTo("xx...");
@@ -37,7 +37,7 @@ public class JustificationTest extends Assertions {
    * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
    */
   @Test
-  public void testCenter() {
+  void testCenter() {
 
     Justification justification = Justification.of("_~7");
     assertThat(justification.justify("x")).isEqualTo("___x___");
@@ -51,7 +51,7 @@ public class JustificationTest extends Assertions {
    * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
    */
   @Test
-  public void testPadLeftAndTruncate() {
+  void testPadLeftAndTruncate() {
 
     Justification justification = Justification.of("-+5|");
     assertThat(justification.justify("abc")).isEqualTo("--abc");

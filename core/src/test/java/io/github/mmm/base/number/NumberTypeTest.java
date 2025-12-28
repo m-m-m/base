@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  * Test of {@link NumberType}.
  */
 @SuppressWarnings("all")
-public class NumberTypeTest extends Assertions {
+class NumberTypeTest extends Assertions {
 
   private static final BigInteger BIG_INTEGER = new BigInteger("123456789012345678901234567890");
 
@@ -54,7 +54,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testByte() {
+  void testByte() {
 
     // arrange
     byte b = 123;
@@ -67,7 +67,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testShort() {
+  void testShort() {
 
     // arrange
     short s = 12345;
@@ -80,7 +80,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testInteger() {
+  void testInteger() {
 
     // arrange
     int i = 1234567890;
@@ -93,7 +93,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testLong() {
+  void testLong() {
 
     // arrange
     long l = 1234567890123456L;
@@ -106,7 +106,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testBigInteger() {
+  void testBigInteger() {
 
     // arrange
     BigInteger bi = BIG_INTEGER;
@@ -120,7 +120,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testFloat() {
+  void testFloat() {
 
     // arrange
     float f = 123456789.123456789F;
@@ -133,7 +133,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testDouble() {
+  void testDouble() {
 
     // arrange
     double d = 123456789.123456789;
@@ -146,7 +146,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testBigDecimal() {
+  void testBigDecimal() {
 
     // arrange
     BigDecimal bd = BIG_DECIMAL;
@@ -160,7 +160,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testSimplify() {
+  void testSimplify() {
 
     Byte one = NumberType.BYTE.getOne();
     for (int exactness = NumberType.BYTE.getExactness(); exactness <= NumberType.BIG_DECIMAL
@@ -193,7 +193,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testSimplifyMin() {
+  void testSimplifyMin() {
 
     NumberType<Integer> integer = NumberType.INTEGER;
     Integer one = integer.getOne();
@@ -205,7 +205,7 @@ public class NumberTypeTest extends Assertions {
   }
 
   @Test
-  public void testWrap() {
+  void testWrap() {
 
     // already within bounds
     checkWrapInt(5, 0, 10, 5);

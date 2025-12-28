@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link LocaleHelper}.
  */
-public class LocaleHelperTest extends Assertions {
+class LocaleHelperTest extends Assertions {
 
   /** Test of {@link LocaleHelper#toInfix(java.util.Locale)} */
   @Test
-  public void testToInfix() {
+  void testToInfix() {
 
     assertThat(LocaleHelper.toInfix(Locale.ROOT)).isEmpty();
     assertThat(LocaleHelper.toInfix(Locale.GERMAN)).isEqualTo("_de");
@@ -30,7 +30,7 @@ public class LocaleHelperTest extends Assertions {
 
   /** Test of {@link LocaleHelper#toInfixes(java.util.Locale)} */
   @Test
-  public void testToInfixes() {
+  void testToInfixes() {
 
     assertThat(LocaleHelper.toInfixes(Locale.ROOT)).containsExactly("");
     assertThat(LocaleHelper.toInfixes(Locale.GERMAN)).containsExactly("_de", "");
@@ -45,7 +45,7 @@ public class LocaleHelperTest extends Assertions {
 
   /** Test of {@link LocaleHelper#fromString(String)} */
   @Test
-  public void testFromString() {
+  void testFromString() {
 
     assertThat(LocaleHelper.fromString("")).isEqualTo(Locale.ROOT);
     assertThat(LocaleHelper.fromString("_de")).isEqualTo(Locale.GERMAN);

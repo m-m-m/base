@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link Range}.
  */
-public class RangeTest extends Assertions {
+class RangeTest extends Assertions {
 
   /** Test of {@link Range#unbounded()}. */
   @Test
-  public void testUnbounded() {
+  void testUnbounded() {
 
     Range<String> unbounded = Range.unbounded();
 
@@ -26,7 +26,7 @@ public class RangeTest extends Assertions {
 
   /** Test of {@link Range#unbounded()}. */
   @Test
-  public void testInvalid() {
+  void testInvalid() {
 
     Range<String> invalid = Range.invalid();
 

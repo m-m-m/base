@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link VariableMap}.
  */
-public class VariableMapTest extends Assertions {
+class VariableMapTest extends Assertions {
 
   static final VariableDefinition<String> OPT_INDENTATION = new VariableDefinition<>("indentation", "  ");
 
@@ -16,7 +16,7 @@ public class VariableMapTest extends Assertions {
 
   /** Test of {@link VariableMap#get(VariableDefinition)}. */
   @Test
-  public void test() {
+  void test() {
 
     VariableMap map = new VariableMap();
     assertThat(map.get(OPT_INDENTATION)).isEqualTo("  ");

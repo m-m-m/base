@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link ApplicationException}.
  */
-public class ApplicationExceptionTest extends Assertions {
+class ApplicationExceptionTest extends Assertions {
 
   /** Test {@link ApplicationException#getCode()} */
   @Test
-  public void testWithCode() {
+  void testWithCode() {
 
     // arrange
     String message = "Something went wrong.";

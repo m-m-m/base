@@ -9,11 +9,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link ObjectNotFoundException}.
  */
-public class ObjectNotFoundExceptionTest extends Assertions {
+class ObjectNotFoundExceptionTest extends Assertions {
 
   /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object)}. */
   @Test
-  public void testSimple() {
+  void testSimple() {
 
     // arrange
     String name = "io.github.mmm.UndefinedObject";
@@ -25,7 +25,7 @@ public class ObjectNotFoundExceptionTest extends Assertions {
 
   /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object, Object)}. */
   @Test
-  public void testWithKey() {
+  void testWithKey() {
 
     // arrange
     String name = "Entity";
@@ -38,7 +38,7 @@ public class ObjectNotFoundExceptionTest extends Assertions {
 
   /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object, Object, Object, Throwable)}. */
   @Test
-  public void testWithKeyAndOptions() {
+  void testWithKeyAndOptions() {
 
     // arrange
     String name = "Entity";

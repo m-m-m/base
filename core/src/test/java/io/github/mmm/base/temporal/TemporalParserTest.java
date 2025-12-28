@@ -20,13 +20,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link TemporalParser}.
  */
-public class TemporalParserTest extends Assertions {
+class TemporalParserTest extends Assertions {
 
   /**
    * Test of {@link TemporalParser#parse(String)} with {@link Instant}.
    */
   @Test
-  public void testInstant() {
+  void testInstant() {
 
     Instant now = Instant.now();
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -37,7 +37,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link LocalDate}.
    */
   @Test
-  public void testLocalDate() {
+  void testLocalDate() {
 
     LocalDate now = LocalDate.now();
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -48,7 +48,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link LocalTime}.
    */
   @Test
-  public void testLocalTime() {
+  void testLocalTime() {
 
     LocalTime now = LocalTime.now();
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -59,7 +59,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link LocalDateTime}.
    */
   @Test
-  public void testLocalDateTime() {
+  void testLocalDateTime() {
 
     LocalDateTime now = LocalDateTime.now();
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -70,7 +70,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link OffsetTime}.
    */
   @Test
-  public void testOffsetTime() {
+  void testOffsetTime() {
 
     OffsetTime now = OffsetTime.now();
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -81,7 +81,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link OffsetDateTime}.
    */
   @Test
-  public void testOffsetDateTime() {
+  void testOffsetDateTime() {
 
     OffsetDateTime now = Instant.now().atOffset(ZoneOffset.ofHours(1));
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -92,7 +92,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link ZonedDateTime}.
    */
   @Test
-  public void testZonedDateTime() {
+  void testZonedDateTime() {
 
     ZonedDateTime now = Instant.now().atZone(ZoneId.of("Europe/Paris"));
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -103,7 +103,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with {@link YearMonth}.
    */
   @Test
-  public void testYearMonth() {
+  void testYearMonth() {
 
     YearMonth now = YearMonth.now();
     Temporal temporal = TemporalParser.get().parse(now.toString());
@@ -114,7 +114,7 @@ public class TemporalParserTest extends Assertions {
    * Test of {@link TemporalParser#parse(String)} with invalid values.
    */
   @Test
-  public void testInvalid() {
+  void testInvalid() {
 
     TemporalParser parser = TemporalParser.get();
     assertThat(parser.parse(null)).isNull();

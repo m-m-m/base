@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test for {@link CaseConversion}.
  */
-public class CaseConversionTest extends Assertions {
+class CaseConversionTest extends Assertions {
 
   /**
    * Test of {@link CaseConversion#convert(char)}.
    */
   @Test
-  public void testConvertChar() {
+  void testConvertChar() {
 
     assertThat(CaseConversion.UPPER_CASE.convert('a')).isEqualTo('A');
     assertThat(CaseConversion.UPPER_CASE.convert('z')).isEqualTo('Z');
@@ -41,7 +41,7 @@ public class CaseConversionTest extends Assertions {
    * Test of {@link CaseConversion#convert(String)} and {@link CaseConversion#convert(String, java.util.Locale)}.
    */
   @Test
-  public void testConvertString() {
+  void testConvertString() {
 
     assertThat(CaseConversion.LOWER_CASE.convert("HI ÄÖÜßSS")).isEqualTo("hi äöüßss");
     assertThat(CaseConversion.UPPER_CASE.convert("hi äöüßss")).isEqualTo("HI ÄÖÜSSSS");

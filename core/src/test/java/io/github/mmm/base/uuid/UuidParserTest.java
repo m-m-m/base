@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link UuidParser}.
  */
-public class UuidParserTest extends Assertions {
+class UuidParserTest extends Assertions {
 
   /**
    * Test of {@link UuidParser#parse(String)}.
    */
   @Test
-  public void testParseInstant() {
+  void testParseInstant() {
 
     UuidParser parser = UuidParser.get();
     assertThat(parser.parse(null)).isNull();

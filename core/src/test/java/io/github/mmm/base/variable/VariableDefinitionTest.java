@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link VariableDefinition}.
  */
-public class VariableDefinitionTest extends Assertions {
+class VariableDefinitionTest extends Assertions {
 
   /** Test of {@link VariableDefinition} with {@link VariableDefinition#getDefaultValue()}. */
   @Test
-  public void testWithDefault() {
+  void testWithDefault() {
 
     VariableDefinition<String> var = new VariableDefinition<>("option-name", "default-value");
     assertThat(var.getName()).isEqualTo("option-name");
@@ -20,7 +20,7 @@ public class VariableDefinitionTest extends Assertions {
 
   /** Test of {@link VariableDefinition} without {@link VariableDefinition#getDefaultValue()}. */
   @Test
-  public void testEmpty() {
+  void testEmpty() {
 
     VariableDefinition<String> var = new VariableDefinition<>("opt-name", String.class);
     assertThat(var.getName()).isEqualTo("opt-name");
@@ -30,7 +30,7 @@ public class VariableDefinitionTest extends Assertions {
 
   /** Test of {@link VariableDefinition} without {@link VariableDefinition#getType()} (Anti-pattern). */
   @Test
-  public void testUntyped() {
+  void testUntyped() {
 
     VariableDefinition<String> var = new VariableDefinition<>("bad-option", (String) null);
     assertThat(var.getName()).isEqualTo("bad-option");

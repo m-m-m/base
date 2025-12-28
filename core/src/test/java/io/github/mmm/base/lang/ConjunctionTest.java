@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 /**
  * Test of {@link Conjunction}.
  */
-public class ConjunctionTest extends Assertions {
+class ConjunctionTest extends Assertions {
 
   /** Test of {@link Conjunction#AND}. */
   @Test
-  public void testAnd() {
+  void testAnd() {
 
     Conjunction and = Conjunction.AND;
     assertThat(and.eval(true, true)).isTrue();
@@ -29,7 +29,7 @@ public class ConjunctionTest extends Assertions {
 
   /** Test of {@link Conjunction#OR}. */
   @Test
-  public void testOr() {
+  void testOr() {
 
     Conjunction or = Conjunction.OR;
     assertThat(or.eval(true, true)).isTrue();
@@ -46,7 +46,7 @@ public class ConjunctionTest extends Assertions {
 
   /** Test of {@link Conjunction#NAND}. */
   @Test
-  public void testNand() {
+  void testNand() {
 
     Conjunction nand = Conjunction.NAND;
     assertThat(nand.eval(true, true)).isFalse();
@@ -63,7 +63,7 @@ public class ConjunctionTest extends Assertions {
 
   /** Test of {@link Conjunction#NOR}. */
   @Test
-  public void testNor() {
+  void testNor() {
 
     Conjunction nor = Conjunction.NOR;
     assertThat(nor.eval(true, true)).isFalse();
@@ -80,7 +80,7 @@ public class ConjunctionTest extends Assertions {
 
   /** Test of {@link Conjunction#XOR}. */
   @Test
-  public void testXor() {
+  void testXor() {
 
     Conjunction xor = Conjunction.XOR;
     assertThat(xor.eval(true, true)).isFalse();
@@ -97,7 +97,7 @@ public class ConjunctionTest extends Assertions {
 
   /** Test of {@link Conjunction#EQ}. */
   @Test
-  public void testEq() {
+  void testEq() {
 
     Conjunction eq = Conjunction.EQ;
     assertThat(eq.eval(true, true)).isTrue();
@@ -118,7 +118,7 @@ public class ConjunctionTest extends Assertions {
    * Generic test for all {@link Conjunction}s.
    */
   @Test
-  public void testGeneric() {
+  void testGeneric() {
 
     for (Conjunction conjunction : Conjunction.values()) {
       assertThat(Conjunction.ofName(conjunction.getName())).isSameAs(conjunction);
