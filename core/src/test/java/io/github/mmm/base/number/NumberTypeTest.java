@@ -56,11 +56,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testByte() {
 
-    // given
+    // arrange
     byte b = 123;
-    // when
+    // act
     NumberType<Byte> type = NumberType.BYTE;
-    // then
+    // assert
     checkNonDecimal(type, Byte.valueOf(b));
     assertThat(type.getMin()).isEqualTo(Byte.MIN_VALUE);
     assertThat(type.getMax()).isEqualTo(Byte.MAX_VALUE);
@@ -69,11 +69,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testShort() {
 
-    // given
+    // arrange
     short s = 12345;
-    // when
+    // act
     NumberType<Short> type = NumberType.SHORT;
-    // then
+    // assert
     checkNonDecimal(type, Short.valueOf(s));
     assertThat(type.getMin()).isEqualTo(Short.MIN_VALUE);
     assertThat(type.getMax()).isEqualTo(Short.MAX_VALUE);
@@ -82,11 +82,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testInteger() {
 
-    // given
+    // arrange
     int i = 1234567890;
-    // when
+    // act
     NumberType<Integer> type = NumberType.INTEGER;
-    // then
+    // assert
     checkNonDecimal(type, Integer.valueOf(i));
     assertThat(type.getMin()).isEqualTo(Integer.MIN_VALUE);
     assertThat(type.getMax()).isEqualTo(Integer.MAX_VALUE);
@@ -95,11 +95,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testLong() {
 
-    // given
+    // arrange
     long l = 1234567890123456L;
-    // when
+    // act
     NumberType<Long> type = NumberType.LONG;
-    // then
+    // assert
     checkNonDecimal(type, Long.valueOf(l));
     assertThat(type.getMin()).isEqualTo(Long.MIN_VALUE);
     assertThat(type.getMax()).isEqualTo(Long.MAX_VALUE);
@@ -108,11 +108,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testBigInteger() {
 
-    // given
+    // arrange
     BigInteger bi = BIG_INTEGER;
-    // when
+    // act
     NumberType<BigInteger> type = NumberType.BIG_INTEGER;
-    // then
+    // assert
     checkNonDecimal(type, bi);
     assertThat(type.getMin()).isNull();
     assertThat(type.getMax()).isNull();
@@ -122,11 +122,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testFloat() {
 
-    // given
+    // arrange
     float f = 123456789.123456789F;
-    // when
+    // act
     NumberType<Float> type = NumberType.FLOAT;
-    // then
+    // assert
     checkDecimal(type, Float.valueOf(f));
     assertThat(type.getMin()).isEqualTo(-Float.MAX_VALUE);
     assertThat(type.getMax()).isEqualTo(Float.MAX_VALUE);
@@ -135,11 +135,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testDouble() {
 
-    // given
+    // arrange
     double d = 123456789.123456789;
-    // when
+    // act
     NumberType<Double> type = NumberType.DOUBLE;
-    // then
+    // assert
     checkDecimal(type, Double.valueOf(d));
     assertThat(type.getMin()).isEqualTo(-Double.MAX_VALUE);
     assertThat(type.getMax()).isEqualTo(Double.MAX_VALUE);
@@ -148,11 +148,11 @@ public class NumberTypeTest extends Assertions {
   @Test
   public void testBigDecimal() {
 
-    // given
+    // arrange
     BigDecimal bd = BIG_DECIMAL;
-    // when
+    // act
     NumberType<BigDecimal> type = NumberType.BIG_DECIMAL;
-    // then
+    // assert
     checkDecimal(type, bd);
     assertThat(type.getMin()).isNull();
     assertThat(type.getMax()).isNull();

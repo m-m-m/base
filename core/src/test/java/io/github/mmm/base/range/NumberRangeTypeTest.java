@@ -17,14 +17,14 @@ public class NumberRangeTypeTest extends Assertions {
   @Test
   public void test() {
 
-    // given
+    // arrange
     BigDecimal min = new BigDecimal("-0.000000001");
     Long max = Long.valueOf(1);
 
-    // when
+    // act
     NumberRangeType numberRange = new NumberRangeType(min, max);
 
-    // then
+    // assert
     assertThat(numberRange).hasToString("[-0.000000001，1]");
     assertThat(numberRange.getMin()).isEqualTo(min);
     assertThat(numberRange.getMax()).isEqualTo(max);

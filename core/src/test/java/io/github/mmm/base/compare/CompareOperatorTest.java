@@ -31,10 +31,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testEqual() {
 
-    // given
+    // arrange
     CompareOperator op = CompareOperator.EQUAL;
 
-    // when + then
+    // act + assert
     assertThat(op.getSymbol()).isEqualTo("==");
     assertThat(op.toString()).isEqualTo("equal to");
 
@@ -45,10 +45,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testNotEqual() {
 
-    // given
+    // arrange
     CompareOperator op = CompareOperator.NOT_EQUAL;
 
-    // when + then
+    // act + assert
     assertThat(op.getSymbol()).isEqualTo("!=");
     assertThat(op.toString()).isEqualTo("not equal to");
 
@@ -59,10 +59,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testGreaterThan() {
 
-    // given
+    // arrange
     CompareOperator op = CompareOperator.GREATER_THAN;
 
-    // when + then
+    // act + assert
     assertThat(op.getSymbol()).isEqualTo(">");
     assertThat(op.toString()).isEqualTo("greater than");
 
@@ -73,10 +73,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testGreaterOrEqual() {
 
-    // given
+    // arrange
     CompareOperator op = CompareOperator.GREATER_OR_EQUAL;
 
-    // when + then
+    // act + assert
     assertThat(op.getSymbol()).isEqualTo(">=");
     assertThat(op.toString()).isEqualTo("greater or equal to");
 
@@ -87,10 +87,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testLessThan() {
 
-    // given
+    // arrange
     CompareOperator op = CompareOperator.LESS_THAN;
 
-    // when + then
+    // act + assert
     assertThat(op.getSymbol()).isEqualTo("<");
     assertThat(op.toString()).isEqualTo("less than");
 
@@ -101,10 +101,10 @@ public class CompareOperatorTest extends Assertions {
   @Test
   public void testLessOrEqual() {
 
-    // given
+    // arrange
     CompareOperator op = CompareOperator.LESS_OR_EQUAL;
 
-    // when + then
+    // act + assert
     assertThat(op.getSymbol()).isEqualTo("<=");
     assertThat(op.toString()).isEqualTo("less or equal to");
 

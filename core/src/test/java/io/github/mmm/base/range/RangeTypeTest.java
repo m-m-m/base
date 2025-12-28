@@ -17,14 +17,14 @@ public class RangeTypeTest extends Assertions {
   @Test
   public void test() {
 
-    // given
+    // arrange
     Year min = Year.of(2000);
     Year max = Year.of(2020);
 
-    // when
+    // act
     RangeType<Year> yearRange = new RangeType<>(min, max);
 
-    // then
+    // assert
     assertThat(yearRange).hasToString("[2000，2020]");
     assertThat(yearRange.getMin()).isEqualTo(min);
     assertThat(yearRange.getMax()).isEqualTo(max);
@@ -40,10 +40,10 @@ public class RangeTypeTest extends Assertions {
   @Test
   public void testParseYear() {
 
-    // given
+    // arrange
     Function<String, Year> yearParser = (s) -> Year.of(Integer.parseInt(s));
 
-    // when + then
+    // act + assert
     assertThat(RangeType.parse(null, yearParser)).isEqualTo(Range.unbounded());
     assertThat(RangeType.parse("", yearParser)).isEqualTo(Range.unbounded());
     assertThat(RangeType.parse(Range.unbounded().toString(), yearParser)).isEqualTo(Range.unbounded());
@@ -54,12 +54,12 @@ public class RangeTypeTest extends Assertions {
   @Test
   public void testParseSpecial() {
 
-    // given
+    // arrange
     Range<Long> unbounded = Range.unbounded();
     Range<Long> invalid = Range.invalid();
     Function<String, Long> longParser = (s) -> Long.valueOf(s);
 
-    // when + then
+    // act + assert
     assertThat(RangeType.parse(unbounded.toString(), longParser)).isSameAs(Range.unbounded());
     assertThat(RangeType.parse(invalid.toString(), longParser)).isSameAs(Range.invalid());
   }

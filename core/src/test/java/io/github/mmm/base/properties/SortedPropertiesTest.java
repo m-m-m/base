@@ -20,19 +20,19 @@ public class SortedPropertiesTest extends Assertions {
   @Test
   public void test() throws IOException {
 
-    // given
+    // arrange
     String unsorted = "key=value\n" //
         + "apple=banana\n" //
         + "zoo=forrest\n" //
         + "key2=value2";
-    // when
+    // act
     SortedProperties properties = new SortedProperties();
     properties.load(new StringReader(unsorted));
     properties.put("key1", "value1");
     StringWriter writer = new StringWriter();
     properties.store(writer, null);
     String sorted = writer.toString().replace("\r", "").replaceAll("#.*\n", "");
-    // then
+    // assert
     String expected = "apple=banana\n" //
         + "key=value\n" //
         + "key1=value1\n" //
