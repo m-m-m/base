@@ -7,7 +7,7 @@ package io.github.mmm.base.score;
  *
  * @since 1.0.0
  */
-public final class Score {
+public final class Score implements Comparable<Score> {
 
   private final double value;
 
@@ -76,6 +76,52 @@ public final class Score {
     }
     double newValue = this.value * score.value;
     return of(newValue);
+  }
+
+  /**
+   * @param score the other {@link Score}.
+   * @return the maximum of this {@link Score} and the given other {@link Score}.
+   */
+  public Score max(Score score) {
+
+    if (score == null) {
+      return this;
+    }
+    if (this.value > score.value) {
+      return this;
+    }
+    return score;
+  }
+
+  /**
+   * @param score the other {@link Score}.
+   * @return the minimum of this {@link Score} and the given other {@link Score}.
+   */
+  public Score min(Score score) {
+
+    if (score == null) {
+      return MIN;
+    }
+    if (this.value < score.value) {
+      return this;
+    }
+    return score;
+  }
+
+  @Override
+  public int compareTo(Score score) {
+
+    if (score == null) {
+      score = MIN;
+    }
+    double delta = this.value - score.value;
+    if (delta < 0) {
+      return -1;
+    } else if (delta == 0) {
+      return 0;
+    } else {
+      return 1;
+    }
   }
 
   @Override
