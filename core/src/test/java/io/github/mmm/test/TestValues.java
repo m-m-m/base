@@ -6,8 +6,6 @@ import java.util.Locale;
 
 /**
  * This interface contains arbitrary values for testing.
- *
- * @author Joerg Hohwiller (hohwille at users.sourceforge.net)
  */
 public interface TestValues {
 

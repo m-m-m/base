@@ -21,7 +21,7 @@ public abstract class AbstractIterator<E> implements Iterator<E> {
   private E next;
 
   /**
-   * Has to be called from the constructor after initialization of fields to find the first element.
+   * Has to be called from the constructor after initialisation of fields to find the first element.
    */
   protected final void findFirst() {
 
