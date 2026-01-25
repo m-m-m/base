@@ -22,6 +22,7 @@
     <module>core</module>
     <module>metainfo</module>
     <module>placement</module>
+    <module>resource</module>
   </modules>
 
   <dependencyManagement>
@@ -52,6 +53,11 @@
       <dependency>
         <groupId>${project.groupId}</groupId>
         <artifactId>mmm-base-placement</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>mmm-base-resource</artifactId>
         <version>${project.version}</version>
       </dependency>
     </dependencies>
