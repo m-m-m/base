@@ -44,7 +44,7 @@ public interface CharFilter {
   CharFilter WHITESPACE = of(c -> Character.isWhitespace(c), "whitespace");
 
   /** A filter that {@link #accept(int) accepts} any charater. */
-  CharFilter ANY = of(c -> true, "**");
+  CharFilter ANY = of(_ -> true, "**");
 
   /** A filter that only {@link #accept(int) accepts} the file separator characters '/' and '\\'. */
   CharFilter FILE_SEPARATOR = new ListCharFilter("/\\");

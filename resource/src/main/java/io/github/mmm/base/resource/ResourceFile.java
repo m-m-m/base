@@ -1,41 +1,21 @@
 package io.github.mmm.base.resource;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UncheckedIOException;
+import java.util.List;
 
 import io.github.mmm.base.io.IoProcessor;
 
 /**
  * Interface for a {@link ResourcePath} pointing to a file.
  */
-public interface ResourceFile extends ResourcePath {
+public interface ResourceFile extends AbstractResourceFile {
 
-  /**
-   * Opens an {@link InputStream} with the file content. Consider to use {@link #processAsStream(IoProcessor)} if
-   * possible to prevent resource leaks.
-   *
-   * @return the {@link InputStream} to read the content of this file.
-   */
-  InputStream asStream();
+  @Override
+  default boolean isFile() {
 
-  /**
-   * @param <T> type of the returned result. Use {@link Void} and return {@code null} if not needed.
-   * @param processor the {@link IoProcessor} to process the file as {@link InputStream}.
-   * @return the result of the {@link IoProcessor}.
-   */
-  default <T> T processAsStream(IoProcessor<InputStream, T> processor) {
-
-    try (InputStream in = asStream()) {
-      return processor.process(in);
-    } catch (IOException e) {
-      throw new UncheckedIOException("Failed to read file " + getPath() + " from module " + getModuleAccess(), e);
-    } catch (Exception e) {
-      throw new IllegalStateException("Failed to process file " + getPath() + " from module " + getModuleAccess(), e);
-    }
+    return true;
   }
 
   /**
@@ -51,6 +31,15 @@ public interface ResourceFile extends ResourcePath {
         return processor.process(br);
       }
     });
+  }
+
+  /**
+   * @return reads all lines of the file assuming it is a small, textual file.
+   * @see BufferedReader#readAllLines()
+   */
+  default List<String> readAllLines() {
+
+    return processAsReader(BufferedReader::readAllLines);
   }
 
 }

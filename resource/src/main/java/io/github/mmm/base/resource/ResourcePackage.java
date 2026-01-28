@@ -3,14 +3,24 @@ package io.github.mmm.base.resource;
 import java.lang.module.ModuleDescriptor;
 
 /**
- * {@link ResourceFolder} pointing to a {@link Package}.
+ * Interface for a {@link ResourcePath} pointing to a folder ({@link #getPackage() likely a package}).
  */
-public interface ResourcePackage extends ResourceFolder, ResourceJavaPath {
+public interface ResourcePackage extends ResourcePath {
 
   /**
-   * @return the Java {@link Package}.
+   * @return the Java {@link Package} or {@code null} if this is a simple folder that has no {@link Package}. Examples
+   *         are the {@link #isRoot() root} folder, parent packages of modules not containing types, or folders like
+   *         "META-INF" that do not have a corresponding {@link Package} in Java.
    */
   Package getPackage();
+
+  /**
+   * @return {@code true} if this is the root folder, {@code false} otherwise.
+   */
+  default boolean isRoot() {
+
+    return getParent() == null;
+  }
 
   /**
    * @return {@code true} if the {@link Package} is open unconditionally (the entire module is open, automatic or

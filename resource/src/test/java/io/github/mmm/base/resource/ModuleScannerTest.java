@@ -3,6 +3,7 @@ package io.github.mmm.base.resource;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.lang.module.ResolvedModule;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -12,8 +13,12 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
-import io.github.mmm.base.lang.Builder;
+import io.github.mmm.base.lang.Composable;
+import io.github.mmm.base.lang.Conjunction;
+import io.github.mmm.base.lang.ToStringFormatter;
 import io.github.mmm.base.lang.ValueType;
+import io.github.mmm.base.type.JavaType;
+import io.github.mmm.base.type.JavaTypeKind;
 
 /**
  * Test of {@link ModuleScanner}.
@@ -106,46 +111,157 @@ class ModuleScannerTest extends Assertions {
 
     // assert
     assertThat(resources.getAll()).hasSizeGreaterThan(120);
-    // simple files...
-    assertThat(resources.getSimpleFiles()).hasSizeGreaterThanOrEqualTo(1);
-    ResourceSimpleFile service = resources.get("META-INF/services/io.github.mmm.base.temporal.TemporalConverter");
-    assertThat(service.isFile()).isTrue();
-    assertThat(service.isSimple()).isTrue();
-    assertThat(service.isFolder()).isFalse();
-    assertThat(service.isJava()).isFalse();
+    // regular files...
+    assertThat(resources.getFiles()).hasSizeGreaterThanOrEqualTo(1);
+    ResourceFile service = getFile(resources, "META-INF/services/io.github.mmm.base.temporal.TemporalConverter",
+        "META-INF.services.io.github.mmm.base.temporal.TemporalConverter",
+        "io.github.mmm.base.temporal.TemporalConverter", moduleAccess);
     assertThat(service.readAllLines()).containsExactly("io.github.mmm.base.temporal.impl.TemporalConverterImpl");
-    // types...
+    // types (class files)...
     assertThat(resources.getTypes()).hasSizeGreaterThan(100);
-    ResourceType pkgInfo = resources.get("io/github/mmm/base/lang/package-info.class");
-    assertThat(pkgInfo.isFile()).isTrue();
-    assertThat(pkgInfo.isSimple()).isFalse();
-    assertThat(pkgInfo.isFolder()).isFalse();
-    assertThat(pkgInfo.isJava()).isTrue();
-    assertThat(pkgInfo.isPackageInfo()).isTrue();
-    assertThat(pkgInfo.isInnerType()).isFalse();
-    ResourceType builder = resources.get("io/github/mmm/base/lang/Builder.class");
-    assertThat(builder.loadClass()).isSameAs(Builder.class);
-    assertThat(builder.isPackageInfo()).isFalse();
-    assertThat(builder.isInnerType()).isFalse();
-    ResourceType valueType1 = resources.get("io/github/mmm/base/lang/ValueType$1.class");
-    assertThat(valueType1.isPackageInfo()).isFalse();
-    assertThat(valueType1.isInnerType()).isTrue();
+    ResourceType pkgInfo = getType(resources, "io/github/mmm/base/lang/package-info.class",
+        "io.github.mmm.base.lang.package-info", "package-info", moduleAccess);
+    ResourceType composable = getType(resources, Composable.class, moduleAccess);
+    ResourceType conjunction = getType(resources, Conjunction.class, moduleAccess);
+    ResourceType toStringFormatter = getType(resources, ToStringFormatter.class, moduleAccess);
+    ResourceType valueType1 = getType(resources, "io/github/mmm/base/lang/ValueType$1.class",
+        "io.github.mmm.base.lang.ValueType$1", "ValueType$1", moduleAccess);
     assertThat(valueType1.loadClass().getNestHost()).isSameAs(ValueType.class);
+    ResourceType moduleInfo = getModuleInfo(resources, moduleAccess);
+
     // packages
     assertThat(resources.getPackages()).hasSizeGreaterThan(10);
-    ResourcePackage lang = resources.get("io/github/mmm/base/lang/");
-    assertThat(lang.isFile()).isFalse();
-    assertThat(lang.isSimple()).isFalse();
-    assertThat(lang.isFolder()).isTrue();
-    assertThat(lang.isJava()).isTrue();
-    assertThat(lang.getPackage()).isSameAs(Builder.class.getPackage());
-    // simple folders
-    assertThat(resources.getSimpleFolders()).hasSizeGreaterThan(2);
-    ResourceSimpleFolder metaInf = resources.get("META-INF/");
-    assertThat(metaInf.isFile()).isFalse();
-    assertThat(metaInf.isSimple()).isTrue();
-    assertThat(metaInf.isFolder()).isTrue();
-    assertThat(metaInf.isJava()).isFalse();
+    ResourcePackage lang = getPackage(resources, "io/github/mmm/base/lang/", "io.github.mmm.base.lang", "lang",
+        moduleAccess);
+    assertThat(lang.getPackage()).isSameAs(composable.getParent().getPackage())
+        .isSameAs(pkgInfo.getParent().getPackage());
+    ResourcePackage root = moduleInfo.getParent();
+    assertThat(root.getPath()).isEqualTo("/");
+    assertThat(root.getName()).isEmpty();
+    assertThat(root.getSimpleName()).isEmpty();
+    assertThat(root.isFile()).isFalse();
+    assertThat(root.isType()).isFalse();
+    assertThat(root.getParent()).isNull();
+    assertThat(root.getPackage()).isNull();
+
+    // packages that are only folders
+    ResourcePackage metaInf = getPackage(resources, "META-INF/", "META-INF", "META-INF", moduleAccess);
+    assertThat(metaInf.getParent().isRoot()).isTrue();
+    assertThat(metaInf.getPackage()).isNull();
+    ResourcePackage base = getPackage(resources, "io/github/mmm/base/", "io.github.mmm.base", "base", moduleAccess);
+    assertThat(base.getPackage()).isNull();
+
+    // fast load types as JavaType
+    JavaType type = loadType(composable, Composable.class);
+    assertThat(type).hasToString("public interface io.github.mmm.base.lang.Composable extends java.lang.Iterable");
+    type = loadType(conjunction, Conjunction.class);
+    assertThat(type.getSuperClass()).isEqualTo(Enum.class.getName());
+    assertThat(type.isAbstract()).isTrue();
+    assertThat(type.isFinal()).isFalse();
+    assertThat(type.getInterfaceCount()).isZero();
+    assertThat(type).hasToString("public enum io.github.mmm.base.lang.Conjunction");
+    type = loadType(toStringFormatter, ToStringFormatter.class);
+    assertThat(type).hasToString(
+        "public final class io.github.mmm.base.lang.ToStringFormatter implements java.util.function.Function");
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T extends ResourcePath> T getResource(ResourceMap resources, String path, String name, String simpleName,
+      ModuleAccess access) {
+
+    ResourcePath resource;
+    if (path.equals(ResourceType.MODULE_INFO_CLASS)) {
+      resource = resources.getModuleInfo();
+    }
+    resource = resources.getByPath(path);
+    assertThat(resource.getPath()).isEqualTo(path);
+    assertThat(resource.getName()).isEqualTo(name);
+    assertThat(resource.getSimpleName()).isEqualTo(simpleName);
+    assertThat(resource.getModuleAccess()).isSameAs(access);
+    return (T) resource;
+  }
+
+  private ResourcePackage getPackage(ResourceMap resources, String path, String name, String simpleName,
+      ModuleAccess access) {
+
+    ResourcePackage pkg = getResource(resources, path, name, simpleName, access);
+    assertThat(pkg.isPackage()).isTrue();
+    assertThat(pkg.isFile()).isFalse();
+    assertThat(pkg.isType()).isFalse();
+    return pkg;
+  }
+
+  private ResourceFile getFile(ResourceMap resources, String path, String name, String simpleName,
+      ModuleAccess access) {
+
+    ResourceFile file = getResource(resources, path, name, simpleName, access);
+    assertThat(file.isFile()).isTrue();
+    assertThat(file.isPackage()).isFalse();
+    assertThat(file.isType()).isFalse();
+    return file;
+  }
+
+  private ResourceType getType(ResourceMap resources, String path, String name, String simpleName,
+      ModuleAccess access) {
+
+    ResourceType type = getResource(resources, path, name, simpleName, access);
+    assertThat(type.isType()).isTrue();
+    assertThat(type.isFile()).isFalse();
+    assertThat(type.isPackage()).isFalse();
+    assertThat(type.isInnerType()).isEqualTo(path.contains("$"));
+    assertThat(type.isPackageInfo()).isEqualTo(simpleName.equals("package-info"));
+    assertThat(type.isModuleInfo()).isEqualTo(simpleName.equals("module-info"));
+    return type;
+  }
+
+  private ResourceType getType(ResourceMap resources, Class<?> clazz, ModuleAccess access) {
+
+    ResourceType type = getType(resources, clazz.getName().replace('.', '/') + ".class", clazz.getName(),
+        clazz.getSimpleName(), access);
+    assertThat(type.loadClass()).isSameAs(clazz);
+    assertThat(type.getParent().getPackage()).isSameAs(clazz.getPackage());
+    return type;
+  }
+
+  private ResourceType getModuleInfo(ResourceMap resources, ModuleAccess access) {
+
+    ResourceType type = getType(resources, "module-info.class", "module-info", "module-info", access);
+    assertThat(type.loadClass()).isNull();
+    return type;
+  }
+
+  private JavaType loadType(ResourceType resourceType, Class<?> clazz) {
+
+    JavaType javaType = resourceType.loadType();
+    JavaTypeKind kind = javaType.getKind();
+    if (clazz.isAnnotation()) {
+      assertThat(kind.isAnnotation()).isTrue();
+    } else if (clazz.isEnum()) {
+      assertThat(kind.isEnum()).isTrue();
+    } else if (clazz.isRecord()) {
+      assertThat(kind.isRecord()).isTrue();
+    } else if (clazz.isInterface()) {
+      assertThat(kind.isInterface()).isTrue();
+    } else {
+      assertThat(kind.isClass()).isTrue();
+    }
+    assertThat(javaType.getName()).isEqualTo(clazz.getName()).isEqualTo(resourceType.getName());
+    Class<?> superclass = clazz.getSuperclass();
+    if (superclass == null) {
+      assertThat(javaType.hasObjectAsSuperClass()).isTrue();
+    } else {
+      assertThat(javaType.getSuperClass()).isEqualTo(superclass.getName());
+    }
+    int modifiers = clazz.getModifiers();
+    assertThat(javaType.isPublic()).isEqualTo(Modifier.isPublic(modifiers));
+    assertThat(javaType.isAbstract()).isEqualTo(Modifier.isAbstract(modifiers));
+    assertThat(javaType.isFinal()).isEqualTo(Modifier.isFinal(modifiers));
+    Class<?>[] interfaces = clazz.getInterfaces();
+    assertThat(javaType.getInterfaceCount()).isEqualTo(interfaces.length);
+    for (int i = 0; i < interfaces.length; i++) {
+      assertThat(javaType.getInterface(i)).isEqualTo(interfaces[i].getName());
+    }
+    return javaType;
   }
 
 }

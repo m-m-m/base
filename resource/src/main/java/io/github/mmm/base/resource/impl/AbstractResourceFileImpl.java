@@ -4,36 +4,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 
+import io.github.mmm.base.resource.AbstractResourceFile;
 import io.github.mmm.base.resource.ModuleAccess;
 import io.github.mmm.base.resource.ResourceFile;
+import io.github.mmm.base.resource.ResourcePackage;
 
 /**
  * Implementation of {@link ResourceFile}.
  */
-public abstract class AbstractResourceFile extends AbstractResourcePath implements ResourceFile {
+public abstract class AbstractResourceFileImpl extends ResourcePathImpl implements AbstractResourceFile {
 
   /**
    * The constructor.
    *
    * @param moduleAccess the {@link #getModuleAccess() module access}.
    * @param path the {@link #getPath() path}.
+   * @param simpleName the {@link #getSimpleName() simple name}.
+   * @param parent the {@link #getParent() parent}.
    */
-  public AbstractResourceFile(ModuleAccess moduleAccess, String path) {
+  public AbstractResourceFileImpl(ModuleAccess moduleAccess, String path, String simpleName, ResourcePackage parent) {
 
-    super(moduleAccess, path);
+    super(moduleAccess, path, simpleName, parent);
     assert (!path.endsWith("/")) : "invalid file path:" + path;
-  }
-
-  @Override
-  public final boolean isFile() {
-
-    return true;
-  }
-
-  @Override
-  public final boolean isFolder() {
-
-    return false;
   }
 
   @Override

@@ -8,11 +8,14 @@ import io.github.mmm.base.resource.ResourcePackage;
 /**
  * Implementation of {@link ResourcePackage}.
  */
-public final class ResourcePackageImpl extends AbstractResourceFolder implements ResourcePackage {
-
-  private final String name;
+public final class ResourcePackageImpl extends ResourcePathImpl implements ResourcePackage {
 
   private Package javaPackage;
+
+  ResourcePackageImpl(ModuleAccess moduleAccess, String path, String name, ResourcePackage parent) {
+
+    this(moduleAccess, path, name, parent, null);
+  }
 
   /**
    * The constructor.
@@ -20,24 +23,32 @@ public final class ResourcePackageImpl extends AbstractResourceFolder implements
    * @param moduleAccess the {@link #getModuleAccess() module access}.
    * @param path the {@link #getPath() path}.
    * @param name the {@link #getName() package name}.
+   * @param javaPackage the {@link #getPackage() package} or {@code null} for lazy init.
    */
-  public ResourcePackageImpl(ModuleAccess moduleAccess, String path, String name) {
+  ResourcePackageImpl(ModuleAccess moduleAccess, String path, String name, ResourcePackage parent,
+      Package javaPackage) {
 
-    super(moduleAccess, path);
-    Objects.requireNonNull(name);
-    this.name = name;
+    super(moduleAccess, path, name, parent);
+    Objects.requireNonNull(this.name);
+    this.javaPackage = javaPackage;
   }
 
   @Override
-  public boolean isSimple() {
+  public boolean isPackage() {
+
+    return true;
+  }
+
+  @Override
+  public boolean isFile() {
 
     return false;
   }
 
   @Override
-  public boolean isJava() {
+  public boolean isType() {
 
-    return true;
+    return false;
   }
 
   @Override

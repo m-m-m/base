@@ -12,7 +12,11 @@ import io.github.mmm.base.exception.RuntimeIoException;
  * two {@code char} values (surrogates). The {@link Reader} API lacks support to read into a buffer such that you do not
  * end up in a half code-point at the end of your {@code char[]} buffer.
  */
-public class ReaderHelper {
+public final class ReaderHelper {
+
+  private ReaderHelper() {
+
+  }
 
   /**
    * Reads from the given {@link Reader} into the given {@code buffer} while ensuring that always entire

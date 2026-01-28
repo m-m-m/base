@@ -6,8 +6,6 @@ import org.assertj.core.api.Assertions;
 
 /**
  * This is a utility-class for testing implementations of {@link #equals(Object)} and {@link #hashCode()}.
- *
- * @author Joerg Hohwiller (hohwille at users.sourceforge.net)
  */
 public class ObjectHelper extends Assertions {
 

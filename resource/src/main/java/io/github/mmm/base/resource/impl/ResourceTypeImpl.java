@@ -1,59 +1,60 @@
 package io.github.mmm.base.resource.impl;
 
+import java.util.Objects;
+
 import io.github.mmm.base.resource.ModuleAccess;
+import io.github.mmm.base.resource.ResourcePackage;
 import io.github.mmm.base.resource.ResourceType;
+import io.github.mmm.base.type.JavaType;
+import io.github.mmm.base.type.impl.JavaTypeReader;
 
 /**
  * Implementation of {@link ResourceType}.
  */
-public final class ResourceTypeImpl extends AbstractResourceFile implements ResourceType {
+public final class ResourceTypeImpl extends AbstractResourceFileImpl implements ResourceType {
 
-  private final String name;
+  private Class<?> javaClass;
 
-  private Class<?> type;
+  private JavaType javaType;
 
   /**
    * The constructor.
    *
    * @param moduleAccess the {@link #getModuleAccess() module access}.
    * @param path the {@link #getPath() path}.
+   * @param simpleName the {@link #getSimpleName() simple name}.
+   * @param parent the {@link #getParent() package folder}.
    */
-  public ResourceTypeImpl(ModuleAccess moduleAccess, String path) {
+  public ResourceTypeImpl(ModuleAccess moduleAccess, String path, String simpleName, ResourcePackage parent) {
 
-    super(moduleAccess, path);
+    super(moduleAccess, path, simpleName, parent);
     assert (path.endsWith(".class")) : "invalid class file path:" + path;
-    this.name = path.substring(0, path.length() - 6).replace('/', '.');
-  }
-
-  @Override
-  public boolean isSimple() {
-
-    return false;
-  }
-
-  @Override
-  public boolean isJava() {
-
-    return true;
-  }
-
-  @Override
-  public String getName() {
-
-    return this.name;
+    Objects.requireNonNull(parent);
   }
 
   @Override
   public Class<?> loadClass() {
 
-    if (this.type == null) {
+    if (this.javaClass == null) {
       try {
-        this.type = this.moduleAccess.get().getClassLoader().loadClass(this.name);
+        if (isModuleInfo()) {
+          return null;
+        }
+        this.javaClass = this.moduleAccess.get().getClassLoader().loadClass(this.name);
       } catch (ClassNotFoundException e) {
         throw new IllegalStateException(e);
       }
     }
-    return this.type;
+    return this.javaClass;
+  }
+
+  @Override
+  public JavaType loadType() {
+
+    if (this.javaType == null) {
+      this.javaType = processAsStream(JavaTypeReader.INSTANCE);
+    }
+    return this.javaType;
   }
 
 }

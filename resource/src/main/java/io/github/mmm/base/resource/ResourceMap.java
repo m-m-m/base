@@ -14,12 +14,33 @@ public interface ResourceMap {
   Collection<String> getPaths();
 
   /**
-   * @param <T> type of the expected {@link ResourcePath}. E.g. {@link ResourceSimpleFile} or {@link ResourceType}.
+   * @param <T> type of the expected {@link ResourcePath}. Should be one of {@link ResourceType},
+   *        {@link ResourcePackage}, {@link ResourceFile}, or {@link ResourcePath}.
    * @param path the {@link ResourcePath#getPath() path} of the requested {@link ResourcePath resource}.
    * @return the {@link ResourcePath} with the given {@link ResourcePath#getPath() path}.
    * @see #getPaths()
    */
-  <T extends ResourcePath> T get(String path);
+  <T extends ResourcePath> T getByPath(String path);
+
+  /**
+   * @param <T> type of the expected {@link ResourcePath}. Should be on of {@link ResourcePackage},
+   *        {@link ResourceType}, or {@link ResourcePath}.
+   * @param name the {@link ResourcePath#getName() name} of the requested {@link ResourcePath resource}.
+   * @return the {@link ResourcePath} with the given {@link ResourcePath#getName() name}.
+   * @see #getPaths()
+   */
+  default <T extends ResourcePath> T getByName(String name) {
+
+    return getByPath(name.replace('.', '/'));
+  }
+
+  /**
+   * @return the {@link ResourceType} for the {@link ResourceType#MODULE_INFO_CLASS module-info}.
+   */
+  default ResourceType getModuleInfo() {
+
+    return getByPath(ResourceType.MODULE_INFO_CLASS);
+  }
 
   /**
    * @return a {@link Collection} with all {@link ResourcePath resources}.
@@ -31,15 +52,15 @@ public interface ResourceMap {
    */
   default Stream<ResourceType> getTypes() {
 
-    return getAll().stream().filter(r -> r.isFile() && r.isJava()).map(ResourceType.class::cast);
+    return getAll().stream().filter(r -> r.isType()).map(ResourceType.class::cast);
   }
 
   /**
-   * @return a {@link Stream} with all {@link ResourceSimpleFile simple files}.
+   * @return a {@link Stream} with all (regular) {@link ResourceFile files}.
    */
-  default Stream<ResourceSimpleFile> getSimpleFiles() {
+  default Stream<ResourceFile> getFiles() {
 
-    return getAll().stream().filter(r -> r.isFile() && r.isSimple()).map(ResourceSimpleFile.class::cast);
+    return getAll().stream().filter(r -> r.isFile()).map(ResourceFile.class::cast);
   }
 
   /**
@@ -47,15 +68,7 @@ public interface ResourceMap {
    */
   default Stream<ResourcePackage> getPackages() {
 
-    return getAll().stream().filter(r -> r.isFolder() && r.isJava()).map(ResourcePackage.class::cast);
-  }
-
-  /**
-   * @return a {@link Stream} with all {@link ResourceSimpleFolder simple folders}.
-   */
-  default Stream<ResourceSimpleFolder> getSimpleFolders() {
-
-    return getAll().stream().filter(r -> r.isFolder() && r.isSimple()).map(ResourceSimpleFolder.class::cast);
+    return getAll().stream().filter(r -> r.isPackage()).map(ResourcePackage.class::cast);
   }
 
 }

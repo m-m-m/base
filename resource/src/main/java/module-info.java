@@ -10,6 +10,10 @@ module io.github.mmm.base.resource {
 
   requires io.github.mmm.base;
 
+  requires org.slf4j;
+
   exports io.github.mmm.base.resource;
+
+  exports io.github.mmm.base.type;
 
 }

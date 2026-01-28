@@ -17,25 +17,66 @@ public interface ResourcePath {
   String getPath();
 
   /**
-   * @return {@code true} if this is a {@link ResourceFile}, {@code false} otherwise (if a {@link ResourceFolder}).
+   * @return the qualified name of the {@link Class} or {@link Package} a the {@link #getPath() path} without the
+   *         trailing suffix ".class" or "/" and with dots (".") replaced by slashes ("/"). If not representing a
+   *         {@link Class} or (parent) {@link Package} this the result of this method may be non-sense. E.g. a
+   *         {@link ResourceFile} with the {@link #getPath() path} "foo.bar/some.ext" will return "foo.bar.some.ext".
+   * @see #getSimpleName()
    */
-  boolean isFile();
+  String getName();
 
   /**
-   * @return {@code true} if this is a {@link ResourceFolder}, {@code false} otherwise (if a {@link ResourceFile}).
+   * Examples:
+   * <table border="1">
+   * <tr>
+   * <th>{@link #getName() Name}</th>
+   * <th>{@link #getSimpleName() Simple name}</th>
+   * </tr>
+   * <tr>
+   * <td>java.lang</td>
+   * <td>lang</td>
+   * <tr>
+   * <tr>
+   * <td>java.lang.String</td>
+   * <td>String</td>
+   * <tr>
+   * <tr>
+   * <td>META-INF/services/com.example.service</td>
+   * <td>com.example.service</td>
+   * <tr>
+   * </table>
+   *
+   * @return the simple name without the {@link #getParent() parent}.
    */
-  boolean isFolder();
+  String getSimpleName();
 
   /**
-   * @return {@code true} if this is a {@link ResourceSimpleFile} or {@link ResourceSimpleFolder}, {@code false}
-   *         otherwise (if a {@link ResourceType} or {@link ResourcePackage}).
+   * @return the parent {@link ResourcePackage} containing this resource.
    */
-  boolean isSimple();
+  ResourcePackage getParent();
 
   /**
-   * @return {@code true} if this is a {@link ResourceType} or {@link ResourcePackage}, {@code false} otherwise (if a
-   *         {@link ResourceSimpleFile} or {@link ResourceSimpleFolder}).
+   * @return {@code true} if this is a regular {@link ResourceFile}, {@code false} otherwise (type or package).
    */
-  boolean isJava();
+  default boolean isFile() {
+
+    return false;
+  }
+
+  /**
+   * @return {@code true} if this is a {@link ResourcePackage}, {@code false} otherwise (file or type).
+   */
+  default boolean isPackage() {
+
+    return false;
+  }
+
+  /**
+   * @return {@code true} if this is a {@link ResourceType}, {@code false} otherwise (file or package).
+   */
+  default boolean isType() {
+
+    return false;
+  }
 
 }
