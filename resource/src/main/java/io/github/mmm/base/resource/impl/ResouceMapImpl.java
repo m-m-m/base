@@ -43,7 +43,7 @@ public class ResouceMapImpl implements ResourceMap {
       Iterator<String> pathIterator = entriesStream.iterator();
       while (pathIterator.hasNext()) {
         String path = pathIterator.next();
-        LOG.debug("Found {}@{}", resolved.name(), path);
+        LOG.trace("Found {}@{}", resolved.name(), path);
         if ((path == null) || path.isEmpty()) {
           continue; // robustness: ignore non-sense
         }

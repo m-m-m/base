@@ -1,7 +1,5 @@
 package io.github.mmm.base.resource;
 
-import java.lang.module.ModuleDescriptor;
-
 /**
  * Interface for a {@link ResourcePath} pointing to a folder ({@link #getPackage() likely a package}).
  */
@@ -28,16 +26,7 @@ public interface ResourcePackage extends ResourcePath {
    */
   default boolean isOpen() {
 
-    Module module = getModuleAccess().get();
-    ModuleDescriptor descriptor = module.getDescriptor();
-    if (descriptor.isOpen()) {
-      return true;
-    } else if (descriptor.isAutomatic()) {
-      return true;
-    } else if (module.isOpen(getName())) {
-      return true;
-    }
-    return false;
+    return getModuleAccess().isOpen(getName());
   }
 
 }

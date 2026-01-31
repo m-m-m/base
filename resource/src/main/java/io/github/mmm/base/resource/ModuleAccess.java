@@ -2,6 +2,7 @@ package io.github.mmm.base.resource;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleReader;
 import java.lang.module.ResolvedModule;
 import java.util.List;
@@ -22,6 +23,14 @@ public interface ModuleAccess {
    * @return the corresponding {@link Module}.
    */
   Module get();
+
+  /**
+   * @param packageName the {@link Package#getName() package name} to check.
+   * @return {@code true} if the {@link Module} is {@link ModuleDescriptor#isOpen() open},
+   *         {@link ModuleDescriptor#isAutomatic() automatic}, or {@link Module#isOpen(String) exports the package
+   *         unconditionally}.
+   */
+  boolean isOpen(String packageName);
 
   /**
    * @return {@code true} if this is a java module (starting with "java." such as "java.base"), {@code false} otherwise.

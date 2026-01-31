@@ -37,6 +37,7 @@ public interface ModuleScanner {
 
   /**
    * @return the unmodifiable {@link Collection} of {@link ModuleAccess} for all modules on your current module-path.
+   *         The sort order will be such that modules will always be before other modules that require it.
    */
   Collection<ModuleAccess> getAll();
 

@@ -23,15 +23,23 @@ public interface ResourceMap {
   <T extends ResourcePath> T getByPath(String path);
 
   /**
-   * @param <T> type of the expected {@link ResourcePath}. Should be on of {@link ResourcePackage},
-   *        {@link ResourceType}, or {@link ResourcePath}.
-   * @param name the {@link ResourcePath#getName() name} of the requested {@link ResourcePath resource}.
-   * @return the {@link ResourcePath} with the given {@link ResourcePath#getName() name}.
-   * @see #getPaths()
+   * @param name the {@link ResourcePackage#getName() name} of the requested {@link ResourcePackage package}.
+   * @return the {@link ResourcePackage} with the given {@link ResourcePackage#getName() name}.
+   * @see #getByPath(String)
    */
-  default <T extends ResourcePath> T getByName(String name) {
+  default ResourcePackage getPackageByName(String name) {
 
     return getByPath(name.replace('.', '/'));
+  }
+
+  /**
+   * @param name the {@link ResourceType#getName() name} of the requested {@link ResourceType type}.
+   * @return the {@link ResourceType} with the given {@link ResourceType#getName() name}.
+   * @see #getByPath(String)
+   */
+  default ResourceType getTypeByName(String name) {
+
+    return getByPath(name.replace('.', '/') + ".class");
   }
 
   /**

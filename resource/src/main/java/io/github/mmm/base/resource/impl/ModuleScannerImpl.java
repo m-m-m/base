@@ -1,11 +1,21 @@
 package io.github.mmm.base.resource.impl;
 
+import java.lang.module.ModuleDescriptor;
+import java.lang.module.ModuleDescriptor.Requires;
 import java.lang.module.ResolvedModule;
+import java.lang.reflect.AccessFlag;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
 import io.github.mmm.base.resource.ModuleAccess;
@@ -17,6 +27,8 @@ import io.github.mmm.base.resource.ResourceMap;
  */
 public final class ModuleScannerImpl implements ModuleScanner {
 
+  private static final Logger LOG = LoggerFactory.getLogger(ModuleScannerImpl.class);
+
   /** @see ModuleScanner#get() */
   public static final ModuleScannerImpl INSTANCE = new ModuleScannerImpl();
 
@@ -24,25 +36,50 @@ public final class ModuleScannerImpl implements ModuleScanner {
 
   private final Map<String, ModuleAccess> name2ModuleMap;
 
+  private final Collection<ModuleAccess> all;
+
   private ModuleScannerImpl() {
 
     super();
     this.moduleLayer = ModuleLayer.boot();
-    Map<String, ModuleAccess> map = new HashMap<>();
+    this.name2ModuleMap = new HashMap<>();
+    Set<ModuleAccess> allModulesSorted = new LinkedHashSet<>();
     try (Stream<ResolvedModule> stream = this.moduleLayer.configuration().modules().stream()) {
       Iterator<ResolvedModule> moduleIterator = stream.iterator();
       while (moduleIterator.hasNext()) {
         ResolvedModule module = moduleIterator.next();
-        map.put(module.name(), new ModuleAccessImpl(module));
+        this.name2ModuleMap.put(module.name(), new ModuleAccessImpl(module));
       }
     }
     for (Module module : this.moduleLayer.modules()) {
-      ModuleAccessImpl moduleAccess = (ModuleAccessImpl) map.get(module.getName());
+      LOG.debug("Found module {}", module.getName());
+      ModuleAccessImpl moduleAccess = (ModuleAccessImpl) this.name2ModuleMap.get(module.getName());
       if (moduleAccess != null) {
         moduleAccess.module = module;
+        insertModuleSortedByDependencies(moduleAccess, allModulesSorted);
       }
     }
-    this.name2ModuleMap = Map.copyOf(map);
+    this.all = Collections.unmodifiableCollection(allModulesSorted); // Set.copyOf does not guarantee to preserve order
+  }
+
+  private void insertModuleSortedByDependencies(ModuleAccess module, Set<ModuleAccess> allModulesSorted) {
+
+    if (allModulesSorted.contains(module)) {
+      return;
+    }
+    Set<Requires> requires = module.getResolved().reference().descriptor().requires();
+    if (!requires.isEmpty()) {
+      for (Requires req : requires) {
+        String name = req.name();
+        ModuleAccess requiredModule = this.name2ModuleMap.get(name);
+        if (requiredModule != null) {
+          insertModuleSortedByDependencies(requiredModule, allModulesSorted);
+        } else if (req.accessFlags().contains(AccessFlag.STATIC)) { // for modules "requires static" means optional
+          LOG.debug("Module {} requires module {} that was not found.", module.getResolved().name(), name);
+        }
+      }
+    }
+    allModulesSorted.add(module);
   }
 
   @Override
@@ -64,7 +101,7 @@ public final class ModuleScannerImpl implements ModuleScanner {
   @Override
   public Collection<ModuleAccess> getAll() {
 
-    return this.name2ModuleMap.values();
+    return this.all;
   }
 
   private static class ModuleAccessImpl implements ModuleAccess {
@@ -72,6 +109,8 @@ public final class ModuleScannerImpl implements ModuleScanner {
     private final ResolvedModule resolved;
 
     private Module module;
+
+    private Set<String> exports;
 
     ModuleAccessImpl(ResolvedModule resolved) {
 
@@ -89,6 +128,20 @@ public final class ModuleScannerImpl implements ModuleScanner {
     public Module get() {
 
       return this.module;
+    }
+
+    @Override
+    public boolean isOpen(String packageName) {
+
+      ModuleDescriptor descriptor = this.module.getDescriptor();
+      if (descriptor.isOpen() || descriptor.isAutomatic()) {
+        return true;
+      }
+      // module.isOpen(packageName) has a bug in JDK so we need this workaround...
+      if (this.exports == null) {
+        this.exports = descriptor.exports().stream().map(e -> e.source()).collect(Collectors.toSet());
+      }
+      return this.exports.contains(packageName);
     }
 
     @Override
