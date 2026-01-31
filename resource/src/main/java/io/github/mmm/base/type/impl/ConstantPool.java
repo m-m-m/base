@@ -79,7 +79,7 @@ class ConstantPool {
   private int readInteger(InputStream in) throws IOException {
 
     byte[] bytes = in.readNBytes(4);
-    return NumberCodec.u4(bytes, 0);
+    return NumberCodec.readU4(bytes, 0, false);
   }
 
   private float readFloat(InputStream in) throws IOException {
@@ -90,7 +90,7 @@ class ConstantPool {
   private long readLong(InputStream in) throws IOException {
 
     byte[] bytes = in.readNBytes(8);
-    return NumberCodec.u8(bytes, 0);
+    return NumberCodec.readU8(bytes, 0, false);
   }
 
   private double readDouble(InputStream in) throws IOException {

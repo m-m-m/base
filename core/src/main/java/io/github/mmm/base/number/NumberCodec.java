@@ -24,7 +24,7 @@ public final class NumberCodec {
    * @param b2 the second byte.
    * @return the u2 number composed from the given bytes.
    */
-  public static int u2(byte b1, byte b2) {
+  public static int readU2(byte b1, byte b2) {
 
     return ((b1 & BYTE_MASK) << 8) | (b2 & BYTE_MASK);
   }
@@ -32,19 +32,21 @@ public final class NumberCodec {
   /**
    * @param bytes an array of bytes.
    * @param offset the offset where to start reading from the given array.
+   * @param lenient - {@code true} to require only a minimum of one byte, {@code false} otherwise (fail if less than two
+   *        bytes are available).
    * @return the u2 number composed from the given bytes.
    */
-  public static int u2(byte[] bytes, int offset) {
+  public static int readU2(byte[] bytes, int offset, boolean lenient) {
 
     Objects.requireNonNull(bytes);
     int len = bytes.length - offset;
-    if ((offset < 0) || (len <= 0)) {
+    if ((offset < 0) || (len <= 0) || (!lenient && (len < 2))) {
       throw new IllegalArgumentException("" + offset);
     }
     if (len == 1) {
       return bytes[offset] & BYTE_MASK;
     }
-    return u2(bytes[offset], bytes[offset + 1]);
+    return readU2(bytes[offset], bytes[offset + 1]);
   }
 
   /**
@@ -54,7 +56,7 @@ public final class NumberCodec {
    * @param b4 the fourth byte.
    * @return the u4 number composed from the given bytes.
    */
-  public static int u4(byte b1, byte b2, byte b3, byte b4) {
+  public static int readU4(byte b1, byte b2, byte b3, byte b4) {
 
     return ((b1) << 24) | ((b2 & BYTE_MASK) << 16) | ((b3 & BYTE_MASK) << 8) | (b4 & BYTE_MASK);
   }
@@ -62,21 +64,23 @@ public final class NumberCodec {
   /**
    * @param bytes an array of bytes.
    * @param offset the offset where to start reading from the given array.
+   * @param lenient - {@code true} to require only a minimum of one byte, {@code false} otherwise (fail if less than
+   *        four bytes are available).
    * @return the u4 number composed from the given bytes.
    */
-  public static int u4(byte[] bytes, int offset) {
+  public static int readU4(byte[] bytes, int offset, boolean lenient) {
 
     Objects.requireNonNull(bytes);
     int len = bytes.length - offset;
-    if ((offset < 0) || (len <= 0)) {
+    if ((offset < 0) || (len <= 0) || (!lenient && (len < 4))) {
       throw new IllegalArgumentException("" + offset);
     }
     if (len <= 2) {
-      return u2(bytes, offset);
+      return readU2(bytes, offset, lenient);
     } else if (len == 3) {
-      return u4(ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2]);
+      return readU4(ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2]);
     }
-    return u4(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
+    return readU4(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
   }
 
   /**
@@ -90,7 +94,7 @@ public final class NumberCodec {
    * @param b8 the eighth byte.
    * @return the u8 number composed from the given bytes.
    */
-  public static long u8(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
+  public static long readU8(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
 
     return ((b1 & BYTE_MASK_LONG) << 56) | ((b2 & BYTE_MASK_LONG) << 48) | ((b3 & BYTE_MASK_LONG) << 40)
         | ((b4 & BYTE_MASK_LONG) << 32) | ((b5 & BYTE_MASK_LONG) << 24) | ((b6 & BYTE_MASK_LONG) << 16)
@@ -100,30 +104,32 @@ public final class NumberCodec {
   /**
    * @param bytes an array of bytes.
    * @param offset the offset where to start reading from the given array.
+   * @param lenient - {@code true} to require only a minimum of one byte, {@code false} otherwise (fail if less than
+   *        eight bytes are available).
    * @return the u8 number composed from the given bytes.
    */
-  public static long u8(byte[] bytes, int offset) {
+  public static long readU8(byte[] bytes, int offset, boolean lenient) {
 
     Objects.requireNonNull(bytes);
     int len = bytes.length - offset;
-    if ((offset < 0) || (len <= 0)) {
+    if ((offset < 0) || (len <= 0) || (!lenient && (len < 8))) {
       throw new IllegalArgumentException("" + offset);
     }
     if (len <= 2) {
-      return u2(bytes, offset);
+      return readU2(bytes, offset, lenient);
     } else if (len <= 4) {
-      return u4(bytes, offset);
+      return readU4(bytes, offset, lenient);
     } else if (len == 5) {
-      return u8(ZERO, ZERO, ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3],
+      return readU8(ZERO, ZERO, ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3],
           bytes[offset + 4]);
     } else if (len == 6) {
-      return u8(ZERO, ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3], bytes[offset + 4],
-          bytes[offset + 5]);
+      return readU8(ZERO, ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3],
+          bytes[offset + 4], bytes[offset + 5]);
     } else if (len == 7) {
-      return u8(ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3], bytes[offset + 4],
+      return readU8(ZERO, bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3], bytes[offset + 4],
           bytes[offset + 5], bytes[offset + 6]);
     }
-    return u8(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3], bytes[offset + 4],
+    return readU8(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3], bytes[offset + 4],
         bytes[offset + 5], bytes[offset + 6], bytes[offset + 7]);
   }
 
