@@ -3,7 +3,10 @@ package io.github.mmm.base.resource;
 /**
  * Interface for a path to a resource as a {@link ResourceFile file} or
  */
-public interface ResourcePath {
+public interface ResourcePath extends Comparable<ResourcePath> {
+
+  /** The {@link #getPath() path} of the root {@link ResourcePackage package/folder}. */
+  String PATH_ROOT = "/";
 
   /**
    * @return the ModuleAccess owning this {@link ResourcePath}.
@@ -77,6 +80,15 @@ public interface ResourcePath {
   default boolean isType() {
 
     return false;
+  }
+
+  @Override
+  default int compareTo(ResourcePath other) {
+
+    if (other == null) {
+      return 1;
+    }
+    return getName().compareTo(other.getName());
   }
 
 }

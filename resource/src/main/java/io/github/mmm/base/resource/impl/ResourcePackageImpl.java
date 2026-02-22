@@ -66,4 +66,9 @@ public final class ResourcePackageImpl extends ResourcePathImpl implements Resou
     return this.javaPackage;
   }
 
+  static ResourcePackageImpl ofRoot(ModuleAccess moduleAccess) {
+
+    return new ResourcePackageImpl(moduleAccess, PATH_ROOT, "", null);
+  }
+
 }

@@ -7,6 +7,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.assertj.core.api.Assertions;
@@ -163,6 +164,24 @@ class ModuleScannerTest extends Assertions {
     type = loadType(toStringFormatter, ToStringFormatter.class);
     assertThat(type).hasToString(
         "public final class io.github.mmm.base.lang.ToStringFormatter implements java.util.function.Function");
+  }
+
+  @Test
+  void testGetAndFindResourcesFiltered() {
+
+    // arrange
+    String moduleName = "io.github.mmm.base";
+    ModuleScanner scanner = ModuleScanner.get();
+
+    // act
+    ModuleAccess moduleAccess = scanner.getRequired(moduleName);
+    List<ResourceFile> resources = moduleAccess.findResources(p -> p.endsWith(".TemporalConverter"));
+
+    // assert
+    assertThat(resources).hasSize(1);
+    ResourceFile first = resources.getFirst();
+    assertThat(first.getPath()).isEqualTo("META-INF/services/io.github.mmm.base.temporal.TemporalConverter");
+    assertThat(first.getParent().getPath()).isEqualTo("META-INF/services/");
   }
 
   @SuppressWarnings("unchecked")

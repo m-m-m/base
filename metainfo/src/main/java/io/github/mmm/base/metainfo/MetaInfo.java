@@ -12,6 +12,7 @@ import io.github.mmm.base.lang.ValueType;
 import io.github.mmm.base.metainfo.impl.MetaInfoEmpty;
 import io.github.mmm.base.metainfo.impl.MetaInfoValues;
 import io.github.mmm.base.number.NumberType;
+import io.github.mmm.base.variable.VariableDefinition;
 
 /**
  * Interface for meta-information similar to {@link java.util.Properties} but more sophisticated. Implements
@@ -118,6 +119,42 @@ public interface MetaInfo extends Iterable<String> {
    * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
    */
   String get(boolean inherit, boolean required, String key);
+
+  /**
+   * @param <V> type of the variable value.
+   * @param variable the {@link VariableDefinition}.
+   * @return the requested {@link #get(String) value}. Will be {@link VariableDefinition#getDefaultValue()} if no value
+   *         was found for the {@link VariableDefinition#getName() variable name}.
+   */
+  default <V> V get(VariableDefinition<V> variable) {
+
+    String value = get(variable.getName());
+    if (value == null) {
+      return variable.getDefaultValue();
+    }
+    return variable.parse(value);
+  }
+
+  /**
+   * @param <V> type of the variable value.
+   * @param variable the {@link VariableDefinition}.
+   * @return the requested {@link #get(String) value}. Will be {@link VariableDefinition#getDefaultValue()} if no value
+   *         was found for the {@link VariableDefinition#getName() variable name}.
+   */
+  default <V> V getRequired(VariableDefinition<V> variable) {
+
+    V defaultValue = variable.getDefaultValue();
+    String value;
+    if (defaultValue == null) {
+      value = getRequired(variable.getName());
+    } else {
+      value = get(variable.getName());
+      if (value == null) {
+        return defaultValue;
+      }
+    }
+    return variable.parse(value);
+  }
 
   /**
    * @param <T> type of the requested value.
@@ -457,7 +494,10 @@ public interface MetaInfo extends Iterable<String> {
 
     Properties properties = new Properties();
     for (String key : this) {
-      properties.setProperty(key, get(key));
+      String value = get(key);
+      if (value != null) {
+        properties.setProperty(key, value);
+      }
     }
     return properties;
   }
@@ -469,7 +509,10 @@ public interface MetaInfo extends Iterable<String> {
 
     Map<String, String> map = new HashMap<>(size());
     for (String key : this) {
-      map.put(key, get(key));
+      String value = get(key);
+      if (value != null) {
+        map.put(key, value);
+      }
     }
     return map;
   }

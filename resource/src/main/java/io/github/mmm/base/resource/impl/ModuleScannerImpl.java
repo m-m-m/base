@@ -1,7 +1,10 @@
 package io.github.mmm.base.resource.impl;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.lang.module.ModuleDescriptor;
 import java.lang.module.ModuleDescriptor.Requires;
+import java.lang.module.ModuleReader;
 import java.lang.module.ResolvedModule;
 import java.lang.reflect.AccessFlag;
 import java.util.Collection;
@@ -9,8 +12,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -21,6 +26,7 @@ import io.github.mmm.base.exception.ObjectNotFoundException;
 import io.github.mmm.base.resource.ModuleAccess;
 import io.github.mmm.base.resource.ModuleScanner;
 import io.github.mmm.base.resource.ResourceMap;
+import io.github.mmm.base.resource.ResourcePath;
 
 /**
  * Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).
@@ -148,6 +154,23 @@ public final class ModuleScannerImpl implements ModuleScanner {
     public ResourceMap findResources() {
 
       return new ResouceMapImpl(this);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends ResourcePath> List<T> findResources(Predicate<String> filter) {
+
+      try (ModuleReader reader = getResolved().reference().open(); //
+          Stream<String> entriesStream = reader.list()) {
+
+        Map<String, ResourcePath> path2resourceMap = new HashMap<>();
+        ResourcePackageImpl root = ResourcePackageImpl.ofRoot(this);
+        path2resourceMap.put(root.path, root);
+        return (List<T>) entriesStream.filter(filter)
+            .map(path -> ResouceMapImpl.getOrCreateResource(path, path2resourceMap, this)).toList();
+      } catch (IOException e) {
+        throw new UncheckedIOException(e);
+      }
     }
 
     @Override

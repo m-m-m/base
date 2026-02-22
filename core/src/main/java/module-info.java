@@ -61,4 +61,6 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.variable;
 
+  exports io.github.mmm.base.version;
+
 }

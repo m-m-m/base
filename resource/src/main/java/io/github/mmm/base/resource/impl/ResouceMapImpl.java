@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.slf4j.Logger;
@@ -34,7 +35,7 @@ public class ResouceMapImpl implements ResourceMap {
     super();
     this.moduleAccess = moduleAccess;
     Map<String, ResourcePath> path2resourceMap = new HashMap<>();
-    final ResourcePackage root = new ResourcePackageImpl(this.moduleAccess, "/", "", null);
+    final ResourcePackage root = ResourcePackageImpl.ofRoot(this.moduleAccess);
     ResolvedModule resolved = this.moduleAccess.getResolved();
     LOG.trace("Scanning module {}...", resolved.name());
     try (ModuleReader reader = resolved.reference().open(); //
@@ -60,12 +61,36 @@ public class ResouceMapImpl implements ResourceMap {
       Map<String, ResourcePath> path2resourceMap) {
 
     ResourcePath resource = path2resourceMap.get(path);
-    if (resource != null) {
-      if (resource instanceof ResourcePackage pkg) {
-        return pkg;
+    if (resource == null) {
+      if (ResourcePath.PATH_ROOT.equals(path)) {
+        return root;
       }
-      return null;
+      resource = createResource(path, parentPath -> getOrCreateResource(parentPath, root, path2resourceMap),
+          this.moduleAccess);
+      path2resourceMap.put(path, resource);
     }
+    if (resource instanceof ResourcePackage pkg) {
+      return pkg;
+    }
+    return null;
+  }
+
+  static ResourcePath getOrCreateResource(String path, Map<String, ResourcePath> path2resourceMap,
+      ModuleAccess moduleAccess) {
+
+    ResourcePath resource = path2resourceMap.get(path);
+    if (resource == null) {
+      resource = createResource(path,
+          parentPath -> (ResourcePackage) getOrCreateResource(parentPath, path2resourceMap, moduleAccess),
+          moduleAccess);
+      path2resourceMap.put(path, resource);
+    }
+    return resource;
+  }
+
+  static ResourcePath createResource(String path, Function<String, ResourcePackage> packageProvider,
+      ModuleAccess moduleAccess) {
+
     int end = path.length();
     boolean folder = false;
     if (path.charAt(end - 1) == '/') {
@@ -74,29 +99,23 @@ public class ResouceMapImpl implements ResourceMap {
     }
     int lastSlash = path.lastIndexOf('/', end - 1);
     String simpleName;
-    ResourcePackage parent;
-    ResourcePackage pkg = null;
+    String parentPath = ResourcePath.PATH_ROOT;
     if (lastSlash < 0) {
       simpleName = path.substring(0, end);
-      parent = root;
     } else {
       simpleName = path.substring(lastSlash + 1, end);
-      String parentPath = path.substring(0, lastSlash + 1);
-      parent = getOrCreateResource(parentPath, root, path2resourceMap);
+      parentPath = path.substring(0, lastSlash + 1);
     }
+    ResourcePackage parent = packageProvider.apply(parentPath);
     if (folder) {
-      pkg = new ResourcePackageImpl(this.moduleAccess, path, simpleName, parent);
-      resource = pkg;
+      return new ResourcePackageImpl(moduleAccess, path, simpleName, parent);
     } else {
       if (path.endsWith(".class")) {
-        resource = new ResourceTypeImpl(this.moduleAccess, path, simpleName.substring(0, simpleName.length() - 6),
-            parent);
+        return new ResourceTypeImpl(moduleAccess, path, simpleName.substring(0, simpleName.length() - 6), parent);
       } else {
-        resource = new ResourceFileImpl(this.moduleAccess, path, simpleName, parent);
+        return new ResourceFileImpl(moduleAccess, path, simpleName, parent);
       }
     }
-    path2resourceMap.put(path, resource);
-    return pkg;
   }
 
   @Override

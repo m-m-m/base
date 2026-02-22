@@ -23,7 +23,7 @@ import java.util.Locale;
 public final class CaseHelper {
 
   /** The standard locale to use instead of {@link Locale#getDefault()}. */
-  static final Locale STANDARD_LOCALE = Locale.US;
+  static final Locale STANDARD_LOCALE = Locale.ROOT;
 
   /**
    * Construction prohibited.

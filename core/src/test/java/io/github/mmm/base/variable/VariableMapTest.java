@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test;
  */
 class VariableMapTest extends Assertions {
 
-  static final VariableDefinition<String> OPT_INDENTATION = new VariableDefinition<>("indentation", "  ");
+  static final VariableDefinition<String> OPT_INDENTATION = VariableDefinition.ofString("indentation", "  ");
 
-  static final VariableDefinition<Boolean> OPT_WRITE_NULL_VALUES = new VariableDefinition<>("write-null", Boolean.TRUE);
+  static final VariableDefinition<Boolean> OPT_WRITE_NULL_VALUES = VariableDefinition.ofBoolean("write-null",
+      Boolean.TRUE);
 
-  static final VariableDefinition<Integer> OPT_PORT = new VariableDefinition<>("port", Integer.class);
+  static final VariableDefinition<Integer> OPT_PORT = VariableDefinition.ofInteger("port", null);
 
   /** Test of {@link VariableMap#get(VariableDefinition)}. */
   @Test

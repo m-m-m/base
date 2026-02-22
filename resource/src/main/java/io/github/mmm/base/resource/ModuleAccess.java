@@ -7,6 +7,7 @@ import java.lang.module.ModuleReader;
 import java.lang.module.ResolvedModule;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
@@ -74,8 +75,22 @@ public interface ModuleAccess {
   /**
    * @return the {@link ResourceMap} with all resources of this module. Will be loaded and created on every call of this
    *         method to avoid memory leaks. Avoid calling this method multiple times on the same object.
+   * @see #findResources(Predicate)
    */
   ResourceMap findResources();
+
+  /**
+   * @param <T> type of the expected {@link ResourcePath}. If your {@link Predicate} guarantees to only accept
+   *        {@link ResourceType}, {@link ResourcePackage}, or {@link ResourceFile} you can directly receive the result
+   *        accordingly.
+   * @param filter the {@link Predicate} used to {@link Predicate#test(Object) test} which entries shall be accepted and
+   *        returned as {@link ResourcePath resource}. If you only need few specific {@link ResourcePath resources},
+   *        this method is slightly more efficient than {@link #findResources()} that needs to create all resource
+   *        objects.
+   * @return the {@link List} of the matching {@link ResourcePath resources}.
+   * @see #findResources()
+   */
+  <T extends ResourcePath> List<T> findResources(Predicate<String> filter);
 
   /**
    * @return the {@link List} of entries (path of file or folder) from this module. Entries use slash as separator and
@@ -134,4 +149,22 @@ public interface ModuleAccess {
     }
   }
 
+  /**
+   * @param predicate the {@link Predicate} used to {@link Predicate#test(Object) test} which entries shall be accepted.
+   *        You may always return {@code false} to visit all entries and potentially collect them internally in your
+   *        {@link Predicate}.
+   * @return {@code true} if at least one entry was found {@link Predicate#test(Object) accepted} by the given
+   *         {@link Predicate}, {@code false} otherwise.
+   * @see #findEntries()
+   * @see #findResources()
+   */
+  default boolean hasEntries(Predicate<String> predicate) {
+
+    try (ModuleReader reader = getResolved().reference().open(); //
+        Stream<String> entriesStream = reader.list()) {
+      return entriesStream.anyMatch(predicate);
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
 }
