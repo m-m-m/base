@@ -1,6 +1,7 @@
 package io.github.mmm.base.variable;
 
 import java.util.Map;
+import java.util.Properties;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,11 @@ class VariableDefinitionTest extends Assertions {
     assertThat(var.format(defaultValue)).isSameAs(defaultValue);
     assertThat(var.get(Map.of(name, value))).isSameAs(value);
     assertThat(var.get(Map.of())).isSameAs(defaultValue);
+    Properties properties = new Properties();
+    assertThat(var.get(properties)).isSameAs(defaultValue);
+    assertThat(var.get(properties, value)).isSameAs(value);
+    properties.setProperty(name, value);
+    assertThat(var.get(properties)).isSameAs(value);
   }
 
   @Test

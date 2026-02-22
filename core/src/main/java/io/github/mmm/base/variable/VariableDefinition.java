@@ -5,6 +5,7 @@ package io.github.mmm.base.variable;
 import java.time.Duration;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.function.Function;
 
 /**
@@ -114,7 +115,7 @@ public class VariableDefinition<T> {
   }
 
   /**
-   * @param map the {@link Map} or {@link java.util.Properties} to get the value from.
+   * @param map the {@link Map} to get the value from.
    * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the
    *         {@link #getDefaultValue() default}.
    */
@@ -124,7 +125,7 @@ public class VariableDefinition<T> {
   }
 
   /**
-   * @param map the {@link Map} or {@link java.util.Properties} to get the value from.
+   * @param map the {@link Map} to get the value from.
    * @param fallback the value returned if the given {@link Map} does not contain the value or {@code null} to retrieve
    *        the {@link #getDefaultValue() default value} in such case.
    * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the {@code fallback} or
@@ -140,6 +141,30 @@ public class VariableDefinition<T> {
       return this.defaultValue;
     }
     return this.type.cast(value);
+  }
+
+  /**
+   * @param properties the {@link Properties} to get the value from.
+   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the
+   *         {@link #getDefaultValue() default}.
+   */
+  public T get(Properties properties) {
+
+    return get(properties, null);
+  }
+
+  /**
+   * @param properties the {@link Properties} to get the value from.
+   * @param fallback the value returned if the given {@link Map} does not contain the value or {@code null} to retrieve
+   *        the {@link #getDefaultValue() default value} in such case.
+   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the {@code fallback} or
+   *         {@link #getDefaultValue() default}.
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public T get(Properties properties, T fallback) {
+
+    Map<String, ?> map = (Map) properties;
+    return get(map, fallback);
   }
 
   /**
