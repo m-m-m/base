@@ -1,5 +1,7 @@
 package io.github.mmm.base.variable;
 
+import java.util.Map;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +13,8 @@ class VariableDefinitionTest extends Assertions {
   @Test
   void testOfStringWithDefault() {
 
-    String name = "option-name";
+    String name = "variable-name";
+    String value = "value123";
     String defaultValue = "default-value";
     VariableDefinition<String> var = VariableDefinition.ofString(name, defaultValue);
     assertThat(var.getName()).isEqualTo(name);
@@ -21,21 +24,30 @@ class VariableDefinitionTest extends Assertions {
     assertThat(var.parse(name)).isSameAs(name);
     assertThat(var.format(null)).isNull();
     assertThat(var.format(defaultValue)).isSameAs(defaultValue);
+    assertThat(var.get(Map.of(name, value))).isSameAs(value);
+    assertThat(var.get(Map.of())).isSameAs(defaultValue);
   }
 
   @Test
   void testOfStringWithoutDefault() {
 
-    VariableDefinition<String> var = VariableDefinition.ofString("opt-name", null);
-    assertThat(var.getName()).isEqualTo("opt-name");
+    String name = "variable-name";
+    String value = "value123";
+    VariableDefinition<String> var = VariableDefinition.ofString(name, null);
+    assertThat(var.getName()).isEqualTo(name);
     assertThat(var.getDefaultValue()).isNull();
     assertThat(var.getType()).isEqualTo(String.class);
+    assertThat(var.get(Map.of(name, value))).isSameAs(value);
+    assertThat(var.get(Map.of(), value)).isSameAs(value);
+    assertThat(var.get(Map.of())).isNull();
+    ;
   }
 
   @Test
   void testOfLong() {
 
     String name = "long-variable";
+    Long value = 1234L;
     Long defaultValue = 4711L;
     VariableDefinition<Long> var = VariableDefinition.ofLong(name, defaultValue);
     assertThat(var.getName()).isEqualTo(name);
@@ -43,6 +55,9 @@ class VariableDefinitionTest extends Assertions {
     assertThat(var.getType()).isEqualTo(Long.class);
     assertThat(var.parse("4711")).isEqualTo(defaultValue);
     assertThat(var.format(defaultValue)).isEqualTo("4711");
+    assertThat(var.get(Map.of(name, value))).isSameAs(value);
+    assertThat(var.get(Map.of(), value)).isSameAs(value);
+    assertThat(var.get(Map.of())).isSameAs(defaultValue);
   }
 
 }

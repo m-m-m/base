@@ -114,6 +114,35 @@ public class VariableDefinition<T> {
   }
 
   /**
+   * @param map the {@link Map} or {@link java.util.Properties} to get the value from.
+   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the
+   *         {@link #getDefaultValue() default}.
+   */
+  public T get(Map<String, ?> map) {
+
+    return get(map, null);
+  }
+
+  /**
+   * @param map the {@link Map} or {@link java.util.Properties} to get the value from.
+   * @param fallback the value returned if the given {@link Map} does not contain the value or {@code null} to retrieve
+   *        the {@link #getDefaultValue() default value} in such case.
+   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the {@code fallback} or
+   *         {@link #getDefaultValue() default}.
+   */
+  public T get(Map<String, ?> map, T fallback) {
+
+    Object value = map.get(this.name);
+    if (value == null) {
+      if (fallback != null) {
+        return fallback;
+      }
+      return this.defaultValue;
+    }
+    return this.type.cast(value);
+  }
+
+  /**
    * @param value the value as {@link String}.
    * @return the parsed value.
    */
