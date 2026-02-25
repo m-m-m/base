@@ -168,6 +168,114 @@ public class VariableDefinition<T> {
   }
 
   /**
+   * @param map the {@link Map} where to {@link Map#put(Object, Object) set} the {@code value}.
+   * @param value the value to set. If {@code null} nothing will be set.
+   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
+   */
+  public T set(Map<String, Object> map, T value) {
+
+    Object old;
+    if (value == null) {
+      old = map.get(this.name);
+    } else {
+      old = map.put(this.name, value);
+    }
+    if (old == null) {
+      return null;
+    }
+    return this.type.cast(old);
+  }
+
+  /**
+   * @param properties the {@link Properties} where to {@link Map#put(Object, Object) set} the {@code value}.
+   * @param value the value to set. If {@code null} nothing will be set.
+   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public T set(Properties properties, T value) {
+
+    Map<String, Object> map = (Map) properties;
+    return set(map, value);
+  }
+
+  /**
+   * @param map the {@link Map} where to {@link Map#put(Object, Object) set} the {@code value}.
+   * @param value the value to set as {@link String}. If {@code null} nothing will be set.
+   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
+   */
+  public T setAsString(Map<String, Object> map, String value) {
+
+    return set(map, parse(value));
+  }
+
+  /**
+   * @param properties the {@link Properties} where to {@link Map#put(Object, Object) set} the {@code value}.
+   * @param value the value to set as {@link String}. If {@code null} nothing will be set.
+   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
+   */
+  public T setAsString(Properties properties, String value) {
+
+    return set(properties, parse(value));
+  }
+
+  /**
+   * @param map the {@link Map} where the {@code value} should be {@link Map#putIfAbsent(Object, Object) set if absent}.
+   * @param value the value to set if absent. If {@code null} nothing will be set.
+   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
+   *         and has been sent.
+   */
+  public T setIfAbsent(Map<String, Object> map, T value) {
+
+    Object old;
+    if (value == null) {
+      old = map.get(this.name);
+    } else {
+      old = map.putIfAbsent(this.name, value);
+    }
+    if (old == null) {
+      return null;
+    }
+    return this.type.cast(old);
+  }
+
+  /**
+   * @param properties the {@link Properties} where the {@code value} should be {@link Map#putIfAbsent(Object, Object)
+   *        set if absent}.
+   * @param value the value to set if absent. If {@code null} nothing will be set.
+   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
+   *         and has been sent.
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public T setIfAbsent(Properties properties, T value) {
+
+    Map<String, Object> map = (Map) properties;
+    return setIfAbsent(map, value);
+  }
+
+  /**
+   * @param map the {@link Map} where the {@code value} should be {@link Map#putIfAbsent(Object, Object) set if absent}.
+   * @param value the value to set if absent as {@link String}. If {@code null} nothing will be set.
+   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
+   *         and has been sent.
+   */
+  public T setIfAbsentAsString(Map<String, Object> map, String value) {
+
+    return setIfAbsent(map, parse(value));
+  }
+
+  /**
+   * @param properties the {@link Properties} where the {@code value} should be {@link Map#putIfAbsent(Object, Object)
+   *        set if absent}.
+   * @param value the value to set if absent as {@link String}. If {@code null} nothing will be set.
+   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
+   *         and has been sent.
+   */
+  public T setIfAbsentAsString(Properties properties, String value) {
+
+    return setIfAbsent(properties, parse(value));
+  }
+
+  /**
    * @param value the value as {@link String}.
    * @return the parsed value.
    */
