@@ -2,6 +2,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.lang;
 
+import java.util.Map;
 import java.util.Objects;
 
 import io.github.mmm.base.number.NumberType;
@@ -16,6 +17,16 @@ import io.github.mmm.base.number.NumberType;
  * @see io.github.mmm.base.temporal.TemporalType
  */
 public abstract class ValueType<V> {
+
+  private static final Map<Class<?>, Class<?>> PRIMITIVE_TYPE_MAP = Map.of( //
+      int.class, Integer.class, //
+      long.class, Long.class, //
+      boolean.class, Boolean.class, //
+      double.class, Double.class, //
+      char.class, Character.class, //
+      float.class, Float.class, //
+      short.class, Short.class, //
+      byte.class, Byte.class);
 
   /** {@link ValueType} for {@link String}. */
   public static final ValueType<String> STRING = new ValueType<>(String.class, null) {
@@ -115,5 +126,18 @@ public abstract class ValueType<V> {
       return this.type.getSimpleName();
     }
     return name;
+  }
+
+  /**
+   * @param type the {@link Class} reflecting the requested type.
+   * @return the
+   */
+  public static Class<?> getNonPrimitiveType(Class<?> type) {
+
+    Class<?> result = PRIMITIVE_TYPE_MAP.get(type);
+    if (result == null) {
+      result = type;
+    }
+    return result;
   }
 }

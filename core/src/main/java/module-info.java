@@ -29,6 +29,8 @@ module io.github.mmm.base {
 
   exports io.github.mmm.base.compare;
 
+  exports io.github.mmm.base.container;
+
   exports io.github.mmm.base.exception;
 
   exports io.github.mmm.base.filter;
