@@ -10,11 +10,11 @@ import java.io.Writer;
 import io.github.mmm.base.exception.RuntimeIoException;
 
 /**
- * {@link Writer} that adapts an {@link Appendable} to avoid checked {@link IOException}s.
+ * {@link Writer} that adapts an {@link UncheckedAppendable} to avoid checked {@link IOException}s.
  *
  * @since 1.0.0
  */
-public class AppendableWriter extends Writer {
+public class AppendableWriter extends Writer implements UncheckedAppendable {
 
   /** The delegate. */
   private final Appendable appendable;
@@ -100,6 +100,13 @@ public class AppendableWriter extends Writer {
   }
 
   @Override
+  public AppendableWriter append(Object o) {
+
+    UncheckedAppendable.super.append(o);
+    return this;
+  }
+
+  @Override
   public void write(int c) throws RuntimeIoException {
 
     try {
@@ -133,12 +140,8 @@ public class AppendableWriter extends Writer {
     append(new String(buffer, offset, length));
   }
 
-  /**
-   * This method gets the {@link Appendable} to delegate to.
-   *
-   * @return the appendable
-   */
-  public Appendable getAppendable() {
+  @Override
+  public Appendable unwrap() {
 
     return this.appendable;
   }

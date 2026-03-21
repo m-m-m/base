@@ -2,6 +2,8 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.lang;
 
+import io.github.mmm.base.io.UncheckedAppendable;
+
 /**
  * Abstract base implementation of {@link ToString}.
  *
@@ -12,7 +14,7 @@ public abstract class AbstractToString implements ToString {
   @Override
   public final String toString() {
 
-    StringBuilder sb = new StringBuilder();
+    UncheckedAppendable sb = UncheckedAppendable.of();
     toString(sb);
     return sb.toString();
   }
