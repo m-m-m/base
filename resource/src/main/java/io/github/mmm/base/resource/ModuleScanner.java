@@ -6,7 +6,12 @@ import io.github.mmm.base.exception.ObjectNotFoundException;
 import io.github.mmm.base.resource.impl.ModuleScannerImpl;
 
 /**
- * Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).
+ * Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).<br>
+ * <b>ATTENTION</b>: Please consider using {@link ResourceScanner} over using {@link #getAll()} and calling methods like
+ * {@link ModuleAccess#findResources()} if you want to do resource scanning efficiently during application
+ * bootstrapping.
+ *
+ * @since 1.0.0
  */
 public interface ModuleScanner {
 

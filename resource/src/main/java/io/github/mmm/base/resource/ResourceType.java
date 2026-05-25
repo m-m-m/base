@@ -60,4 +60,17 @@ public interface ResourceType extends ResourcePath {
     return getPath().contains("$");
   }
 
+  /**
+   * @param path the {@link ResourcePath}. May be {@code null}.
+   * @return the {@link #loadClass() loaded} {@link Class} or {@code null} if the given {@link ResourcePath} is not a
+   *         {@link ResourceType} or could not be loaded.
+   */
+  static Class<?> loadClass(ResourcePath path) {
+
+    if (path instanceof ResourceType type) {
+      return type.loadClass();
+    }
+    return null;
+  }
+
 }

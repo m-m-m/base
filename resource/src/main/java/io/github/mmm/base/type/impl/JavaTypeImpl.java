@@ -12,6 +12,10 @@ import io.github.mmm.base.type.JavaTypeKind;
  */
 public class JavaTypeImpl implements JavaType {
 
+  private static final String[] NO_INTERFACES = new String[0];
+
+  private static final ClassFileVersion FALLBACK_VERSION = ClassFileVersion.of(65, 65534);
+
   private final String name;
 
   private final String superClass;
@@ -23,6 +27,16 @@ public class JavaTypeImpl implements JavaType {
   private final ClassFileVersion version;
 
   private final JavaTypeKind kind;
+
+  /**
+   * The constructor.
+   *
+   * @param name the {@link #getName() name}.
+   */
+  public JavaTypeImpl(String name) {
+
+    this(name, null, NO_INTERFACES, 1234, FALLBACK_VERSION);
+  }
 
   JavaTypeImpl(String name, String superClass, String[] interfaces, int accessFlags, ClassFileVersion version) {
 
@@ -93,6 +107,12 @@ public class JavaTypeImpl implements JavaType {
   public boolean isFinal() {
 
     return Modifier.isFinal(this.accessFlags);
+  }
+
+  @Override
+  public boolean isBroken() {
+
+    return this.version == FALLBACK_VERSION;
   }
 
   @Override

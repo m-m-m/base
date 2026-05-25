@@ -13,14 +13,14 @@ import java.util.Objects;
  */
 public class ReadOnlyIterator<E> implements Iterator<E> {
 
-  private final Iterator<E> delegate;
+  private final Iterator<? extends E> delegate;
 
   /**
    * The constructor.
    *
    * @param iterator is the {@link Iterator} to adapt.
    */
-  public ReadOnlyIterator(Iterator<E> iterator) {
+  public ReadOnlyIterator(Iterator<? extends E> iterator) {
 
     super();
     Objects.requireNonNull(iterator);

@@ -36,6 +36,12 @@ public interface JavaType {
   boolean isFinal();
 
   /**
+   * @return {@code true} if the class-file (byte-code) could not be read properly and this instance is just a dummy as
+   *         fallback, {@code false} otherwise.
+   */
+  boolean isBroken();
+
+  /**
    * @return {@code true} if the {@link #getSuperClass() super-class} is {@link Object}.
    */
   default boolean hasObjectAsSuperClass() {

@@ -11,7 +11,9 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
- * Simple wrapper for {@link ResolvedModule} and {@link Module}.
+ * Simple wrapper for {@link ResolvedModule} and {@link Module}.<br>
+ * <b>ATTENTION</b>: Please consider using {@link ResourceScanner} over find methods like {@link #findResources()} if
+ * you want to do resource scanning efficiently during application bootstrapping.
  */
 public interface ModuleAccess {
 

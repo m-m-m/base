@@ -57,7 +57,8 @@ public final class ModuleScannerImpl implements ModuleScanner {
         this.name2ModuleMap.put(module.name(), new ModuleAccessImpl(module));
       }
     }
-    for (Module module : this.moduleLayer.modules()) {
+    Set<Module> modules = this.moduleLayer.modules();
+    for (Module module : modules) {
       LOG.debug("Found module {}", module.getName());
       ModuleAccessImpl moduleAccess = (ModuleAccessImpl) this.name2ModuleMap.get(module.getName());
       if (moduleAccess != null) {
