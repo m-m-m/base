@@ -1,10 +1,14 @@
 package io.github.mmm.base.variable;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Map;
 import java.util.Properties;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import io.github.mmm.base.exception.ObjectNotFoundException;
 
 /**
  * Test of {@link VariableDefinition}.
@@ -21,6 +25,7 @@ class VariableDefinitionTest extends Assertions {
     assertThat(var.getName()).isEqualTo(name);
     assertThat(var.getDefaultValue()).isEqualTo(defaultValue);
     assertThat(var.getType()).isEqualTo(String.class);
+    assertThat(var.isRequired()).isFalse();
     assertThat(var.parse(null)).isNull();
     assertThat(var.parse(name)).isSameAs(name);
     assertThat(var.format(null)).isNull();
@@ -43,10 +48,26 @@ class VariableDefinitionTest extends Assertions {
     assertThat(var.getName()).isEqualTo(name);
     assertThat(var.getDefaultValue()).isNull();
     assertThat(var.getType()).isEqualTo(String.class);
+    assertThat(var.isRequired()).isFalse();
     assertThat(var.get(Map.of(name, value))).isSameAs(value);
     assertThat(var.get(Map.of(), value)).isSameAs(value);
     assertThat(var.get(Map.of())).isNull();
-    ;
+  }
+
+  @Test
+  void testOfStringRequired() {
+
+    String name = "variable-name";
+    String value = "value123";
+    VariableDefinition<String> var = VariableDefinition.ofString(name);
+    assertThat(var.getName()).isEqualTo(name);
+    assertThat(var.getDefaultValue()).isNull();
+    assertThat(var.getType()).isEqualTo(String.class);
+    assertThat(var.isRequired()).isTrue();
+    assertThat(var.get(Map.of(name, value))).isSameAs(value);
+    assertThat(var.get(Map.of(), value)).isSameAs(value);
+    ObjectNotFoundException error = assertThrows(ObjectNotFoundException.class, () -> var.get(Map.of()));
+    assertThat(error).hasMessageContaining("Could not find property for key 'variable-name'.");
   }
 
   @Test

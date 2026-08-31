@@ -84,6 +84,7 @@ public class ObjectNotFoundException extends ApplicationException {
       sb.append(" in ");
       sb.append(options);
     }
+    sb.append('.');
     return sb.toString();
   }
 

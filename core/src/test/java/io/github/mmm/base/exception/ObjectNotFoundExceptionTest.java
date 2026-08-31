@@ -20,7 +20,7 @@ class ObjectNotFoundExceptionTest extends Assertions {
     // act
     ObjectNotFoundException exception = new ObjectNotFoundException(name);
     // assert
-    assertThat(exception.getLocalizedMessage()).isEqualTo("Could not find " + name);
+    assertThat(exception.getLocalizedMessage()).isEqualTo("Could not find " + name + ".");
   }
 
   /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object, Object)}. */
@@ -33,7 +33,7 @@ class ObjectNotFoundExceptionTest extends Assertions {
     // act
     ObjectNotFoundException exception = new ObjectNotFoundException(name, key);
     // assert
-    assertThat(exception.getLocalizedMessage()).isEqualTo("Could not find " + name + " for key '" + key + "'");
+    assertThat(exception.getLocalizedMessage()).isEqualTo("Could not find " + name + " for key '" + key + "'.");
   }
 
   /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object, Object, Object, Throwable)}. */
@@ -48,7 +48,7 @@ class ObjectNotFoundExceptionTest extends Assertions {
     ObjectNotFoundException exception = new ObjectNotFoundException(name, key, options, null);
     // assert
     assertThat(exception.getLocalizedMessage())
-        .isEqualTo("Could not find " + name + " for key '" + key + "' in [NormalKey, Key, HolyKey]");
+        .isEqualTo("Could not find " + name + " for key '" + key + "' in [NormalKey, Key, HolyKey].");
   }
 
 }

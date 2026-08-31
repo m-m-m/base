@@ -56,7 +56,7 @@ class ModuleScannerTest extends Assertions {
     ObjectNotFoundException error = assertThrows(ObjectNotFoundException.class, () -> scanner.getRequired(moduleName));
 
     // assert
-    assertThat(error.getNlsMessage().getMessage()).isEqualTo("Could not find Module for key 'non-existent'");
+    assertThat(error.getNlsMessage().getMessage()).isEqualTo("Could not find Module for key 'non-existent'.");
   }
 
   @Test

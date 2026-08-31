@@ -17,24 +17,54 @@ public class ObjectMismatchException extends ApplicationException {
   /**
    * The constructor.
    *
-   * @param object is the object (value) that does not match as expected.
-   * @param expected is the expected object (value).
+   * @param actual the value that does not match as expected.
+   * @param expected is the expected value.
    */
-  public ObjectMismatchException(Object object, Object expected) {
+  public ObjectMismatchException(Object actual, Object expected) {
 
-    this(object, expected, null);
+    this(actual, expected, null);
   }
 
   /**
    * The constructor.
    *
-   * @param object is the object (value) that does not match as expected.
-   * @param expected is the expected object (value).
+   * @param actual the value that does not match as expected.
+   * @param expected is the expected value.
    * @param cause the {@link #getCause() cause}.
    */
-  public ObjectMismatchException(Object object, Object expected, Throwable cause) {
+  public ObjectMismatchException(Object actual, Object expected, Throwable cause) {
 
-    super("Found " + object + " but expected " + expected, cause);
+    this(null, actual, expected, cause);
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param object is the parent object given the context of the mismatch.
+   * @param actual the value that does not match as expected.
+   * @param expected the expected value.
+   */
+  public ObjectMismatchException(Object object, Object actual, Object expected) {
+
+    this(object, actual, expected, null);
+  }
+
+  /**
+   * The constructor.
+   *
+   * @param object is the parent object given the context of the mismatch.
+   * @param actual the value that does not match as expected.
+   * @param expected the expected value.
+   * @param cause the {@link #getCause() cause}.
+   */
+  public ObjectMismatchException(Object object, Object actual, Object expected, Throwable cause) {
+
+    super(message(object, actual, expected), cause);
+  }
+
+  private static String message(Object object, Object actual, Object expected) {
+
+    return ((object == null) ? "Found " : "For " + object + " found ") + actual + " but expected " + expected;
   }
 
 }

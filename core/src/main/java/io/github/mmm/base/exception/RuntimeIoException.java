@@ -24,6 +24,18 @@ public class RuntimeIoException extends ApplicationException {
     super(cause.getMessage(), cause);
   }
 
+  /**
+   * The constructor.
+   *
+   * @param message the error {@link #getMessage() message}.
+   * @param cause is the {@link #getCause() cause} of this exception. This should be an {@link java.io.IOException}.
+   *        However it may also be an {@link java.io.IOError}.
+   */
+  public RuntimeIoException(Throwable cause, String message) {
+
+    super(message, cause);
+  }
+
   @Override
   public String getCode() {
 

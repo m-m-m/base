@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Function;
 
+import io.github.mmm.base.exception.ObjectNotFoundException;
+
 /**
  * Definition of a variable for a {@link VariableMap}. It is a simple container for the {@link #getName() name} of the
  * variable with its {@link #getDefaultValue()} and its {@link #getType() type} making the
@@ -26,6 +28,8 @@ public class VariableDefinition<T> {
 
   private final T defaultValue;
 
+  private final boolean required;
+
   private final Function<String, T> parser;
 
   private final Function<T, String> formatter;
@@ -39,7 +43,7 @@ public class VariableDefinition<T> {
    */
   public VariableDefinition(String name, Class<T> type, Function<String, T> parser) {
 
-    this(name, type, null, parser);
+    this(name, type, null, true, parser);
   }
 
   /**
@@ -47,11 +51,12 @@ public class VariableDefinition<T> {
    *
    * @param name the {@link #getName() name}.
    * @param defaultValue the {@link #getDefaultValue() default value}.
+   * @param required the {@link #isRequired() required} flag.
    * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
    */
-  public VariableDefinition(String name, T defaultValue, Function<String, T> parser) {
+  public VariableDefinition(String name, T defaultValue, boolean required, Function<String, T> parser) {
 
-    this(name, null, defaultValue, parser);
+    this(name, null, defaultValue, required, parser);
   }
 
   /**
@@ -60,12 +65,13 @@ public class VariableDefinition<T> {
    * @param name the {@link #getName() name}.
    * @param type the {@link #getType() type}.
    * @param defaultValue the {@link #getDefaultValue() default value}.
+   * @param required the {@link #isRequired() required} flag.
    * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
    */
   @SuppressWarnings("unchecked")
-  public VariableDefinition(String name, Class<T> type, T defaultValue, Function<String, T> parser) {
+  public VariableDefinition(String name, Class<T> type, T defaultValue, boolean required, Function<String, T> parser) {
 
-    this(name, type, defaultValue, parser, (Function<T, String>) DEFAULT_FORMATTER);
+    this(name, type, defaultValue, required, parser, (Function<T, String>) DEFAULT_FORMATTER);
   }
 
   /**
@@ -74,11 +80,12 @@ public class VariableDefinition<T> {
    * @param name the {@link #getName() name}.
    * @param type the {@link #getType() type}.
    * @param defaultValue the {@link #getDefaultValue() default value}.
+   * @param required the {@link #isRequired() required} flag.
    * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
    * @param formatter the {@link Function} to {@link #format(Object) format} the value to {@link String}.
    */
   @SuppressWarnings("unchecked")
-  public VariableDefinition(String name, Class<T> type, T defaultValue, Function<String, T> parser,
+  public VariableDefinition(String name, Class<T> type, T defaultValue, boolean required, Function<String, T> parser,
       Function<T, String> formatter) {
 
     super();
@@ -92,7 +99,11 @@ public class VariableDefinition<T> {
       this.type = type;
     }
     Objects.requireNonNull(this.type);
+    if (required && (defaultValue != null)) {
+      throw new IllegalArgumentException();
+    }
     this.defaultValue = defaultValue;
+    this.required = required;
     this.parser = parser;
     this.formatter = formatter;
   }
@@ -137,6 +148,9 @@ public class VariableDefinition<T> {
     if (value == null) {
       if (fallback != null) {
         return fallback;
+      }
+      if (this.required) {
+        throw new ObjectNotFoundException("property", this.name);
       }
       return this.defaultValue;
     }
@@ -324,10 +338,28 @@ public class VariableDefinition<T> {
     return this.defaultValue;
   }
 
+  /**
+   * @return {@code true} if required and {@link #getDefaultValue() default value} is {@code null} so
+   *         {@link #get(Map, Object) getting} without a default will fail, {@code false} otherwise.
+   */
+  public boolean isRequired() {
+
+    return this.required;
+  }
+
   @Override
   public String toString() {
 
     return this.name;
+  }
+
+  /**
+   * @param name the variable {@link #getName() name}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static VariableDefinition<String> ofString(String name) {
+
+    return new VariableDefinition<>(name, String.class, null, true, s -> s);
   }
 
   /**
@@ -337,7 +369,16 @@ public class VariableDefinition<T> {
    */
   public static VariableDefinition<String> ofString(String name, String defaultValue) {
 
-    return new VariableDefinition<>(name, String.class, defaultValue, s -> s);
+    return new VariableDefinition<>(name, String.class, defaultValue, false, s -> s);
+  }
+
+  /**
+   * @param name the variable {@link #getName() name}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static VariableDefinition<Boolean> ofBoolean(String name) {
+
+    return new VariableDefinition<>(name, Boolean.class, null, true, Boolean::parseBoolean);
   }
 
   /**
@@ -347,7 +388,30 @@ public class VariableDefinition<T> {
    */
   public static VariableDefinition<Boolean> ofBoolean(String name, Boolean defaultValue) {
 
-    return new VariableDefinition<>(name, Boolean.class, defaultValue, Boolean::parseBoolean);
+    return new VariableDefinition<>(name, Boolean.class, defaultValue, false, Boolean::parseBoolean);
+  }
+
+  /**
+   * @param <E> type of the {@link Enum}.
+   * @param name the variable {@link #getName() name}.
+   * @param enumClass the {@link Class} reflecting the {@link Enum}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, Class<E> enumClass) {
+
+    return new VariableDefinition<>(name, enumClass, null, true, s -> Enum.valueOf(enumClass, s));
+  }
+
+  /**
+   * @param <E> type of the {@link Enum}.
+   * @param name the variable {@link #getName() name}.
+   * @param enumClass the {@link Class} reflecting the {@link Enum}.
+   * @param defaultValue the {@link #getDefaultValue() default value}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, Class<E> enumClass, E defaultValue) {
+
+    return new VariableDefinition<>(name, enumClass, defaultValue, false, s -> Enum.valueOf(enumClass, s));
   }
 
   /**
@@ -360,18 +424,16 @@ public class VariableDefinition<T> {
   public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, E defaultValue) {
 
     Class<E> enumClass = (Class<E>) defaultValue.getClass();
-    return new VariableDefinition<>(name, enumClass, defaultValue, s -> Enum.valueOf(enumClass, s));
+    return new VariableDefinition<>(name, enumClass, defaultValue, false, s -> Enum.valueOf(enumClass, s));
   }
 
   /**
-   * @param <E> type of the {@link Enum}.
    * @param name the variable {@link #getName() name}.
-   * @param enumClass the {@link Class} reflecting the {@link Enum}.
    * @return the specified {@link VariableDefinition}.
    */
-  public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, Class<E> enumClass) {
+  public static VariableDefinition<Integer> ofInteger(String name) {
 
-    return new VariableDefinition<>(name, enumClass, null, s -> Enum.valueOf(enumClass, s));
+    return new VariableDefinition<>(name, Integer.class, null, true, Integer::valueOf);
   }
 
   /**
@@ -381,7 +443,16 @@ public class VariableDefinition<T> {
    */
   public static VariableDefinition<Integer> ofInteger(String name, Integer defaultValue) {
 
-    return new VariableDefinition<>(name, Integer.class, defaultValue, Integer::valueOf);
+    return new VariableDefinition<>(name, Integer.class, defaultValue, false, Integer::valueOf);
+  }
+
+  /**
+   * @param name the variable {@link #getName() name}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static VariableDefinition<Long> ofLong(String name) {
+
+    return new VariableDefinition<>(name, Long.class, null, true, Long::valueOf);
   }
 
   /**
@@ -391,7 +462,16 @@ public class VariableDefinition<T> {
    */
   public static VariableDefinition<Long> ofLong(String name, Long defaultValue) {
 
-    return new VariableDefinition<>(name, Long.class, defaultValue, Long::valueOf);
+    return new VariableDefinition<>(name, Long.class, defaultValue, false, Long::valueOf);
+  }
+
+  /**
+   * @param name the variable {@link #getName() name}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static VariableDefinition<Double> ofDouble(String name) {
+
+    return new VariableDefinition<>(name, Double.class, null, true, Double::valueOf);
   }
 
   /**
@@ -401,7 +481,16 @@ public class VariableDefinition<T> {
    */
   public static VariableDefinition<Double> ofDouble(String name, Double defaultValue) {
 
-    return new VariableDefinition<>(name, Double.class, defaultValue, Double::valueOf);
+    return new VariableDefinition<>(name, Double.class, defaultValue, false, Double::valueOf);
+  }
+
+  /**
+   * @param name the variable {@link #getName() name}.
+   * @return the specified {@link VariableDefinition}.
+   */
+  public static VariableDefinition<Duration> ofDuration(String name) {
+
+    return new VariableDefinition<>(name, Duration.class, null, true, Duration::parse);
   }
 
   /**
@@ -411,7 +500,7 @@ public class VariableDefinition<T> {
    */
   public static VariableDefinition<Duration> ofDuration(String name, Duration defaultValue) {
 
-    return new VariableDefinition<>(name, Duration.class, defaultValue, Duration::parse);
+    return new VariableDefinition<>(name, Duration.class, defaultValue, false, Duration::parse);
   }
 
 }
