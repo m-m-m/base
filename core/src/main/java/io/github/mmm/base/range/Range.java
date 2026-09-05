@@ -151,9 +151,9 @@ public interface Range<V extends Comparable<?>> {
 
   /**
    * @param range the {@link Range} to build the intersection with.
-   * @return the intersection of this {@link Range} with the given {@link Range} that is a {@link Range} with the
+   * @return the intersection of this {@link Range} with the given {@link Range}. This is a {@link Range} with the
    *         highest {@link #getMin() minimum} and the lowest {@link #getMax() maximum} of the two ranges to intersect.
-   *         In case the {@link Range}s the intersection of
+   *         In case the two {@link Range}s have no intersection {@link Range#invalid()} is returned.
    */
   Range<V> intersection(Range<V> range);
 
