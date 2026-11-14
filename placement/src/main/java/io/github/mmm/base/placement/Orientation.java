@@ -55,7 +55,7 @@ public enum Orientation {
 
   /// This method gets the inverse orientation.
   ///
-  /// @return [#VERTICAL] if this orientation is [#HORIZONTAL] and vice versa.
+  /// @return value [#VERTICAL] if this orientation is [#HORIZONTAL] and vice versa.
   public Orientation getMirrored() {
 
     if (this == HORIZONTAL) {
