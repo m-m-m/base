@@ -5,12 +5,10 @@ package io.github.mmm.base.filter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link CharFilter}.
- */
+/// Test of [CharFilter].
 class CharFilterTest extends Assertions {
 
-  /** Test of {@link CharFilter#LATIN_LETTER_OR_DIGIT}. */
+  /// Test of [CharFilter#LATIN_LETTER_OR_DIGIT].
   @Test
   void testDigitOrLetter() {
 

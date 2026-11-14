@@ -8,13 +8,11 @@ import java.util.Objects;
 
 import io.github.mmm.base.lang.Builder;
 
-/**
- * {@link Builder} to {@link #build()} an immutable {@link List} efficiently and easy.
- *
- * @see #add(Object)
- *
- * @param <E> type of the elements to be contained in the {@link List}.
- */
+/// [Builder] to [#build()] an immutable [List] efficiently and easy.
+///
+/// @see #add(Object)
+///
+/// @param <E> type of the elements to be contained in the [List].
 public class ListBuilder<E> implements Builder<List<E>> {
 
   private E first;
@@ -23,24 +21,20 @@ public class ListBuilder<E> implements Builder<List<E>> {
 
   private List<E> list;
 
-  /**
-   * @param element the element to add to the container.
-   * @return this builder for fluent API calls.
-   * @see #add(Object, int)
-   */
+  /// @param element the element to add to the container.
+  /// @return this builder for fluent API calls.
+  /// @see #add(Object, int)
   public ListBuilder<E> add(E element) {
 
     return add(element, -1);
   }
 
-  /**
-   * Use this method with care and ensure that no gaps remain before calling {@link #build()}.
-   *
-   * @param element the element to add to the container.
-   * @param index the index where to add the child or {@code -1} to append.
-   * @return this builder for fluent API calls.
-   * @see #add(Object)
-   */
+  /// Use this method with care and ensure that no gaps remain before calling [#build()].
+  ///
+  /// @param element the element to add to the container.
+  /// @param index the index where to add the child or `-1` to append.
+  /// @return this builder for fluent API calls.
+  /// @see #add(Object)
   public ListBuilder<E> add(E element, int index) {
 
     Objects.requireNonNull(element);
@@ -75,10 +69,8 @@ public class ListBuilder<E> implements Builder<List<E>> {
     }
   }
 
-  /**
-   * @return the current size of the {@link List} to build.
-   * @see List#size()
-   */
+  /// @return the current size of the [List] to build.
+  /// @see List#size()
   public int size() {
 
     if (this.list != null) {
@@ -89,9 +81,7 @@ public class ListBuilder<E> implements Builder<List<E>> {
     return 0;
   }
 
-  /**
-   * @return {@code true} if empty, {@code false} otherwise.
-   */
+  /// @return `true` if empty, `false` otherwise.
   public boolean isEmpty() {
 
     return size() == 0;

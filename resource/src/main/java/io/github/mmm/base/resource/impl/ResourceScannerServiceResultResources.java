@@ -9,20 +9,16 @@ import java.util.stream.Stream;
 import io.github.mmm.base.resource.ResourcePath;
 import io.github.mmm.base.resource.ResourceType;
 
-/**
- * Implementation of {@link AbstractResourceScannerServiceResult} for {@link ResourcePath}s.
- *
- * @since 1.0.0
- */
+/// Implementation of [AbstractResourceScannerServiceResult] for [ResourcePath]s.
+///
+/// @since 1.0.0
 public class ResourceScannerServiceResultResources extends AbstractResourceScannerServiceResult {
 
   private List<ResourcePath> resources;
 
-  /**
-   * The constructor.
-   *
-   * @param serviceClassName the {@link #getServiceClassName() serviceClassName}
-   */
+  /// The constructor.
+  ///
+  /// @param serviceClassName the [serviceClassName][#getServiceClassName()]
   public ResourceScannerServiceResultResources(String serviceClassName) {
 
     super(serviceClassName);
@@ -43,9 +39,7 @@ public class ResourceScannerServiceResultResources extends AbstractResourceScann
     return map.filter(c -> c != null);
   }
 
-  /**
-   * @param resource the {@link ResourcePath} to add. This method will fail if {@link #makeReadOnly() read-only}.
-   */
+  /// @param resource the [ResourcePath] to add. This method will fail if [read-only][#makeReadOnly()].
   public void add(ResourcePath resource) {
 
     this.resources.add(resource);

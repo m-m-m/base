@@ -2,71 +2,61 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.placement;
 
-/**
- * This enum represents a horizontal alignment. <br>
- * The following table gives an example to illustrate the expected behavior of according to an
- * {@link HorizontalAlignment}.
- * <table border="1">
- * <tr>
- * <th>Alignment</th>
- * <th>Text</th>
- * </tr>
- * <tr>
- * <td>{@link #LEFT}</td>
- * <td><code>Hello&nbsp;&nbsp;&nbsp;&nbsp;</code></td>
- * </tr>
- * <tr>
- * <td>{@link #CENTER}</td>
- * <td><code>&nbsp;&nbsp;Hello&nbsp;&nbsp;</code></td>
- * </tr>
- * <tr>
- * <td>{@link #RIGHT}</td>
- * <td><code>&nbsp;&nbsp;&nbsp;&nbsp;Hello</code></td>
- * </tr>
- * </table>
- */
+/// This enum represents a horizontal alignment.
+/// The following table gives an example to illustrate the expected behavior of according to an
+/// [HorizontalAlignment].
+/// <table border="1">
+/// <tr>
+/// <th>Alignment</th>
+/// <th>Text</th>
+/// </tr>
+/// <tr>
+/// <td>[#LEFT]</td>
+/// <td>`Hello    `</td>
+/// </tr>
+/// <tr>
+/// <td>[#CENTER]</td>
+/// <td>`  Hello  `</td>
+/// </tr>
+/// <tr>
+/// <td>[#RIGHT]</td>
+/// <td>`    Hello`</td>
+/// </tr>
+/// </table>
 public enum HorizontalAlignment {
 
-  /** Align content to the left side. */
+  /// Align content to the left side.
   LEFT("w", "left"),
 
-  /** Align content to the right side. */
+  /// Align content to the right side.
   RIGHT("e", "right"),
 
-  /**
-   * Align content centered to the middle (same space to the left and the right).
-   */
+  /// Align content centered to the middle (same space to the left and the right).
   CENTER("c", "center");
 
   private final String value;
 
   private final String title;
 
-  /**
-   * The constructor.
-   *
-   * @param value is the {@link #getValue() raw value} (symbol).
-   * @param title is the {@link #toString() string representation}.
-   */
+  /// The constructor.
+  ///
+  /// @param value is the [raw value][#getValue()] (symbol).
+  /// @param title is the [string representation][#toString()].
   private HorizontalAlignment(String value, String title) {
 
     this.value = value;
     this.title = title;
   }
 
-  /**
-   * @return the alignment symbol.
-   */
+  /// @return the alignment symbol.
   public String getValue() {
 
     return this.value;
   }
 
-  /**
-   * This method gets the corresponding {@link Alignment}.
-   *
-   * @return the corresponding {@link Alignment}.
-   */
+  /// This method gets the corresponding [Alignment].
+  ///
+  /// @return the corresponding [Alignment].
   public Alignment toAlignment() {
 
     switch (this) {
@@ -87,12 +77,10 @@ public enum HorizontalAlignment {
     return this.title;
   }
 
-  /**
-   * This method gets the {@link HorizontalAlignment} with the given {@link #getValue() value}.
-   *
-   * @param value is the {@link #getValue() value} of the requested {@link HorizontalAlignment}.
-   * @return the requested {@link HorizontalAlignment}.
-   */
+  /// This method gets the [HorizontalAlignment] with the given [value][#getValue()].
+  ///
+  /// @param value is the [value][#getValue()] of the requested [HorizontalAlignment].
+  /// @return the requested [HorizontalAlignment].
   public static HorizontalAlignment fromValue(String value) {
 
     for (HorizontalAlignment alignment : values()) {

@@ -4,9 +4,7 @@ package io.github.mmm.base.number;
 
 import java.util.Objects;
 
-/**
- * Helper class to compose or decompose numbers from/to bytes.
- */
+/// Helper class to compose or decompose numbers from/to bytes.
 public final class NumberCodec {
 
   private static final int BYTE_MASK = 0xff;
@@ -19,23 +17,19 @@ public final class NumberCodec {
 
   }
 
-  /**
-   * @param b1 the first byte.
-   * @param b2 the second byte.
-   * @return the u2 number composed from the given bytes.
-   */
+  /// @param b1 the first byte.
+  /// @param b2 the second byte.
+  /// @return the u2 number composed from the given bytes.
   public static int readU2(byte b1, byte b2) {
 
     return ((b1 & BYTE_MASK) << 8) | (b2 & BYTE_MASK);
   }
 
-  /**
-   * @param bytes an array of bytes.
-   * @param offset the offset where to start reading from the given array.
-   * @param lenient - {@code true} to require only a minimum of one byte, {@code false} otherwise (fail if less than two
-   *        bytes are available).
-   * @return the u2 number composed from the given bytes.
-   */
+  /// @param bytes an array of bytes.
+  /// @param offset the offset where to start reading from the given array.
+  /// @param lenient - `true` to require only a minimum of one byte, `false` otherwise (fail if less than two
+  ///        bytes are available).
+  /// @return the u2 number composed from the given bytes.
   public static int readU2(byte[] bytes, int offset, boolean lenient) {
 
     Objects.requireNonNull(bytes);
@@ -49,25 +43,21 @@ public final class NumberCodec {
     return readU2(bytes[offset], bytes[offset + 1]);
   }
 
-  /**
-   * @param b1 the first byte.
-   * @param b2 the second byte.
-   * @param b3 the third byte.
-   * @param b4 the fourth byte.
-   * @return the u4 number composed from the given bytes.
-   */
+  /// @param b1 the first byte.
+  /// @param b2 the second byte.
+  /// @param b3 the third byte.
+  /// @param b4 the fourth byte.
+  /// @return the u4 number composed from the given bytes.
   public static int readU4(byte b1, byte b2, byte b3, byte b4) {
 
     return ((b1) << 24) | ((b2 & BYTE_MASK) << 16) | ((b3 & BYTE_MASK) << 8) | (b4 & BYTE_MASK);
   }
 
-  /**
-   * @param bytes an array of bytes.
-   * @param offset the offset where to start reading from the given array.
-   * @param lenient - {@code true} to require only a minimum of one byte, {@code false} otherwise (fail if less than
-   *        four bytes are available).
-   * @return the u4 number composed from the given bytes.
-   */
+  /// @param bytes an array of bytes.
+  /// @param offset the offset where to start reading from the given array.
+  /// @param lenient - `true` to require only a minimum of one byte, `false` otherwise (fail if less than
+  ///        four bytes are available).
+  /// @return the u4 number composed from the given bytes.
   public static int readU4(byte[] bytes, int offset, boolean lenient) {
 
     Objects.requireNonNull(bytes);
@@ -83,17 +73,15 @@ public final class NumberCodec {
     return readU4(bytes[offset], bytes[offset + 1], bytes[offset + 2], bytes[offset + 3]);
   }
 
-  /**
-   * @param b1 the first byte.
-   * @param b2 the second byte.
-   * @param b3 the third byte.
-   * @param b4 the fourth byte.
-   * @param b5 the fifth byte.
-   * @param b6 the sixth byte.
-   * @param b7 the seventh byte.
-   * @param b8 the eighth byte.
-   * @return the u8 number composed from the given bytes.
-   */
+  /// @param b1 the first byte.
+  /// @param b2 the second byte.
+  /// @param b3 the third byte.
+  /// @param b4 the fourth byte.
+  /// @param b5 the fifth byte.
+  /// @param b6 the sixth byte.
+  /// @param b7 the seventh byte.
+  /// @param b8 the eighth byte.
+  /// @return the u8 number composed from the given bytes.
   public static long readU8(byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7, byte b8) {
 
     return ((b1 & BYTE_MASK_LONG) << 56) | ((b2 & BYTE_MASK_LONG) << 48) | ((b3 & BYTE_MASK_LONG) << 40)
@@ -101,13 +89,11 @@ public final class NumberCodec {
         | ((b7 & BYTE_MASK_LONG) << 8) | (b8 & BYTE_MASK_LONG);
   }
 
-  /**
-   * @param bytes an array of bytes.
-   * @param offset the offset where to start reading from the given array.
-   * @param lenient - {@code true} to require only a minimum of one byte, {@code false} otherwise (fail if less than
-   *        eight bytes are available).
-   * @return the u8 number composed from the given bytes.
-   */
+  /// @param bytes an array of bytes.
+  /// @param offset the offset where to start reading from the given array.
+  /// @param lenient - `true` to require only a minimum of one byte, `false` otherwise (fail if less than
+  ///        eight bytes are available).
+  /// @return the u8 number composed from the given bytes.
   public static long readU8(byte[] bytes, int offset, boolean lenient) {
 
     Objects.requireNonNull(bytes);

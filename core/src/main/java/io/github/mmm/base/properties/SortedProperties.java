@@ -12,29 +12,23 @@ import java.util.TreeSet;
 
 import io.github.mmm.base.collection.ArrayIterator;
 
-/**
- * This class extends {@link Properties} and makes them sorted by their {@link #keys() keys}. Sorting the properties is
- * useful when changes shall be compared using diff-algorithms.
- *
- * @since 1.0.0
- */
+/// This class extends [Properties] and makes them sorted by their [keys][#keys()]. Sorting the properties is
+/// useful when changes shall be compared using diff-algorithms.
+///
+/// @since 1.0.0
 public class SortedProperties extends Properties {
 
   private static final long serialVersionUID = -7676191449564478612L;
 
-  /**
-   * The constructor.
-   */
+  /// The constructor.
   public SortedProperties() {
 
     super();
   }
 
-  /**
-   * The constructor.
-   *
-   * @param defaults are the {@link Properties} to inherit as defaults.
-   */
+  /// The constructor.
+  ///
+  /// @param defaults are the [Properties] to inherit as defaults.
   public SortedProperties(Properties defaults) {
 
     super(defaults);

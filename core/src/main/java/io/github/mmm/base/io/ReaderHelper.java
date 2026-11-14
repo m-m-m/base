@@ -7,63 +7,52 @@ import java.io.Reader;
 
 import io.github.mmm.base.exception.RuntimeIoException;
 
-/**
- * Simple helper class for dealing with {@link Reader}. With newer unicode a single code-point may be composed out of
- * two {@code char} values (surrogates). The {@link Reader} API lacks support to read into a buffer such that you do not
- * end up in a half code-point at the end of your {@code char[]} buffer.
- */
+/// Simple helper class for dealing with [Reader]. With newer unicode a single code-point may be composed out of
+/// two `char` values (surrogates). The [Reader] API lacks support to read into a buffer such that you do not
+/// end up in a half code-point at the end of your `char[]` buffer.
 public final class ReaderHelper {
 
   private ReaderHelper() {
 
   }
 
-  /**
-   * Reads from the given {@link Reader} into the given {@code buffer} while ensuring that always entire
-   * {@link String#codePointAt(int) code-points} are read avoiding to have a single {@link Character#isSurrogate(char)
-   * surrogate} at the end of the {@code buffer}.
-   *
-   * @param reader the {@link Reader} to {@link Reader#read(char[], int, int) read} from.
-   * @param buffer the {@code char} array to fill.
-   * @return the number of {@code char}s that have been read into the given {@code buffer} starting from {@code offset}
-   *         or {@code -1} if the {@link Reader} was already at the end of the stream and no more characters are
-   *         available.
-   */
+  /// Reads from the given [Reader] into the given `buffer` while ensuring that always entire
+  /// [code-points][String#codePointAt(int)] are read avoiding to have a single [surrogate][Character#isSurrogate(char)] at the end of the `buffer`.
+  ///
+  /// @param reader the [Reader] to [read][Reader#read(char[], int, int)] from.
+  /// @param buffer the `char` array to fill.
+  /// @return the number of `char`s that have been read into the given `buffer` starting from `offset`
+  ///         or `-1` if the [Reader] was already at the end of the stream and no more characters are
+  ///         available.
   public static int read(Reader reader, char[] buffer) {
 
     return read(reader, buffer, 0, buffer.length);
   }
 
-  /**
-   * Reads from the given {@link Reader} into the given {@code buffer} while ensuring that always entire
-   * {@link String#codePointAt(int) code-points} are read avoiding to have a single {@link Character#isSurrogate(char)
-   * surrogate} at the end of the {@code buffer}.
-   *
-   * @param reader the {@link Reader} to {@link Reader#read(char[], int, int) read} from.
-   * @param buffer the {@code char} array to fill.
-   * @param offset the start index in the {@code buffer} where to fill. Typically {@code 0}.
-   * @return the number of {@code char}s that have been read into the given {@code buffer} starting from {@code offset}
-   *         or {@code -1} if the {@link Reader} was already at the end of the stream and no more characters are
-   *         available.
-   */
+  /// Reads from the given [Reader] into the given `buffer` while ensuring that always entire
+  /// [code-points][String#codePointAt(int)] are read avoiding to have a single [surrogate][Character#isSurrogate(char)] at the end of the `buffer`.
+  ///
+  /// @param reader the [Reader] to [read][Reader#read(char[], int, int)] from.
+  /// @param buffer the `char` array to fill.
+  /// @param offset the start index in the `buffer` where to fill. Typically `0`.
+  /// @return the number of `char`s that have been read into the given `buffer` starting from `offset`
+  ///         or `-1` if the [Reader] was already at the end of the stream and no more characters are
+  ///         available.
   public static int read(Reader reader, char[] buffer, int offset) {
 
     return read(reader, buffer, offset, buffer.length - offset);
   }
 
-  /**
-   * Reads from the given {@link Reader} into the given {@code buffer} while ensuring that always entire
-   * {@link String#codePointAt(int) code-points} are read avoiding to have a single {@link Character#isSurrogate(char)
-   * surrogate} at the end of the {@code buffer}.
-   *
-   * @param reader the {@link Reader} to {@link Reader#read(char[], int, int) read} from.
-   * @param buffer the {@code char} array to fill.
-   * @param offset the start index in the {@code buffer} where to fill. Typically {@code 0}.
-   * @param length the maximum number of {@code char}s to read. Must be at least {@code 2}.
-   * @return the number of {@code char}s that have been read into the given {@code buffer} starting from {@code offset}
-   *         or {@code -1} if the {@link Reader} was already at the end of the stream and no more characters are
-   *         available.
-   */
+  /// Reads from the given [Reader] into the given `buffer` while ensuring that always entire
+  /// [code-points][String#codePointAt(int)] are read avoiding to have a single [surrogate][Character#isSurrogate(char)] at the end of the `buffer`.
+  ///
+  /// @param reader the [Reader] to [read][Reader#read(char[], int, int)] from.
+  /// @param buffer the `char` array to fill.
+  /// @param offset the start index in the `buffer` where to fill. Typically `0`.
+  /// @param length the maximum number of `char`s to read. Must be at least `2`.
+  /// @return the number of `char`s that have been read into the given `buffer` starting from `offset`
+  ///         or `-1` if the [Reader] was already at the end of the stream and no more characters are
+  ///         available.
   public static int read(Reader reader, char[] buffer, int offset, int length) {
 
     if (offset < 0) {

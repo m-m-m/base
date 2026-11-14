@@ -2,61 +2,53 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.version;
 
-/**
- * Enum with the available development phases of a {@link VersionSegment#getLettersString() letter-sequence} from a
- * {@link VersionSegment}.
- */
+/// Enum with the available development phases of a [letter-sequence][VersionSegment#getLettersString()] from a
+/// [VersionSegment].
 public enum VersionPhase implements AbstractVersionPhase {
 
-  /** An undefined {@link VersionPhase} such as "apple" or "banana". */
+  /// An undefined [VersionPhase] such as "apple" or "banana".
   UNDEFINED,
 
-  /** A revision number (actually not a development phase like {@link #UNDEFINED}). */
+  /// A revision number (actually not a development phase like [#UNDEFINED]).
   REVISION(Boolean.TRUE, "revision", "rev"),
 
-  /** A snapshot version from development (e.g. "-SNAPSHOT" suffix in maven). */
+  /// A snapshot version from development (e.g. "-SNAPSHOT" suffix in maven).
   SNAPSHOT(Boolean.FALSE, "beta-snapshot", "snapshot", "dev"),
 
-  /** A nightly build version from continuous-integration (CI) process. */
+  /// A nightly build version from continuous-integration (CI) process.
   NIGHTLY("nightly", "nb", "ci"),
 
-  /** A version for alpha testing (unstable). */
+  /// A version for alpha testing (unstable).
   ALPHA(Boolean.TRUE, "alpha", "alph", "alp", "a", "unstable"),
 
-  /**
-   * A version for beta testing (should not have fundamental bugs like maybe in {@link #ALPHA} but still needs more
-   * testing).
-   */
+  /// A version for beta testing (should not have fundamental bugs like maybe in [#ALPHA] but still needs more
+  /// testing).
   BETA(Boolean.TRUE, "beta", "bet", "test"),
 
-  /**
-   * A "b" can be {@link #BETA} or {@link #BUILD} depending on the version scheme of the product. Please avoid such
-   * ambiguous {@link VersionSegment#getLetters() letter-sequence}.
-   */
+  /// A "b" can be [#BETA] or [#BUILD] depending on the version scheme of the product. Please avoid such
+  /// ambiguous [letter-sequence][VersionSegment#getLetters()].
   BETA_OR_BUILD(Boolean.TRUE, "b"),
 
-  /** A build number (actually not a development phase like {@link #UNDEFINED}). */
+  /// A build number (actually not a development phase like [#UNDEFINED]).
   BUILD(Boolean.TRUE, "build"),
 
-  /** A version that has passed quality gates but is in a phase for further end-user testing to collect feedback. */
+  /// A version that has passed quality gates but is in a phase for further end-user testing to collect feedback.
   MILESTONE(Boolean.TRUE, "m", "milestone"),
 
-  /**
-   * A version close to the {@link #RELEASE} with expected good quality for final end-user testing and only relevant
-   * bugs will be fixed if found to come to the final release (typically within a predefined time-frame).
-   */
+  /// A version close to the [#RELEASE] with expected good quality for final end-user testing and only relevant
+  /// bugs will be fixed if found to come to the final release (typically within a predefined time-frame).
   RELEASE_CANDIDATE(Boolean.TRUE, "rc", "release-candidate", "candidate"),
 
-  /** No phase specified. */
+  /// No phase specified.
   NONE(Boolean.TRUE, ""),
 
-  /** An official release that should have good quality. */
+  /// An official release that should have good quality.
   RELEASE("release", "ga", "rel"),
 
-  /** A bug-fix version from the previous release including important fix(es). */
+  /// A bug-fix version from the previous release including important fix(es).
   BUG_FIX(Boolean.TRUE, "bugfix", "fix", "quickfix"),
 
-  /** An fix release, similar to {@link #BUG_FIX} but more urgent. */
+  /// An fix release, similar to [#BUG_FIX] but more urgent.
   HOT_FIX(Boolean.TRUE, "hotfix", "hf");
 
   private final Boolean hasNumber;
@@ -81,23 +73,20 @@ public enum VersionPhase implements AbstractVersionPhase {
     return (this != UNDEFINED) && (this != NONE) && (this != REVISION) && (this != BUILD);
   }
 
-  /**
-   * A valid combination of {@link VersionPhase} and {@link VersionSegment#getNumber() segment number} has to meet the
-   * following requirements:
-   * <ul>
-   * <li>{@link VersionPhase} is not {@link #UNDEFINED}.</li>
-   * <li>{@link VersionPhase} is not {@link #BETA_OR_BUILD} ("b" is ambiguous and therefore discouraged).</li>
-   * <li>The {@link VersionPhase}s {@link #REVISION}, {@link #ALPHA}, {@link #BETA}, {@link #BUILD}, {@link #MILESTONE},
-   * {@link #RELEASE_CANDIDATE}, {@link #NONE}, {@link #BUG_FIX}, or {@link #HOT_FIX} have to be followed by
-   * {@link VersionSegment#getDigits() digits} ({@link VersionSegment#getNumber() segment number} >= 0).</li>
-   * <li>The {@link VersionPhase} {@link #SNAPSHOT} must not be followed by {@link VersionSegment#getDigits() digits}
-   * ({@link VersionSegment#getNumber() segment number} == -1).</li>
-   * </ul>
-   *
-   * @param number the {@link VersionSegment#getNumber() segment number}.
-   * @return {@code true} if the combination of this {@link VersionPhase} with the given {@code number} is a valid
-   *         according to version scheme best-practices.
-   */
+  /// A valid combination of [VersionPhase] and [segment number][VersionSegment#getNumber()] has to meet the
+  /// following requirements:
+  ///
+  /// - [VersionPhase] is not [#UNDEFINED].
+  /// - [VersionPhase] is not [#BETA_OR_BUILD] ("b" is ambiguous and therefore discouraged).
+  /// - The [VersionPhase]s [#REVISION], [#ALPHA], [#BETA], [#BUILD], [#MILESTONE],
+  /// [#RELEASE_CANDIDATE], [#NONE], [#BUG_FIX], or [#HOT_FIX] have to be followed by
+  /// [digits][VersionSegment#getDigits()] ([segment number][VersionSegment#getNumber()] >= 0).
+  /// - The [VersionPhase] [#SNAPSHOT] must not be followed by [digits][VersionSegment#getDigits()]
+  /// ([segment number][VersionSegment#getNumber()] == -1).
+  ///
+  /// @param number the [segment number][VersionSegment#getNumber()].
+  /// @return `true` if the combination of this [VersionPhase] with the given `number` is a valid
+  ///         according to version scheme best-practices.
   public boolean isValid(int number) {
 
     if ((this == UNDEFINED) || (this == BETA_OR_BUILD)) {
@@ -134,11 +123,9 @@ public enum VersionPhase implements AbstractVersionPhase {
 
   }
 
-  /**
-   * @param letters the {@link VersionSegment#getLettersString() letter-sequence} of a {@link VersionSegment} in
-   *        {@link String#toLowerCase(java.util.Locale) lower-case}.
-   * @return the corresponding {@link VersionPhase}. Will be {@code #UNDEFINED} if undefined (e.g. "apple" or "banana").
-   */
+  /// @param letters the [letter-sequence][VersionSegment#getLettersString()] of a [VersionSegment] in
+  ///        [lower-case][String#toLowerCase(java.util.Locale)].
+  /// @return the corresponding [VersionPhase]. Will be `#UNDEFINED` if undefined (e.g. "apple" or "banana").
   public static VersionPhase of(String letters) {
 
     for (VersionPhase phase : values()) {

@@ -4,20 +4,16 @@ package io.github.mmm.base.filter;
 
 import java.util.Objects;
 
-/**
- * Implementation of {@link CharFilter} that combines multiple given {@link CharFilter}s with a logical OR so this
- * {@link ComposedCharFilter} will {@link #accept(int) accept} a {@link String#codePointAt(int) code-point} if any of
- * the given {@link CharFilter}s {@link #accept(int) accepts}.
- */
+/// Implementation of [CharFilter] that combines multiple given [CharFilter]s with a logical OR so this
+/// [ComposedCharFilter] will [accept][#accept(int)] a [code-point][String#codePointAt(int)] if any of
+/// the given [CharFilter]s [accepts][#accept(int)].
 public class ComposedCharFilter extends AbstractCharFilter {
 
   private final CharFilter[] filters;
 
-  /**
-   * The constructor.
-   *
-   * @param filters the {@link CharFilter}s to compose using logical OR.
-   */
+  /// The constructor.
+  ///
+  /// @param filters the [CharFilter]s to compose using logical OR.
   public ComposedCharFilter(CharFilter... filters) {
 
     super(null);

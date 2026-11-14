@@ -7,11 +7,9 @@ import java.util.function.BiFunction;
 import io.github.mmm.base.temporal.TemporalConverter;
 import io.github.mmm.base.temporal.TemporalConverterDefault;
 
-/**
- * Implementation of {@link TemporalConverter}.
- *
- * @since 1.0.0
- */
+/// Implementation of [TemporalConverter].
+///
+/// @since 1.0.0
 public class TemporalConverterImpl implements TemporalConverter {
 
   @Override

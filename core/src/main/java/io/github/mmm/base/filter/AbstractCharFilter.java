@@ -1,19 +1,15 @@
 package io.github.mmm.base.filter;
 
-/**
- * Abstract base implementation of {@link CharFilter}.
- *
- * @since 1.0.0
- */
+/// Abstract base implementation of [CharFilter].
+///
+/// @since 1.0.0
 public abstract class AbstractCharFilter implements CharFilter {
 
   private String description;
 
-  /**
-   * The constructor.
-   *
-   * @param description the {@link #getDescription() description}.
-   */
+  /// The constructor.
+  ///
+  /// @param description the [description][#getDescription()].
   public AbstractCharFilter(String description) {
 
     super();
@@ -29,11 +25,9 @@ public abstract class AbstractCharFilter implements CharFilter {
     return this.description;
   }
 
-  /**
-   * @return the computed {@link #getDescription() description}. Will be called once on the first call of
-   *         {@link #getDescription()} in case {@code null} was given at {@link #AbstractCharFilter(String) construction
-   *         time} for lazy initialization. In such case this method has to be overridden.
-   */
+  /// @return the computed [description][#getDescription()]. Will be called once on the first call of
+  ///         [#getDescription()] in case `null` was given at [construction
+         time][#AbstractCharFilter(String)] for lazy initialization. In such case this method has to be overridden.
   protected String computeDescription() {
 
     throw new IllegalStateException("No description provided and computeDescription not implemented.");

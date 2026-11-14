@@ -4,11 +4,9 @@ package io.github.mmm.base.lang;
 
 import io.github.mmm.base.io.UncheckedAppendable;
 
-/**
- * Abstract base implementation of {@link ToString}.
- *
- * @since 1.0.0
- */
+/// Abstract base implementation of [ToString].
+///
+/// @since 1.0.0
 public abstract class AbstractToString implements ToString {
 
   @Override

@@ -5,9 +5,7 @@ import java.io.InputStream;
 import java.lang.classfile.constantpool.PoolEntry;
 import java.util.Set;
 
-/**
- * Generic entry of the constant pool.
- */
+/// Generic entry of the constant pool.
 class ConstantPoolEntry {
 
   static final Set<Integer> LARGE_ENTRIES = Set.of(PoolEntry.TAG_FIELDREF, PoolEntry.TAG_METHODREF,

@@ -7,14 +7,10 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test for {@link CaseConversion}.
- */
+/// Test for [CaseConversion].
 class CaseConversionTest extends Assertions {
 
-  /**
-   * Test of {@link CaseConversion#convert(char)}.
-   */
+  /// Test of [CaseConversion#convert(char)].
   @Test
   void testConvertChar() {
 
@@ -37,9 +33,7 @@ class CaseConversionTest extends Assertions {
     assertThat(CaseConversion.ORIGINAL_CASE.convert('0')).isEqualTo('0');
   }
 
-  /**
-   * Test of {@link CaseConversion#convert(String)} and {@link CaseConversion#convert(String, java.util.Locale)}.
-   */
+  /// Test of [CaseConversion#convert(String)] and [CaseConversion#convert(String, java.util.Locale)].
   @Test
   void testConvertString() {
 

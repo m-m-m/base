@@ -5,12 +5,10 @@ package io.github.mmm.base.number;
 import io.github.mmm.base.filter.CharFilter;
 import io.github.mmm.base.lang.FromStringParser;
 
-/**
- * {@link FromStringParser} for {@link Long}.
- *
- * @see #parse(String)
- * @since 1.0.0
- */
+/// [FromStringParser] for [Long].
+///
+/// @see #parse(String)
+/// @since 1.0.0
 public final class LongParser implements FromStringParser<Long> {
 
   private static final LongParser INSTANCE = new LongParser();
@@ -55,9 +53,7 @@ public final class LongParser implements FromStringParser<Long> {
     }
   }
 
-  /**
-   * @return the singleton instance of this {@link FromStringParser} for {@link Long}.
-   */
+  /// @return the singleton instance of this [FromStringParser] for [Long].
   public static LongParser get() {
 
     return INSTANCE;

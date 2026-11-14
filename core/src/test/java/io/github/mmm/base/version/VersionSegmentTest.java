@@ -3,14 +3,10 @@ package io.github.mmm.base.version;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link VersionSegment}.
- */
+/// Test of [VersionSegment].
 class VersionSegmentTest extends Assertions {
 
-  /**
-   * Test of constructor and getters with "01".
-   */
+  /// Test of constructor and getters with "01".
   @Test
   void testOne() {
 
@@ -23,9 +19,7 @@ class VersionSegmentTest extends Assertions {
     assertThat(segment.getNext()).isNull();
   }
 
-  /**
-   * Test of constructor and getters with ".rc1".
-   */
+  /// Test of constructor and getters with ".rc1".
   @Test
   void testDotRc2() {
 

@@ -7,12 +7,10 @@ import java.util.ServiceLoader;
 import io.github.mmm.base.service.ServiceHelper;
 import io.github.mmm.base.temporal.TemporalConverter;
 
-/**
- * Provides the {@link TemporalConverter}.
- */
+/// Provides the [TemporalConverter].
 public class TemporalConverterProvider {
 
-  /** The {@link TemporalConverter} instance. */
+  /// The [TemporalConverter] instance.
   public static final TemporalConverter CONVERTER = ServiceHelper.singleton(ServiceLoader.load(TemporalConverter.class),
       false);
 

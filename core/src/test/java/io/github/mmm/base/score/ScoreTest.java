@@ -5,15 +5,13 @@ package io.github.mmm.base.score;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link Score}.
- */
+/// Test of [Score].
 class ScoreTest extends Assertions {
 
   private static final Score[] SCORES = new Score[] { Score.MIN, Score.VERY_LOW, Score.LOWER, Score.LOW,
   Score.LOW_MEDIUM, Score.MEDIUM, Score.HIGH_MEDIUM, Score.HIGH, Score.HIGHER, Score.VERY_HIGH, Score.MAX };
 
-  /** Test {@link Score#of(double)}. */
+  /// Test [Score#of(double)].
   @Test
   void testOf() {
 
@@ -31,7 +29,7 @@ class ScoreTest extends Assertions {
     assertThat(Score.of(0.25)).isNotSameAs(Score.of(0.25)).isEqualTo(Score.of(0.25));
   }
 
-  /** Test {@link Score#getValue()}. */
+  /// Test [Score#getValue()].
   @Test
   void testGetValue() {
 
@@ -49,7 +47,7 @@ class ScoreTest extends Assertions {
     assertThat(Score.of(0.25).getValue()).isEqualTo(0.25);
   }
 
-  /** Test {@link Score#multiply(Score)}. */
+  /// Test [Score#multiply(Score)].
   @Test
   void testMultiply() {
 

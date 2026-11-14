@@ -8,19 +8,15 @@ import java.util.Comparator;
 
 import io.github.mmm.base.impl.NumberHelper;
 
-/**
- * Implementation of {@link Comparator} for {@link Number}s capable to compare different types.
- *
- * @since 1.0.0
- */
+/// Implementation of [Comparator] for [Number]s capable to compare different types.
+///
+/// @since 1.0.0
 public class NumberComparator implements Comparator<Number> {
 
-  /** The singleton instance. */
+  /// The singleton instance.
   public static final NumberComparator INSTANCE = new NumberComparator();
 
-  /**
-   * The constructor.
-   */
+  /// The constructor.
   public NumberComparator() {
 
   }

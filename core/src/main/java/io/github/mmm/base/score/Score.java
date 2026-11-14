@@ -2,46 +2,44 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.score;
 
-/**
- * Data-type for a score as a double value in the range from {@code 0} to {@code 1}.
- *
- * @since 1.0.0
- */
+/// Data-type for a score as a double value in the range from `0` to `1`.
+///
+/// @since 1.0.0
 public final class Score implements Comparable<Score> {
 
   private final double value;
 
-  /** The minimum score (0.0). */
+  /// The minimum score (0.0).
   public static final Score MIN = new Score(0);
 
-  /** The very low score (0.1). */
+  /// The very low score (0.1).
   public static final Score VERY_LOW = new Score(0.1);
 
-  /** The lower score (0.2). */
+  /// The lower score (0.2).
   public static final Score LOWER = new Score(0.2);
 
-  /** The low score (0.3). */
+  /// The low score (0.3).
   public static final Score LOW = new Score(0.3);
 
-  /** The low medium score (0.4). */
+  /// The low medium score (0.4).
   public static final Score LOW_MEDIUM = new Score(0.4);
 
-  /** The medium score (0.5). */
+  /// The medium score (0.5).
   public static final Score MEDIUM = new Score(0.5);
 
-  /** The high medium score (0.6). */
+  /// The high medium score (0.6).
   public static final Score HIGH_MEDIUM = new Score(0.6);
 
-  /** The high score (0.7). */
+  /// The high score (0.7).
   public static final Score HIGH = new Score(0.7);
 
-  /** The higher score (0.8). */
+  /// The higher score (0.8).
   public static final Score HIGHER = new Score(0.8);
 
-  /** The very high score (0.9). */
+  /// The very high score (0.9).
   public static final Score VERY_HIGH = new Score(0.9);
 
-  /** The maximum score (1.0). */
+  /// The maximum score (1.0).
   public static final Score MAX = new Score(1);
 
   private static final Score[] CONST = new Score[] { MIN, VERY_LOW, LOWER, LOW, LOW_MEDIUM, MEDIUM, HIGH_MEDIUM, HIGH,
@@ -53,18 +51,14 @@ public final class Score implements Comparable<Score> {
     this.value = value;
   }
 
-  /**
-   * @return the score as double value in the range from {@code 0} to {@code 1}.
-   */
+  /// @return the score as double value in the range from `0` to `1`.
   public double getValue() {
 
     return this.value;
   }
 
-  /**
-   * @param score the factor to multiply by.
-   * @return the product of this {@link Score} multiplied with the given {@link Score}.
-   */
+  /// @param score the factor to multiply by.
+  /// @return the product of this [Score] multiplied with the given [Score].
   public Score multiply(Score score) {
 
     if ((score == MIN) || (this == MIN)) {
@@ -78,10 +72,8 @@ public final class Score implements Comparable<Score> {
     return of(newValue);
   }
 
-  /**
-   * @param score the other {@link Score}.
-   * @return the maximum of this {@link Score} and the given other {@link Score}.
-   */
+  /// @param score the other [Score].
+  /// @return the maximum of this [Score] and the given other [Score].
   public Score max(Score score) {
 
     if (score == null) {
@@ -93,10 +85,8 @@ public final class Score implements Comparable<Score> {
     return score;
   }
 
-  /**
-   * @param score the other {@link Score}.
-   * @return the minimum of this {@link Score} and the given other {@link Score}.
-   */
+  /// @param score the other [Score].
+  /// @return the minimum of this [Score] and the given other [Score].
   public Score min(Score score) {
 
     if (score == null) {
@@ -148,10 +138,8 @@ public final class Score implements Comparable<Score> {
     return Double.toString(this.value);
   }
 
-  /**
-   * @param value the {@link #getValue() score value}.
-   * @return the {@link Score} for the given {@code value}.
-   */
+  /// @param value the [score value][#getValue()].
+  /// @return the [Score] for the given `value`.
   public static final Score of(double value) {
 
     if ((value < 0) || (value > 1)) {

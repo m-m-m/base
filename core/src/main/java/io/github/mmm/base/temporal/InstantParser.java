@@ -6,12 +6,10 @@ import java.time.Instant;
 
 import io.github.mmm.base.lang.FromStringParser;
 
-/**
- * {@link FromStringParser} for {@link Instant} values.
- *
- * @see #parse(String)
- * @since 1.0.0
- */
+/// [FromStringParser] for [Instant] values.
+///
+/// @see #parse(String)
+/// @since 1.0.0
 public final class InstantParser implements FromStringParser<Instant> {
 
   private static final InstantParser INSTANCE = new InstantParser();
@@ -62,9 +60,7 @@ public final class InstantParser implements FromStringParser<Instant> {
     return Instant.parse(instant);
   }
 
-  /**
-   * @return the singleton instance of this {@link FromStringParser} for {@link Instant}.
-   */
+  /// @return the singleton instance of this [FromStringParser] for [Instant].
   public static InstantParser get() {
 
     return INSTANCE;

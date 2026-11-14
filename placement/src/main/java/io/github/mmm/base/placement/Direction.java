@@ -2,54 +2,48 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.placement;
 
-/**
- * This enum contains all possible directions.
- */
+/// This enum contains all possible directions.
 public enum Direction {
 
-  /** Direction down (south/bottom). */
+  /// Direction down (south/bottom).
   DOWN("s", "down"),
 
-  /** Direction right (east). */
+  /// Direction right (east).
   RIGHT("e", "right"),
 
-  /** Direction left (west). */
+  /// Direction left (west).
   LEFT("w", "left"),
 
-  /** Direction up (north/top). */
+  /// Direction up (north/top).
   UP("n", "up"),
 
-  /** Direction down-right (south-east). */
+  /// Direction down-right (south-east).
   DOWN_RIGHT("se", "down-right"),
 
-  /** Direction down-left (south-west). */
+  /// Direction down-left (south-west).
   DOWN_LEFT("sw", "down-left"),
 
-  /** Direction up-right (north-east). */
+  /// Direction up-right (north-east).
   UP_RIGHT("ne", "up-right"),
 
-  /** Direction up-left (north-west). */
+  /// Direction up-left (north-west).
   UP_LEFT("nw", "up-left");
 
   private final String value;
 
   private final String title;
 
-  /**
-   * The constructor.
-   *
-   * @param value - see {@link #getValue()}.
-   * @param title - see {@link #toString()}.
-   */
+  /// The constructor.
+  ///
+  /// @param value - see [#getValue()].
+  /// @param title - see [#toString()].
   private Direction(String value, String title) {
 
     this.value = value;
     this.title = title;
   }
 
-  /**
-   * @return the shortcut representation.
-   */
+  /// @return the shortcut representation.
   public String getValue() {
 
     return this.value;
@@ -61,44 +55,34 @@ public enum Direction {
     return this.title;
   }
 
-  /**
-   * @return {@code true} if pointing right ({@link #RIGHT}, {@link #DOWN_RIGHT}, or {@link #UP_RIGHT}), {@code false}
-   *         otherwise.
-   */
+  /// @return `true` if pointing right ([#RIGHT], [#DOWN_RIGHT], or [#UP_RIGHT]), `false`
+  ///         otherwise.
   public boolean isRight() {
 
     return (this == RIGHT) || (this == DOWN_RIGHT) || (this == UP_RIGHT);
   }
 
-  /**
-   * @return {@code true} if pointing left ({@link #LEFT}, {@link #DOWN_LEFT}, or {@link #UP_LEFT}), {@code false}
-   *         otherwise.
-   */
+  /// @return `true` if pointing left ([#LEFT], [#DOWN_LEFT], or [#UP_LEFT]), `false`
+  ///         otherwise.
   public boolean isLeft() {
 
     return (this == LEFT) || (this == DOWN_LEFT) || (this == UP_LEFT);
   }
 
-  /**
-   * @return {@code true} if pointing down ({@link #DOWN}, {@link #DOWN_RIGHT}, or {@link #DOWN_LEFT}), {@code false}
-   *         otherwise.
-   */
+  /// @return `true` if pointing down ([#DOWN], [#DOWN_RIGHT], or [#DOWN_LEFT]), `false`
+  ///         otherwise.
   public boolean isDown() {
 
     return (this == DOWN) || (this == DOWN_RIGHT) || (this == DOWN_LEFT);
   }
 
-  /**
-   * @return {@code true} if pointing up ({@link #UP}, {@link #UP_RIGHT}, or {@link #UP_LEFT}), {@code false} otherwise.
-   */
+  /// @return `true` if pointing up ([#UP], [#UP_RIGHT], or [#UP_LEFT]), `false` otherwise.
   public boolean isUp() {
 
     return (this == UP) || (this == UP_RIGHT) || (this == UP_LEFT);
   }
 
-  /**
-   * @return the {@link Alignment} corresponding to this {@link Direction}.
-   */
+  /// @return the [Alignment] corresponding to this [Direction].
   public Alignment toAlignment() {
 
     switch (this) {

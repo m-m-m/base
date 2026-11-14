@@ -4,19 +4,13 @@ package io.github.mmm.base.text;
 
 import java.util.List;
 
-/**
- * Interface for the mode to configure {@link TextFormatProcessor} for handling {@link TextFormatMessage}s.
- */
+/// Interface for the mode to configure [TextFormatProcessor] for handling [TextFormatMessage]s.
 public interface TextFormatMessageHandler {
 
-  /**
-   * @param message the {@link TextFormatMessage} to add.
-   */
+  /// @param message the [TextFormatMessage] to add.
   void add(TextFormatMessage message);
 
-  /**
-   * @return the {@link List} of {@link TextFormatMessage}s.
-   */
+  /// @return the [List] of [TextFormatMessage]s.
   List<TextFormatMessage> getMessages();
 
 }

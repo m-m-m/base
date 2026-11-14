@@ -5,14 +5,10 @@ package io.github.mmm.base.number;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link LongParser}.
- */
+/// Test of [LongParser].
 class LongParserTest extends Assertions {
 
-  /**
-   * Test of {@link LongParser#parse(String)}.
-   */
+  /// Test of [LongParser#parse(String)].
   @Test
   void testParseInstant() {
 

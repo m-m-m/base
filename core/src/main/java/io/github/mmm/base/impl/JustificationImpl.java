@@ -7,18 +7,16 @@ import java.io.IOException;
 import io.github.mmm.base.exception.RuntimeIoException;
 import io.github.mmm.base.justification.Justification;
 
-/**
- * Implementation of a {@link Justification}.
- */
+/// Implementation of a [Justification].
 public class JustificationImpl implements Justification {
 
-  /** The character used to identify the truncate mode. */
+  /// The character used to identify the truncate mode.
   private static final char MODE_TRUNCATE = '|';
 
-  /** The character used to identify the default mode. */
+  /// The character used to identify the default mode.
   private static final char MODE_DEFAULT = '\0';
 
-  /** The pattern for the format. */
+  /// The pattern for the format.
   private static final String FORMAT_PATTERN = ".[-+~][0-9]+[|]?";
 
   private static final char ALIGN_LEFT = '-';
@@ -27,29 +25,21 @@ public class JustificationImpl implements Justification {
 
   private static final char ALIGN_CENTER = '~';
 
-  /** The alignment. */
+  /// The alignment.
   private final char alignment;
 
-  /**
-   * The character used to fill up.
-   */
+  /// The character used to fill up.
   private final char filler;
 
-  /**
-   * The width of the justified string.
-   */
+  /// The width of the justified string.
   private final int width;
 
-  /**
-   * The mode of the {@link Justification}.
-   */
+  /// The mode of the [Justification].
   private final char mode;
 
-  /**
-   * The constructor.
-   *
-   * @param format is the justification-format.
-   */
+  /// The constructor.
+  ///
+  /// @param format is the justification-format.
   public JustificationImpl(String format) {
 
     super();

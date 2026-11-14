@@ -4,19 +4,15 @@ package io.github.mmm.base.filter;
 
 import java.util.Objects;
 
-/**
- * Implementation of {@link CharFilter} resulting in the negation of a given {@link CharFilter} so it rejects what the
- * given {@link CharFilter} {@link #accept(int) accepts} and vice versa.
- */
+/// Implementation of [CharFilter] resulting in the negation of a given [CharFilter] so it rejects what the
+/// given [CharFilter] [accepts][#accept(int)] and vice versa.
 public class NegatedCharFilter extends AbstractCharFilter {
 
   private final CharFilter filter;
 
-  /**
-   * The constructor.
-   *
-   * @param filter the {@link CharFilter} to negate (invert).
-   */
+  /// The constructor.
+  ///
+  /// @param filter the [CharFilter] to negate (invert).
   public NegatedCharFilter(CharFilter filter) {
 
     super(null);

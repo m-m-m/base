@@ -2,16 +2,12 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.lang;
 
-/**
- * {@link Enum} with the common boolean conjunction operators {@link #AND}, {@link #OR}, {@link #NAND}, and
- * {@link #NOR}.
- *
- * @since 1.0.0
- */
+/// [Enum] with the common boolean conjunction operators [#AND], [#OR], [#NAND], and
+/// [#NOR].
+///
+/// @since 1.0.0
 public enum Conjunction {
-  /**
-   * This conjunction is {@code true} if and only if all arguments are {@code true}.
-   */
+  /// This conjunction is `true` if and only if all arguments are `true`.
   AND("and", "&") {
 
     @Override
@@ -39,9 +35,7 @@ public enum Conjunction {
     }
   },
 
-  /**
-   * This conjunction is {@code true} if and only if at least one argument is {@code true}.
-   */
+  /// This conjunction is `true` if and only if at least one argument is `true`.
   OR("or", "|") {
 
     @Override
@@ -69,9 +63,7 @@ public enum Conjunction {
     }
   },
 
-  /**
-   * This is the negation of {@link #AND}. It is only {@code true} if at least one argument is {@code false}.
-   */
+  /// This is the negation of [#AND]. It is only `true` if at least one argument is `false`.
   NAND("nand", "!&") {
 
     @Override
@@ -99,9 +91,7 @@ public enum Conjunction {
     }
   },
 
-  /**
-   * This is the negation of {@link #OR}. It is only {@code true} if all arguments are {@code false} .
-   */
+  /// This is the negation of [#OR]. It is only `true` if all arguments are `false` .
   NOR("nor", "!|") {
 
     @Override
@@ -129,10 +119,8 @@ public enum Conjunction {
     }
   },
 
-  /**
-   * This conjunction is {@code true} if and only if two arguments differ (exactly one of two arguments if
-   * {@code true}).
-   */
+  /// This conjunction is `true` if and only if two arguments differ (exactly one of two arguments if
+  /// `true`).
   XOR("xor", "!=") {
 
     @Override
@@ -160,9 +148,7 @@ public enum Conjunction {
     }
   },
 
-  /**
-   * This conjunction is {@code true} if and only if two arguments equal.
-   */
+  /// This conjunction is `true` if and only if two arguments equal.
   EQ("eq", "=") {
 
     @Override
@@ -211,42 +197,34 @@ public enum Conjunction {
 
   private final String name;
 
-  /**
-   * The constructor.
-   *
-   * @param name is the {@link #getName() name}.
-   * @param syntax is the {@link #getSyntax() syntax}.
-   */
+  /// The constructor.
+  ///
+  /// @param name is the [name][#getName()].
+  /// @param syntax is the [syntax][#getSyntax()].
   private Conjunction(String name, String syntax) {
 
     this.syntax = syntax;
     this.name = name;
   }
 
-  /**
-   * This method evaluates this conjunction for the given boolean {@code arguments}.
-   *
-   * @param arg1 the first argument.
-   * @param arg2 the second argument.
-   * @return the result of this conjunction applied to the given two arguments.
-   */
+  /// This method evaluates this conjunction for the given boolean `arguments`.
+  ///
+  /// @param arg1 the first argument.
+  /// @param arg2 the second argument.
+  /// @return the result of this conjunction applied to the given two arguments.
   public abstract boolean eval(boolean arg1, boolean arg2);
 
-  /**
-   * @return {@code true} if this {@link Conjunction} is {@link #negate() negated} and therefore not left-associative,
-   *         {@code false} otherwise (normal form).
-   */
+  /// @return `true` if this [Conjunction] is [negated][#negate()] and therefore not left-associative,
+  ///         `false` otherwise (normal form).
   public abstract boolean isNegated();
 
-  /**
-   * Evaluates this {@link Conjunction} for the given boolean {@code arguments}. <br>
-   * <b>ATTENTION:</b> The result is NOT the same as a applying the {@link Conjunction} left-associative as
-   * {@link #eval(boolean, boolean) binary} operation because a {@link #negate() negation} is applied to the final
-   * result. Example: {@code NOR(a, b, c) = !(OR(a, b, c))} what is not the same as {@code NOR(NOR(a, b), c)}.
-   *
-   * @param arguments the boolean values to evaluate.
-   * @return the result of this {@link Conjunction} applied to the given {@code arguments}.
-   */
+  /// Evaluates this [Conjunction] for the given boolean `arguments`.
+  /// **ATTENTION:** The result is NOT the same as a applying the [Conjunction] left-associative as
+  /// [binary][#eval(boolean, boolean)] operation because a [negation][#negate()] is applied to the final
+  /// result. Example: `NOR(a, b, c) = !(OR(a, b, c))` what is not the same as `NOR(NOR(a, b), c)`.
+  ///
+  /// @param arguments the boolean values to evaluate.
+  /// @return the result of this [Conjunction] applied to the given `arguments`.
   public boolean eval(boolean... arguments) {
 
     if (isNegated()) {
@@ -263,30 +241,22 @@ public enum Conjunction {
     return result;
   }
 
-  /**
-   * @return the result of {@link #eval(boolean...)} for no argument (an empty argument array).
-   */
+  /// @return the result of [#eval(boolean...)] for no argument (an empty argument array).
   public abstract boolean evalEmpty();
 
-  /**
-   * @return the syntax used for technical representation (e.g. '{@literal &&}' for {@link #AND}).
-   */
+  /// @return the syntax used for technical representation (e.g. '`&&`' for [#AND]).
   public String getSyntax() {
 
     return this.syntax;
   }
 
-  /**
-   * @return the name and {@link Object#toString() string representation} (e.g. "and" for {@link #AND}).
-   */
+  /// @return the name and [string representation][Object#toString()] (e.g. "and" for [#AND]).
   public String getName() {
 
     return this.name;
   }
 
-  /**
-   * @return the negation of this {@link Conjunction} that {@link #eval(boolean...) evaluates} to the negated result.
-   */
+  /// @return the negation of this [Conjunction] that [evaluates][#eval(boolean...)] to the negated result.
   public abstract Conjunction negate();
 
   @Override
@@ -295,10 +265,8 @@ public enum Conjunction {
     return this.name;
   }
 
-  /**
-   * @param syntax the {@link #getSyntax() syntax} of the requested {@link Conjunction}.
-   * @return the requested {@link Conjunction} or {@code null} if no such {@link Conjunction} exists.
-   */
+  /// @param syntax the [syntax][#getSyntax()] of the requested [Conjunction].
+  /// @return the requested [Conjunction] or `null` if no such [Conjunction] exists.
   public static Conjunction ofSyntax(String syntax) {
 
     for (Conjunction conjunction : values()) {
@@ -309,10 +277,8 @@ public enum Conjunction {
     return null;
   }
 
-  /**
-   * @param name is the {@link #getName() name} of the requested {@link Conjunction}.
-   * @return the requested {@link Conjunction} or {@code null} if no such {@link Conjunction} exists.
-   */
+  /// @param name is the [name][#getName()] of the requested [Conjunction].
+  /// @return the requested [Conjunction] or `null` if no such [Conjunction] exists.
   public static Conjunction ofName(String name) {
 
     for (Conjunction conjunction : values()) {

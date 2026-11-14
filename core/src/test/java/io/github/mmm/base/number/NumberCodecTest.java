@@ -7,9 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link NumberCodec}.
- */
+/// Test of [NumberCodec].
 class NumberCodecTest extends Assertions {
 
   private static final byte[] BYTES = new byte[] { (byte) 0xFE, (byte) 0xDC, (byte) 0xBA, (byte) 0x98, (byte) 0x76,

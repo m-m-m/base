@@ -7,12 +7,10 @@ import java.util.UUID;
 import io.github.mmm.base.filter.CharFilter;
 import io.github.mmm.base.lang.FromStringParser;
 
-/**
- * {@link FromStringParser} for {@link UUID}.
- *
- * @see #parse(String)
- * @since 1.0.0
- */
+/// [FromStringParser] for [UUID].
+///
+/// @see #parse(String)
+/// @since 1.0.0
 public final class UuidParser implements FromStringParser<UUID> {
 
   private static final UuidParser INSTANCE = new UuidParser();
@@ -55,9 +53,7 @@ public final class UuidParser implements FromStringParser<UUID> {
     return UUID.fromString(uuid);
   }
 
-  /**
-   * @return the singleton instance of this {@link FromStringParser} for {@link UUID}.
-   */
+  /// @return the singleton instance of this [FromStringParser] for [UUID].
   public static UuidParser get() {
 
     return INSTANCE;

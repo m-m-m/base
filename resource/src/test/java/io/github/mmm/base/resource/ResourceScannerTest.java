@@ -7,9 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.mmm.base.resource.impl.NoResourceScannerService;
 
-/**
- * Test of {@link ResourceScanner}.
- */
+/// Test of [ResourceScanner].
 class ResourceScannerTest extends Assertions {
 
   @Test

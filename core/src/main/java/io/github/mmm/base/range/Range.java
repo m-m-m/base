@@ -4,82 +4,70 @@ package io.github.mmm.base.range;
 
 import java.util.Comparator;
 
-/**
- * This class represents a range from {@link #getMin() minimum} to {@link #getMax() maximum}. Implementations shall
- * validate at construction so a given {@link Range} should always be valid. <br>
- * <b>ATTENTION:</b><br>
- * The {@link #getMin() minimum} and {@link #getMax() maximum} may be {@code null} for {@link #unbounded() unbounded
- * ranges}. It is still recommended to use fixed bounds such as {@link Long#MAX_VALUE}. However, for types such as
- * {@link java.math.BigDecimal} this is not possible.
- *
- * @param <V> type of the contained values.
- * @since 1.0.0
- */
+/// This class represents a range from [minimum][#getMin()] to [maximum][#getMax()]. Implementations shall
+/// validate at construction so a given [Range] should always be valid.
+/// **ATTENTION:**
+/// The [minimum][#getMin()] and [maximum][#getMax()] may be `null` for [unbounded
+ ranges][#unbounded()]. It is still recommended to use fixed bounds such as [Long#MAX_VALUE]. However, for types such as
+/// [java.math.BigDecimal] this is not possible.
+///
+/// @param <V> type of the contained values.
+/// @since 1.0.0
 public interface Range<V extends Comparable<?>> {
 
-  /** Char indicating start with inclusive minimum. */
+  /// Char indicating start with inclusive minimum.
   char BOUND_START_INCLUSIVE = '[';
 
-  /** Char indicating start with exclusive minimum. */
+  /// Char indicating start with exclusive minimum.
   char BOUND_START_EXCLUSIVE = '(';
 
-  /** Char indicating end with inclusive maximum. */
+  /// Char indicating end with inclusive maximum.
   char BOUND_END_INCLUSIVE = ']';
 
-  /** Char indicating end with exclusive maximum. */
+  /// Char indicating end with exclusive maximum.
   char BOUND_END_EXCLUSIVE = ')';
 
-  /**
-   * Char to separate minimum and maximum. Mathematical convention would be to use a comma (','), but this causes
-   * problems when parsing {@link Object#toString() string representations} as a comma may also occur in the minimum or
-   * maximum value.
-   */
+  /// Char to separate minimum and maximum. Mathematical convention would be to use a comma (','), but this causes
+  /// problems when parsing [string representations][Object#toString()] as a comma may also occur in the minimum or
+  /// maximum value.
   char BOUND_SEPARATOR = '\uFF0C';
 
-  /** The unbound minimum. */
+  /// The unbound minimum.
   String MIN_UNBOUND = "\u2212\u221E";
 
-  /** The unbound maximum. */
+  /// The unbound maximum.
   String MAX_UNBOUND = "+\u221E";
 
-  /** Property name of {@link #getMin()}. */
+  /// Property name of [#getMin()].
   String PROPERTY_MIN = "min";
 
-  /** Property name of {@link #getMax()}. */
+  /// Property name of [#getMax()].
   String PROPERTY_MAX = "max";
 
-  /**
-   * @return the lower bound of this range or {@code null} if no lower bound is defined. Has to be less than
-   *         {@link #getMax() max} if both boundaries are not {@code null}.
-   */
+  /// @return the lower bound of this range or `null` if no lower bound is defined. Has to be less than
+  ///         [max][#getMax()] if both boundaries are not `null`.
   V getMin();
 
-  /**
-   * @return the upper bound of this range or {@code null} if no upper bound is defined. Has to be greater than
-   *         {@link #getMin() min} if both boundaries are not {@code null}.
-   */
+  /// @return the upper bound of this range or `null` if no upper bound is defined. Has to be greater than
+  ///         [min][#getMin()] if both boundaries are not `null`.
   V getMax();
 
-  /**
-   * @return the {@link Comparator} used to {@link Comparator#compare(Object, Object) compare} values of this
-   *         {@link Range}. The default implementation assumes that the value type implements {@link Comparable}. If you
-   *         want to use other value types you need to override this method.
-   */
+  /// @return the [Comparator] used to [compare][Comparator#compare(Object, Object)] values of this
+  ///         [Range]. The default implementation assumes that the value type implements [Comparable]. If you
+  ///         want to use other value types you need to override this method.
   @SuppressWarnings({ "unchecked", "rawtypes" })
   default Comparator<? super V> getComparator() {
 
     return (Comparator) Comparator.naturalOrder();
   }
 
-  /**
-   * This method determines if the given {@code value} is within this {@link Range} from {@link #getMin() minimum} to
-   * {@link #getMax() maximum}.
-   *
-   * @param value is the vale to check.
-   * @return {@code true} if contained ({@link #getMin() minimum} {@literal <=} {@code value} {@literal >=}
-   *         {@link #getMax() maximum}), {@code false} otherwise. If the given value is {@code null}, {@code false} will
-   *         be returned.
-   */
+  /// This method determines if the given `value` is within this [Range] from [minimum][#getMin()] to
+  /// [maximum][#getMax()].
+  ///
+  /// @param value is the vale to check.
+  /// @return `true` if contained ([minimum][#getMin()] `<=` `value` `>=`
+  ///         [maximum][#getMax()]), `false` otherwise. If the given value is `null`, `false` will
+  ///         be returned.
   default boolean contains(V value) {
 
     if (value == null) {
@@ -88,16 +76,13 @@ public interface Range<V extends Comparable<?>> {
     return value == clip(value);
   }
 
-  /**
-   * This method clips the given {@code value} so the result is {@link #contains(Comparable) contained} in this
-   * {@link Range} unless the given {@code value} is {@code null}.
-   *
-   * @param value is the vale to clip. May be {@code null}.
-   * @return the given {@code value} clipped to this range. If the given {@code value} is less than the {@link #getMin()
-   *         minimum}, that {@link #getMin() minimum} will be returned. If the given {@code value} is greater than the
-   *         {@link #getMax() maximum}, that {@link #getMax() maximum} will be returned. Otherwise the given
-   *         {@code value} is returned.
-   */
+  /// This method clips the given `value` so the result is [contained][#contains(Comparable)] in this
+  /// [Range] unless the given `value` is `null`.
+  ///
+  /// @param value is the vale to clip. May be `null`.
+  /// @return the given `value` clipped to this range. If the given `value` is less than the [minimum][#getMin()], that [minimum][#getMin()] will be returned. If the given `value` is greater than the
+  ///         [maximum][#getMax()], that [maximum][#getMax()] will be returned. Otherwise the given
+  ///         `value` is returned.
   default V clip(V value) {
 
     if (value == null) {
@@ -124,73 +109,57 @@ public interface Range<V extends Comparable<?>> {
     return value;
   }
 
-  /**
-   * @param minimum the new {@link #getMin() minimum}.
-   * @param maximum the new {@link #getMax() maximum}.
-   * @return a new {@link Range} with the given boundaries.
-   */
+  /// @param minimum the new [minimum][#getMin()].
+  /// @param maximum the new [maximum][#getMax()].
+  /// @return a new [Range] with the given boundaries.
   Range<V> with(V minimum, V maximum);
 
-  /**
-   * @param minimum the new {@link #getMin() minimum}.
-   * @return a new {@link Range} where the {@link #getMin() minimum} is set to the given {@code minimum} value.
-   */
+  /// @param minimum the new [minimum][#getMin()].
+  /// @return a new [Range] where the [minimum][#getMin()] is set to the given `minimum` value.
   default Range<V> withMin(V minimum) {
 
     return with(minimum, getMax());
   }
 
-  /**
-   * @param maximum the new {@link #getMax() maximum}.
-   * @return a new {@link Range} where the {@link #getMax() maximum} is set to the given {@code maximum} value.
-   */
+  /// @param maximum the new [maximum][#getMax()].
+  /// @return a new [Range] where the [maximum][#getMax()] is set to the given `maximum` value.
   default Range<V> withMax(V maximum) {
 
     return with(getMin(), maximum);
   }
 
-  /**
-   * @param range the {@link Range} to build the intersection with.
-   * @return the intersection of this {@link Range} with the given {@link Range}. This is a {@link Range} with the
-   *         highest {@link #getMin() minimum} and the lowest {@link #getMax() maximum} of the two ranges to intersect.
-   *         In case the two {@link Range}s have no intersection {@link Range#invalid()} is returned.
-   */
+  /// @param range the [Range] to build the intersection with.
+  /// @return the intersection of this [Range] with the given [Range] that is a [Range] with the
+  ///         highest [minimum][#getMin()] and the lowest [maximum][#getMax()] of the two ranges to intersect.
+  ///         In case the [Range]s have no intersection [Range#invalid()] is returned.
   Range<V> intersection(Range<V> range);
 
-  /**
-   * @return true if this {@link Range} is {@link #unbounded() unbounded}.
-   */
+  /// @return true if this [Range] is [unbounded][#unbounded()].
   default boolean isUnbounded() {
 
     return ((getMin() == null) && (getMax() == null));
   }
 
-  /**
-   * @param <T> type of the {@link #contains(Comparable) contained value}.
-   * @param min the {@link #getMin() minimum}.
-   * @param max the {@link #getMax() maximum}.
-   * @return the specified {@link Range}.
-   */
+  /// @param <T> type of the [contained value][#contains(Comparable)].
+  /// @param min the [minimum][#getMin()].
+  /// @param max the [maximum][#getMax()].
+  /// @return the specified [Range].
   static <T extends Comparable<?>> Range<T> of(T min, T max) {
 
     return RangeType.of(min, max);
   }
 
-  /**
-   * @param <T> type of the {@link #contains(Comparable) contained value}.
-   * @return the unbounded {@link Range} instance {@link #contains(Comparable) containing} all values (with
-   *         {@link #getMin()} and {@link #getMax()} being {@code null}).
-   */
+  /// @param <T> type of the [contained value][#contains(Comparable)].
+  /// @return the unbounded [Range] instance [containing][#contains(Comparable)] all values (with
+  ///         [#getMin()] and [#getMax()] being `null`).
   static <T extends Comparable<?>> Range<T> unbounded() {
 
     return RangeType.UNBOUNDED;
   }
 
-  /**
-   * @param <T> type of the {@link #contains(Comparable) contained value}.
-   * @return the invalid {@link Range} instance {@link #contains(Comparable) containing} no values at all (with
-   *         {@link #getMin()} and {@link #getMax()} being {@code null}).
-   */
+  /// @param <T> type of the [contained value][#contains(Comparable)].
+  /// @return the invalid [Range] instance [containing][#contains(Comparable)] no values at all (with
+  ///         [#getMin()] and [#getMax()] being `null`).
   static <T extends Comparable<?>> Range<T> invalid() {
 
     return RangeType.INVALID;

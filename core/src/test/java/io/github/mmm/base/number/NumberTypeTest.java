@@ -8,9 +8,7 @@ import java.math.BigInteger;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link NumberType}.
- */
+/// Test of [NumberType].
 @SuppressWarnings("all")
 class NumberTypeTest extends Assertions {
 

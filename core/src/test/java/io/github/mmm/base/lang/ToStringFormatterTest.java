@@ -3,12 +3,10 @@ package io.github.mmm.base.lang;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link ToStringFormatter}.
- */
+/// Test of [ToStringFormatter].
 class ToStringFormatterTest extends Assertions {
 
-  /** Tests {@link ToStringFormatter#apply(Object)}. */
+  /// Tests [ToStringFormatter#apply(Object)].
   @Test
   void test() {
 

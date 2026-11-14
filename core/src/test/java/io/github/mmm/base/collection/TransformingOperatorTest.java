@@ -11,9 +11,7 @@ import java.util.NoSuchElementException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link TransformingIterator}.
- */
+/// Test of [TransformingIterator].
 class TransformingOperatorTest extends Assertions {
 
   @Test

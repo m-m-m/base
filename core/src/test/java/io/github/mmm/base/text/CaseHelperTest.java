@@ -7,12 +7,10 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link CaseHelper}.
- */
+/// Test of [CaseHelper].
 class CaseHelperTest extends Assertions {
 
-  /** Test of {@link CaseHelper#toLowerCase(String)}. */
+  /// Test of [CaseHelper#toLowerCase(String)].
   @Test
   void testToLowerCase() {
 
@@ -25,7 +23,7 @@ class CaseHelperTest extends Assertions {
     Locale.setDefault(system);
   }
 
-  /** Test of {@link CaseHelper#toUpperCase(String)}. */
+  /// Test of [CaseHelper#toUpperCase(String)].
   @Test
   void testToUpperCase() {
 

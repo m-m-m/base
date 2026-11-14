@@ -12,9 +12,7 @@ import io.github.mmm.base.metainfo.MetaInfo;
 import io.github.mmm.base.metainfo.MetaInfos;
 import io.github.mmm.base.metainfo.impl.AbstractMetaInfo;
 
-/**
- * Test of {@link MetaInfo}.
- */
+/// Test of [MetaInfo].
 @MetaInfos({ "key1=value1", "key2=value2" })
 class MetaInfoTest extends Assertions {
 
@@ -23,7 +21,7 @@ class MetaInfoTest extends Assertions {
     return ((AbstractMetaInfo) metaInfo).toString(true);
   }
 
-  /** Test of {@link MetaInfo#empty()}. */
+  /// Test of [MetaInfo#empty()].
   @Test
   void testEmpty() {
 
@@ -40,7 +38,7 @@ class MetaInfoTest extends Assertions {
     assertThat(toString(metaInfo)).isEqualTo("{}");
   }
 
-  /** Test of {@link MetaInfo#getRequired(String)}. */
+  /// Test of [MetaInfo#getRequired(String)].
   @Test
   void testGetRequired() {
 
@@ -59,7 +57,7 @@ class MetaInfoTest extends Assertions {
     }
   }
 
-  /** Test of {@link MetaInfo#with(String, String)}. */
+  /// Test of [MetaInfo#with(String, String)].
   @Test
   void testWithSingle() {
 
@@ -79,7 +77,7 @@ class MetaInfoTest extends Assertions {
     assertThat(toString(metaInfo)).isEqualTo("{key1=value1}");
   }
 
-  /** Test of {@link MetaInfo#with(java.lang.reflect.AnnotatedElement)}. */
+  /// Test of [MetaInfo#with(java.lang.reflect.AnnotatedElement)].
   @Test
   void testWithClass() {
 
@@ -107,7 +105,7 @@ class MetaInfoTest extends Assertions {
     assertThat(toString(metaInfo2)).isEqualTo("{key1=value1, key2=two, key3=value3}");
   }
 
-  /** Test of {@link MetaInfo#with(Map)}. */
+  /// Test of [MetaInfo#with(Map)].
   @Test
   void testWithMap() {
 
@@ -124,7 +122,7 @@ class MetaInfoTest extends Assertions {
     assertThat(toString(metaInfo)).isEqualTo("{key1=42, key2=true, key3=magicValue}");
   }
 
-  /** Test of {@link MetaInfo#with(Properties)}. */
+  /// Test of [MetaInfo#with(Properties)].
   @Test
   void testWithProperties() {
 
@@ -146,7 +144,7 @@ class MetaInfoTest extends Assertions {
     assertThat(toString(metaInfo)).isEqualTo("{key1=42, key2=true, key3=magicValue}");
   }
 
-  /** Test of {@link MetaInfo#with(String)}. */
+  /// Test of [MetaInfo#with(String)].
   @Test
   void testWithPrefix() {
 

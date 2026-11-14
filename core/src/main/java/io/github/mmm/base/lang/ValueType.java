@@ -7,15 +7,13 @@ import java.util.Objects;
 
 import io.github.mmm.base.number.NumberType;
 
-/**
- * Interface for generic support of a {@link #getType() value type}. It does not represent a value itself but only its
- * type with ability to {@link #format(Object) format} and {@link #parse(String) parse} values of the represented type.
- *
- * @param <V> the {@link #getType() type type}.
- * @since 1.0.0
- * @see io.github.mmm.base.number.NumberType
- * @see io.github.mmm.base.temporal.TemporalType
- */
+/// Interface for generic support of a [value type][#getType()]. It does not represent a value itself but only its
+/// type with ability to [format][#format(Object)] and [parse][#parse(String)] values of the represented type.
+///
+/// @param <V> the [type type][#getType()].
+/// @since 1.0.0
+/// @see io.github.mmm.base.number.NumberType
+/// @see io.github.mmm.base.temporal.TemporalType
 public abstract class ValueType<V> {
 
   private static final Map<Class<?>, Class<?>> PRIMITIVE_TYPE_MAP = Map.of( //
@@ -28,7 +26,7 @@ public abstract class ValueType<V> {
       short.class, Short.class, //
       byte.class, Byte.class);
 
-  /** {@link ValueType} for {@link String}. */
+  /// [ValueType] for [String].
   public static final ValueType<String> STRING = new ValueType<>(String.class, null) {
     @Override
     public String parse(String value) {
@@ -37,7 +35,7 @@ public abstract class ValueType<V> {
     }
   };
 
-  /** {@link ValueType} for {@link Boolean}. */
+  /// [ValueType] for [Boolean].
   public static final ValueType<Boolean> BOOLEAN = new ValueType<>(Boolean.class, boolean.class) {
     @Override
     public Boolean parse(String value) {
@@ -54,28 +52,24 @@ public abstract class ValueType<V> {
     }
   };
 
-  /** @see #getType() */
+  /// @see #getType()
   protected final Class<V> type;
 
-  /** @see #getType() */
+  /// @see #getType()
   protected final Class<V> primitiveType;
 
-  /**
-   * The constructor.
-   *
-   * @param type the {@link #getType() value type}.
-   */
+  /// The constructor.
+  ///
+  /// @param type the [value type][#getType()].
   public ValueType(Class<V> type) {
 
     this(type, null);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param type the {@link #getType() value type}.
-   * @param primitiveType the {@link #getPrimitiveType() primitive type}.
-   */
+  /// The constructor.
+  ///
+  /// @param type the [value type][#getType()].
+  /// @param primitiveType the [primitive type][#getPrimitiveType()].
   public ValueType(Class<V> type, Class<V> primitiveType) {
 
     super();
@@ -84,32 +78,24 @@ public abstract class ValueType<V> {
     this.primitiveType = primitiveType;
   }
 
-  /**
-   * @return the {@link Class} reflecting the {@link Number} represented by this {@link NumberType}.
-   */
+  /// @return the [Class] reflecting the [Number] represented by this [NumberType].
   public Class<V> getType() {
 
     return this.type;
   }
 
-  /**
-   * @return the primitive type corresponding to the {@link #getType() value type} or {@code null} if not available.
-   */
+  /// @return the primitive type corresponding to the [value type][#getType()] or `null` if not available.
   public Class<V> getPrimitiveType() {
 
     return this.primitiveType;
   }
 
-  /**
-   * @param value the value as {@link String}.
-   * @return the parsed value as its {@link #getType() value type}.
-   */
+  /// @param value the value as [String].
+  /// @return the parsed value as its [value type][#getType()].
   public abstract V parse(String value);
 
-  /**
-   * @param value the value to format.
-   * @return the {@link Object#toString() string representation} of the given {@code value}.
-   */
+  /// @param value the value to format.
+  /// @return the [string representation][Object#toString()] of the given `value`.
   public String format(V value) {
 
     if (value == null) {
@@ -128,10 +114,8 @@ public abstract class ValueType<V> {
     return name;
   }
 
-  /**
-   * @param type the {@link Class} reflecting the requested type.
-   * @return the
-   */
+  /// @param type the [Class] reflecting the requested type.
+  /// @return the
   public static Class<?> getNonPrimitiveType(Class<?> type) {
 
     Class<?> result = PRIMITIVE_TYPE_MAP.get(type);

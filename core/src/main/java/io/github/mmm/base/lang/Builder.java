@@ -2,22 +2,18 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.lang;
 
-/**
- * This is the generic interface for a <em>builder</em>. A builder is an object following the builder-pattern in order
- * to {@link #build() build} some object using a simple and fluent API.
- *
- * @param <T> the type of the object to build.
- *
- * @since 1.0.0
- */
+/// This is the generic interface for a _builder_. A builder is an object following the builder-pattern in order
+/// to [build][#build()] some object using a simple and fluent API.
+///
+/// @param <T> the type of the object to build.
+///
+/// @since 1.0.0
 public interface Builder<T> {
 
-  /**
-   * Creates a new instance of the object to build. If the {@link Builder} is reused, any additional changes to the
-   * {@link Builder} shall NOT have any effect on instances previously returned by this method.
-   *
-   * @return the object to build.
-   */
+  /// Creates a new instance of the object to build. If the [Builder] is reused, any additional changes to the
+  /// [Builder] shall NOT have any effect on instances previously returned by this method.
+  ///
+  /// @return the object to build.
   T build();
 
 }

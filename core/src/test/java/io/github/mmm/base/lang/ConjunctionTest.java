@@ -5,12 +5,10 @@ package io.github.mmm.base.lang;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link Conjunction}.
- */
+/// Test of [Conjunction].
 class ConjunctionTest extends Assertions {
 
-  /** Test of {@link Conjunction#AND}. */
+  /// Test of [Conjunction#AND].
   @Test
   void testAnd() {
 
@@ -27,7 +25,7 @@ class ConjunctionTest extends Assertions {
     assertThat(and.toString()).isEqualTo("and");
   }
 
-  /** Test of {@link Conjunction#OR}. */
+  /// Test of [Conjunction#OR].
   @Test
   void testOr() {
 
@@ -44,7 +42,7 @@ class ConjunctionTest extends Assertions {
     assertThat(or.toString()).isEqualTo("or");
   }
 
-  /** Test of {@link Conjunction#NAND}. */
+  /// Test of [Conjunction#NAND].
   @Test
   void testNand() {
 
@@ -61,7 +59,7 @@ class ConjunctionTest extends Assertions {
     assertThat(nand.toString()).isEqualTo("nand");
   }
 
-  /** Test of {@link Conjunction#NOR}. */
+  /// Test of [Conjunction#NOR].
   @Test
   void testNor() {
 
@@ -78,7 +76,7 @@ class ConjunctionTest extends Assertions {
     assertThat(nor.toString()).isEqualTo("nor");
   }
 
-  /** Test of {@link Conjunction#XOR}. */
+  /// Test of [Conjunction#XOR].
   @Test
   void testXor() {
 
@@ -95,7 +93,7 @@ class ConjunctionTest extends Assertions {
     assertThat(xor.toString()).isEqualTo("xor");
   }
 
-  /** Test of {@link Conjunction#EQ}. */
+  /// Test of [Conjunction#EQ].
   @Test
   void testEq() {
 
@@ -114,9 +112,7 @@ class ConjunctionTest extends Assertions {
     assertThat(eq.toString()).isEqualTo("eq");
   }
 
-  /**
-   * Generic test for all {@link Conjunction}s.
-   */
+  /// Generic test for all [Conjunction]s.
   @Test
   void testGeneric() {
 

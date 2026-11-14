@@ -2,21 +2,19 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.version;
 
-/**
- * Enum representing the type of interval regarding its boundaries.
- */
+/// Enum representing the type of interval regarding its boundaries.
 public enum BoundaryType {
 
-  /** Closed interval - includes the specified values at the boundaries. */
+  /// Closed interval - includes the specified values at the boundaries.
   CLOSED,
 
-  /** Open interval - excludes the specified values at the boundaries. */
+  /// Open interval - excludes the specified values at the boundaries.
   OPEN,
 
-  /** Left open interval - excludes the lower bound but includes the upper bound. */
+  /// Left open interval - excludes the lower bound but includes the upper bound.
   LEFT_OPEN,
 
-  /** Right open interval - includes the lower bound but excludes the upper bound. */
+  /// Right open interval - includes the lower bound but excludes the upper bound.
   RIGHT_OPEN;
 
   static final String START_EXCLUDING_PREFIX = "(";
@@ -27,43 +25,33 @@ public enum BoundaryType {
 
   static final String END_INCLUDING_SUFFIX = "]";
 
-  /**
-   * @return {@code true} if left exclusive, {@code false} otherwise (left inclusive).
-   */
+  /// @return `true` if left exclusive, `false` otherwise (left inclusive).
   public boolean isLeftExclusive() {
 
     return (this == LEFT_OPEN) || (this == OPEN);
   }
 
-  /**
-   * @return {@code true} if right exclusive, {@code false} otherwise (right inclusive).
-   */
+  /// @return `true` if right exclusive, `false` otherwise (right inclusive).
   public boolean isRightExclusive() {
 
     return (this == RIGHT_OPEN) || (this == OPEN);
   }
 
-  /**
-   * @return the prefix (left parenthesis or bracket for {@link #isLeftExclusive()}).
-   */
+  /// @return the prefix (left parenthesis or bracket for [#isLeftExclusive()]).
   public String getPrefix() {
 
     return isLeftExclusive() ? START_EXCLUDING_PREFIX : START_INCLUDING_PREFIX;
   }
 
-  /**
-   * @return the suffix (right parenthesis or bracket for {@link #isRightExclusive()}).
-   */
+  /// @return the suffix (right parenthesis or bracket for [#isRightExclusive()]).
   public String getSuffix() {
 
     return isRightExclusive() ? END_EXCLUDING_SUFFIX : END_INCLUDING_SUFFIX;
   }
 
-  /**
-   * @param leftExclusive the {@link #isLeftExclusive() left exclusive flag}.
-   * @param rightExclusive the {@link #isRightExclusive() right exclusive flag}.
-   * @return the {@link BoundaryType} with the specified values.
-   */
+  /// @param leftExclusive the [left exclusive flag][#isLeftExclusive()].
+  /// @param rightExclusive the [right exclusive flag][#isRightExclusive()].
+  /// @return the [BoundaryType] with the specified values.
   public static BoundaryType of(boolean leftExclusive, boolean rightExclusive) {
 
     if (leftExclusive) {

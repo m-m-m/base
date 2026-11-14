@@ -13,11 +13,9 @@ import io.github.mmm.base.lang.ValueType;
 import io.github.mmm.base.metainfo.MetaInfo;
 import io.github.mmm.base.metainfo.MetaInfos;
 
-/**
- * Implementation of {@link MetaInfo} as wrapper of {@link Map}.
- *
- * @since 1.0.0
- */
+/// Implementation of [MetaInfo] as wrapper of [Map].
+///
+/// @since 1.0.0
 public abstract class AbstractMetaInfo implements MetaInfo {
 
   @Override
@@ -26,23 +24,18 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     return null;
   }
 
-  /**
-   * @return {@code this} instance as {@link MetaInfoInherited} to be used as {@link #getParent() parent} of a new child
-   *         (see {@code with} methods) or {@code null} if this is the empty instance.
-   */
+  /// @return `this` instance as [MetaInfoInherited] to be used as [parent][#getParent()] of a new child
+  ///         (see `with` methods) or `null` if this is the empty instance.
   protected MetaInfoInherited asParent() {
 
     return null;
   }
 
-  /**
-   * @param inherit the inherit flag from {@link #get(boolean, String)}. Typically to be ignored but may be used in
-   *        special cases.
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} without inheritance from {@link #getParent()
-   *         parent}. Will be {@code null} if no value is defined for the given {@code key}.
-   * @see #get(boolean, String)
-   */
+  /// @param inherit the inherit flag from [#get(boolean, String)]. Typically to be ignored but may be used in
+  ///        special cases.
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` without inheritance from [parent][#getParent()]. Will be `null` if no value is defined for the given `key`.
+  /// @see #get(boolean, String)
   protected abstract String getPlain(boolean inherit, String key);
 
   @Override
@@ -76,14 +69,12 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     }
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param key the key of the requested meta-information.
-   * @param stop the ancestor {@link AbstractMetaInfo} where to stop inheriting.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param key the key of the requested meta-information.
+  /// @param stop the ancestor [AbstractMetaInfo] where to stop inheriting.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
   public String getInternal(boolean inherit, String key, MetaInfo stop) {
 
     String value = getPlain(inherit, qualifyKey(key));
@@ -97,10 +88,8 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     return value;
   }
 
-  /**
-   * @param key the raw key.
-   * @return the qualified key with the {@link #getKeyPrefix() key prefix} prepended.
-   */
+  /// @param key the raw key.
+  /// @return the qualified key with the [key prefix][#getKeyPrefix()] prepended.
   protected String qualifyKey(String key) {
 
     String keyPrefix = getKeyPrefix();
@@ -110,12 +99,9 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     return keyPrefix + key;
   }
 
-  /**
-   * @param key the raw key.
-   * @return the unqualified key with the {@link #getKeyPrefix() key prefix} removed. Will be {@code null} if the key
-   *         was {@code null} or the key did not {@link String#startsWith(String) start with} the {@link #getKeyPrefix()
-   *         key prefix}.
-   */
+  /// @param key the raw key.
+  /// @return the unqualified key with the [key prefix][#getKeyPrefix()] removed. Will be `null` if the key
+  ///         was `null` or the key did not [start with][String#startsWith(String)] the [key prefix][#getKeyPrefix()].
   protected String unqualifyKey(String key) {
 
     String keyPrefix = getKeyPrefix();
@@ -186,10 +172,8 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     return toString(false);
   }
 
-  /**
-   * @param sort - {@code true} to sort by keys ensuring deterministic results, {@code false} otherwise.
-   * @return the {@link #toString() string representation}.
-   */
+  /// @param sort - `true` to sort by keys ensuring deterministic results, `false` otherwise.
+  /// @return the [string representation][#toString()].
   public String toString(boolean sort) {
 
     StringBuilder sb = new StringBuilder();

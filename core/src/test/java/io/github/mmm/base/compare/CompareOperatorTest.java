@@ -22,12 +22,10 @@ import org.junit.jupiter.api.Test;
 
 import io.github.mmm.base.temporal.TemporalConverterLegacy;
 
-/**
- * Test of {@link CompareOperator}.
- */
+/// Test of [CompareOperator].
 class CompareOperatorTest extends Assertions {
 
-  /** Test of {@link CompareOperator#EQUAL}. */
+  /// Test of [CompareOperator#EQUAL].
   @Test
   void testEqual() {
 
@@ -41,7 +39,7 @@ class CompareOperatorTest extends Assertions {
     verifyOperator(op, false, false, true);
   }
 
-  /** Test of {@link CompareOperator#NOT_EQUAL}. */
+  /// Test of [CompareOperator#NOT_EQUAL].
   @Test
   void testNotEqual() {
 
@@ -55,7 +53,7 @@ class CompareOperatorTest extends Assertions {
     verifyOperator(op, true, true, false);
   }
 
-  /** Test of {@link CompareOperator#GREATER_THAN}. */
+  /// Test of [CompareOperator#GREATER_THAN].
   @Test
   void testGreaterThan() {
 
@@ -69,7 +67,7 @@ class CompareOperatorTest extends Assertions {
     verifyOperator(op, false, true, false);
   }
 
-  /** Test of {@link CompareOperator#GREATER_OR_EQUAL}. */
+  /// Test of [CompareOperator#GREATER_OR_EQUAL].
   @Test
   void testGreaterOrEqual() {
 
@@ -83,7 +81,7 @@ class CompareOperatorTest extends Assertions {
     verifyOperator(op, false, true, true);
   }
 
-  /** Test of {@link CompareOperator#LESS_THAN}. */
+  /// Test of [CompareOperator#LESS_THAN].
   @Test
   void testLessThan() {
 
@@ -97,7 +95,7 @@ class CompareOperatorTest extends Assertions {
     verifyOperator(op, true, false, false);
   }
 
-  /** Test of {@link CompareOperator#LESS_OR_EQUAL}. */
+  /// Test of [CompareOperator#LESS_OR_EQUAL].
   @Test
   void testLessOrEqual() {
 
@@ -123,10 +121,8 @@ class CompareOperatorTest extends Assertions {
         .isEqualTo(acceptGreater);
   }
 
-  /**
-   * Test of {@link CompareOperator#evalObject(Object, Object)} with {@link Temporal} and {@link Date}/{@link Calendar}
-   * values.
-   */
+  /// Test of [CompareOperator#evalObject(Object, Object)] with [Temporal] and [Date]/[Calendar]
+  /// values.
   @Test
   void testTemporals() {
 

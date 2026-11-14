@@ -8,12 +8,10 @@ import java.util.function.Function;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link RangeType}.
- */
+/// Test of [RangeType].
 class RangeTypeTest extends Assertions {
 
-  /** Test of {@link RangeType}. */
+  /// Test of [RangeType].
   @Test
   void test() {
 
@@ -36,7 +34,7 @@ class RangeTypeTest extends Assertions {
     assertThat(yearRange.contains(Year.of(2021))).isFalse();
   }
 
-  /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
+  /// Test of [RangeType#parse(String, java.util.function.Function)].
   @Test
   void testParseYear() {
 
@@ -50,7 +48,7 @@ class RangeTypeTest extends Assertions {
     assertThat(RangeType.parse("[2000，2020]", yearParser)).isEqualTo(new RangeType<>(Year.of(2000), Year.of(2020)));
   }
 
-  /** Test of {@link RangeType#parse(String, java.util.function.Function)}. */
+  /// Test of [RangeType#parse(String, java.util.function.Function)].
   @Test
   void testParseSpecial() {
 
@@ -64,9 +62,7 @@ class RangeTypeTest extends Assertions {
     assertThat(RangeType.parse(invalid.toString(), longParser)).isSameAs(Range.invalid());
   }
 
-  /**
-   * Test of {@link Range#intersection(Range)}.
-   */
+  /// Test of [Range#intersection(Range)].
   @Test
   void testIntersection() {
 

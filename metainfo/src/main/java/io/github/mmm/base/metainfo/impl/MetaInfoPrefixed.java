@@ -7,17 +7,13 @@ import java.util.Objects;
 
 import io.github.mmm.base.metainfo.MetaInfo;
 
-/**
- * Empty {@link MetaInfo} implementation.
- */
+/// Empty [MetaInfo] implementation.
 public final class MetaInfoPrefixed extends MetaInfoInherited {
 
-  /**
-   * The constructor.
-   *
-   * @param parent the {@link #getParent() parent}.
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   */
+  /// The constructor.
+  ///
+  /// @param parent the [parent][#getParent()].
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
   public MetaInfoPrefixed(MetaInfoInherited parent, String keyPrefix) {
 
     super(parent, keyPrefix);

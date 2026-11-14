@@ -10,23 +10,19 @@ import io.github.mmm.base.exception.DuplicateObjectException;
 import io.github.mmm.base.metainfo.MetaInfo;
 import io.github.mmm.base.metainfo.MetaInfos;
 
-/**
- * Implementation of {@link MetaInfo} based on {@link MetaInfoValue}.
- *
- * @since 1.0.0
- */
+/// Implementation of [MetaInfo] based on [MetaInfoValue].
+///
+/// @since 1.0.0
 public final class MetaInfoValues extends MetaInfoInherited {
 
   final MetaInfoValue first;
 
   private final int size;
 
-  /**
-   * The constructor.
-   *
-   * @param first the first {@link MetaInfoValue}.
-   * @param parent the {@link #getParent() parent}.
-   */
+  /// The constructor.
+  ///
+  /// @param first the first [MetaInfoValue].
+  /// @param parent the [parent][#getParent()].
   public MetaInfoValues(MetaInfoValue first, MetaInfoInherited parent) {
 
     super(parent, "");

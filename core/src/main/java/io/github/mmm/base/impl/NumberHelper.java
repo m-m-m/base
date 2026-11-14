@@ -5,19 +5,15 @@ package io.github.mmm.base.impl;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-/**
- * Helper for {@link Number}.
- */
+/// Helper for [Number].
 public final class NumberHelper {
 
   private NumberHelper() {
 
   }
 
-  /**
-   * @param value the {@link Number}.
-   * @return the given {@link Number} converted to {@link BigDecimal}.
-   */
+  /// @param value the [Number].
+  /// @return the given [Number] converted to [BigDecimal].
   public static BigDecimal toBigDecimal(Number value) {
 
     if (value instanceof BigDecimal) {
@@ -36,10 +32,8 @@ public final class NumberHelper {
     return (value instanceof Long) || (value instanceof Integer) || (value instanceof Short) || (value instanceof Byte);
   }
 
-  /**
-   * @param value the {@link Number}.
-   * @return the given {@link Number} converted to {@link BigInteger}.
-   */
+  /// @param value the [Number].
+  /// @return the given [Number] converted to [BigInteger].
   public static BigInteger toBigInteger(Number value) {
 
     if (value instanceof BigInteger) {

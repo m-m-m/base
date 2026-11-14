@@ -2,53 +2,43 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.placement;
 
-/**
- * This enum represents a vertical alignment of some object. <br>
- *
- * @see HorizontalAlignment
- */
+/// This enum represents a vertical alignment of some object.
+///
+/// @see HorizontalAlignment
 public enum VerticalAlignment {
 
-  /** Align content to the top. */
+  /// Align content to the top.
   TOP("n", "top"),
 
-  /** Align content to the bottom. */
+  /// Align content to the bottom.
   BOTTOM("s", "bottom"),
 
-  /**
-   * Align content centered to the middle (same space at top and bottom).
-   */
+  /// Align content centered to the middle (same space at top and bottom).
   CENTER("c", "center");
 
   private final String value;
 
   private final String title;
 
-  /**
-   * The constructor.
-   *
-   * @param value is the {@link #getValue() raw value} (symbol).
-   * @param title is the {@link #toString() string representation}.
-   */
+  /// The constructor.
+  ///
+  /// @param value is the [raw value][#getValue()] (symbol).
+  /// @param title is the [string representation][#toString()].
   private VerticalAlignment(String value, String title) {
 
     this.value = value;
     this.title = title;
   }
 
-  /**
-   * @return the ascii symbol.
-   */
+  /// @return the ascii symbol.
   public String getValue() {
 
     return this.value;
   }
 
-  /**
-   * This method gets the corresponding {@link Alignment}.
-   *
-   * @return the corresponding {@link Alignment}.
-   */
+  /// This method gets the corresponding [Alignment].
+  ///
+  /// @return the corresponding [Alignment].
   public Alignment toAlignment() {
 
     switch (this) {
@@ -69,12 +59,10 @@ public enum VerticalAlignment {
     return this.title;
   }
 
-  /**
-   * This method gets the {@link VerticalAlignment} with the given {@link #getValue() value}.
-   *
-   * @param value is the {@link #getValue() value} of the requested {@link VerticalAlignment}.
-   * @return the requested {@link VerticalAlignment}.
-   */
+  /// This method gets the [VerticalAlignment] with the given [value][#getValue()].
+  ///
+  /// @param value is the [value][#getValue()] of the requested [VerticalAlignment].
+  /// @return the requested [VerticalAlignment].
   public static VerticalAlignment fromValue(String value) {
 
     for (VerticalAlignment alignment : values()) {

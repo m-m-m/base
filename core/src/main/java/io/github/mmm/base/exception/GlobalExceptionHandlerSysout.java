@@ -1,8 +1,6 @@
 package io.github.mmm.base.exception;
 
-/**
- * Implementation of {@link GlobalExceptionHandler} that simply performs a {@link Throwable#printStackTrace()}.
- */
+/// Implementation of [GlobalExceptionHandler] that simply performs a [Throwable#printStackTrace()].
 public class GlobalExceptionHandlerSysout implements GlobalExceptionHandler {
 
   @Override

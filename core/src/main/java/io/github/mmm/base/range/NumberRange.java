@@ -5,16 +5,12 @@ import java.math.BigInteger;
 
 import io.github.mmm.base.number.NumberType;
 
-/**
- * Extends {@link Range} for {@link Number} types.
- *
- * @param <N> type of the contained {@link Number} values.
- */
+/// Extends [Range] for [Number] types.
+///
+/// @param <N> type of the contained [Number] values.
 public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> {
 
-  /**
-   * @return the {@link NumberType} of this range. May be {@code null} if unbounded.
-   */
+  /// @return the [NumberType] of this range. May be `null` if unbounded.
   @SuppressWarnings("unchecked")
   default NumberType<N> getType() {
 
@@ -30,13 +26,11 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
     return null;
   }
 
-  /**
-   * This method {@link NumberType#wrap(Number, Number, Number) wraps} the given {@code value} so the result is
-   * {@link #contains(Comparable) contained} in this {@link Range} unless the given {@code value} is {@code null}.
-   *
-   * @param value is the vale to clip. May be {@code null}.
-   * @return the given {@code value} {@link NumberType#wrap(Number, Number, Number) wrapped} to this range.
-   */
+  /// This method [wraps][NumberType#wrap(Number, Number, Number)] the given `value` so the result is
+  /// [contained][#contains(Comparable)] in this [Range] unless the given `value` is `null`.
+  ///
+  /// @param value is the vale to clip. May be `null`.
+  /// @return the given `value` [wrapped][NumberType#wrap(Number, Number, Number)] to this range.
   default N wrap(N value) {
 
     if (value == null) {
@@ -55,12 +49,10 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
     return type.wrap(value, min, max);
   }
 
-  /**
-   * @param value is the vale to clip. May be {@code null}.
-   * @param wrap - {@code true} for {@link #wrap(Number)}, {@code false} for {@link #clip(Comparable)}.
-   * @return {@link #clip(Comparable) clip} if {@code wrap} was {@code false} and {@link #wrap(Number) wrap} otherwise
-   *         (if {@code wrap} was {@code true}).
-   */
+  /// @param value is the vale to clip. May be `null`.
+  /// @param wrap - `true` for [#wrap(Number)], `false` for [#clip(Comparable)].
+  /// @return [clip][#clip(Comparable)] if `wrap` was `false` and [wrap][#wrap(Number)] otherwise
+  ///         (if `wrap` was `true`).
   default N clip(N value, boolean wrap) {
 
     if (wrap) {
@@ -69,14 +61,12 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
     return clip(value);
   }
 
-  /**
-   * @param factor the scaled value in the range from {@code 0} to {@code 1}.
-   * @return the value within this range scaled by the given {@code factor}. It will be {@link #getMin() min} in case
-   *         the given {@code factor} is {@code 0}, while {@code 0} is used in case {@link #getMin() min} is
-   *         {@code null}. In case the {@code factor} is {@code 1}, it will return {@link #getMax() max} or the maximum
-   *         value instead of {@code null}. Any other factor is interpolated between {@link #getMin() min} and
-   *         {@link #getMax() max}.
-   */
+  /// @param factor the scaled value in the range from `0` to `1`.
+  /// @return the value within this range scaled by the given `factor`. It will be [min][#getMin()] in case
+  ///         the given `factor` is `0`, while `0` is used in case [min][#getMin()] is
+  ///         `null`. In case the `factor` is `1`, it will return [max][#getMax()] or the maximum
+  ///         value instead of `null`. Any other factor is interpolated between [min][#getMin()] and
+  ///         [max][#getMax()].
   default N fromFactor(double factor) {
 
     N minimum = getMin();
@@ -105,13 +95,11 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
     return type.add(scaled, minimum);
   }
 
-  /**
-   * @param value the value within this range.
-   * @return the scaled value. It will be {@link #getMin() min} in case the given {@code factor} is {@code 0}, while
-   *         {@code 0} is used in case {@link #getMin() min} is {@code null}. In case the {@code factor} is {@code 1},
-   *         it will return {@link #getMax() max} or the maximum value instead of {@code null}. Any other factor is
-   *         interpolated between {@link #getMin() min} and {@link #getMax() max}.
-   */
+  /// @param value the value within this range.
+  /// @return the scaled value. It will be [min][#getMin()] in case the given `factor` is `0`, while
+  ///         `0` is used in case [min][#getMin()] is `null`. In case the `factor` is `1`,
+  ///         it will return [max][#getMax()] or the maximum value instead of `null`. Any other factor is
+  ///         interpolated between [min][#getMin()] and [max][#getMax()].
   default double toFactor(N value) {
 
     NumberType<N> type = getType();

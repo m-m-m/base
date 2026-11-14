@@ -5,9 +5,7 @@ import java.util.Objects;
 import io.github.mmm.base.resource.ModuleAccess;
 import io.github.mmm.base.resource.ResourcePackage;
 
-/**
- * Implementation of {@link ResourcePackage}.
- */
+/// Implementation of [ResourcePackage].
 public final class ResourcePackageImpl extends ResourcePathImpl implements ResourcePackage {
 
   private Package javaPackage;
@@ -17,14 +15,12 @@ public final class ResourcePackageImpl extends ResourcePathImpl implements Resou
     this(moduleAccess, path, name, parent, null);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param moduleAccess the {@link #getModuleAccess() module access}.
-   * @param path the {@link #getPath() path}.
-   * @param name the {@link #getName() package name}.
-   * @param javaPackage the {@link #getPackage() package} or {@code null} for lazy init.
-   */
+  /// The constructor.
+  ///
+  /// @param moduleAccess the [module access][#getModuleAccess()].
+  /// @param path the [path][#getPath()].
+  /// @param name the [package name][#getName()].
+  /// @param javaPackage the [package][#getPackage()] or `null` for lazy init.
   ResourcePackageImpl(ModuleAccess moduleAccess, String path, String name, ResourcePackage parent,
       Package javaPackage) {
 

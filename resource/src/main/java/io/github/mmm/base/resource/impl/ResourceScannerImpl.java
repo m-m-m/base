@@ -18,25 +18,21 @@ import io.github.mmm.base.resource.ResourceScannerResult;
 import io.github.mmm.base.resource.ResourceScannerService;
 import io.github.mmm.base.service.ServiceHelper;
 
-/**
- * Implementation of {@link ResourceScanner}.
- *
- * @since 1.0.0
- */
+/// Implementation of [ResourceScanner].
+///
+/// @since 1.0.0
 public class ResourceScannerImpl implements ResourceScanner {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResourceScannerImpl.class);
 
-  /** The singleton instance. */
+  /// The singleton instance.
   public static final ResourceScannerImpl INSTANCE = new ResourceScannerImpl();
 
   private final List<ResourceScannerService> scanners;
 
   private final ResourceScannerResult result;
 
-  /**
-   * The constructor.
-   */
+  /// The constructor.
   public ResourceScannerImpl() {
 
     this.scanners = new ArrayList<>();

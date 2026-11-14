@@ -7,23 +7,21 @@ import java.util.Locale.Builder;
 
 import io.github.mmm.base.filter.CharFilter;
 
-/**
- * Simple helper for {@link Locale} specific stuff.
- *
- * @since 1.0.0
- */
+/// Simple helper for [Locale] specific stuff.
+///
+/// @since 1.0.0
 public final class LocaleHelper {
 
-  /** The default separator used for {@link #toInfixes(Locale) locale-infixes}. */
+  /// The default separator used for [locale-infixes][#toInfixes(Locale)].
   public static final char SEPARATOR_DEFAULT = '_';
 
-  /** The separator used for {@link Locale#forLanguageTag(String) language tag}. */
+  /// The separator used for [language tag][Locale#forLanguageTag(String)].
   public static final char SEPARATOR_FOR_LANGUAGE_TAG = '-';
 
-  /** The separator used for {@link Locale#getExtensionKeys() extension keys}. */
+  /// The separator used for [extension keys][Locale#getExtensionKeys()].
   public static final char SEPARATOR_EXTENSION = '-';
 
-  /** The separator used for {@link Locale#getScript() script}. */
+  /// The separator used for [script][Locale#getScript()].
   public static final char SEPARATOR_SCRIPT = '#';
 
   private LocaleHelper() {
@@ -31,13 +29,11 @@ public final class LocaleHelper {
     super();
   }
 
-  /**
-   * @param locale is the {@link Locale}.
-   * @return the localization-infix in the form
-   *         <code>[_{@link Locale#getLanguage() language}[_{@link Locale#getCountry() country}[_{@link Locale#getVariant() variant}]]]</code>.
-   *         Will be the empty {@link String} for the {@link Locale#ROOT root locale}. E.g. for {@link Locale#GERMANY}
-   *         this method will return "_de_DE".
-   */
+  /// @param locale is the [Locale].
+  /// @return the localization-infix in the form
+  ///         `[_[language][Locale#getLanguage()][_[country][Locale#getCountry()][_[variant][Locale#getVariant()]]]]`.
+  ///         Will be the empty [String] for the [root locale][Locale#ROOT]. E.g. for [Locale#GERMANY]
+  ///         this method will return "_de_DE".
   public static String toInfix(Locale locale) {
 
     StringBuilder infix = new StringBuilder();
@@ -70,40 +66,38 @@ public final class LocaleHelper {
     return infix.toString();
   }
 
-  /**
-   * This method determines the infix-strings for localization lookup ordered from most specific to least specific
-   * (empty string representing {@link Locale#ROOT}). Each infix is defined as:
-   *
-   * <pre>
-   * [_{@link Locale#getLanguage() language}[_{@link Locale#getCountry() country}[_{@link Locale#getVariant() variant}]]]
-   * </pre>
-   *
-   * Please note that if a segment is empty but a following segment is present, multiple underscores ('_') will occur.
-   * <br>
-   * Examples:
-   * <table border="1">
-   * <tr>
-   * <th>locale</th>
-   * <th>result</th>
-   * </tr>
-   * <tr>
-   * <td>{@link Locale#GERMANY}</td>
-   * <td><code>{"_de_DE", "_de", ""}</code></td>
-   * </tr>
-   * <tr>
-   * <td><code>new Locale("", "CM")</code></td>
-   * <td><code>{"__CM", ""}</code></td>
-   * </tr>
-   * <tr>
-   * <td><code>new Locale("", "", "variant")</code></td>
-   * <td><code>{"___variant", ""}</code></td>
-   * </tr>
-   * </table>
-   *
-   * @param locale is the {@link Locale}.
-   * @return the localization-infixes ordered from most specific to least specific. The returned array will always
-   *         contain the empty string as last entry.
-   */
+  /// This method determines the infix-strings for localization lookup ordered from most specific to least specific
+  /// (empty string representing [Locale#ROOT]). Each infix is defined as:
+  ///
+  /// ```
+  /// [_[language][Locale#getLanguage()][_[country][Locale#getCountry()][_[variant][Locale#getVariant()]]]]
+  /// ```
+  ///
+  /// Please note that if a segment is empty but a following segment is present, multiple underscores ('_') will occur.
+  ///
+  /// Examples:
+  /// <table border="1">
+  /// <tr>
+  /// <th>locale</th>
+  /// <th>result</th>
+  /// </tr>
+  /// <tr>
+  /// <td>[Locale#GERMANY]</td>
+  /// <td>`{"_de_DE", "_de", ""}`</td>
+  /// </tr>
+  /// <tr>
+  /// <td>`new Locale("", "CM")`</td>
+  /// <td>`{"__CM", ""}`</td>
+  /// </tr>
+  /// <tr>
+  /// <td>`new Locale("", "", "variant")`</td>
+  /// <td>`{"___variant", ""}`</td>
+  /// </tr>
+  /// </table>
+  ///
+  /// @param locale is the [Locale].
+  /// @return the localization-infixes ordered from most specific to least specific. The returned array will always
+  ///         contain the empty string as last entry.
   public static String[] toInfixes(Locale locale) {
 
     String[] infixes;
@@ -151,14 +145,12 @@ public final class LocaleHelper {
     return infixes;
   }
 
-  /**
-   * Create a {@link Locale} from a given {@link String} representation such as {@link Locale#toString()} or
-   * {@link Locale#forLanguageTag(String)}.
-   *
-   * @param locale the {@link String} representation of the {@link Locale}. May be an from {@link Locale#toString()},
-   *        {@link Locale#toLanguageTag()} or {@link #toInfix(Locale)}.
-   * @return the parsed {@link Locale}.
-   */
+  /// Create a [Locale] from a given [String] representation such as [Locale#toString()] or
+  /// [Locale#forLanguageTag(String)].
+  ///
+  /// @param locale the [String] representation of the [Locale]. May be an from [Locale#toString()],
+  ///        [Locale#toLanguageTag()] or [#toInfix(Locale)].
+  /// @return the parsed [Locale].
   public static Locale fromString(String locale) {
 
     if (locale == null) {

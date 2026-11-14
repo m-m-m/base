@@ -7,14 +7,10 @@ import java.time.Instant;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link InstantParser}.
- */
+/// Test of [InstantParser].
 class InstantParserTest extends Assertions {
 
-  /**
-   * Test of {@link InstantParser#parse(String)}.
-   */
+  /// Test of [InstantParser#parse(String)].
   @Test
   void testParseInstant() {
 

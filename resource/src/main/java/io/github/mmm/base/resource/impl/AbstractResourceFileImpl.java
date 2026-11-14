@@ -9,19 +9,15 @@ import io.github.mmm.base.resource.ModuleAccess;
 import io.github.mmm.base.resource.ResourceFile;
 import io.github.mmm.base.resource.ResourcePackage;
 
-/**
- * Implementation of {@link ResourceFile}.
- */
+/// Implementation of [ResourceFile].
 public abstract class AbstractResourceFileImpl extends ResourcePathImpl implements AbstractResourceFile {
 
-  /**
-   * The constructor.
-   *
-   * @param moduleAccess the {@link #getModuleAccess() module access}.
-   * @param path the {@link #getPath() path}.
-   * @param simpleName the {@link #getSimpleName() simple name}.
-   * @param parent the {@link #getParent() parent}.
-   */
+  /// The constructor.
+  ///
+  /// @param moduleAccess the [module access][#getModuleAccess()].
+  /// @param path the [path][#getPath()].
+  /// @param simpleName the [simple name][#getSimpleName()].
+  /// @param parent the [parent][#getParent()].
   public AbstractResourceFileImpl(ModuleAccess moduleAccess, String path, String simpleName, ResourcePackage parent) {
 
     super(moduleAccess, path, simpleName, parent);

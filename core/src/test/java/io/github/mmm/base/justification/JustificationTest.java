@@ -5,14 +5,10 @@ package io.github.mmm.base.justification;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link Justification}.
- */
+/// Test of [Justification].
 class JustificationTest extends Assertions {
 
-  /**
-   * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
-   */
+  /// Test of [Justification#of(String)] and [Justification#justify(CharSequence)].
   @Test
   void testPadLeadingZeros() {
 
@@ -20,9 +16,7 @@ class JustificationTest extends Assertions {
     assertThat(justification.justify("42")).isEqualTo("0042");
   }
 
-  /**
-   * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
-   */
+  /// Test of [Justification#of(String)] and [Justification#justify(CharSequence)].
   @Test
   void testPadTrailingDots() {
 
@@ -33,9 +27,7 @@ class JustificationTest extends Assertions {
     assertThat(justification.justify("123456")).isEqualTo("123456");
   }
 
-  /**
-   * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
-   */
+  /// Test of [Justification#of(String)] and [Justification#justify(CharSequence)].
   @Test
   void testCenter() {
 
@@ -47,9 +39,7 @@ class JustificationTest extends Assertions {
     assertThat(justification.justify("123456789")).isEqualTo("123456789");
   }
 
-  /**
-   * Test of {@link Justification#of(String)} and {@link Justification#justify(CharSequence)}.
-   */
+  /// Test of [Justification#of(String)] and [Justification#justify(CharSequence)].
   @Test
   void testPadLeftAndTruncate() {
 

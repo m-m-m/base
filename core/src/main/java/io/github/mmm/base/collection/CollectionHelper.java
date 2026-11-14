@@ -7,42 +7,35 @@ import java.util.List;
 
 import io.github.mmm.base.sort.SortOrder;
 
-/**
- * Simple helper for {@link Collection} specific stuff.
- *
- * @since 1.0.0
- */
+/// Simple helper for [Collection] specific stuff.
+///
+/// @since 1.0.0
 public final class CollectionHelper {
 
   private CollectionHelper() {
 
   }
 
-  /**
-   * @param element the item to {@link List#add(int, Object) add} to the {@link List} preserving the sort order. Must
-   *        not be {@code null}.
-   * @param sortedList the {@link List} already sorted in the given {@link SortOrder}.
-   * @param <E> type of the {@link List} elements.
-   * @return the index where the new value has been inserted, or a negative value if the given {@code element} is
-   *         already {@link List#contains(Object) contained} in the given {@link List}.
-   */
+  /// @param element the item to [add][List#add(int, Object)] to the [List] preserving the sort order. Must
+  ///        not be `null`.
+  /// @param sortedList the [List] already sorted in the given [SortOrder].
+  /// @param <E> type of the [List] elements.
+  /// @return the index where the new value has been inserted, or a negative value if the given `element` is
+  ///         already [contained][List#contains(Object)] in the given [List].
   public static <E extends Comparable<? super E>> int sortedInsert(E element, List<E> sortedList) {
 
     return sortedInsert(element, sortedList, SortOrder.ASC, true);
   }
 
-  /**
-   * @param element the item to {@link List#add(int, Object) add} to the {@link List} preserving the sort order. Must
-   *        not be {@code null}.
-   * @param sortedList the {@link List} already sorted in the given {@link SortOrder}.
-   * @param order the {@link SortOrder}.
-   * @param unique - {@code true} to prevent duplicates, {@code false} otherwise.
-   * @param <E> type of the {@link List} elements.
-   * @return the index where the new value has been inserted, or a negative value if the given {@code element} is
-   *         already {@link List#contains(Object) contained} in the given {@link List} and {@code true} was given for
-   *         {@code unique}.
-   *
-   */
+  /// @param element the item to [add][List#add(int, Object)] to the [List] preserving the sort order. Must
+  ///        not be `null`.
+  /// @param sortedList the [List] already sorted in the given [SortOrder].
+  /// @param order the [SortOrder].
+  /// @param unique - `true` to prevent duplicates, `false` otherwise.
+  /// @param <E> type of the [List] elements.
+  /// @return the index where the new value has been inserted, or a negative value if the given `element` is
+  ///         already [contained][List#contains(Object)] in the given [List] and `true` was given for
+  ///         `unique`.
   public static <E extends Comparable<? super E>> int sortedInsert(E element, List<E> sortedList, SortOrder order,
       boolean unique) {
 

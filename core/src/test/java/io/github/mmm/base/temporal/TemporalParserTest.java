@@ -17,14 +17,10 @@ import java.time.temporal.Temporal;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link TemporalParser}.
- */
+/// Test of [TemporalParser].
 class TemporalParserTest extends Assertions {
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link Instant}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [Instant].
   @Test
   void testInstant() {
 
@@ -33,9 +29,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link LocalDate}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [LocalDate].
   @Test
   void testLocalDate() {
 
@@ -44,9 +38,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link LocalTime}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [LocalTime].
   @Test
   void testLocalTime() {
 
@@ -55,9 +47,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link LocalDateTime}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [LocalDateTime].
   @Test
   void testLocalDateTime() {
 
@@ -66,9 +56,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link OffsetTime}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [OffsetTime].
   @Test
   void testOffsetTime() {
 
@@ -77,9 +65,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link OffsetDateTime}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [OffsetDateTime].
   @Test
   void testOffsetDateTime() {
 
@@ -88,9 +74,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link ZonedDateTime}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [ZonedDateTime].
   @Test
   void testZonedDateTime() {
 
@@ -99,9 +83,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with {@link YearMonth}.
-   */
+  /// Test of [TemporalParser#parse(String)] with [YearMonth].
   @Test
   void testYearMonth() {
 
@@ -110,9 +92,7 @@ class TemporalParserTest extends Assertions {
     assertThat(temporal).isEqualTo(now);
   }
 
-  /**
-   * Test of {@link TemporalParser#parse(String)} with invalid values.
-   */
+  /// Test of [TemporalParser#parse(String)] with invalid values.
   @Test
   void testInvalid() {
 

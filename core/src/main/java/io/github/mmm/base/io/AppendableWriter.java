@@ -9,29 +9,23 @@ import java.io.Writer;
 
 import io.github.mmm.base.exception.RuntimeIoException;
 
-/**
- * {@link Writer} that adapts an {@link UncheckedAppendable} to avoid checked {@link IOException}s.
- *
- * @since 1.0.0
- */
+/// [Writer] that adapts an [UncheckedAppendable] to avoid checked [IOException]s.
+///
+/// @since 1.0.0
 public class AppendableWriter extends Writer implements UncheckedAppendable {
 
-  /** The delegate. */
+  /// The delegate.
   private final Appendable appendable;
 
-  /**
-   * The constructor.
-   */
+  /// The constructor.
   public AppendableWriter() {
 
     this(new StringBuilder());
   }
 
-  /**
-   * The constructor.
-   *
-   * @param appendable is the {@link Appendable} to adapt.
-   */
+  /// The constructor.
+  ///
+  /// @param appendable is the [Appendable] to adapt.
   public AppendableWriter(Appendable appendable) {
 
     super();
@@ -152,10 +146,8 @@ public class AppendableWriter extends Writer implements UncheckedAppendable {
     return this.appendable.toString();
   }
 
-  /**
-   * @param appendable the {@link Appendable} to convert.
-   * @return a {@link Writer} writing to the given {@link Appendable}.
-   */
+  /// @param appendable the [Appendable] to convert.
+  /// @return a [Writer] writing to the given [Appendable].
   public static Writer asWriter(Appendable appendable) {
 
     if (appendable == null) {

@@ -5,12 +5,10 @@ package io.github.mmm.base.range;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link Range}.
- */
+/// Test of [Range].
 class RangeTest extends Assertions {
 
-  /** Test of {@link Range#unbounded()}. */
+  /// Test of [Range#unbounded()].
   @Test
   void testUnbounded() {
 
@@ -24,7 +22,7 @@ class RangeTest extends Assertions {
     assertThat(unbounded.contains(null)).isFalse();
   }
 
-  /** Test of {@link Range#unbounded()}. */
+  /// Test of [Range#unbounded()].
   @Test
   void testInvalid() {
 

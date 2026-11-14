@@ -14,41 +14,38 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-/**
- * Defines the different styles of lower-/upper-case usage such as {@link #CAML_CASE camlCase}, {@link #TRAIN_CASE
- * train-case}, etc. For further examples see the constants defined here in {@link CaseSyntax}.<br>
- * The main idea is that you "parse" a given variable name syntax via {@link #ofExample(String, boolean)} and then you
- * can transform the value of such variable via {@link #convert(String)}. As a small teaser and motivation here are some
- * examples assuming that the value for "VaraibleName" would be "MyValue":
- * <table border="1">
- * <tr>
- * <th>VariableSyntax</th>
- * <th>Result</th>
- * </tr>
- * <tr>
- * <td>VariableName</td>
- * <td>MyValue</td>
- * </tr>
- * <tr>
- * <td>variablename</td>
- * <td>myvalue</td>
- * </tr>
- * <tr>
- * <td>variable-name</td>
- * <td>my-value</td>
- * </tr>
- * <tr>
- * <td>VARIABLE_NAME</td>
- * <td>MY_VALUE</td>
- * </tr>
- * <tr>
- * <td>variableName</td>
- * <td>myValue</td>
- * </tr>
- * </table>
- *
- * @since 1.0.0
- */
+/// Defines the different styles of lower-/upper-case usage such as [camlCase][#CAML_CASE], [train-case][#TRAIN_CASE], etc. For further examples see the constants defined here in [CaseSyntax].
+/// The main idea is that you "parse" a given variable name syntax via [#ofExample(String, boolean)] and then you
+/// can transform the value of such variable via [#convert(String)]. As a small teaser and motivation here are some
+/// examples assuming that the value for "VaraibleName" would be "MyValue":
+/// <table border="1">
+/// <tr>
+/// <th>VariableSyntax</th>
+/// <th>Result</th>
+/// </tr>
+/// <tr>
+/// <td>VariableName</td>
+/// <td>MyValue</td>
+/// </tr>
+/// <tr>
+/// <td>variablename</td>
+/// <td>myvalue</td>
+/// </tr>
+/// <tr>
+/// <td>variable-name</td>
+/// <td>my-value</td>
+/// </tr>
+/// <tr>
+/// <td>VARIABLE_NAME</td>
+/// <td>MY_VALUE</td>
+/// </tr>
+/// <tr>
+/// <td>variableName</td>
+/// <td>myValue</td>
+/// </tr>
+/// </table>
+///
+/// @since 1.0.0
 public class CaseSyntax {
 
   private static final List<CaseSyntax> CONSTANTS = new ArrayList<>();
@@ -57,91 +54,83 @@ public class CaseSyntax {
 
   private static final Pattern PATTERN_SPECIAL_CHARS = Pattern.compile(REGEX_SPECIAL_CHARS);
 
-  /**
-   * The {@link #getWordSeparator() word separator} used to keep any special (separator) characters untouched by
-   * {@link #convert(String) convert}.
-   */
+  /// The [word separator][#getWordSeparator()] used to keep any special (separator) characters untouched by
+  /// [convert][#convert(String)].
   public static final Character KEEP_SPECIAL_CHARS = Character.valueOf('\0');
 
-  /** {@link CaseSyntax} for {@code lowercase} (e.g. for Java package segments). */
+  /// [CaseSyntax] for `lowercase` (e.g. for Java package segments).
   public static final CaseSyntax LOWERCASE = new CaseSyntax(null, LOWER_CASE, "lowercase");
 
-  /** {@link CaseSyntax} for {@code UPPERCASE}. */
+  /// [CaseSyntax] for `UPPERCASE`.
   public static final CaseSyntax UPPERCASE = new CaseSyntax(null, UPPER_CASE, "UPPERCASE");
 
-  /** {@link CaseSyntax} for {@code camlCase} (e.g. for Java fields). */
+  /// [CaseSyntax] for `camlCase` (e.g. for Java fields).
   public static final CaseSyntax CAML_CASE = new CaseSyntax(null, LOWER_CASE, UPPER_CASE, LOWER_CASE, "camlCase");
 
-  /** {@link CaseSyntax} for {@code PascalCase} (e.g. for Java types). */
+  /// [CaseSyntax] for `PascalCase` (e.g. for Java types).
   public static final CaseSyntax PASCAL_CASE = new CaseSyntax(null, UPPER_CASE, UPPER_CASE, LOWER_CASE, "PascalCase");
 
-  /** {@link CaseSyntax} for {@code train-case} (e.g. for URLs or Angular). */
+  /// [CaseSyntax] for `train-case` (e.g. for URLs or Angular).
   public static final CaseSyntax TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), LOWER_CASE, "train-case");
 
-  /** {@link CaseSyntax} for {@code UPPER-TRAIN-CASE}. */
+  /// [CaseSyntax] for `UPPER-TRAIN-CASE`.
   public static final CaseSyntax UPPER_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), UPPER_CASE,
       "UPPER-TRAIN-CASE");
 
-  /** {@link CaseSyntax} for {@code Pascal-Train-Case}. */
+  /// [CaseSyntax] for `Pascal-Train-Case`.
   public static final CaseSyntax PASCAL_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), UPPER_CASE, UPPER_CASE,
       LOWER_CASE, "Pascal-Train-Case");
 
-  /** {@link CaseSyntax} for {@code caml-Train-Case}. */
+  /// [CaseSyntax] for `caml-Train-Case`.
   public static final CaseSyntax CAML_TRAIN_CASE = new CaseSyntax(Character.valueOf('-'), LOWER_CASE, UPPER_CASE,
       LOWER_CASE, "caml-Train-Case");
 
-  /** {@link CaseSyntax} for {@code lower_snake_case} (e.g. for Ruby). */
+  /// [CaseSyntax] for `lower_snake_case` (e.g. for Ruby).
   public static final CaseSyntax LOWER_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), LOWER_CASE,
       "lower_snake_case");
 
-  /** {@link CaseSyntax} for {@code UPPER_SNAKE_CASE} (e.g. for Java constants). */
+  /// [CaseSyntax] for `UPPER_SNAKE_CASE` (e.g. for Java constants).
   public static final CaseSyntax UPPER_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), UPPER_CASE,
       "UPPER_SNAKE_CASE");
 
-  /** {@link CaseSyntax} for {@code Pascal_Snake_Case}. */
+  /// [CaseSyntax] for `Pascal_Snake_Case`.
   public static final CaseSyntax PASCAL_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), UPPER_CASE, UPPER_CASE,
       LOWER_CASE, "Pascal_Snake_Case");
 
-  /** {@link CaseSyntax} for {@code caml_Snake_Case}. */
+  /// [CaseSyntax] for `caml_Snake_Case`.
   public static final CaseSyntax CAML_SNAKE_CASE = new CaseSyntax(Character.valueOf('_'), LOWER_CASE, UPPER_CASE,
       LOWER_CASE, "caml_Snake_Case");
 
-  /** {@link CaseSyntax} for {@code lower space case}. */
+  /// [CaseSyntax] for `lower space case`.
   public static final CaseSyntax LOWER_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), LOWER_CASE,
       "lower space case");
 
-  /** {@link CaseSyntax} for {@code UPPER SPACE CASE}. */
+  /// [CaseSyntax] for `UPPER SPACE CASE`.
   public static final CaseSyntax UPPER_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), UPPER_CASE,
       "UPPER SPACE CASE");
 
-  /** {@link CaseSyntax} for {@code Pascal Space Case}. */
+  /// [CaseSyntax] for `Pascal Space Case`.
   public static final CaseSyntax PASCAL_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), UPPER_CASE, UPPER_CASE,
       LOWER_CASE, "Pascal Space Case");
 
-  /** {@link CaseSyntax} for {@code caml Space Case}. */
+  /// [CaseSyntax] for `caml Space Case`.
   public static final CaseSyntax CAML_SPACE_CASE = new CaseSyntax(Character.valueOf(' '), LOWER_CASE, UPPER_CASE,
       LOWER_CASE, "caml Space Case");
 
-  /**
-   * {@link CaseSyntax} for {@code $$$unmodified} (keep all characters untouched).
-   */
+  /// [CaseSyntax] for `$$$unmodified` (keep all characters untouched).
   public static final CaseSyntax UNMODIFIED = new CaseSyntax(null, ORIGINAL_CASE, "$$$unmodified");
 
-  /**
-   * {@link CaseSyntax} for {@code C$$apitalized} (only convert first char to upper case, keep other case untouched).
-   */
+  /// [CaseSyntax] for `C$$apitalized` (only convert first char to upper case, keep other case untouched).
   public static final CaseSyntax CAPITALIZED = new CaseSyntax(null, UPPER_CASE, ORIGINAL_CASE, "C$$apitalized");
 
-  /**
-   * {@link CaseSyntax} for {@code u$$capitalized} (only convert first char to lower case, keep other case untouched).
-   */
+  /// [CaseSyntax] for `u$$capitalized` (only convert first char to lower case, keep other case untouched).
   public static final CaseSyntax UNCAPITALIZED = new CaseSyntax(null, LOWER_CASE, ORIGINAL_CASE, "u$$capitalized");
 
-  /** {@link CaseSyntax} for {@code Capitalizedlower}. */
+  /// [CaseSyntax] for `Capitalizedlower`.
   public static final CaseSyntax CAPITALIZED_LOWER = new CaseSyntax(null, UPPER_CASE, LOWER_CASE, LOWER_CASE,
       "Capitalizedlower");
 
-  /** {@link CaseSyntax} for {@code Capitalizedlower}. */
+  /// [CaseSyntax] for `Capitalizedlower`.
   public static final CaseSyntax UNCAPITALIZED_UPPER = new CaseSyntax(null, LOWER_CASE, UPPER_CASE, UPPER_CASE,
       "uNCAPITALIZEDUPPER");
 
@@ -194,69 +183,55 @@ public class CaseSyntax {
     }
   }
 
-  /**
-   * @return the word separator char (e.g. {@code '_','-' or '.'}) or {@code null} for no word separator. The value
-   *         {@link #KEEP_SPECIAL_CHARS} can be used to keep special characters untouched.
-   */
+  /// @return the word separator char (e.g. `'_','-' or '.'`) or `null` for no word separator. The value
+  ///         [#KEEP_SPECIAL_CHARS] can be used to keep special characters untouched.
   public Character getWordSeparator() {
 
     return this.wordSeparator;
   }
 
-  /**
-   * @return {@code true} if the {@link #getWordSeparator() word separator} is {@code null} or
-   */
+  /// @return `true` if the [word separator][#getWordSeparator()] is `null` or
   public boolean hasWordSeparator() {
 
     return (this.wordSeparator != null) && (!KEEP_SPECIAL_CHARS.equals(this.wordSeparator));
   }
 
-  /**
-   * @return the {@link CaseConversion} used by {@link #convert(String)} for the first character.
-   */
+  /// @return the [CaseConversion] used by [#convert(String)] for the first character.
   public CaseConversion getFirstCase() {
 
     return this.firstCase;
   }
 
-  /**
-   * @return the {@link CaseConversion} used by {@link #convert(String)} for word start characters (the first character
-   *         of a new word except for the {@link #getFirstCase() first} character of the entire {@link String}).
-   */
+  /// @return the [CaseConversion] used by [#convert(String)] for word start characters (the first character
+  ///         of a new word except for the [first][#getFirstCase()] character of the entire [String]).
   public CaseConversion getWordStartCase() {
 
     return this.wordStartCase;
   }
 
-  /**
-   * @return the {@link CaseConversion} used by {@link #convert(String)} for all other characters (except
-   *         {@link #getFirstCase() first} and {@link #getWordStartCase() word start} characters).
-   */
+  /// @return the [CaseConversion] used by [#convert(String)] for all other characters (except
+  ///         [first][#getFirstCase()] and [word start][#getWordStartCase()] characters).
   public CaseConversion getOtherCase() {
 
     return this.otherCase;
   }
 
-  /**
-   * Same as {@link #convert(String, Locale)} with a standard {@link Locale} to prevent accidental conversion.
-   *
-   * @param string the {@link String} to convert.
-   * @return the String converted to this {@link CaseSyntax}.
-   */
+  /// Same as [#convert(String, Locale)] with a standard [Locale] to prevent accidental conversion.
+  ///
+  /// @param string the [String] to convert.
+  /// @return the String converted to this [CaseSyntax].
   public String convert(String string) {
 
     return convert(string, null);
   }
 
-  /**
-   * Converts to this {@link CaseSyntax}. The first character will be converted using {@link #getFirstCase()}.
-   * Characters other than {@link Character#isLetterOrDigit(char) letters or digits} are considered as word separator.
-   * In the most cases, they will be
-   *
-   * @param string the {@link String} to convert.
-   * @param locale the explicit {@link Locale} to use. In most cases you want to use {@link #convert(String)} instead.
-   * @return the String converted to this {@link CaseSyntax}.
-   */
+  /// Converts to this [CaseSyntax]. The first character will be converted using [#getFirstCase()].
+  /// Characters other than [letters or digits][Character#isLetterOrDigit(char)] are considered as word separator.
+  /// In the most cases, they will be
+  ///
+  /// @param string the [String] to convert.
+  /// @param locale the explicit [Locale] to use. In most cases you want to use [#convert(String)] instead.
+  /// @return the String converted to this [CaseSyntax].
   public String convert(String string, Locale locale) {
 
     if ((string == null) || (string.isEmpty())) {
@@ -415,39 +390,32 @@ public class CaseSyntax {
     return this.example;
   }
 
-  /**
-   * The constructor.
-   *
-   * @param separator - see {@link #getWordSeparator()}.
-   * @param allCharCase the {@link CaseConversion} used for {@link #getFirstCase() first}, {@link #getWordStartCase()
-   *        word-start}, and all {@link #getOtherCase() other} alphabetic characters.
-   * @return the requested {@link CaseSyntax}.
-   */
+  /// The constructor.
+  ///
+  /// @param separator - see [#getWordSeparator()].
+  /// @param allCharCase the [CaseConversion] used for [first][#getFirstCase()], [word-start][#getWordStartCase()], and all [other][#getOtherCase()] alphabetic characters.
+  /// @return the requested [CaseSyntax].
   public static CaseSyntax of(Character separator, CaseConversion allCharCase) {
 
     return of(separator, allCharCase, allCharCase, allCharCase);
   }
 
-  /**
-   * The constructor. Will use {@link CaseConversion#LOWER_CASE} for {@link #getOtherCase() other} characters.
-   *
-   * @param separator - see {@link #getWordSeparator()}.
-   * @param firstCharCase - see {@link #getFirstCase()}.
-   * @param wordStartCharCase - see {@link #getWordStartCase()}.
-   * @return the requested {@link CaseSyntax}.
-   */
+  /// The constructor. Will use [CaseConversion#LOWER_CASE] for [other][#getOtherCase()] characters.
+  ///
+  /// @param separator - see [#getWordSeparator()].
+  /// @param firstCharCase - see [#getFirstCase()].
+  /// @param wordStartCharCase - see [#getWordStartCase()].
+  /// @return the requested [CaseSyntax].
   public static CaseSyntax of(Character separator, CaseConversion firstCharCase, CaseConversion wordStartCharCase) {
 
     return of(separator, firstCharCase, wordStartCharCase, LOWER_CASE);
   }
 
-  /**
-   * @param separator - see {@link #getWordSeparator()}.
-   * @param firstCharCase - see {@link #getFirstCase()}.
-   * @param wordStartCharCase - see {@link #getWordStartCase()}.
-   * @param otherCharCase - see {@link #getOtherCase()}.
-   * @return the requested {@link CaseSyntax}.
-   */
+  /// @param separator - see [#getWordSeparator()].
+  /// @param firstCharCase - see [#getFirstCase()].
+  /// @param wordStartCharCase - see [#getWordStartCase()].
+  /// @param otherCharCase - see [#getOtherCase()].
+  /// @return the requested [CaseSyntax].
   public static CaseSyntax of(Character separator, CaseConversion firstCharCase, CaseConversion wordStartCharCase,
       CaseConversion otherCharCase) {
 
@@ -497,10 +465,8 @@ public class CaseSyntax {
     return null;
   }
 
-  /**
-   * @param example the {@link #ofExample(String, boolean) example} to normalize.
-   * @return the normalized {@code example} (in lower case with all special characters removed).
-   */
+  /// @param example the [example][#ofExample(String, boolean)] to normalize.
+  /// @return the normalized `example` (in lower case with all special characters removed).
   public static String normalizeExample(String example) {
 
     if (example == null) {
@@ -519,33 +485,29 @@ public class CaseSyntax {
     return PATTERN_SPECIAL_CHARS.matcher(string).replaceAll(replacement);
   }
 
-  /**
-   * @param example an example for the requested {@link CaseSyntax} such as {@code PascalCase} or {@code MyVariableName}
-   *        for {@link #PASCAL_CASE}. For further details see {@link #ofExample(String, boolean)}.
-   * @return the {@link CaseSyntax} for the given {@code example} as described above.
-   * @see #ofExample(String, boolean)
-   */
+  /// @param example an example for the requested [CaseSyntax] such as `PascalCase` or `MyVariableName`
+  ///        for [#PASCAL_CASE]. For further details see [#ofExample(String, boolean)].
+  /// @return the [CaseSyntax] for the given `example` as described above.
+  /// @see #ofExample(String, boolean)
   public static CaseSyntax ofExample(String example) {
 
     return ofExample(example, false);
   }
 
-  /**
-   * @param example an example for the requested {@link CaseSyntax} such as {@code PascalCase} or {@code MyVariableName}
-   *        for {@link #PASCAL_CASE} and {@code train-case} or {@code my-variable-name} for {@link #TRAIN_CASE}. See
-   *        other {@link CaseSyntax} constants for more examples. The given {@code example} {@link String} has to start
-   *        with a {@link Character#isLetter(char) letter} with an underscore for {@link #KEEP_SPECIAL_CHARS}, or with
-   *        {@link CaseConversion#EXAMPLE_CHAR_FOR_ORIGINAL_CASE $-Sign}) and contain at least two more such characters
-   *        (letter or $-sign) next to each other. Digits are more or less ignored. If you use variable names as example
-   *        consider naming such variables with more than one word and no characters other than
-   *        {@link Character#isLetterOrDigit(char) letters or digits}. Otherwise you would have to write things such as
-   *        {@code ComPonent} or {@code com-ponent} to indicate PascalCase or train-case for the variable
-   *        {@code component}. Also when using variables as {@link CaseSyntax} example you should
-   *        {@link #normalizeExample(String)} normalize} them before resolving.
-   * @param standardize - {@code true} if existing constants such as {@link #PASCAL_CASE} or {@link #TRAIN_CASE} shall
-   *        be returned if {@link #equals(Object) equal} to the requested {@link CaseSyntax}, {@code false} otherwise.
-   * @return the {@link CaseSyntax} for the given {@code example} as described above.
-   */
+  /// @param example an example for the requested [CaseSyntax] such as `PascalCase` or `MyVariableName`
+  ///        for [#PASCAL_CASE] and `train-case` or `my-variable-name` for [#TRAIN_CASE]. See
+  ///        other [CaseSyntax] constants for more examples. The given `example` [String] has to start
+  ///        with a [letter][Character#isLetter(char)] with an underscore for [#KEEP_SPECIAL_CHARS], or with
+  ///        [$-Sign][CaseConversion#EXAMPLE_CHAR_FOR_ORIGINAL_CASE]) and contain at least two more such characters
+  ///        (letter or $-sign) next to each other. Digits are more or less ignored. If you use variable names as example
+  ///        consider naming such variables with more than one word and no characters other than
+  ///        [letters or digits][Character#isLetterOrDigit(char)]. Otherwise you would have to write things such as
+  ///        `ComPonent` or `com-ponent` to indicate PascalCase or train-case for the variable
+  ///        `component`. Also when using variables as [CaseSyntax] example you should
+  ///        [#normalizeExample(String)] normalize} them before resolving.
+  /// @param standardize - `true` if existing constants such as [#PASCAL_CASE] or [#TRAIN_CASE] shall
+  ///        be returned if [equal][#equals(Object)] to the requested [CaseSyntax], `false` otherwise.
+  /// @return the [CaseSyntax] for the given `example` as described above.
   public static CaseSyntax ofExample(String example, boolean standardize) {
 
     Objects.requireNonNull(example, "example");

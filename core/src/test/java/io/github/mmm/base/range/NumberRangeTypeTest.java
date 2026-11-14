@@ -7,12 +7,10 @@ import java.math.BigDecimal;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link NumberRangeType}.
- */
+/// Test of [NumberRangeType].
 class NumberRangeTypeTest extends Assertions {
 
-  /** Test of {@link NumberRangeType}. */
+  /// Test of [NumberRangeType].
   @SuppressWarnings({ "rawtypes", "unchecked" })
   @Test
   void test() {

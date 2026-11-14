@@ -2,9 +2,7 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.version;
 
-/**
- * Stateful object to read a {@link String} as stream of characters.
- */
+/// Stateful object to read a [String] as stream of characters.
 final class CharReader {
 
   private final String string;
@@ -13,11 +11,9 @@ final class CharReader {
 
   private int i;
 
-  /**
-   * The constructor.
-   *
-   * @param string the {@link String} to read.
-   */
+  /// The constructor.
+  ///
+  /// @param string the [String] to read.
   public CharReader(String string) {
 
     super();

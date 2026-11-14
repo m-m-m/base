@@ -8,12 +8,10 @@ import io.github.mmm.base.io.IoProcessor;
 import io.github.mmm.base.number.NumberCodec;
 import io.github.mmm.base.type.JavaType;
 
-/**
- * Simple reader to class-file as {@link JavaType}.
- */
+/// Simple reader to class-file as [JavaType].
 public class JavaTypeReader implements IoProcessor<InputStream, JavaType> {
 
-  /** Singleton instance of {@link JavaTypeReader}. */
+  /// Singleton instance of [JavaTypeReader].
   public static final JavaTypeReader INSTANCE = new JavaTypeReader();
 
   private static final int MAGIC = 0xCAFEBABE;

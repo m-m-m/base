@@ -7,14 +7,10 @@ import java.util.UUID;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link UuidParser}.
- */
+/// Test of [UuidParser].
 class UuidParserTest extends Assertions {
 
-  /**
-   * Test of {@link UuidParser#parse(String)}.
-   */
+  /// Test of [UuidParser#parse(String)].
   @Test
   void testParseInstant() {
 

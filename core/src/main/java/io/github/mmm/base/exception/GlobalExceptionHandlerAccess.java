@@ -4,9 +4,7 @@ import java.util.ServiceLoader;
 
 import io.github.mmm.base.service.ServiceHelper;
 
-/**
- * Class giving {@link #get() global access} to the {@link GlobalExceptionHandler} implementation.
- */
+/// Class giving [global access][#get()] to the [GlobalExceptionHandler] implementation.
 public final class GlobalExceptionHandlerAccess {
 
   private static final GlobalExceptionHandler HANDLER = ServiceHelper
@@ -16,9 +14,7 @@ public final class GlobalExceptionHandlerAccess {
 
   }
 
-  /**
-   * @return the {@link GlobalExceptionHandler} instance.
-   */
+  /// @return the [GlobalExceptionHandler] instance.
   public static GlobalExceptionHandler get() {
 
     return HANDLER;

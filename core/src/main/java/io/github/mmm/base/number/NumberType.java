@@ -7,20 +7,17 @@ import java.math.BigInteger;
 
 import io.github.mmm.base.lang.ValueType;
 
-/**
- * A {@link NumberType} represents a specific {@link Number} {@link Class}. It allows to check attributes like
- * {@link #isDecimal()} or {@link #getExactness()}. <br>
- * Further it acts as factory to create according numbers {@link #parse(String) from string} or {@link #valueOf(Number)
- * from number}. <br>
- * This is a class and NOT an {@link Enum} to be extensible.
- *
- * @param <N> type of the {@link #getType() represented number-class}.
- *
- * @since 1.0.0
- */
+/// A [NumberType] represents a specific [Number] [Class]. It allows to check attributes like
+/// [#isDecimal()] or [#getExactness()].
+/// Further it acts as factory to create according numbers [from string][#parse(String)] or [from number][#valueOf(Number)].
+/// This is a class and NOT an [Enum] to be extensible.
+///
+/// @param <N> type of the [represented number-class][#getType()].
+///
+/// @since 1.0.0
 public abstract class NumberType<N extends Number> extends ValueType<N> {
 
-  /** The {@link NumberType} for {@link Byte}. */
+  /// The [NumberType] for [Byte].
   public static final NumberType<Byte> BYTE = new NumberType<>(Byte.class, byte.class, 1, Byte.valueOf(Byte.MIN_VALUE),
       Byte.valueOf(Byte.MAX_VALUE)) {
 
@@ -44,7 +41,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link Short}. */
+  /// The [NumberType] for [Short].
   public static final NumberType<Short> SHORT = new NumberType<>(Short.class, short.class, 2,
       Short.valueOf(Short.MIN_VALUE), Short.valueOf(Short.MAX_VALUE)) {
 
@@ -68,7 +65,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link Integer}. */
+  /// The [NumberType] for [Integer].
   public static final NumberType<Integer> INTEGER = new NumberType<>(Integer.class, int.class, 3,
       Integer.valueOf(Integer.MIN_VALUE), Integer.valueOf(Integer.MAX_VALUE)) {
 
@@ -92,7 +89,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link Long}. */
+  /// The [NumberType] for [Long].
   public static final NumberType<Long> LONG = new NumberType<>(Long.class, long.class, 4, Long.valueOf(Long.MIN_VALUE),
       Long.valueOf(Long.MAX_VALUE)) {
 
@@ -124,7 +121,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link Float}. */
+  /// The [NumberType] for [Float].
   public static final NumberType<Float> FLOAT = new NumberType<>(Float.class, float.class, 5,
       Float.valueOf(-Float.MAX_VALUE), Float.valueOf(Float.MAX_VALUE), Float.valueOf(Float.NaN),
       Float.valueOf(Float.POSITIVE_INFINITY), Float.valueOf(Float.NEGATIVE_INFINITY)) {
@@ -168,7 +165,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link Double}. */
+  /// The [NumberType] for [Double].
   public static final NumberType<Double> DOUBLE = new NumberType<>(Double.class, double.class, 6,
       Double.valueOf(-Double.MAX_VALUE), Double.valueOf(Double.MAX_VALUE), Double.valueOf(Double.NaN),
       Double.valueOf(Double.POSITIVE_INFINITY), Double.valueOf(Double.NEGATIVE_INFINITY)) {
@@ -229,7 +226,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link BigInteger}. */
+  /// The [NumberType] for [BigInteger].
   public static final NumberType<BigInteger> BIG_INTEGER = new NumberType<>(BigInteger.class, null, 7, null, null) {
 
     @Override
@@ -281,7 +278,7 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   };
 
-  /** The {@link NumberType} for {@link BigDecimal}. */
+  /// The [NumberType] for [BigDecimal].
   public static final NumberType<BigDecimal> BIG_DECIMAL = new NumberType<>(BigDecimal.class, null, 8, null, null) {
 
     @Override
@@ -350,32 +347,28 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
 
   private final N negativeInfinity;
 
-  /**
-   * The constructor.
-   *
-   * @param type the {@link #getType() type}.
-   * @param primitiveType the {@link #getPrimitiveType() primitive type}.
-   * @param exactness the {@link #getExactness() exactness}.
-   * @param min the {@link #getMin() minimum value}.
-   * @param max the {@link #getMax() maximum value}.
-   */
+  /// The constructor.
+  ///
+  /// @param type the [type][#getType()].
+  /// @param primitiveType the [primitive type][#getPrimitiveType()].
+  /// @param exactness the [exactness][#getExactness()].
+  /// @param min the [minimum value][#getMin()].
+  /// @param max the [maximum value][#getMax()].
   protected NumberType(Class<N> type, Class<N> primitiveType, int exactness, N min, N max) {
 
     this(type, primitiveType, exactness, min, max, null, null, null);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param type the {@link #getType() type}.
-   * @param primitiveType the {@link #getPrimitiveType() primitive type}.
-   * @param exactness the {@link #getExactness() exactness}.
-   * @param min the {@link #getMin() minimum value}.
-   * @param max the {@link #getMax() maximum value}.
-   * @param nan the {@link #getNaN() not-a-number value}.
-   * @param positiveInfinity the {@link #getPositiveInfinity() positive infinity value}.
-   * @param negativeInfinity the {@link #getNegativeInfinity() negative infinity value}.
-   */
+  /// The constructor.
+  ///
+  /// @param type the [type][#getType()].
+  /// @param primitiveType the [primitive type][#getPrimitiveType()].
+  /// @param exactness the [exactness][#getExactness()].
+  /// @param min the [minimum value][#getMin()].
+  /// @param max the [maximum value][#getMax()].
+  /// @param nan the [not-a-number value][#getNaN()].
+  /// @param positiveInfinity the [positive infinity value][#getPositiveInfinity()].
+  /// @param negativeInfinity the [negative infinity value][#getNegativeInfinity()].
   protected NumberType(Class<N> type, Class<N> primitiveType, int exactness, N min, N max, N nan, N positiveInfinity,
       N negativeInfinity) {
 
@@ -390,21 +383,17 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     this.negativeInfinity = negativeInfinity;
   }
 
-  /**
-   * @param number is the number to convert.
-   * @param exact {@code true} if {@code null} shall be returned in case the conversion looses precision, {@code false}
-   *        otherwise (to always return the converted value).
-   * @return the converted number.
-   */
+  /// @param number is the number to convert.
+  /// @param exact `true` if `null` shall be returned in case the conversion looses precision, `false`
+  ///        otherwise (to always return the converted value).
+  /// @return the converted number.
   protected abstract N convert(Number number, boolean exact);
 
-  /**
-   * This method determines if the represented {@link #getType() Number} is a decimal value. <br>
-   * E.g. {@link Double}, {@link Float}, or {@link java.math.BigDecimal} represent decimal values while {@link Integer}
-   * or {@link Long} are NOT decimal.
-   *
-   * @return {@code true} if the {@link #getType() number type} represents a decimal value.
-   */
+  /// This method determines if the represented [Number][#getType()] is a decimal value.
+  /// E.g. [Double], [Float], or [java.math.BigDecimal] represent decimal values while [Integer]
+  /// or [Long] are NOT decimal.
+  ///
+  /// @return `true` if the [number type][#getType()] represents a decimal value.
   public final boolean isDecimal() {
 
     if (this.type == Double.class) {
@@ -417,13 +406,11 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return false;
   }
 
-  /**
-   * This method determines if the represented {@link #getType() Number} is an imprecise decimal value. <br>
-   * E.g. {@link Double}, {@link Float}, or {@link java.math.BigDecimal} represent decimal values while {@link Integer}
-   * or {@link Long} are NOT decimal.
-   *
-   * @return {@code true} if the {@link #getType() number type} represents a decimal value.
-   */
+  /// This method determines if the represented [Number][#getType()] is an imprecise decimal value.
+  /// E.g. [Double], [Float], or [java.math.BigDecimal] represent decimal values while [Integer]
+  /// or [Long] are NOT decimal.
+  ///
+  /// @return `true` if the [number type][#getType()] represents a decimal value.
   public final boolean isImpreciseDecimal() {
 
     if (this.type == Double.class) {
@@ -434,41 +421,35 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return false;
   }
 
-  /**
-   * This method gets the and the given {@code otherType}. <br>
-   * <b>ATTENTION:</b><br>
-   * Some types such as {@link Double} and {@link java.math.BigInteger} are NOT really comparable so the exactness
-   * difference might only make sense if the compared {@link NumberType types} are both {@link #isDecimal() decimal} or
-   * both {@link #isDecimal() non-decimal} (mathematical integers). However the order of typical types is:<br>
-   *
-   * @return the exactness of this {@link NumberType}, which is 1 for {@link Byte}, 2 for {@link Short}, 3 for
-   *         {@link Integer}, 4 for {@link Long}, 5 for {@link Float}, 6 for {@link Double}, 7 for {@link BigInteger},
-   *         and 8 for {@link BigDecimal}.
-   */
+  /// This method gets the and the given `otherType`.
+  /// **ATTENTION:**
+  /// Some types such as [Double] and [java.math.BigInteger] are NOT really comparable so the exactness
+  /// difference might only make sense if the compared [types][NumberType] are both [decimal][#isDecimal()] or
+  /// both [non-decimal][#isDecimal()] (mathematical integers). However the order of typical types is:
+  ///
+  /// @return the exactness of this [NumberType], which is 1 for [Byte], 2 for [Short], 3 for
+  ///         [Integer], 4 for [Long], 5 for [Float], 6 for [Double], 7 for [BigInteger],
+  ///         and 8 for [BigDecimal].
   public int getExactness() {
 
     return this.exactness;
   }
 
-  /**
-   * @param number is the {@link Number} to convert.
-   * @return the given {@link Number} converted to this {@link #getType() type}. This will be the same instance as
-   *         {@code number} if the type already matches. Otherwise conversion may loose precision. See
-   *         {@link #getExactness() exactness} to predict.
-   */
+  /// @param number is the [Number] to convert.
+  /// @return the given [Number] converted to this [type][#getType()]. This will be the same instance as
+  ///         `number` if the type already matches. Otherwise conversion may loose precision. See
+  ///         [exactness][#getExactness()] to predict.
   public N valueOf(Number number) {
 
     return valueOf(number, false);
   }
 
-  /**
-   * @param number is the {@link Number} to convert.
-   * @param exact {@code true} if {@code null} shall be returned in case the conversion looses precision, {@code false}
-   *        otherwise (to always return the converted value).
-   * @return the given {@link Number} converted to this {@link #getType() type}. This will be the same instance as
-   *         {@code number} if the type already matches. Otherwise conversion may loose precision. See
-   *         {@link #getExactness() exactness} to predict.
-   */
+  /// @param number is the [Number] to convert.
+  /// @param exact `true` if `null` shall be returned in case the conversion looses precision, `false`
+  ///        otherwise (to always return the converted value).
+  /// @return the given [Number] converted to this [type][#getType()]. This will be the same instance as
+  ///         `number` if the type already matches. Otherwise conversion may loose precision. See
+  ///         [exactness][#getExactness()] to predict.
   @SuppressWarnings("unchecked")
   public N valueOf(Number number, boolean exact) {
 
@@ -481,38 +462,32 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return convert(number, exact);
   }
 
-  /**
-   * @param number is the {@link Object#toString() string representation} of the {@link Number} to be parsed.
-   * @return the parsed number of the according {@link #getType() type}.
-   * @throws NumberFormatException if the given {@link String} has an invalid format for this {@link #getType() type}.
-   */
+  /// @param number is the [string representation][Object#toString()] of the [Number] to be parsed.
+  /// @return the parsed number of the according [type][#getType()].
+  /// @throws NumberFormatException if the given [String] has an invalid format for this [type][#getType()].
   @Override
   public N parse(String number) throws NumberFormatException {
 
     return parse(number, 10);
   }
 
-  /**
-   * @param number is the {@link Object#toString() string representation} of the {@link Number} to be parsed.
-   * @param radix the radix. Typically {@code 10} for decimal format, may be {@code 16} for hex, etc.
-   * @return the parsed number of the according {@link #getType() type}.
-   * @throws NumberFormatException if the given {@link String} has an invalid format for this {@link #getType() type}.
-   * @throws IllegalArgumentException if the given {@code radix} is not supported. The radix {@code 10} is always
-   *         supported, and {@code 16} is supported for types other than {@link #BIG_DECIMAL}.
-   */
+  /// @param number is the [string representation][Object#toString()] of the [Number] to be parsed.
+  /// @param radix the radix. Typically `10` for decimal format, may be `16` for hex, etc.
+  /// @return the parsed number of the according [type][#getType()].
+  /// @throws NumberFormatException if the given [String] has an invalid format for this [type][#getType()].
+  /// @throws IllegalArgumentException if the given `radix` is not supported. The radix `10` is always
+  ///         supported, and `16` is supported for types other than [#BIG_DECIMAL].
   public abstract N parse(String number, int radix) throws NumberFormatException;
 
-  /**
-   * @param number the {@link Number} to format a {@link String}.
-   * @param radix the radix. Typically {@code 10} for decimal format, may be {@code 16} for hex, etc.
-   * @return the given {@link Number} as {@link String}.
-   * @throws IllegalArgumentException if the given {@code radix} is not supported. The radix {@code 10} is always
-   *         supported, and {@code 16} is supported for types other than {@link #BIG_DECIMAL}.
-   * @see Long#toString(long, int)
-   * @see Integer#toString(int, int)
-   * @see Double#toHexString(double)
-   * @see BigInteger#toString(int)
-   */
+  /// @param number the [Number] to format a [String].
+  /// @param radix the radix. Typically `10` for decimal format, may be `16` for hex, etc.
+  /// @return the given [Number] as [String].
+  /// @throws IllegalArgumentException if the given `radix` is not supported. The radix `10` is always
+  ///         supported, and `16` is supported for types other than [#BIG_DECIMAL].
+  /// @see Long#toString(long, int)
+  /// @see Integer#toString(int, int)
+  /// @see Double#toHexString(double)
+  /// @see BigInteger#toString(int)
   public String format(N number, int radix) throws IllegalArgumentException {
 
     if (number == null) {
@@ -522,77 +497,61 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return Integer.toString(number.intValue(), radix);
   }
 
-  /**
-   * <b>ATTENTION</b>:<br>
-   * We define the minimum value as the smallest actual number that can be represented by this {@link NumberType}.
-   * However, this will never be {@link Double#MIN_VALUE} or {@link Float#MIN_VALUE} as those are the smallest
-   * <b>positive</b> nonzero values.
-   *
-   * @return the minimum allowed value. Will return {@code null} in case of an unbounded type such as
-   *         {@link java.math.BigInteger}.
-   */
+  /// **ATTENTION**:
+  /// We define the minimum value as the smallest actual number that can be represented by this [NumberType].
+  /// However, this will never be [Double#MIN_VALUE] or [Float#MIN_VALUE] as those are the smallest
+  /// **positive** nonzero values.
+  ///
+  /// @return the minimum allowed value. Will return `null` in case of an unbounded type such as
+  ///         [java.math.BigInteger].
   public N getMin() {
 
     return this.min;
   }
 
-  /**
-   * @return the maximum allowed value. Will return {@code null} in case of an unbounded type such as
-   *         {@link java.math.BigInteger}.
-   */
+  /// @return the maximum allowed value. Will return `null` in case of an unbounded type such as
+  ///         [java.math.BigInteger].
   public N getMax() {
 
     return this.max;
   }
 
-  /**
-   * @return the value zero ({@code 0}).
-   */
+  /// @return the value zero (`0`).
   public N getZero() {
 
     return this.zero;
   }
 
-  /**
-   * @return the value one ({@code 1}).
-   */
+  /// @return the value one (`1`).
   public N getOne() {
 
     return this.one;
   }
 
-  /**
-   * @return the value NaN (not a number) or {@code null} if no such value exists for this {@link NumberType}.
-   */
+  /// @return the value NaN (not a number) or `null` if no such value exists for this [NumberType].
   public N getNaN() {
 
     return this.nan;
   }
 
-  /**
-   * @return the positive infinity value or {@code null} if no such value exists for this {@link NumberType}.
-   * @see Double#POSITIVE_INFINITY
-   */
+  /// @return the positive infinity value or `null` if no such value exists for this [NumberType].
+  /// @see Double#POSITIVE_INFINITY
   public N getPositiveInfinity() {
 
     return this.positiveInfinity;
   }
 
-  /**
-   * @return the negative infinity value or {@code null} if no such value exists for this {@link NumberType}.
-   * @see Double#NEGATIVE_INFINITY
-   */
+  /// @return the negative infinity value or `null` if no such value exists for this [NumberType].
+  /// @see Double#NEGATIVE_INFINITY
   public N getNegativeInfinity() {
 
     return this.negativeInfinity;
   }
 
-  /**
-   * @param summand1 the first summand.
-   * @param summand2 the second summand.
-   * @return the sum of all given summands. If both arguments are {@code null} the result will be {@code null}.
-   *         Otherwise {@code null} behaves like the neutral element.
-   */
+  /// @param summand1 the first summand.
+  /// @param summand2 the second summand.
+  /// @return the sum of all given summands. If both arguments are `null` the result will be `null`.
+  ///         Otherwise `null` behaves like the neutral element.
   public N add(Number summand1, Number summand2) {
 
     if (summand1 == null) {
@@ -608,12 +567,10 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return valueOf(Double.valueOf(summand1.doubleValue() + summand2.doubleValue()));
   }
 
-  /**
-   * @param minuend the value to be subtracted.
-   * @param subtrahend the value to subtract.
-   * @return the difference of the {@code minuend} and the {@code subtrahend}. If both arguments are {@code null} the
-   *         result will be {@code null}. Otherwise {@code null} behaves like the neutral element.
-   */
+  /// @param minuend the value to be subtracted.
+  /// @param subtrahend the value to subtract.
+  /// @return the difference of the `minuend` and the `subtrahend`. If both arguments are `null` the
+  ///         result will be `null`. Otherwise `null` behaves like the neutral element.
   public N subtract(Number minuend, Number subtrahend) {
 
     if (subtrahend == null) {
@@ -629,12 +586,10 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return valueOf(Double.valueOf(minuend.doubleValue() - subtrahend.doubleValue()));
   }
 
-  /**
-   * @param multiplier the first factor.
-   * @param multiplicand the second factor.
-   * @return the product of the given factors. If both arguments are {@code null} the result will be {@code null}.
-   *         Otherwise {@code null} behaves like the neutral element.
-   */
+  /// @param multiplier the first factor.
+  /// @param multiplicand the second factor.
+  /// @return the product of the given factors. If both arguments are `null` the result will be `null`.
+  ///         Otherwise `null` behaves like the neutral element.
   public N multiply(Number multiplier, Number multiplicand) {
 
     if (multiplier == null) {
@@ -650,12 +605,10 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return valueOf(Double.valueOf(multiplier.doubleValue() * multiplicand.doubleValue()));
   }
 
-  /**
-   * @param dividend the value to be divided.
-   * @param divisor the value to divide by.
-   * @return the quotient of the given values. If both arguments are {@code null} the result will be {@code null}.
-   *         Otherwise {@code null} behaves like the neutral element.
-   */
+  /// @param dividend the value to be divided.
+  /// @param divisor the value to divide by.
+  /// @return the quotient of the given values. If both arguments are `null` the result will be `null`.
+  ///         Otherwise `null` behaves like the neutral element.
   public N divide(Number dividend, Number divisor) {
 
     if (divisor == null) {
@@ -671,133 +624,131 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return valueOf(Double.valueOf(dividend.doubleValue() / divisor.doubleValue()));
   }
 
-  /**
-   * Wraps a value within a range from {@code min} to {@code max} using a simplified approach. The following table give
-   * you an easy overview of what this method does by examples:
-   * <table border="1">
-   * <tr>
-   * <th>value</th>
-   * <th>min</th>
-   * <th>max</th>
-   * <th>{@code wrap(value, min, max)}</th>
-   * </tr>
-   * <tr>
-   * <td>5</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>5</td>
-   * </tr>
-   * <tr>
-   * <td>11</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>0</td>
-   * </tr>
-   * <tr>
-   * <td>12</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>1</td>
-   * </tr>
-   * <tr>
-   * <td>15</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>4</td>
-   * </tr>
-   * <tr>
-   * <td>20</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>9</td>
-   * </tr>
-   * <tr>
-   * <td>21</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>10</td>
-   * </tr>
-   * <tr>
-   * <td>22</td>
-   * <td>0</td>
-   * <td>10</td>
-   * <td>10</td>
-   * </tr>
-   * <tr>
-   * <td>5</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>5</td>
-   * </tr>
-   * <tr>
-   * <td>-11</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>10</td>
-   * </tr>
-   * <tr>
-   * <td>-12</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>9</td>
-   * </tr>
-   * <tr>
-   * <td>-21</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>0</td>
-   * </tr>
-   * <tr>
-   * <td>-30</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>-9</td>
-   * </tr>
-   * <tr>
-   * <td>-31</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>-10</td>
-   * </tr>
-   * <tr>
-   * <td>-32</td>
-   * <td>-10</td>
-   * <td>10</td>
-   * <td>-10</td>
-   * </tr>
-   * <tr>
-   * <td>{@code null}</td>
-   * <td>*</td>
-   * <td>*</td>
-   * <td>{@code null}</td>
-   * </tr>
-   * <tr>
-   * <td>&lt;«min»</td>
-   * <td>«min»</td>
-   * <td>{@code null}</td>
-   * <td>«min»</td>
-   * </tr>
-   * <tr>
-   * <td>&gt;«max»</td>
-   * <td>{@code null}</td>
-   * <td>«max»</td>
-   * <td>«max»</td>
-   * </tr>
-   * <tr>
-   * <td>«value»</td>
-   * <td>{@code null}</td>
-   * <td>{@code null}</td>
-   * <td>«value»</td>
-   * </tr>
-   * </table>
-   *
-   * @param value the value to wrap.
-   * @param minimum the minimum allowed value or {@code null} for no lower bound.
-   * @param maximum the maximum allowed value or {@code null} for no upper bound.
-   * @return the given {@code value} if within the given bounds. Otherwise a wrapped value within the given bounds. If
-   *         the value lies further out of the bounds than the entire range, it will be set to {@code min} or
-   *         {@code max} accordingly.
-   */
+  /// Wraps a value within a range from `min` to `max` using a simplified approach. The following table give
+  /// you an easy overview of what this method does by examples:
+  /// <table border="1">
+  /// <tr>
+  /// <th>value</th>
+  /// <th>min</th>
+  /// <th>max</th>
+  /// <th>`wrap(value, min, max)`</th>
+  /// </tr>
+  /// <tr>
+  /// <td>5</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>5</td>
+  /// </tr>
+  /// <tr>
+  /// <td>11</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>0</td>
+  /// </tr>
+  /// <tr>
+  /// <td>12</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>1</td>
+  /// </tr>
+  /// <tr>
+  /// <td>15</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>4</td>
+  /// </tr>
+  /// <tr>
+  /// <td>20</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>9</td>
+  /// </tr>
+  /// <tr>
+  /// <td>21</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>10</td>
+  /// </tr>
+  /// <tr>
+  /// <td>22</td>
+  /// <td>0</td>
+  /// <td>10</td>
+  /// <td>10</td>
+  /// </tr>
+  /// <tr>
+  /// <td>5</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>5</td>
+  /// </tr>
+  /// <tr>
+  /// <td>-11</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>10</td>
+  /// </tr>
+  /// <tr>
+  /// <td>-12</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>9</td>
+  /// </tr>
+  /// <tr>
+  /// <td>-21</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>0</td>
+  /// </tr>
+  /// <tr>
+  /// <td>-30</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>-9</td>
+  /// </tr>
+  /// <tr>
+  /// <td>-31</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>-10</td>
+  /// </tr>
+  /// <tr>
+  /// <td>-32</td>
+  /// <td>-10</td>
+  /// <td>10</td>
+  /// <td>-10</td>
+  /// </tr>
+  /// <tr>
+  /// <td>`null`</td>
+  /// <td>*</td>
+  /// <td>*</td>
+  /// <td>`null`</td>
+  /// </tr>
+  /// <tr>
+  /// <td><«min»</td>
+  /// <td>«min»</td>
+  /// <td>`null`</td>
+  /// <td>«min»</td>
+  /// </tr>
+  /// <tr>
+  /// <td>>«max»</td>
+  /// <td>`null`</td>
+  /// <td>«max»</td>
+  /// <td>«max»</td>
+  /// </tr>
+  /// <tr>
+  /// <td>«value»</td>
+  /// <td>`null`</td>
+  /// <td>`null`</td>
+  /// <td>«value»</td>
+  /// </tr>
+  /// </table>
+  ///
+  /// @param value the value to wrap.
+  /// @param minimum the minimum allowed value or `null` for no lower bound.
+  /// @param maximum the maximum allowed value or `null` for no upper bound.
+  /// @return the given `value` if within the given bounds. Otherwise a wrapped value within the given bounds. If
+  ///         the value lies further out of the bounds than the entire range, it will be set to `min` or
+  ///         `max` accordingly.
   public N wrap(N value, Number minimum, Number maximum) {
 
     if (value == null) {
@@ -832,11 +783,9 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return value;
   }
 
-  /**
-   * @param n1 the first {@link Number} to compare.
-   * @param n2 the second {@link Number} to compare.
-   * @return {@code true} if the first {@link Number} is greater than the second.
-   */
+  /// @param n1 the first [Number] to compare.
+  /// @param n2 the second [Number] to compare.
+  /// @return `true` if the first [Number] is greater than the second.
   public boolean isGreater(N n1, N n2) {
 
     if ((n1 == null) || (n2 == null)) {
@@ -845,11 +794,9 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return (compareTo(n1, n2) > 0);
   }
 
-  /**
-   * @param n1 the first {@link Number} to compare.
-   * @param n2 the second {@link Number} to compare.
-   * @return {@code true} if the first {@link Number} is greater than or equal to the second.
-   */
+  /// @param n1 the first [Number] to compare.
+  /// @param n2 the second [Number] to compare.
+  /// @return `true` if the first [Number] is greater than or equal to the second.
   public boolean isGreaterEqual(N n1, N n2) {
 
     if ((n1 == null) || (n2 == null)) {
@@ -858,11 +805,9 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return (compareTo(n1, n2) >= 0);
   }
 
-  /**
-   * @param n1 the first {@link Number} to compare.
-   * @param n2 the second {@link Number} to compare.
-   * @return {@code true} if the first {@link Number} is less than the second.
-   */
+  /// @param n1 the first [Number] to compare.
+  /// @param n2 the second [Number] to compare.
+  /// @return `true` if the first [Number] is less than the second.
   public boolean isLess(N n1, N n2) {
 
     if ((n1 == null) || (n2 == null)) {
@@ -871,11 +816,9 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return (compareTo(n1, n2) < 0);
   }
 
-  /**
-   * @param n1 the first {@link Number} to compare.
-   * @param n2 the second {@link Number} to compare.
-   * @return {@code true} if the first {@link Number} is less than or equal to the second.
-   */
+  /// @param n1 the first [Number] to compare.
+  /// @param n2 the second [Number] to compare.
+  /// @return `true` if the first [Number] is less than or equal to the second.
   public boolean isLessEqual(N n1, N n2) {
 
     if ((n1 == null) || (n2 == null)) {
@@ -890,28 +833,22 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return ((Comparable) n1).compareTo(n2);
   }
 
-  /**
-   * @param number the {@link Number} to check.
-   * @return {@code true} if the given {@link Number} is negative, {@code false} otherwise.
-   */
+  /// @param number the [Number] to check.
+  /// @return `true` if the given [Number] is negative, `false` otherwise.
   public boolean isNegative(N number) {
 
     return isLess(number, getZero());
   }
 
-  /**
-   * @param number the {@link Number} to check.
-   * @return {@code true} if the given {@link Number} is positive (greater than zero), {@code false} otherwise.
-   */
+  /// @param number the [Number] to check.
+  /// @return `true` if the given [Number] is positive (greater than zero), `false` otherwise.
   public boolean isPositive(N number) {
 
     return isGreater(number, getZero());
   }
 
-  /**
-   * @param number the {@link Number} to check.
-   * @return {@code true} if the given {@link Number} is positive (greater than zero), {@code false} otherwise.
-   */
+  /// @param number the [Number] to check.
+  /// @return `true` if the given [Number] is positive (greater than zero), `false` otherwise.
   public boolean isPositiveOrZero(N number) {
 
     return isGreaterEqual(number, getZero());
@@ -942,11 +879,9 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     }
   }
 
-  /**
-   * @param <N> type of the {@link Number}.
-   * @param type the {@link Class} reflecting the {@link Number}.
-   * @return the {@link NumberType} for the given {@link Class} of {@code null} if not a standard Java {@link Number}.
-   */
+  /// @param <N> type of the [Number].
+  /// @param type the [Class] reflecting the [Number].
+  /// @return the [NumberType] for the given [Class] of `null` if not a standard Java [Number].
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public static <N extends Number> NumberType<N> of(Class<N> type) {
 
@@ -971,11 +906,9 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return result;
   }
 
-  /**
-   * @param exactness the {@link #getExactness() exactness}.
-   * @return the {@link NumberType} with the given {@link #getExactness() exactness} or {@code null} if no such
-   *         {@link NumberType} exists.
-   */
+  /// @param exactness the [exactness][#getExactness()].
+  /// @return the [NumberType] with the given [exactness][#getExactness()] or `null` if no such
+  ///         [NumberType] exists.
   public static NumberType<?> ofExactness(int exactness) {
 
     if ((exactness >= 0) && (exactness < TYPES.length)) {
@@ -984,25 +917,21 @@ public abstract class NumberType<N extends Number> extends ValueType<N> {
     return null;
   }
 
-  /**
-   * @param value the {@link Number} to simplify.
-   * @return the simplest {@link Number} with the exact same value. E.g. {@link BigDecimal#ONE} will be simplified to
-   *         {@link Byte} with value {@code 1}.
-   */
+  /// @param value the [Number] to simplify.
+  /// @return the simplest [Number] with the exact same value. E.g. [BigDecimal#ONE] will be simplified to
+  ///         [Byte] with value `1`.
   public static Number simplify(Number value) {
 
     return simplify(value, BYTE);
   }
 
-  /**
-   * @param value the {@link Number} to simplify.
-   * @param min the minimum {@link NumberType} to simplify to. In case the given {@link Number} is simpler than the
-   *        given {@link NumberType} it will be {@link NumberType#valueOf(Number) converted} and is actually
-   *        unsimplified. E.g. use {@link #INTEGER} to ensure int exactness and avoid getting a {@link Byte} or
-   *        {@link Short} value as result.
-   * @return the simplest {@link Number} with the exact same value but with at least the
-   *         {@link NumberType#getExactness() exactness} of the given minimum {@link NumberType}.
-   */
+  /// @param value the [Number] to simplify.
+  /// @param min the minimum [NumberType] to simplify to. In case the given [Number] is simpler than the
+  ///        given [NumberType] it will be [converted][NumberType#valueOf(Number)] and is actually
+  ///        unsimplified. E.g. use [#INTEGER] to ensure int exactness and avoid getting a [Byte] or
+  ///        [Short] value as result.
+  /// @return the simplest [Number] with the exact same value but with at least the
+  ///         [exactness][NumberType#getExactness()] of the given minimum [NumberType].
   public static Number simplify(Number value, NumberType<?> min) {
 
     if (value == null) {

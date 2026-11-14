@@ -11,18 +11,16 @@ import java.util.UUID;
 
 import io.github.mmm.base.i18n.Localizable;
 
-/**
- * Extends {@link RuntimeException} with the following features:
- * <ul>
- * <li>a {@link #getUuid() UUID} unique per exception instance automatically generated once per exception
- * {@link #getCause() chain}.</li>
- * <li>an {@link #getCode() error code} that should be unique per exception type.</li>
- * <li>distinction between {@link #isTechnical() technical} exceptions and exceptions {@link #isForUser() intended for
- * end-users}.</li>
- * </ul>
- * <b>NOTE:</b><br>
- * Exceptions should only occur in unexpected or undesired situations. Never use exceptions for control flows.
- */
+/// Extends [RuntimeException] with the following features:
+///
+/// - a [UUID][#getUuid()] unique per exception instance automatically generated once per exception
+/// [chain][#getCause()].
+/// - an [error code][#getCode()] that should be unique per exception type.
+/// - distinction between [technical][#isTechnical()] exceptions and exceptions [intended for
+ end-users][#isForUser()].
+///
+/// **NOTE:**
+/// Exceptions should only occur in unexpected or undesired situations. Never use exceptions for control flows.
 public abstract class ApplicationException extends RuntimeException implements Localizable {
 
   private static final long serialVersionUID = 1L;
@@ -31,21 +29,17 @@ public abstract class ApplicationException extends RuntimeException implements L
 
   private final UUID uuid;
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getMessage() message} describing the problem briefly.
-   */
+  /// The constructor.
+  ///
+  /// @param message the [message][#getMessage()] describing the problem briefly.
   public ApplicationException(String message) {
 
     this(Localizable.ofStatic(message));
   }
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getLocalizedMessage() message} describing the problem briefly.
-   */
+  /// The constructor.
+  ///
+  /// @param message the [message][#getLocalizedMessage()] describing the problem briefly.
   public ApplicationException(Localizable message) {
 
     super();
@@ -53,49 +47,41 @@ public abstract class ApplicationException extends RuntimeException implements L
     this.uuid = createUuid();
   }
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getMessage() message} describing the problem briefly.
-   * @param cause the {@link #getCause() cause} of this exception.
-   */
+  /// The constructor.
+  ///
+  /// @param message the [message][#getMessage()] describing the problem briefly.
+  /// @param cause the [cause][#getCause()] of this exception.
   public ApplicationException(String message, Throwable cause) {
 
     this(Localizable.ofStatic(message), cause, null);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getNlsMessage() NLS message} describing the problem briefly.
-   * @param cause the {@link #getCause() cause} of this exception.
-   */
+  /// The constructor.
+  ///
+  /// @param message the [NLS message][#getNlsMessage()] describing the problem briefly.
+  /// @param cause the [cause][#getCause()] of this exception.
   public ApplicationException(Localizable message, Throwable cause) {
 
     this(message, cause, null);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getMessage() message} describing the problem briefly.
-   * @param cause the {@link #getCause() cause} of this exception. May be <code>null</code>.
-   * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
-   *        {@link Throwable} or as new {@link UUID}).
-   */
+  /// The constructor.
+  ///
+  /// @param message the [message][#getMessage()] describing the problem briefly.
+  /// @param cause the [cause][#getCause()] of this exception. May be `null`.
+  /// @param uuid the explicit [UUID][#getUuid()] or `null` to initialize by default (from given
+  ///        [Throwable] or as new [UUID]).
   protected ApplicationException(String message, Throwable cause, UUID uuid) {
 
     this(Localizable.ofStatic(message));
   }
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getNlsMessage() NLS message} describing the problem briefly.
-   * @param cause the {@link #getCause() cause} of this exception. May be <code>null</code>.
-   * @param uuid the explicit {@link #getUuid() UUID} or <code>null</code> to initialize by default (from given
-   *        {@link Throwable} or as new {@link UUID}).
-   */
+  /// The constructor.
+  ///
+  /// @param message the [NLS message][#getNlsMessage()] describing the problem briefly.
+  /// @param cause the [cause][#getCause()] of this exception. May be `null`.
+  /// @param uuid the explicit [UUID][#getUuid()] or `null` to initialize by default (from given
+  ///        [Throwable] or as new [UUID]).
   protected ApplicationException(Localizable message, Throwable cause, UUID uuid) {
 
     super(cause);
@@ -111,48 +97,41 @@ public abstract class ApplicationException extends RuntimeException implements L
     }
   }
 
-  /**
-   * @return a new {@link UUID} for {@link #getUuid()}.
-   */
+  /// @return a new [UUID] for [#getUuid()].
   protected UUID createUuid() {
 
     return UUID.randomUUID();
   }
 
-  /**
-   * This method gets the {@link UUID} of this {@link ApplicationException}. When a new {@link ApplicationException} is
-   * created, a {@link UUID} is assigned. In case the {@link ApplicationException} is created from another
-   * {@link ApplicationException} as cause, the existing {@link UUID} will be used from that cause. Otherwise a new
-   * {@link UUID} is generated. <br>
-   * The {@link UUID} will appear in the {@link #printStackTrace() stacktrace} but NOT in the
-   * {@link Throwable#getMessage() message}. It will therefore be written to log-files if this exception is logged. If
-   * you supply the {@link UUID} to the end-user, he can provide it with the problem report so an administrator or
-   * software developer can easily find the stacktrace in the log-files.
-   *
-   * @return the {@link UUID} of this object.
-   */
+  /// This method gets the [UUID] of this [ApplicationException]. When a new [ApplicationException] is
+  /// created, a [UUID] is assigned. In case the [ApplicationException] is created from another
+  /// [ApplicationException] as cause, the existing [UUID] will be used from that cause. Otherwise a new
+  /// [UUID] is generated.
+  /// The [UUID] will appear in the [stacktrace][#printStackTrace()] but NOT in the
+  /// [message][Throwable#getMessage()]. It will therefore be written to log-files if this exception is logged. If
+  /// you supply the [UUID] to the end-user, he can provide it with the problem report so an administrator or
+  /// software developer can easily find the stacktrace in the log-files.
+  ///
+  /// @return the [UUID] of this object.
   public final UUID getUuid() {
 
     return this.uuid;
   }
 
-  /**
-   * ATTENTION: Logging frameworks like logback do not follow Java exception standards and write {@link #toString()} but
-   * only {@link #getMessage()} of the {@link Exception} together with the stacktrace into the log. Since an
-   * {@link ApplicationException} contains additional information like {@link #getUuid() UUID} and {@link #getCode()
-   * code} that needs to be logged we are forced to return the message from this method in the following form:
-   *
-   * <pre>[{@link #getCode() «code»}: ]{@link #getNlsMessage() «message»}
-   * «uuid»
-   * </pre>
-   *
-   * Please note that the {@link #getCode() code} is omitted if the {@link #getCode()} method is not overridden and
-   * returning a custom code.<br>
-   * In case you want to get the plain exception message, you therefore need to either call
-   * {@link #getLocalizedMessage()} or use {@link #getNlsMessage()}.
-   *
-   * @return the untranslated message in the form specified above.
-   */
+  /// ATTENTION: Logging frameworks like logback do not follow Java exception standards and write [#toString()] but
+  /// only [#getMessage()] of the [Exception] together with the stacktrace into the log. Since an
+  /// [ApplicationException] contains additional information like [UUID][#getUuid()] and [code][#getCode()] that needs to be logged we are forced to return the message from this method in the following form:
+  ///
+  /// ```[[«code»][#getCode()]: ][«message»][#getNlsMessage()]
+  /// «uuid»
+  /// ```
+  ///
+  /// Please note that the [code][#getCode()] is omitted if the [#getCode()] method is not overridden and
+  /// returning a custom code.
+  /// In case you want to get the plain exception message, you therefore need to either call
+  /// [#getLocalizedMessage()] or use [#getNlsMessage()].
+  ///
+  /// @return the untranslated message in the form specified above.
   @Override
   public String getMessage() {
 
@@ -161,11 +140,9 @@ public abstract class ApplicationException extends RuntimeException implements L
     return buffer.toString();
   }
 
-  /**
-   * @return the {@link Localizable} message describing the problem.
-   * @see #getMessage()
-   * @see #getLocalizedMessage(Locale)
-   */
+  /// @return the [Localizable] message describing the problem.
+  /// @see #getMessage()
+  /// @see #getLocalizedMessage(Locale)
   public Localizable getNlsMessage() {
 
     return this.message;
@@ -189,25 +166,21 @@ public abstract class ApplicationException extends RuntimeException implements L
     this.message.getLocalizedMessage(locale, appendable);
   }
 
-  /**
-   * This method prints the stack trace with localized exception message(s).
-   *
-   * @param locale is the locale to translate to.
-   * @param buffer is where to write the stack trace to.
-   * @throws IllegalStateException if the given {@code buffer} produced an {@link java.io.IOException}.
-   */
+  /// This method prints the stack trace with localized exception message(s).
+  ///
+  /// @param locale is the locale to translate to.
+  /// @param buffer is where to write the stack trace to.
+  /// @throws IllegalStateException if the given `buffer` produced an [java.io.IOException].
   public void printStackTrace(Locale locale, Appendable buffer) {
 
     printStackTrace(this, locale, buffer);
   }
 
-  /**
-   * @see NlsThrowable#printStackTrace(Locale, Appendable)
-   *
-   * @param throwable is the {@link NlsThrowable} to print.
-   * @param locale is the {@link Locale} to translate to.
-   * @param buffer is where to write the stack trace to.
-   */
+  /// @see NlsThrowable#printStackTrace(Locale, Appendable)
+  ///
+  /// @param throwable is the [NlsThrowable] to print.
+  /// @param locale is the [Locale] to translate to.
+  /// @param buffer is where to write the stack trace to.
   private static void printStackTrace(ApplicationException throwable, Locale locale, Appendable buffer) {
 
     try {
@@ -237,14 +210,12 @@ public abstract class ApplicationException extends RuntimeException implements L
     }
   }
 
-  /**
-   * @see NlsThrowable#printStackTrace(Locale, Appendable)
-   *
-   * @param cause is the {@link Throwable} to print.
-   * @param locale is the {@link Locale} to translate to.
-   * @param buffer is where to write the stack trace to.
-   * @throws IOException if caused by {@code buffer}.
-   */
+  /// @see NlsThrowable#printStackTrace(Locale, Appendable)
+  ///
+  /// @param cause is the [Throwable] to print.
+  /// @param locale is the [Locale] to translate to.
+  /// @param buffer is where to write the stack trace to.
+  /// @throws IOException if caused by `buffer`.
   private static void printStackTraceCause(Throwable cause, Locale locale, Appendable buffer) throws IOException {
 
     if (cause instanceof ApplicationException) {
@@ -264,54 +235,47 @@ public abstract class ApplicationException extends RuntimeException implements L
     }
   }
 
-  /**
-   * Determines if this is a <em>technical exception</em>.
-   * <ul>
-   * <li>A technical exception is an unexpected situation that is to be logged on error level and should be analyzed by
-   * the operators or software developers of the system. Further in such case the end-user can typically do nothing
-   * about the problem (except to retry his operation) and will typically not understand the problem. Therefore a
-   * generic message should be {@link #isForUser() displayed to the end-user} in such case.</li>
-   * <li>A non technical exception is called <em>user failure</em>. It is an undesired but NOT abnormal situation (e.g.
-   * a mandatory field was not filled). It should be logged on a level less than error (typically info). The
-   * {@link #getMessage() message} is typically {@link #isForUser() intended for to end-users} and has to be easy to
-   * understand.</li>
-   * </ul>
-   * This separation is intentionally not done via inheritance of technical and business exception base classes to allow
-   * reuse. However, if you want to have it this way, create such classes on your own derived from this class.
-   *
-   * @see #isForUser()
-   *
-   * @return {@code true} if this is a technical exception, {@code false} if this is a user error.
-   */
+  /// Determines if this is a _technical exception_.
+  ///
+  /// - A technical exception is an unexpected situation that is to be logged on error level and should be analyzed by
+  /// the operators or software developers of the system. Further in such case the end-user can typically do nothing
+  /// about the problem (except to retry his operation) and will typically not understand the problem. Therefore a
+  /// generic message should be [displayed to the end-user][#isForUser()] in such case.
+  /// - A non technical exception is called _user failure_. It is an undesired but NOT abnormal situation (e.g.
+  /// a mandatory field was not filled). It should be logged on a level less than error (typically info). The
+  /// [message][#getMessage()] is typically [intended for to end-users][#isForUser()] and has to be easy to
+  /// understand.
+  ///
+  /// This separation is intentionally not done via inheritance of technical and business exception base classes to allow
+  /// reuse. However, if you want to have it this way, create such classes on your own derived from this class.
+  ///
+  /// @see #isForUser()
+  ///
+  /// @return `true` if this is a technical exception, `false` if this is a user error.
   public boolean isTechnical() {
 
     // override to change...
     return true;
   }
 
-  /**
-   * <b>Note:</b> Please consider using {@code net.sf.mmm.nls.exception.NlsException} with i18n support in case you are
-   * creating exceptions for end-users.
-   *
-   * @return {@code true} if the {@link #getMessage() message} of this exception is for end-users (or clients),
-   *         {@code false} otherwise (for internal {@link #isTechnical() technical} errors).
-   */
+  /// **Note:** Please consider using `net.sf.mmm.nls.exception.NlsException` with i18n support in case you are
+  /// creating exceptions for end-users.
+  ///
+  /// @return `true` if the [message][#getMessage()] of this exception is for end-users (or clients),
+  ///         `false` otherwise (for internal [technical][#isTechnical()] errors).
   public boolean isForUser() {
 
     return !isTechnical();
   }
 
-  /**
-   * This method gets the <em>code</em> that identifies the detailed type of this object. While {@link #getUuid() UUID}
-   * is unique per instance of a {@link ApplicationException} this code is a short and readable identifier representing
-   * the {@link ApplicationException} {@link Class}. The default implementation returns the {@link Class#getSimpleName()
-   * simple name}. However, the code should remain stable after refactoring (so at least after the rename the previous
-   * code should be returned as {@link String} literal). This code may be used as a compact identifier to reference the
-   * related problem or information as well as for automatic tests of error situations that should remain stable even if
-   * the message text gets improved or the locale is unknown.
-   *
-   * @return the error code.
-   */
+  /// This method gets the _code_ that identifies the detailed type of this object. While [UUID][#getUuid()]
+  /// is unique per instance of a [ApplicationException] this code is a short and readable identifier representing
+  /// the [ApplicationException] [Class]. The default implementation returns the [simple name][Class#getSimpleName()]. However, the code should remain stable after refactoring (so at least after the rename the previous
+  /// code should be returned as [String] literal). This code may be used as a compact identifier to reference the
+  /// related problem or information as well as for automatic tests of error situations that should remain stable even if
+  /// the message text gets improved or the locale is unknown.
+  ///
+  /// @return the error code.
   public String getCode() {
 
     return getClass().getSimpleName();
@@ -324,30 +288,26 @@ public abstract class ApplicationException extends RuntimeException implements L
     return toString(Locale.getDefault(), null).toString();
   }
 
-  /**
-   * Like {@link #toString()} but using the specified {@link Locale}.
-   *
-   * @param locale is the {@link Locale} used for {@link #getLocalizedMessage(Locale)}.
-   * @return the localized string representation of this exception as described in {@link #toString(Locale, Appendable)}
-   */
+  /// Like [#toString()] but using the specified [Locale].
+  ///
+  /// @param locale is the [Locale] used for [#getLocalizedMessage(Locale)].
+  /// @return the localized string representation of this exception as described in [#toString(Locale, Appendable)]
   public String toString(Locale locale) {
 
     return toString(locale, null).toString();
   }
 
-  /**
-   * {@link Appendable#append(CharSequence) appends} the localized string representation of this exception. It is
-   * defined as following:
-   *
-   * <pre>
-   * «{@link Class#getName() classname}»: [«{@link #getCode() custom-code}»: ]«{@link #getLocalizedMessage(Locale) message}»
-   * </pre>
-   *
-   * @param locale is the {@link Locale} used for {@link #getLocalizedMessage(Locale)}.
-   * @param appendable is the buffer to {@link Appendable#append(CharSequence) append} to. Will be created as
-   *        {@link StringBuilder} if {@code null} is provided.
-   * @return the provided {@link Appendable} or the created one if {@code null} was given.
-   */
+  /// [appends][Appendable#append(CharSequence)] the localized string representation of this exception. It is
+  /// defined as following:
+  ///
+  /// ```
+  /// «[classname][Class#getName()]»: [«[custom-code][#getCode()]»: ]«[message][#getLocalizedMessage(Locale)]»
+  /// ```
+  ///
+  /// @param locale is the [Locale] used for [#getLocalizedMessage(Locale)].
+  /// @param appendable is the buffer to [append][Appendable#append(CharSequence)] to. Will be created as
+  ///        [StringBuilder] if `null` is provided.
+  /// @return the provided [Appendable] or the created one if `null` was given.
   public Appendable toString(Locale locale, Appendable appendable) {
 
     return toString(locale, appendable, false);
@@ -381,10 +341,8 @@ public abstract class ApplicationException extends RuntimeException implements L
     }
   }
 
-  /**
-   * @param error the {@link Throwable}.
-   * @return the {@link #getNlsMessage() NLS message}.
-   */
+  /// @param error the [Throwable].
+  /// @return the [NLS message][#getNlsMessage()].
   public static Localizable getNlsMessage(Throwable error) {
 
     if (error == null) {

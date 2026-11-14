@@ -4,12 +4,10 @@ package io.github.mmm.base.range;
 
 import java.util.function.Function;
 
-/**
- * Implementation of {@link Range}.
- *
- * @param <V> type of the contained values.
- * @since 1.0.0
- */
+/// Implementation of [Range].
+///
+/// @param <V> type of the contained values.
+/// @since 1.0.0
 public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -46,18 +44,16 @@ public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
     }
   };
 
-  /** @see #getMin() */
+  /// @see #getMin()
   protected final V min;
 
-  /** @see #getMax() */
+  /// @see #getMax()
   protected final V max;
 
-  /**
-   * The constructor.
-   *
-   * @param min - see {@link #getMin()}. To create an open range use the minimum value.
-   * @param max - see {@link #getMax()}. To create an open range use the maximum value.
-   */
+  /// The constructor.
+  ///
+  /// @param min - see [#getMin()]. To create an open range use the minimum value.
+  /// @param max - see [#getMax()]. To create an open range use the maximum value.
   protected RangeType(V min, V max) {
 
     super();
@@ -95,12 +91,10 @@ public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
     return of(minimum, maximum);
   }
 
-  /**
-   * @param <T> type of the {@link #contains(Comparable) contained value}.
-   * @param min the {@link #getMin() minimum}.
-   * @param max the {@link #getMax() maximum}.
-   * @return the specified {@link RangeType}.
-   */
+  /// @param <T> type of the [contained value][#contains(Comparable)].
+  /// @param min the [minimum][#getMin()].
+  /// @param max the [maximum][#getMax()].
+  /// @return the specified [RangeType].
   public static <T extends Comparable<?>> RangeType<T> of(T min, T max) {
 
     if ((min == null) && (max == null)) {
@@ -109,12 +103,10 @@ public class RangeType<V extends Comparable<?>> extends AbstractRange<V> {
     return new RangeType<>(min, max);
   }
 
-  /**
-   * @param <T> type of the {@link #contains(Comparable) contained value}.
-   * @param range the {@link Object#toString() string representation} of the {@link Range} to parse.
-   * @param boundParser the {@link Function} capable to parse the individual bound values (min and max).
-   * @return the parsed {@link RangeType}.
-   */
+  /// @param <T> type of the [contained value][#contains(Comparable)].
+  /// @param range the [string representation][Object#toString()] of the [Range] to parse.
+  /// @param boundParser the [Function] capable to parse the individual bound values (min and max).
+  /// @return the parsed [RangeType].
   public static <T extends Comparable<?>> RangeType<T> parse(String range, Function<String, T> boundParser) {
 
     if ((range == null) || range.isEmpty()) {

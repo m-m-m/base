@@ -7,12 +7,10 @@ import io.github.mmm.base.resource.ResourceMap;
 import io.github.mmm.base.resource.ResourcePath;
 import io.github.mmm.base.resource.ResourceScannerService;
 
-/**
- * Implementation of {@link ResourceScannerService} that does nothing and ignores all modules and resources. Used so
- * service loader will not fail if no other implementation of {@link ResourceScannerService} is registered.
- *
- * @since 1.0.0
- */
+/// Implementation of [ResourceScannerService] that does nothing and ignores all modules and resources. Used so
+/// service loader will not fail if no other implementation of [ResourceScannerService] is registered.
+///
+/// @since 1.0.0
 public class NoResourceScannerService implements ResourceScannerService {
 
   @Override

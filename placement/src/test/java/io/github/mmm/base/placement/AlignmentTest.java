@@ -3,12 +3,10 @@ package io.github.mmm.base.placement;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link Alignment}.
- */
+/// Test of [Alignment].
 class AlignmentTest extends Assertions {
 
-  /** Test of {@link Alignment#BOTTOM}. */
+  /// Test of [Alignment#BOTTOM].
   @Test
   void testBottom() {
 

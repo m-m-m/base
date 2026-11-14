@@ -6,12 +6,10 @@ import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Objects;
 
-/**
- * Implementation of {@link Range}.
- *
- * @param <V> type of the contained values.
- * @since 1.0.0
- */
+/// Implementation of [Range].
+///
+/// @param <V> type of the contained values.
+/// @since 1.0.0
 public abstract class AbstractRange<V extends Comparable<?>> implements Range<V> {
 
   @Override
@@ -68,12 +66,10 @@ public abstract class AbstractRange<V extends Comparable<?>> implements Range<V>
     return create(minimum, maximum);
   }
 
-  /**
-   * @param minimum the new {@link #getMin() minimum}.
-   * @param maximum the new {@link #getMax() maximum}.
-   * @return a new {@link Range} with the given boundaries.
-   * @see #with(Comparable, Comparable)
-   */
+  /// @param minimum the new [minimum][#getMin()].
+  /// @param maximum the new [maximum][#getMax()].
+  /// @return a new [Range] with the given boundaries.
+  /// @see #with(Comparable, Comparable)
   protected abstract Range<V> create(V minimum, V maximum);
 
   @Override

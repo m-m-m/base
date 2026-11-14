@@ -2,19 +2,15 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.filter;
 
-/**
- * Implementation of the {@link CharFilter} that {@link #accept(int) accepts} characters from a white-list given at
- * {@link ListCharFilter#ListCharFilter(String) construction}.
- */
+/// Implementation of the [CharFilter] that [accepts][#accept(int)] characters from a white-list given at
+/// [construction][ListCharFilter#ListCharFilter(String)].
 public class ListCharFilter extends AbstractCharFilter {
 
   private final String chars;
 
-  /**
-   * The constructor.
-   *
-   * @param chars are the chars to accept. Have to be unique and should be ordered.
-   */
+  /// The constructor.
+  ///
+  /// @param chars are the chars to accept. Have to be unique and should be ordered.
   public ListCharFilter(String chars) {
 
     super(null);
@@ -45,11 +41,9 @@ public class ListCharFilter extends AbstractCharFilter {
     return (i >= 0);
   }
 
-  /**
-   * @param characters the additional characters to {@link #accept(int) accept}.
-   * @return a new {@link ListCharFilter} that {@link #accept(int) accepts} both the characters from {@code this}
-   *         {@link CharFilter} as well as the given {@code characters}.
-   */
+  /// @param characters the additional characters to [accept][#accept(int)].
+  /// @return a new [ListCharFilter] that [accepts][#accept(int)] both the characters from `this`
+  ///         [CharFilter] as well as the given `characters`.
   public ListCharFilter join(char... characters) {
 
     if ((characters == null) || (characters.length == 0)) {
@@ -70,11 +64,9 @@ public class ListCharFilter extends AbstractCharFilter {
     return new ListCharFilter(new String(composed, 0, i));
   }
 
-  /**
-   * @param filter the additional {@link ListCharFilter} to {@link #join(char...) join}.
-   * @return a new {@link ListCharFilter} that {@link #accept(int) accepts} both the characters from {@code this} as
-   *         well as the given {@link CharFilter}.
-   */
+  /// @param filter the additional [ListCharFilter] to [join][#join(char...)].
+  /// @return a new [ListCharFilter] that [accepts][#accept(int)] both the characters from `this` as
+  ///         well as the given [CharFilter].
   public ListCharFilter join(ListCharFilter filter) {
 
     return join(filter.chars.toCharArray());
@@ -89,9 +81,7 @@ public class ListCharFilter extends AbstractCharFilter {
     return super.compose(filter);
   }
 
-  /**
-   * @return a {@link String} composed of all {@link #accept(int) accepted} characters.
-   */
+  /// @return a [String] composed of all [accepted][#accept(int)] characters.
   public String getChars() {
 
     return this.chars;

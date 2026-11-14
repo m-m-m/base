@@ -16,13 +16,11 @@ import java.util.regex.Pattern;
 
 import io.github.mmm.base.lang.FromStringParser;
 
-/**
- * Parser that can detect {@link String}s representing a {@link Temporal} value via {@link #parse(String)} but returns
- * {@code null} if not a {@link Temporal} instead of throwing an exception.
- *
- * @see #parse(String)
- * @since 1.0.0
- */
+/// Parser that can detect [String]s representing a [Temporal] value via [#parse(String)] but returns
+/// `null` if not a [Temporal] instead of throwing an exception.
+///
+/// @see #parse(String)
+/// @since 1.0.0
 public final class TemporalParser implements FromStringParser<Temporal> {
 
   private static final Pattern TEMPORAL_PATTERN = Pattern.compile(
@@ -36,18 +34,16 @@ public final class TemporalParser implements FromStringParser<Temporal> {
 
   }
 
-  /**
-   * @param value the {@link Object#toString() default string representation} of a (potential) {@link Temporal} value.
-   *        This can be {@link Instant}, {@link LocalDate}, {@link LocalTime}, {@link LocalDateTime},
-   *        {@link OffsetTime}, {@link OffsetDateTime}, {@link ZonedDateTime}, or {@link YearMonth}. Please note that
-   *        {@link java.time.chrono.ChronoLocalDate} such as {@link java.time.chrono.HijrahDate},
-   *        {@link java.time.chrono.JapaneseDate}, {@link java.time.chrono.MinguoDate}, or
-   *        {@link java.time.chrono.ThaiBuddhistDate} are not supported. Also {@link java.time.Year} is not supported as
-   *        it can easily be confused with a regular integer and can also be detected easily with just two lines of
-   *        code.
-   * @return the given {@code value} parsed as {@link Temporal} or {@code null} if not any of the supported
-   *         {@link Temporal} types.
-   */
+  /// @param value the [default string representation][Object#toString()] of a (potential) [Temporal] value.
+  ///        This can be [Instant], [LocalDate], [LocalTime], [LocalDateTime],
+  ///        [OffsetTime], [OffsetDateTime], [ZonedDateTime], or [YearMonth]. Please note that
+  ///        [java.time.chrono.ChronoLocalDate] such as [java.time.chrono.HijrahDate],
+  ///        [java.time.chrono.JapaneseDate], [java.time.chrono.MinguoDate], or
+  ///        [java.time.chrono.ThaiBuddhistDate] are not supported. Also [java.time.Year] is not supported as
+  ///        it can easily be confused with a regular integer and can also be detected easily with just two lines of
+  ///        code.
+  /// @return the given `value` parsed as [Temporal] or `null` if not any of the supported
+  ///         [Temporal] types.
   @Override
   public Temporal parse(String value) {
 
@@ -97,9 +93,7 @@ public final class TemporalParser implements FromStringParser<Temporal> {
     return null;
   }
 
-  /**
-   * @return the singleton instance of this {@link FromStringParser} for {@link Temporal}.
-   */
+  /// @return the singleton instance of this [FromStringParser] for [Temporal].
   public static TemporalParser get() {
 
     return INSTANCE;

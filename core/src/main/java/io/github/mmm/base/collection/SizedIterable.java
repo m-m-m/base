@@ -2,30 +2,22 @@ package io.github.mmm.base.collection;
 
 import java.util.function.IntFunction;
 
-/**
- * Interface for a light-weigth {@link java.util.Collection}.
- *
- * @param <T> type of the contained elements.
- */
+/// Interface for a light-weigth [java.util.Collection].
+///
+/// @param <T> type of the contained elements.
 public interface SizedIterable<T> extends Iterable<T> {
 
-  /**
-   * @return the number of {@link #iterator() contained} elements.
-   */
+  /// @return the number of [contained][#iterator()] elements.
   int getSize();
 
-  /**
-   * @return {@code true} if empty, {@code false} otherwise.
-   */
+  /// @return `true` if empty, `false` otherwise.
   default boolean isEmpty() {
 
     return getSize() == 0;
   }
 
-  /**
-   * @param arrayFactory the {@link IntFunction} to {@link IntFunction#apply(int) create} the array.
-   * @return the array containing all elements of this {@link SizedIterable}.
-   */
+  /// @param arrayFactory the [IntFunction] to [create][IntFunction#apply(int)] the array.
+  /// @return the array containing all elements of this [SizedIterable].
   default T[] toArray(IntFunction<T[]> arrayFactory) {
 
     int size = getSize();

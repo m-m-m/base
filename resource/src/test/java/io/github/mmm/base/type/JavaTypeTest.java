@@ -6,9 +6,7 @@ import java.time.Month;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link JavaType}.
- */
+/// Test of [JavaType].
 public class JavaTypeTest extends Assertions {
 
   @Test

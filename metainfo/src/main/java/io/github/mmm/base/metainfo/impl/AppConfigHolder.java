@@ -13,12 +13,10 @@ import java.util.Properties;
 import io.github.mmm.base.exception.RuntimeIoException;
 import io.github.mmm.base.metainfo.MetaInfo;
 
-/**
- * Holder for the {@link MetaInfo#config() app config}.
- */
+/// Holder for the [app config][MetaInfo#config()].
 public class AppConfigHolder {
 
-  /** @see MetaInfo#config() */
+  /// @see MetaInfo#config()
   public static final MetaInfo CONFIG;
 
   static {

@@ -2,69 +2,57 @@ package io.github.mmm.base.type;
 
 import java.util.Locale;
 
-/**
- * {@link Enum} with the availabe kinds of a {@link JavaType}.
- *
- * @see JavaType#getKind()
- */
+/// [Enum] with the availabe kinds of a [JavaType].
+///
+/// @see JavaType#getKind()
 public enum JavaTypeKind {
 
-  /** Kind of an {@link Class#isInterface() interface}. */
+  /// Kind of an [interface][Class#isInterface()].
   INTERFACE,
 
-  /** Kind of a regular {@link Class}. */
+  /// Kind of a regular [Class].
   CLASS,
 
-  /** Kind of an {@link Enum}. */
+  /// Kind of an [Enum].
   ENUM,
 
-  /** Kind of a {@link Class#isRecord() record}. */
+  /// Kind of a [record][Class#isRecord()].
   RECORD,
 
-  /** Kind of an {@link Class#isAnnotation() annotation}. */
+  /// Kind of an [annotation][Class#isAnnotation()].
   ANNOTATION,
 
-  /** Kind of a {@link Package} (package-info.class). */
+  /// Kind of a [Package] (package-info.class).
   PACKAGE,
 
-  /** Kind of a {@link Module} (module-info.class). */
+  /// Kind of a [Module] (module-info.class).
   MODULE;
 
-  /**
-   * @return {@code true} if an {@link Class#isInterface() interface}, {@code false} otherwise.
-   */
+  /// @return `true` if an [interface][Class#isInterface()], `false` otherwise.
   public boolean isInterface() {
 
     return this == INTERFACE;
   }
 
-  /**
-   * @return {@code true} if a regular {@link Class}, {@code false} otherwise.
-   */
+  /// @return `true` if a regular [Class], `false` otherwise.
   public boolean isClass() {
 
     return this == CLASS;
   }
 
-  /**
-   * @return {@code true} if an {@link Enum}, {@code false} otherwise.
-   */
+  /// @return `true` if an [Enum], `false` otherwise.
   public boolean isEnum() {
 
     return this == ENUM;
   }
 
-  /**
-   * @return {@code true} if a {@link Class#isRecord() record}, {@code false} otherwise.
-   */
+  /// @return `true` if a [record][Class#isRecord()], `false` otherwise.
   public boolean isRecord() {
 
     return this == RECORD;
   }
 
-  /**
-   * @return {@code true} if an {@link Class#isAnnotation() annotation}, {@code false} otherwise.
-   */
+  /// @return `true` if an [annotation][Class#isAnnotation()], `false` otherwise.
   public boolean isAnnotation() {
 
     return this == ANNOTATION;

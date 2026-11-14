@@ -5,12 +5,10 @@ package io.github.mmm.base.filter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link ListCharFilter}.
- */
+/// Test of [ListCharFilter].
 class ListCharFilterTest extends Assertions {
 
-  /** Test of {@link ListCharFilter}. */
+  /// Test of [ListCharFilter].
   @Test
   void test() {
 

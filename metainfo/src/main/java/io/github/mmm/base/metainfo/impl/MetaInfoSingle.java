@@ -9,24 +9,20 @@ import java.util.Objects;
 import io.github.mmm.base.collection.SingleElementIterator;
 import io.github.mmm.base.metainfo.MetaInfo;
 
-/**
- * Implementation of {@link MetaInfo} as wrapper of {@link Map}.
- *
- * @since 1.0.0
- */
+/// Implementation of [MetaInfo] as wrapper of [Map].
+///
+/// @since 1.0.0
 public final class MetaInfoSingle extends MetaInfoInherited {
 
   private final String key;
 
   private final String value;
 
-  /**
-   * The constructor.
-   *
-   * @param parent the {@link #getParent() parent}.
-   * @param key the {@link #get(String) key}.
-   * @param value the {@link #get(String) value}.
-   */
+  /// The constructor.
+  ///
+  /// @param parent the [parent][#getParent()].
+  /// @param key the [key][#get(String)].
+  /// @param value the [value][#get(String)].
   public MetaInfoSingle(MetaInfoInherited parent, String key, String value) {
 
     super(parent, "");

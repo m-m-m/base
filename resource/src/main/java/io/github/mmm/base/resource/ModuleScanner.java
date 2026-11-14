@@ -5,32 +5,26 @@ import java.util.Collection;
 import io.github.mmm.base.exception.ObjectNotFoundException;
 import io.github.mmm.base.resource.impl.ModuleScannerImpl;
 
-/**
- * Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).<br>
- * <b>ATTENTION</b>: Please consider using {@link ResourceScanner} over using {@link #getAll()} and calling methods like
- * {@link ModuleAccess#findResources()} if you want to do resource scanning efficiently during application
- * bootstrapping.
- *
- * @since 1.0.0
- */
+/// Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).
+/// **ATTENTION**: Please consider using [ResourceScanner] over using [#getAll()] and calling methods like
+/// [ModuleAccess#findResources()] if you want to do resource scanning efficiently during application
+/// bootstrapping.
+///
+/// @since 1.0.0
 public interface ModuleScanner {
 
-  /**
-   * Gets {@link ModuleAccess access to a module} by name. This is a cheap operation that only returns what is already
-   * there.
-   *
-   * @param name the {@link Module#getName() module name} of the requested {@link ModuleAccess}.
-   * @return the {@link ModuleAccess} or {@code null} if no such module exists.
-   */
+  /// Gets [access to a module][ModuleAccess] by name. This is a cheap operation that only returns what is already
+  /// there.
+  ///
+  /// @param name the [module name][Module#getName()] of the requested [ModuleAccess].
+  /// @return the [ModuleAccess] or `null` if no such module exists.
   ModuleAccess get(String name);
 
-  /**
-   * Gets {@link ModuleAccess access to a module} by name. This is a cheap operation that only returns what is already
-   * there.
-   *
-   * @param name the {@link Module#getName() module name} of the requested {@link ModuleAccess}.
-   * @return the {@link ModuleAccess} or {@code null} if no such module exists.
-   */
+  /// Gets [access to a module][ModuleAccess] by name. This is a cheap operation that only returns what is already
+  /// there.
+  ///
+  /// @param name the [module name][Module#getName()] of the requested [ModuleAccess].
+  /// @return the [ModuleAccess] or `null` if no such module exists.
   default ModuleAccess getRequired(String name) {
 
     ModuleAccess moduleAccess = get(name);
@@ -40,15 +34,11 @@ public interface ModuleScanner {
     return moduleAccess;
   }
 
-  /**
-   * @return the unmodifiable {@link Collection} of {@link ModuleAccess} for all modules on your current module-path.
-   *         The sort order will be such that modules will always be before other modules that require it.
-   */
+  /// @return the unmodifiable [Collection] of [ModuleAccess] for all modules on your current module-path.
+  ///         The sort order will be such that modules will always be before other modules that require it.
   Collection<ModuleAccess> getAll();
 
-  /**
-   * @return the singleton instance of {@link ModuleScanner}.
-   */
+  /// @return the singleton instance of [ModuleScanner].
   public static ModuleScanner get() {
 
     return ModuleScannerImpl.INSTANCE;

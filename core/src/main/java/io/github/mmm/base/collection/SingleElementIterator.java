@@ -6,21 +6,17 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Implementation of both {@link Iterator} and {@link Enumeration} that {@link #next() iterates} only a single element.
- *
- * @param <E> type of the element to iterate.
- * @since 1.0.0
- */
+/// Implementation of both [Iterator] and [Enumeration] that [iterates][#next()] only a single element.
+///
+/// @param <E> type of the element to iterate.
+/// @since 1.0.0
 public class SingleElementIterator<E> implements Enumeration<E>, Iterator<E> {
 
   private E element;
 
-  /**
-   * The constructor.
-   *
-   * @param element the single element to iterate. If {@code null} the iterator will be empty.
-   */
+  /// The constructor.
+  ///
+  /// @param element the single element to iterate. If `null` the iterator will be empty.
   public SingleElementIterator(E element) {
 
     super();

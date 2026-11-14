@@ -6,9 +6,7 @@ import java.util.Iterator;
 
 import io.github.mmm.base.collection.AbstractIterator;
 
-/**
- * Implementation of {@link Iterator} for {@link MetaInfoInherited}.
- */
+/// Implementation of [Iterator] for [MetaInfoInherited].
 public class MetaInfoInheritedIterator extends AbstractIterator<String> {
 
   private final MetaInfoInherited metaInfo;
@@ -17,11 +15,9 @@ public class MetaInfoInheritedIterator extends AbstractIterator<String> {
 
   private Iterator<String> iterator;
 
-  /**
-   * The constructor.
-   *
-   * @param metaInfo the {@link AbstractMetaInfo} to iterate.
-   */
+  /// The constructor.
+  ///
+  /// @param metaInfo the [AbstractMetaInfo] to iterate.
   public MetaInfoInheritedIterator(MetaInfoInherited metaInfo) {
 
     super();

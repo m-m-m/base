@@ -7,29 +7,23 @@ import java.util.Set;
 
 import io.github.mmm.base.collection.ReadOnlyIterator;
 
-/**
- * Abstract base implementation of {@link MetaInfoInherited} based on {@link java.util.Map}.
- *
- * @since 1.0.0
- */
+/// Abstract base implementation of [MetaInfoInherited] based on [java.util.Map].
+///
+/// @since 1.0.0
 public abstract class MetaInfoCollection extends MetaInfoInherited {
 
-  /**
-   * The constructor.
-   *
-   * @param parent the {@link #getParent() parent}.
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   */
+  /// The constructor.
+  ///
+  /// @param parent the [parent][#getParent()].
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
   public MetaInfoCollection(MetaInfoInherited parent, String keyPrefix) {
 
     super(parent, keyPrefix);
   }
 
-  /**
-   * @return a {@link Set} with the plain keys without inheritance from {@link #getParent() parent}.
-   * @see java.util.Map#keySet()
-   * @see #iterator()
-   */
+  /// @return a [Set] with the plain keys without inheritance from [parent][#getParent()].
+  /// @see java.util.Map#keySet()
+  /// @see #iterator()
   protected abstract Set<String> getKeysPlain();
 
   @Override

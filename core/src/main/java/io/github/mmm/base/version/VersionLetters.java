@@ -5,17 +5,15 @@ package io.github.mmm.base.version;
 import java.util.Locale;
 import java.util.Objects;
 
-/**
- * Value type for the letters of a {@link VersionSegment}.
- *
- * @see VersionSegment#getLettersString()
- */
+/// Value type for the letters of a [VersionSegment].
+///
+/// @see VersionSegment#getLettersString()
 public final class VersionLetters implements AbstractVersionPhase, VersionObject<VersionLetters> {
 
-  /** The empty {@link VersionLetters} instance. */
+  /// The empty [VersionLetters] instance.
   public static final VersionLetters EMPTY = new VersionLetters("");
 
-  /** The undefined {@link VersionLetters} instance. */
+  /// The undefined [VersionLetters] instance.
   public static final VersionLetters UNDEFINED = new VersionLetters("undefined");
 
   private final String letters;
@@ -26,11 +24,9 @@ public final class VersionLetters implements AbstractVersionPhase, VersionObject
 
   private final boolean prePhase;
 
-  /**
-   * The constructor.
-   *
-   * @param letters the {@link #getLetters() letters}.
-   */
+  /// The constructor.
+  ///
+  /// @param letters the [letters][#getLetters()].
   private VersionLetters(String letters) {
 
     super();
@@ -59,38 +55,32 @@ public final class VersionLetters implements AbstractVersionPhase, VersionObject
     this.phase = phase;
   }
 
-  /**
-   * @return the letters or the empty {@link String} ("") for none. In canonical {@link VersionNumber}s letters indicate
-   *         the development phase (e.g. "pre", "rc", "alpha", "beta", "milestone", "test", "dev", "SNAPSHOT", etc.).
-   *         However, letters are technically any {@link Character#isLetter(char) letter characters} and may also be
-   *         something like a code-name (e.g. "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice
-   *         Cream Sandwich", "Jelly Bean" in case of Android internals). Please note that in such case it is impossible
-   *         to properly decide which version is greater than another versions. To avoid mistakes, the comparison
-   *         supports a strict mode that will let the comparison fail in such case. However, by default (e.g. for
-   *         {@link Comparable#compareTo(Object)}) the default {@link String#compareTo(String) string comparison}
-   *         (lexicographical) is used to ensure a natural order.
-   * @see #getPhase()
-   */
+  /// @return the letters or the empty [String] ("") for none. In canonical [VersionNumber]s letters indicate
+  ///         the development phase (e.g. "pre", "rc", "alpha", "beta", "milestone", "test", "dev", "SNAPSHOT", etc.).
+  ///         However, letters are technically any [letter characters][Character#isLetter(char)] and may also be
+  ///         something like a code-name (e.g. "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice
+  ///         Cream Sandwich", "Jelly Bean" in case of Android internals). Please note that in such case it is impossible
+  ///         to properly decide which version is greater than another versions. To avoid mistakes, the comparison
+  ///         supports a strict mode that will let the comparison fail in such case. However, by default (e.g. for
+  ///         [Comparable#compareTo(Object)]) the default [string comparison][String#compareTo(String)]
+  ///         (lexicographical) is used to ensure a natural order.
+  /// @see #getPhase()
   public String getLetters() {
 
     return this.letters;
   }
 
-  /**
-   * @return the {@link VersionPhase} for the {@link #getLetters() letters}. Will be {@link VersionPhase#UNDEFINED} if
-   *         unknown and hence never {@code null}.
-   * @see #isPrePhase()
-   * @see #getLetters()
-   */
+  /// @return the [VersionPhase] for the [letters][#getLetters()]. Will be [VersionPhase#UNDEFINED] if
+  ///         unknown and hence never `null`.
+  /// @see #isPrePhase()
+  /// @see #getLetters()
   public VersionPhase getPhase() {
 
     return this.phase;
   }
 
-  /**
-   * @return {@code true} if the {@link #getLetters() letters} and a potential {@link #getPhase() phase} are prefixed
-   *         with "pre" (e.g. in "pre-alpha"), {@code false} otherwise.
-   */
+  /// @return `true` if the [letters][#getLetters()] and a potential [phase][#getPhase()] are prefixed
+  ///         with "pre" (e.g. in "pre-alpha"), `false` otherwise.
   public boolean isPrePhase() {
 
     return this.prePhase;
@@ -114,9 +104,7 @@ public final class VersionLetters implements AbstractVersionPhase, VersionObject
     return !this.prePhase && this.phase.isStable();
   }
 
-  /**
-   * @return {@code true} if empty, {@code false} otherwise.
-   */
+  /// @return `true` if empty, `false` otherwise.
   public boolean isEmpty() {
 
     return this.letters.isEmpty();
@@ -180,10 +168,8 @@ public final class VersionLetters implements AbstractVersionPhase, VersionObject
     return this.letters;
   }
 
-  /**
-   * @param letters the letters as {@link String}.
-   * @return the parsed {@link VersionLetters}.
-   */
+  /// @param letters the letters as [String].
+  /// @return the parsed [VersionLetters].
   public static VersionLetters of(String letters) {
 
     if ((letters == null) || letters.isEmpty()) {

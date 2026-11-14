@@ -5,14 +5,12 @@ package io.github.mmm.base.filter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link RangeCharFilter}.
- *
- * @since 1.0.0
- */
+/// Test of [RangeCharFilter].
+///
+/// @since 1.0.0
 class RangeCharFilterTest extends Assertions {
 
-  /** Test of {@link RangeCharFilter}. */
+  /// Test of [RangeCharFilter].
   @Test
   void test() {
 

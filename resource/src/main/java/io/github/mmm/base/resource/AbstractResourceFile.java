@@ -6,24 +6,18 @@ import java.io.UncheckedIOException;
 
 import io.github.mmm.base.io.IoProcessor;
 
-/**
- * Interface for a {@link ResourcePath} pointing to a file.
- */
+/// Interface for a [ResourcePath] pointing to a file.
 public interface AbstractResourceFile extends ResourcePath {
 
-  /**
-   * Opens an {@link InputStream} with the file content. Consider to use {@link #processAsStream(IoProcessor)} if
-   * possible to prevent resource leaks.
-   *
-   * @return the {@link InputStream} to read the content of this file.
-   */
+  /// Opens an [InputStream] with the file content. Consider to use [#processAsStream(IoProcessor)] if
+  /// possible to prevent resource leaks.
+  ///
+  /// @return the [InputStream] to read the content of this file.
   InputStream asStream();
 
-  /**
-   * @param <T> type of the returned result. Use {@link Void} and return {@code null} if not needed.
-   * @param processor the {@link IoProcessor} to process the file as {@link InputStream}.
-   * @return the result of the {@link IoProcessor}.
-   */
+  /// @param <T> type of the returned result. Use [Void] and return `null` if not needed.
+  /// @param processor the [IoProcessor] to process the file as [InputStream].
+  /// @return the result of the [IoProcessor].
   default <T> T processAsStream(IoProcessor<InputStream, T> processor) {
 
     try (InputStream in = asStream()) {

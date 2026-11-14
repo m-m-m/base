@@ -2,42 +2,32 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.placement;
 
-/**
- * This enum contains the available values for the orientation.
- *
- * @see Alignment
- */
+/// This enum contains the available values for the orientation.
+///
+/// @see Alignment
 public enum Orientation {
 
-  /**
-   * A horizontal orientation means that objects are ordered from the left to the right.
-   */
+  /// A horizontal orientation means that objects are ordered from the left to the right.
   HORIZONTAL("-", "horizontal"),
 
-  /**
-   * A vertical orientation means that objects are ordered from the top to the bottom.
-   */
+  /// A vertical orientation means that objects are ordered from the top to the bottom.
   VERTICAL("|", "vertical");
 
   private final String value;
 
   private final String title;
 
-  /**
-   * The constructor.
-   *
-   * @param value is the {@link #getValue() raw value} (symbol).
-   * @param title is the {@link #toString() string representation}.
-   */
+  /// The constructor.
+  ///
+  /// @param value is the [raw value][#getValue()] (symbol).
+  /// @param title is the [string representation][#toString()].
   private Orientation(String value, String title) {
 
     this.value = value;
     this.title = title;
   }
 
-  /**
-   * @return the ascii symbol.
-   */
+  /// @return the ascii symbol.
   public String getValue() {
 
     return this.value;
@@ -49,12 +39,10 @@ public enum Orientation {
     return this.title;
   }
 
-  /**
-   * This method gets the {@link Orientation} with the given {@link #getValue() value}.
-   *
-   * @param value is the {@link #getValue() value} of the requested {@link Orientation}.
-   * @return the requested {@link Orientation}.
-   */
+  /// This method gets the [Orientation] with the given [value][#getValue()].
+  ///
+  /// @param value is the [value][#getValue()] of the requested [Orientation].
+  /// @return the requested [Orientation].
   public static Orientation fromValue(String value) {
 
     for (Orientation alignment : values()) {
@@ -65,11 +53,9 @@ public enum Orientation {
     return null;
   }
 
-  /**
-   * This method gets the inverse orientation.
-   *
-   * @return {@link #VERTICAL} if this orientation is {@link #HORIZONTAL} and vice versa.
-   */
+  /// This method gets the inverse orientation.
+  ///
+  /// @return [#VERTICAL] if this orientation is [#HORIZONTAL] and vice versa.
   public Orientation getMirrored() {
 
     if (this == HORIZONTAL) {

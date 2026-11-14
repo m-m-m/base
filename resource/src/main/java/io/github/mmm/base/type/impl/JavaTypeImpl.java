@@ -7,9 +7,7 @@ import java.lang.reflect.Modifier;
 import io.github.mmm.base.type.JavaType;
 import io.github.mmm.base.type.JavaTypeKind;
 
-/**
- * Implementation of {@link JavaType}.
- */
+/// Implementation of [JavaType].
 public class JavaTypeImpl implements JavaType {
 
   private static final String[] NO_INTERFACES = new String[0];
@@ -28,11 +26,9 @@ public class JavaTypeImpl implements JavaType {
 
   private final JavaTypeKind kind;
 
-  /**
-   * The constructor.
-   *
-   * @param name the {@link #getName() name}.
-   */
+  /// The constructor.
+  ///
+  /// @param name the [name][#getName()].
   public JavaTypeImpl(String name) {
 
     this(name, null, NO_INTERFACES, 1234, FALLBACK_VERSION);

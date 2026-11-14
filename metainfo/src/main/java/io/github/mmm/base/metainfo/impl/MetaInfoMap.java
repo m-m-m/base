@@ -8,33 +8,27 @@ import java.util.Set;
 
 import io.github.mmm.base.metainfo.MetaInfo;
 
-/**
- * Implementation of {@link MetaInfo} as wrapper of {@link Map}.
- *
- * @since 1.0.0
- */
+/// Implementation of [MetaInfo] as wrapper of [Map].
+///
+/// @since 1.0.0
 public final class MetaInfoMap extends MetaInfoCollection {
 
-  /** @see #getPlain(boolean, String) */
+  /// @see #getPlain(boolean, String)
   protected final Map<String, String> map;
 
-  /**
-   * The constructor.
-   *
-   * @param map the {@link Map} to wrap as {@link MetaInfo}.
-   */
+  /// The constructor.
+  ///
+  /// @param map the [Map] to wrap as [MetaInfo].
   public MetaInfoMap(Map<String, String> map) {
 
     this(map, null, "");
   }
 
-  /**
-   * The constructor.
-   *
-   * @param map the {@link Map} to wrap as {@link MetaInfo}.
-   * @param parent the {@link #getParent() parent}.
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   */
+  /// The constructor.
+  ///
+  /// @param map the [Map] to wrap as [MetaInfo].
+  /// @param parent the [parent][#getParent()].
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
   public MetaInfoMap(Map<String, String> map, MetaInfoInherited parent, String keyPrefix) {
 
     super(parent, keyPrefix);

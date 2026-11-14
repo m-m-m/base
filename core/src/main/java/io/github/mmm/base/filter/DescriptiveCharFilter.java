@@ -2,21 +2,17 @@ package io.github.mmm.base.filter;
 
 import java.util.Objects;
 
-/**
- * Wrapper of {@link CharFilter} with custom {@link CharFilter#getDescription() description}.
- *
- * @since 1.0.0
- */
+/// Wrapper of [CharFilter] with custom [description][CharFilter#getDescription()].
+///
+/// @since 1.0.0
 class DescriptiveCharFilter extends AbstractCharFilter {
 
   private CharFilter filter;
 
-  /**
-   * The constructor.
-   *
-   * @param filter the {@link CharFilter} to {@link #accept(char) wrap} and describe.
-   * @param description the {@link #getDescription() description}.
-   */
+  /// The constructor.
+  ///
+  /// @param filter the [CharFilter] to [wrap][#accept(char)] and describe.
+  /// @param description the [description][#getDescription()].
   DescriptiveCharFilter(CharFilter filter, String description) {
 
     super(description);

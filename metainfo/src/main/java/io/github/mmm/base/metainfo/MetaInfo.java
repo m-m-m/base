@@ -14,82 +14,72 @@ import io.github.mmm.base.metainfo.impl.MetaInfoValues;
 import io.github.mmm.base.number.NumberType;
 import io.github.mmm.base.variable.VariableDefinition;
 
-/**
- * Interface for meta-information similar to {@link java.util.Properties} but more sophisticated. Implements
- * {@link Iterable} allowing to {@link #iterator() iterate} the available meta-information keys.<br>
- * Use {@link #empty()} to get the empty instance and then call any {@code with} method to extended with real data.
- * Example to show usage:
- *
- * <pre>
- * {@literal @}{@link MetaInfoValues}({"key1=value1", "key2=value2"})
- * public class AnnotatedClass {
- *   public static void main(String[] args) {
- *     {@link MetaInfo} metaInfo = {@link MetaInfo}.{@link #empty()}.{@link #with(AnnotatedElement) with}(AnnotatedClass.class);
- *     metaInfo = metaInfo.{@link #with(Map) with}(Map.of("key2", "two", "key3", "value3"));
- *     for (String key : metaInfo) {
- *       String value = metaInfo.{@link #get(String) get}(key);
- *       System.out.println(key + "=" + value);
- *     }
- *   }
- * }
- * </pre>
- *
- * This will print the following output (order is undefined):
- *
- * <pre>
- * key1=value1
- * key2=two
- * key3=value3
- * </pre>
- *
- * <b>ATTENTION:</b> Typically the {@code with} methods will return a new instance of {@link MetaInfo} with the invoked
- * {@link MetaInfo} as {@link #getParent() parent}. However, this is not guaranteed. Especially immutable
- * implementations may return a {@link MetaInfo} with a different {@link #getParent() parent}.
- *
- * @since 1.0.0
- */
+/// Interface for meta-information similar to [java.util.Properties] but more sophisticated. Implements
+/// [Iterable] allowing to [iterate][#iterator()] the available meta-information keys.
+/// Use [#empty()] to get the empty instance and then call any `with` method to extended with real data.
+/// Example to show usage:
+///
+/// ```
+/// `@`[MetaInfoValues]({"key1=value1", "key2=value2"})
+/// public class AnnotatedClass {
+///   public static void main(String[] args) {
+///     [MetaInfo] metaInfo = [MetaInfo].[#empty()].[with][#with(AnnotatedElement)](AnnotatedClass.class);
+///     metaInfo = metaInfo.[with][#with(Map)](Map.of("key2", "two", "key3", "value3"));
+///     for (String key : metaInfo) {
+///       String value = metaInfo.[get][#get(String)](key);
+///       System.out.println(key + "=" + value);
+///     }
+///   }
+/// }
+/// ```
+///
+/// This will print the following output (order is undefined):
+///
+/// ```
+/// key1=value1
+/// key2=two
+/// key3=value3
+/// ```
+///
+/// **ATTENTION:** Typically the `with` methods will return a new instance of [MetaInfo] with the invoked
+/// [MetaInfo] as [parent][#getParent()]. However, this is not guaranteed. Especially immutable
+/// implementations may return a [MetaInfo] with a different [parent][#getParent()].
+///
+/// @since 1.0.0
 public interface MetaInfo extends Iterable<String> {
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
   default String get(String key) {
 
     return get(true, key);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   * @throws ObjectNotFoundException if the specified value is undefined.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
+  /// @throws ObjectNotFoundException if the specified value is undefined.
   default String getRequired(String key) {
 
     return get(true, true, key);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
   default String get(String key, String defaultValue) {
 
     return get(true, key, defaultValue);
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
   default String get(boolean inherit, String key, String defaultValue) {
 
     String value = get(inherit, key);
@@ -99,33 +89,27 @@ public interface MetaInfo extends Iterable<String> {
     return value;
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
   String get(boolean inherit, String key);
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param required - {@code true} if the requested value is required and an exception shall be raised if it is
-   *        undefined, {@code false} otherwise (return {@code null} if undefined).
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param required - `true` if the requested value is required and an exception shall be raised if it is
+  ///        undefined, `false` otherwise (return `null` if undefined).
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
+  /// @throws ObjectNotFoundException if the specified value is undefined and `required` was `true`.
   String get(boolean inherit, boolean required, String key);
 
-  /**
-   * @param <V> type of the variable value.
-   * @param variable the {@link VariableDefinition}.
-   * @return the requested {@link #get(String) value}. Will be {@link VariableDefinition#getDefaultValue()} if no value
-   *         was found for the {@link VariableDefinition#getName() variable name}.
-   */
+  /// @param <V> type of the variable value.
+  /// @param variable the [VariableDefinition].
+  /// @return the requested [value][#get(String)]. Will be [VariableDefinition#getDefaultValue()] if no value
+  ///         was found for the [variable name][VariableDefinition#getName()].
   default <V> V get(VariableDefinition<V> variable) {
 
     String value = get(variable.getName());
@@ -135,12 +119,10 @@ public interface MetaInfo extends Iterable<String> {
     return variable.parse(value);
   }
 
-  /**
-   * @param <V> type of the variable value.
-   * @param variable the {@link VariableDefinition}.
-   * @return the requested {@link #get(String) value}. Will be {@link VariableDefinition#getDefaultValue()} if no value
-   *         was found for the {@link VariableDefinition#getName() variable name}.
-   */
+  /// @param <V> type of the variable value.
+  /// @param variable the [VariableDefinition].
+  /// @return the requested [value][#get(String)]. Will be [VariableDefinition#getDefaultValue()] if no value
+  ///         was found for the [variable name][VariableDefinition#getName()].
   default <V> V getRequired(VariableDefinition<V> variable) {
 
     V defaultValue = variable.getDefaultValue();
@@ -156,79 +138,67 @@ public interface MetaInfo extends Iterable<String> {
     return variable.parse(value);
   }
 
-  /**
-   * @param <T> type of the requested value.
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param required - {@code true} if the requested value is required and an exception shall be raised if it is
-   *        undefined, {@code false} otherwise (return {@code null} if undefined).
-   * @param key the key of the requested meta-information.
-   * @param type the {@link Class} reflecting the requested value.
-   * @return the value of the meta-information for the given {@code key}. Will be {@code null} if no value is defined
-   *         for the given {@code key}.
-   * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
-   */
+  /// @param <T> type of the requested value.
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param required - `true` if the requested value is required and an exception shall be raised if it is
+  ///        undefined, `false` otherwise (return `null` if undefined).
+  /// @param key the key of the requested meta-information.
+  /// @param type the [Class] reflecting the requested value.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
+  ///         for the given `key`.
+  /// @throws ObjectNotFoundException if the specified value is undefined and `required` was `true`.
   <T> T getGeneric(boolean inherit, boolean required, String key, ValueType<T> type);
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@link Integer}. Will be {@code null}
-   *         if no value is defined for the given {@code key}.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@link Integer}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as [Integer]. Will be `null`
+  ///         if no value is defined for the given `key`.
+  /// @throws IllegalArgumentException if the value cannot be parsed as [Integer].
   default Integer getAsInteger(String key) {
 
     return getAsInteger(true, false, key);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code int}.
-   * @throws ObjectNotFoundException if the specified value is undefined.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code int}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as `int`.
+  /// @throws ObjectNotFoundException if the specified value is undefined.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `int`.
   default int getAsIntegerRequired(String key) {
 
     return getAsInteger(true, true, key).intValue();
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param required - {@code true} if the requested value is required and an exception shall be raised if it is
-   *        undefined, {@code false} otherwise (return {@code null} if undefined).
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@link Integer}. Will be {@code null}
-   *         if no value is defined for the given {@code key}.
-   * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@link Integer}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param required - `true` if the requested value is required and an exception shall be raised if it is
+  ///        undefined, `false` otherwise (return `null` if undefined).
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as [Integer]. Will be `null`
+  ///         if no value is defined for the given `key`.
+  /// @throws ObjectNotFoundException if the specified value is undefined and `required` was `true`.
+  /// @throws IllegalArgumentException if the value cannot be parsed as [Integer].
   default Integer getAsInteger(boolean inherit, boolean required, String key) {
 
     return getGeneric(inherit, required, key, NumberType.INTEGER);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code int}. If the actual value is
-   *         undefined, the given {@code defaultValue} will be returned.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code int}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key` parsed as `int`. If the actual value is
+  ///         undefined, the given `defaultValue` will be returned.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `int`.
   default int getAsInteger(String key, int defaultValue) {
 
     return getAsInteger(true, key, defaultValue);
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code int}. If the actual value is
-   *         undefined, the given {@code defaultValue} will be returned.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code int}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key` parsed as `int`. If the actual value is
+  ///         undefined, the given `defaultValue` will be returned.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `int`.
   default int getAsInteger(boolean inherit, String key, int defaultValue) {
 
     Integer value = getAsInteger(inherit, false, key);
@@ -238,65 +208,55 @@ public interface MetaInfo extends Iterable<String> {
     return value.intValue();
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@link Long}. Will be {@code null} if
-   *         no value is defined for the given {@code key}.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@link Long}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as [Long]. Will be `null` if
+  ///         no value is defined for the given `key`.
+  /// @throws IllegalArgumentException if the value cannot be parsed as [Long].
   default Long getAsLong(String key) {
 
     return getAsLong(true, false, key);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code long}.
-   * @throws ObjectNotFoundException if the specified value is undefined.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code long}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as `long`.
+  /// @throws ObjectNotFoundException if the specified value is undefined.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `long`.
   default long getAsLongRequired(String key) {
 
     return getAsLong(true, true, key).longValue();
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param required - {@code true} if the requested value is required and an exception shall be raised if it is
-   *        undefined, {@code false} otherwise (return {@code null} if undefined).
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@link Long}. Will be {@code null} if
-   *         no value is defined for the given {@code key}.
-   * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@link Long}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param required - `true` if the requested value is required and an exception shall be raised if it is
+  ///        undefined, `false` otherwise (return `null` if undefined).
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as [Long]. Will be `null` if
+  ///         no value is defined for the given `key`.
+  /// @throws ObjectNotFoundException if the specified value is undefined and `required` was `true`.
+  /// @throws IllegalArgumentException if the value cannot be parsed as [Long].
   default Long getAsLong(boolean inherit, boolean required, String key) {
 
     return getGeneric(inherit, required, key, NumberType.LONG);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code long}. If the actual value is
-   *         undefined, the given {@code defaultValue} will be returned.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code long}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key` parsed as `long`. If the actual value is
+  ///         undefined, the given `defaultValue` will be returned.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `long`.
   default long getAsLong(String key, long defaultValue) {
 
     return getAsLong(true, key, defaultValue);
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code long}. If the actual value is
-   *         undefined, the given {@code defaultValue} will be returned.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code long}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key` parsed as `long`. If the actual value is
+  ///         undefined, the given `defaultValue` will be returned.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `long`.
   default long getAsLong(boolean inherit, String key, long defaultValue) {
 
     Long value = getAsLong(inherit, false, key);
@@ -306,65 +266,55 @@ public interface MetaInfo extends Iterable<String> {
     return value.longValue();
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@link Boolean}. Will be {@code null}
-   *         if no value is defined for the given {@code key}.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@link Boolean}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as [Boolean]. Will be `null`
+  ///         if no value is defined for the given `key`.
+  /// @throws IllegalArgumentException if the value cannot be parsed as [Boolean].
   default Boolean getAsBoolean(String key) {
 
     return getAsBoolean(true, false, key);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code boolean}.
-   * @throws ObjectNotFoundException if the specified value is undefined.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code boolean}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as `boolean`.
+  /// @throws ObjectNotFoundException if the specified value is undefined.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `boolean`.
   default boolean getAsBooleanRequired(String key) {
 
     return getAsBoolean(true, true, key).booleanValue();
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param required - {@code true} if the requested value is required and an exception shall be raised if it is
-   *        undefined, {@code false} otherwise (return {@code null} if undefined).
-   * @param key the key of the requested meta-information.
-   * @return the value of the meta-information for the given {@code key} parsed as {@link Boolean}. Will be {@code null}
-   *         if no value is defined for the given {@code key}.
-   * @throws ObjectNotFoundException if the specified value is undefined and {@code required} was {@code true}.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@link Boolean}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param required - `true` if the requested value is required and an exception shall be raised if it is
+  ///        undefined, `false` otherwise (return `null` if undefined).
+  /// @param key the key of the requested meta-information.
+  /// @return the value of the meta-information for the given `key` parsed as [Boolean]. Will be `null`
+  ///         if no value is defined for the given `key`.
+  /// @throws ObjectNotFoundException if the specified value is undefined and `required` was `true`.
+  /// @throws IllegalArgumentException if the value cannot be parsed as [Boolean].
   default Boolean getAsBoolean(boolean inherit, boolean required, String key) {
 
     return getGeneric(inherit, required, key, ValueType.BOOLEAN);
   }
 
-  /**
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code boolean}. If the actual value
-   *         is undefined, the given {@code defaultValue} will be returned.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code boolean}.
-   */
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key` parsed as `boolean`. If the actual value
+  ///         is undefined, the given `defaultValue` will be returned.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `boolean`.
   default boolean getAsBoolean(String key, boolean defaultValue) {
 
     return getAsBoolean(true, key, defaultValue);
   }
 
-  /**
-   * @param inherit - {@code true} to inherit meta-information from the {@link #getParent() parent}, {@code false} to
-   *        only return plain meta-information defined in this {@link MetaInfo} itself.
-   * @param key the key of the requested meta-information.
-   * @param defaultValue the default value returned if the actual value is undefined.
-   * @return the value of the meta-information for the given {@code key} parsed as {@code boolean}. If the actual value
-   *         is undefined, the given {@code defaultValue} will be returned.
-   * @throws IllegalArgumentException if the value cannot be parsed as {@code Boolean}.
-   */
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
+  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param key the key of the requested meta-information.
+  /// @param defaultValue the default value returned if the actual value is undefined.
+  /// @return the value of the meta-information for the given `key` parsed as `boolean`. If the actual value
+  ///         is undefined, the given `defaultValue` will be returned.
+  /// @throws IllegalArgumentException if the value cannot be parsed as `Boolean`.
   default boolean getAsBoolean(boolean inherit, String key, boolean defaultValue) {
 
     Boolean value = getAsBoolean(inherit, false, key);
@@ -374,95 +324,75 @@ public interface MetaInfo extends Iterable<String> {
     return value.booleanValue();
   }
 
-  /**
-   * @return the number of {@link #get(String) entries} contained in this {@link MetaInfo}.
-   */
+  /// @return the number of [entries][#get(String)] contained in this [MetaInfo].
   int size();
 
-  /**
-   * @return {@code true} if empty, {@code false} otherwise.
-   */
+  /// @return `true` if empty, `false` otherwise.
   default boolean isEmpty() {
 
     return !iterator().hasNext();
   }
 
-  /**
-   * @return the potential parent {@link MetaInfo} to inherit from. Will be {@code null} if nothing is inherited.
-   */
+  /// @return the potential parent [MetaInfo] to inherit from. Will be `null` if nothing is inherited.
   default MetaInfo getParent() {
 
     return null;
   }
 
-  /**
-   * @return the prefix for the {@link #get(String) keys} as namespace. E.g. if the key prefix is "spring.datasource."
-   *         and you call {@link #get(String)} with "password" it will return the property for the key
-   *         "spring.datasource.password" from the underlying mapping. The default key prefix is the empty
-   *         {@link String}.
-   */
+  /// @return the prefix for the [keys][#get(String)] as namespace. E.g. if the key prefix is "spring.datasource."
+  ///         and you call [#get(String)] with "password" it will return the property for the key
+  ///         "spring.datasource.password" from the underlying mapping. The default key prefix is the empty
+  ///         [String].
   default String getKeyPrefix() {
 
     return "";
   }
 
-  /**
-   * Adds or updates the specified meta-info.<br>
-   * <b>ATTENTION:</b> Please consider using {@link #with(Map)} and other related factory methods instead of
-   * sequentially using this method that may be inefficient.
-   *
-   * @param key the new key of the meta-info.
-   * @param value the new value of the meta-info.
-   * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
-   */
+  /// Adds or updates the specified meta-info.
+  /// **ATTENTION:** Please consider using [#with(Map)] and other related factory methods instead of
+  /// sequentially using this method that may be inefficient.
+  ///
+  /// @param key the new key of the meta-info.
+  /// @param value the new value of the meta-info.
+  /// @return a new [MetaInfo] that extends this [MetaInfo] with the specified meta-information.
   MetaInfo with(String key, String value);
 
-  /**
-   * @param map the {@link Map} with the meta-information to wrap.
-   * @return a new {@link MetaInfo} that {@link #getParent() inherits} from this {@link MetaInfo} and extends it with
-   *         the meta-information from the specified parameters.
-   */
+  /// @param map the [Map] with the meta-information to wrap.
+  /// @return a new [MetaInfo] that [inherits][#getParent()] from this [MetaInfo] and extends it with
+  ///         the meta-information from the specified parameters.
   default MetaInfo with(Map<String, String> map) {
 
     return with(map, "");
   }
 
-  /**
-   * @param map the {@link Map} with the meta-information to wrap.
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
-   */
+  /// @param map the [Map] with the meta-information to wrap.
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
+  /// @return a new [MetaInfo] that extends this [MetaInfo] with the specified meta-information.
   MetaInfo with(Map<String, String> map, String keyPrefix);
 
-  /**
-   * <b>ATTENTION:</b> Due to the design of {@link Properties} (with ability for inheritance but no API to get access to
-   * the parent defaults) the result will be inefficient.
-   *
-   * @param properties the {@link Properties} with the meta-information to wrap.
-   * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
-   */
+  /// **ATTENTION:** Due to the design of [Properties] (with ability for inheritance but no API to get access to
+  /// the parent defaults) the result will be inefficient.
+  ///
+  /// @param properties the [Properties] with the meta-information to wrap.
+  /// @return a new [MetaInfo] that extends this [MetaInfo] with the specified meta-information.
   default MetaInfo with(Properties properties) {
 
     return with(properties, "");
   }
 
-  /**
-   * <b>ATTENTION:</b> Due to the design of {@link Properties} (with ability for inheritance but no API to get access to
-   * the parent defaults) the result will be inefficient.
-   *
-   * @param properties the {@link Properties} with the meta-information to wrap.
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
-   */
+  /// **ATTENTION:** Due to the design of [Properties] (with ability for inheritance but no API to get access to
+  /// the parent defaults) the result will be inefficient.
+  ///
+  /// @param properties the [Properties] with the meta-information to wrap.
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
+  /// @return a new [MetaInfo] that extends this [MetaInfo] with the specified meta-information.
   MetaInfo with(Properties properties, String keyPrefix);
 
-  /**
-   * @param annotatedElement the {@link AnnotatedElement} (e.g. {@link Class}) that is (potentially) annotated with
-   *        {@link MetaInfos}.
-   * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the meta-information from the given
-   *         {@link AnnotatedElement}. Will be {@code this} instance itself if the given {@link AnnotatedElement} has no
-   *         {@link MetaInfos} annotation.
-   */
+  /// @param annotatedElement the [AnnotatedElement] (e.g. [Class]) that is (potentially) annotated with
+  ///        [MetaInfos].
+  /// @return a new [MetaInfo] that extends this [MetaInfo] with the meta-information from the given
+  ///         [AnnotatedElement]. Will be `this` instance itself if the given [AnnotatedElement] has no
+  ///         [MetaInfos] annotation.
   default MetaInfo with(AnnotatedElement annotatedElement) {
 
     MetaInfos metaInfos = annotatedElement.getAnnotation(MetaInfos.class);
@@ -473,23 +403,17 @@ public interface MetaInfo extends Iterable<String> {
     }
   }
 
-  /**
-   * @param metaValues the {@link MetaInfos}.
-   * @return a new {@link MetaInfo} that extends this {@link MetaInfo} with the specified meta-information.
-   */
+  /// @param metaValues the [MetaInfos].
+  /// @return a new [MetaInfo] that extends this [MetaInfo] with the specified meta-information.
   MetaInfo with(MetaInfos metaValues);
 
-  /**
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   * @return a new {@link MetaInfo} that wraps this {@link MetaInfo} with all its parents using the given
-   *         {@link #getKeyPrefix() key prefix}. The resulting {@link MetaInfo} will return {@code null} as
-   *         {@link #getParent() parent}.
-   */
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
+  /// @return a new [MetaInfo] that wraps this [MetaInfo] with all its parents using the given
+  ///         [key prefix][#getKeyPrefix()]. The resulting [MetaInfo] will return `null` as
+  ///         [parent][#getParent()].
   MetaInfo with(String keyPrefix);
 
-  /**
-   * @return a new {@link Properties} instance with all values from this {@link MetaInfo}.
-   */
+  /// @return a new [Properties] instance with all values from this [MetaInfo].
   default Properties asProperties() {
 
     Properties properties = new Properties();
@@ -502,9 +426,7 @@ public interface MetaInfo extends Iterable<String> {
     return properties;
   }
 
-  /**
-   * @return a new {@link Map} instance with all values from this {@link MetaInfo}.
-   */
+  /// @return a new [Map] instance with all values from this [MetaInfo].
   default Map<String, String> asMap() {
 
     Map<String, String> map = new HashMap<>(size());
@@ -517,17 +439,13 @@ public interface MetaInfo extends Iterable<String> {
     return map;
   }
 
-  /**
-   * @return an instance of {@link MetaInfo} that is {@link #isEmpty() empty}.
-   */
+  /// @return an instance of [MetaInfo] that is [empty][#isEmpty()].
   static MetaInfo empty() {
 
     return MetaInfoEmpty.INSTANCE;
   }
 
-  /**
-   * @return the {@link MetaInfo} with the configuration for the running application.
-   */
+  /// @return the [MetaInfo] with the configuration for the running application.
   static MetaInfo config() {
 
     return io.github.mmm.base.metainfo.impl.AppConfigHolder.CONFIG;

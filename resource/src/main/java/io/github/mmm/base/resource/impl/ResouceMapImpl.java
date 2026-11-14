@@ -19,9 +19,7 @@ import io.github.mmm.base.resource.ResourceMap;
 import io.github.mmm.base.resource.ResourcePackage;
 import io.github.mmm.base.resource.ResourcePath;
 
-/**
- * Implementation of {@link ResourceMap}.
- */
+/// Implementation of [ResourceMap].
 public class ResouceMapImpl implements ResourceMap {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResouceMapImpl.class);

@@ -2,24 +2,20 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.filter;
 
-/**
- * {@link CharFilter} that only {@link #accept(int) accepts} characters in a range from {@link #getMin() min} to
- * {@link #getMax() max}.
- *
- * @since 1.0.0
- */
+/// [CharFilter] that only [accepts][#accept(int)] characters in a range from [min][#getMin()] to
+/// [max][#getMax()].
+///
+/// @since 1.0.0
 public class RangeCharFilter extends AbstractCharFilter {
 
   private final int min;
 
   private final int max;
 
-  /**
-   * The constructor.
-   *
-   * @param min the {@link #getMin() minimum} {@link #accept(int) accepted} character.
-   * @param max the {@link #getMax() maximum} {@link #accept(int) accepted} character.
-   */
+  /// The constructor.
+  ///
+  /// @param min the [minimum][#getMin()] [accepted][#accept(int)] character.
+  /// @param max the [maximum][#getMax()] [accepted][#accept(int)] character.
   public RangeCharFilter(int min, int max) {
 
     super(null);
@@ -48,17 +44,13 @@ public class RangeCharFilter extends AbstractCharFilter {
     return (codePoint >= this.min) && (codePoint <= this.max);
   }
 
-  /**
-   * @return the minimum {@link #accept(int) accepted} character.
-   */
+  /// @return the minimum [accepted][#accept(int)] character.
   public int getMin() {
 
     return this.min;
   }
 
-  /**
-   * @return the maximum {@link #accept(int) accepted} character.
-   */
+  /// @return the maximum [accepted][#accept(int)] character.
   public int getMax() {
 
     return this.max;

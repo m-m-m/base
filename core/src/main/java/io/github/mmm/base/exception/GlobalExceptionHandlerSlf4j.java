@@ -3,9 +3,7 @@ package io.github.mmm.base.exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Implementation of {@link GlobalExceptionHandler} using SLF4J {@link Logger}.
- */
+/// Implementation of [GlobalExceptionHandler] using SLF4J [Logger].
 public class GlobalExceptionHandlerSlf4j implements GlobalExceptionHandler {
 
   private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandlerSlf4j.class);

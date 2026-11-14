@@ -14,13 +14,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.function.BiFunction;
 
-/**
- * Extends {@link TemporalConverterDefault} with support for the legacy types {@link Date} and {@link Calendar}. We
- * consider {@link java.util.Date} and {@link java.util.Calendar} to be dead and therefore do not support them out of
- * the box. In case you need support for them, see {@link TemporalConverter#get()} how to change the default.
- *
- * @see #get()
- */
+/// Extends [TemporalConverterDefault] with support for the legacy types [Date] and [Calendar]. We
+/// consider [java.util.Date] and [java.util.Calendar] to be dead and therefore do not support them out of
+/// the box. In case you need support for them, see [TemporalConverter#get()] how to change the default.
+///
+/// @see #get()
 public class TemporalConverterLegacy extends TemporalConverterDefault {
 
   private static TemporalConverterLegacy INSTANCE;
@@ -110,11 +108,9 @@ public class TemporalConverterLegacy extends TemporalConverterDefault {
     return super.convertToOffsetTime(value);
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal}, {@link Date} or
-   *        {@link Calendar} but may also be something else.
-   * @return the converted {@link Date} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal], [Date] or
+  ///        [Calendar] but may also be something else.
+  /// @return the converted [Date] if conversion was possible. Otherwise `null`.
   public Date convertToDate(Object value) {
 
     if (value instanceof Date) {
@@ -135,11 +131,9 @@ public class TemporalConverterLegacy extends TemporalConverterDefault {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal}, {@link Date} or
-   *        {@link Calendar} but may also be something else.
-   * @return the converted {@link Calendar} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal], [Date] or
+  ///        [Calendar] but may also be something else.
+  /// @return the converted [Calendar] if conversion was possible. Otherwise `null`.
   public Calendar convertToCalendar(Object value) {
 
     if (value instanceof Calendar) {
@@ -173,9 +167,7 @@ public class TemporalConverterLegacy extends TemporalConverterDefault {
     return result;
   }
 
-  /**
-   * @return the singleton instance.
-   */
+  /// @return the singleton instance.
   public static TemporalConverterLegacy get() {
 
     if (INSTANCE == null) {

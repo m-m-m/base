@@ -4,33 +4,27 @@ package io.github.mmm.test;
 
 import org.assertj.core.api.Assertions;
 
-/**
- * This is a utility-class for testing implementations of {@link #equals(Object)} and {@link #hashCode()}.
- */
+/// This is a utility-class for testing implementations of [#equals(Object)] and [#hashCode()].
 public class ObjectHelper extends Assertions {
 
-  /**
-   * Generic checks of {@link #equals(Object)} and {@link #hashCode()}.
-   *
-   * @param <T> the generic type of the object to test.
-   * @param x the first instance of the object to test.
-   * @param y the second instance of the object to test.
-   * @param equal - {@code true} if {@code x.equals(y)} is expected, {@code false} otherwise.
-   */
+  /// Generic checks of [#equals(Object)] and [#hashCode()].
+  ///
+  /// @param <T> the generic type of the object to test.
+  /// @param x the first instance of the object to test.
+  /// @param y the second instance of the object to test.
+  /// @param equal - `true` if `x.equals(y)` is expected, `false` otherwise.
   public static <T> void checkEqualsAndHashCode(T x, T y, boolean equal) {
 
     checkEquals(x, y, equal);
     checkHashCode(x, y);
   }
 
-  /**
-   * Generic checks of {@link #equals(Object)}.
-   *
-   * @param <T> the generic type of the object to test.
-   * @param x the first instance of the object to test.
-   * @param y the second instance of the object to test.
-   * @param equal - {@code true} if {@code x.equals(y)} is expected, {@code false} otherwise.
-   */
+  /// Generic checks of [#equals(Object)].
+  ///
+  /// @param <T> the generic type of the object to test.
+  /// @param x the first instance of the object to test.
+  /// @param y the second instance of the object to test.
+  /// @param equal - `true` if `x.equals(y)` is expected, `false` otherwise.
   public static <T> void checkEquals(T x, T y, boolean equal) {
 
     // equals has to be reflexive...
@@ -43,13 +37,11 @@ public class ObjectHelper extends Assertions {
     assertThat(x).isNotEqualTo(new Object());
   }
 
-  /**
-   * Generic checks of {@link #hashCode()}.
-   *
-   * @param <T> the generic type of the object to test.
-   * @param x the first instance of the object to test.
-   * @param y the second instance of the object to test.
-   */
+  /// Generic checks of [#hashCode()].
+  ///
+  /// @param <T> the generic type of the object to test.
+  /// @param x the first instance of the object to test.
+  /// @param y the second instance of the object to test.
   public static <T> void checkHashCode(T x, T y) {
 
     assertThat(x).isNotNull();

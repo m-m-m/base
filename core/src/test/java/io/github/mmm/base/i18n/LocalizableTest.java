@@ -5,12 +5,10 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link Localizable}.
- */
+/// Test of [Localizable].
 class LocalizableTest extends Assertions {
 
-  /** Test of {@link Localizable#ofStatic(String)}. */
+  /// Test of [Localizable#ofStatic(String)].
   @Test
   void testOfStatic() {
 
@@ -26,7 +24,7 @@ class LocalizableTest extends Assertions {
     assertThat(nonNls.toLocalizable()).isSameAs(nonNls);
   }
 
-  /** Test of {@link Localizable#createBundleName(Class)}. */
+  /// Test of [Localizable#createBundleName(Class)].
   @Test
   void testOf() {
 

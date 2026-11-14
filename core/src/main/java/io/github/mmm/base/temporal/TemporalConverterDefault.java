@@ -12,11 +12,9 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.function.BiFunction;
 
-/**
- * Simple utility class to convert to standard {@link java.time.temporal.Temporal} types.
- *
- * @see #get()
- */
+/// Simple utility class to convert to standard [java.time.temporal.Temporal] types.
+///
+/// @see #get()
 public class TemporalConverterDefault implements TemporalConverter {
 
   private static TemporalConverterDefault INSTANCE;
@@ -29,11 +27,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     }
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link Instant} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [Instant] if conversion was possible. Otherwise `null`.
   public Instant convertToInstant(Object value) {
 
     if (value instanceof Instant) {
@@ -52,11 +48,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link LocalDateTime} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [LocalDateTime] if conversion was possible. Otherwise `null`.
   public LocalDateTime convertToLocalDateTime(Object value) {
 
     if (value instanceof LocalDateTime) {
@@ -74,11 +68,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link OffsetDateTime} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [OffsetDateTime] if conversion was possible. Otherwise `null`.
   public OffsetDateTime convertToOffsetDateTime(Object value) {
 
     if (value instanceof OffsetDateTime) {
@@ -95,11 +87,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link ZonedDateTime} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [ZonedDateTime] if conversion was possible. Otherwise `null`.
   public ZonedDateTime convertToZonedDateTime(Object value) {
 
     if (value instanceof ZonedDateTime) {
@@ -116,11 +106,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link LocalDate} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [LocalDate] if conversion was possible. Otherwise `null`.
   public LocalDate convertToLocalDate(Object value) {
 
     if (value instanceof LocalDate) {
@@ -139,11 +127,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link LocalTime} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [LocalTime] if conversion was possible. Otherwise `null`.
   public LocalTime convertToLocalTime(Object value) {
 
     if (value instanceof LocalTime) {
@@ -162,11 +148,9 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param value the {@link Object} to convert. Most likely a {@link java.time.temporal.Temporal} but may also be
-   *        something else.
-   * @return the converted {@link OffsetTime} if conversion was possible. Otherwise {@code null}.
-   */
+  /// @param value the [Object] to convert. Most likely a [java.time.temporal.Temporal] but may also be
+  ///        something else.
+  /// @return the converted [OffsetTime] if conversion was possible. Otherwise `null`.
   public OffsetTime convertToOffsetTime(Object value) {
 
     if (value instanceof OffsetTime) {
@@ -185,15 +169,13 @@ public class TemporalConverterDefault implements TemporalConverter {
     return null;
   }
 
-  /**
-   * @param <T> type of the result.
-   * @param temporal1 the first temporal value (with date and/or time).
-   * @param temporal2 the second temporal value (with date and/or time).
-   * @param function the function to apply on the two given temporal values after assuring they are of same type. This
-   *        method will therefore convert on of the given temporal values so it has the same type as the other one.
-   * @return the result of the given {@link BiFunction} with the given temporal values applied or {@code null} if the a
-   *         temporal value has an unknown or unsupported type.
-   */
+  /// @param <T> type of the result.
+  /// @param temporal1 the first temporal value (with date and/or time).
+  /// @param temporal2 the second temporal value (with date and/or time).
+  /// @param function the function to apply on the two given temporal values after assuring they are of same type. This
+  ///        method will therefore convert on of the given temporal values so it has the same type as the other one.
+  /// @return the result of the given [BiFunction] with the given temporal values applied or `null` if the a
+  ///         temporal value has an unknown or unsupported type.
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public <T> T convertAndEvaluate(Object temporal1, Object temporal2, BiFunction<?, ?, T> function) {
@@ -238,9 +220,7 @@ public class TemporalConverterDefault implements TemporalConverter {
     return (T) ((BiFunction) function).apply(c1, c2);
   }
 
-  /**
-   * @return the singleton instance.
-   */
+  /// @return the singleton instance.
   public static TemporalConverterDefault get() {
 
     if (INSTANCE == null) {

@@ -7,16 +7,12 @@ import java.io.StringWriter;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link SortedProperties}.
- */
+/// Test of [SortedProperties].
 class SortedPropertiesTest extends Assertions {
 
-  /**
-   * Test of {@link SortedProperties}.
-   *
-   * @throws IOException on error.
-   */
+  /// Test of [SortedProperties].
+  ///
+  /// @throws IOException on error.
   @Test
   void test() throws IOException {
 

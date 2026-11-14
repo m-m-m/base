@@ -3,9 +3,7 @@ package io.github.mmm.base.variable;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link VariableMap}.
- */
+/// Test of [VariableMap].
 class VariableMapTest extends Assertions {
 
   static final VariableDefinition<String> OPT_INDENTATION = VariableDefinition.ofString("indentation", "  ");
@@ -15,7 +13,7 @@ class VariableMapTest extends Assertions {
 
   static final VariableDefinition<Integer> OPT_PORT = VariableDefinition.ofInteger("port", null);
 
-  /** Test of {@link VariableMap#get(VariableDefinition)}. */
+  /// Test of [VariableMap#get(VariableDefinition)].
   @Test
   void test() {
 

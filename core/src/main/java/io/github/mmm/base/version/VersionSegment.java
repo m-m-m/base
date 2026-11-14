@@ -4,9 +4,7 @@ package io.github.mmm.base.version;
 
 import java.util.Objects;
 
-/**
- * Represents a single segment of a {@link VersionNumber}.
- */
+/// Represents a single segment of a [VersionNumber].
 public class VersionSegment implements VersionObject<VersionSegment> {
 
   static final VersionSegment EMPTY = new VersionSegment("", "", "");
@@ -21,13 +19,11 @@ public class VersionSegment implements VersionObject<VersionSegment> {
 
   private VersionSegment next;
 
-  /**
-   * The constructor.
-   *
-   * @param separator the {@link #getSeparator() separator}.
-   * @param letters the {@link #getLettersString() letters}.
-   * @param digits the {@link #getDigits() digits}.
-   */
+  /// The constructor.
+  ///
+  /// @param separator the [separator][#getSeparator()].
+  /// @param letters the [letters][#getLettersString()].
+  /// @param digits the [digits][#getDigits()].
   VersionSegment(String separator, String letters, String digits) {
 
     super();
@@ -51,80 +47,64 @@ public class VersionSegment implements VersionObject<VersionSegment> {
     this.number = number;
   }
 
-  /**
-   * @return the separator {@link String} (e.g. "." or "-") or the empty {@link String} ("") for none.
-   */
+  /// @return the separator [String] (e.g. "." or "-") or the empty [String] ("") for none.
   public String getSeparator() {
 
     return this.separator;
   }
 
-  /**
-   * @return the letters or the empty {@link String} ("") for none. In canonical {@link VersionNumber}s letters indicate
-   *         the development phase (e.g. "pre", "rc", "alpha", "beta", "milestone", "test", "dev", "SNAPSHOT", etc.).
-   *         However, letters are technically any {@link Character#isLetter(char) letter characters} and may also be
-   *         something like a code-name (e.g. "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice
-   *         Cream Sandwich", "Jelly Bean" in case of Android internals). Please note that in such case it is impossible
-   *         to properly decide which version is greater than another versions. To avoid mistakes, the comparison
-   *         supports a strict mode that will let the comparison fail in such case. However, by default (e.g. for
-   *         {@link Comparable#compareTo(Object)}) the default {@link String#compareTo(String) string comparison}
-   *         (lexicographical) is used to ensure a natural order.
-   * @see #getPhase()
-   */
+  /// @return the letters or the empty [String] ("") for none. In canonical [VersionNumber]s letters indicate
+  ///         the development phase (e.g. "pre", "rc", "alpha", "beta", "milestone", "test", "dev", "SNAPSHOT", etc.).
+  ///         However, letters are technically any [letter characters][Character#isLetter(char)] and may also be
+  ///         something like a code-name (e.g. "Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb", "Ice
+  ///         Cream Sandwich", "Jelly Bean" in case of Android internals). Please note that in such case it is impossible
+  ///         to properly decide which version is greater than another versions. To avoid mistakes, the comparison
+  ///         supports a strict mode that will let the comparison fail in such case. However, by default (e.g. for
+  ///         [Comparable#compareTo(Object)]) the default [string comparison][String#compareTo(String)]
+  ///         (lexicographical) is used to ensure a natural order.
+  /// @see #getPhase()
   public String getLettersString() {
 
     return this.letters.getLetters();
   }
 
-  /**
-   * @return the {@link VersionLetters}.
-   */
+  /// @return the [VersionLetters].
   public VersionLetters getLetters() {
 
     return this.letters;
   }
 
-  /**
-   * @return the {@link VersionPhase} for the {@link #getLettersString() letters}. Will be
-   *         {@link VersionPhase#UNDEFINED} if unknown and hence never {@code null}.
-   * @see #getLettersString()
-   */
+  /// @return the [VersionPhase] for the [letters][#getLettersString()]. Will be
+  ///         [VersionPhase#UNDEFINED] if unknown and hence never `null`.
+  /// @see #getLettersString()
   public VersionPhase getPhase() {
 
     return this.letters.getPhase();
   }
 
-  /**
-   * @return the digits or the empty {@link String} ("") for none. This is the actual {@link #getNumber() number} part
-   *         of this {@link VersionSegment}. So the {@link VersionNumber} "1.0.001" will have three segments: The first
-   *         one with "1" as digits, the second with "0" as digits, and a third with "001" as digits. You can get the
-   *         same value via {@link #getNumber()} but this {@link String} representation will preserve leading zeros.
-   */
+  /// @return the digits or the empty [String] ("") for none. This is the actual [number][#getNumber()] part
+  ///         of this [VersionSegment]. So the [VersionNumber] "1.0.001" will have three segments: The first
+  ///         one with "1" as digits, the second with "0" as digits, and a third with "001" as digits. You can get the
+  ///         same value via [#getNumber()] but this [String] representation will preserve leading zeros.
   public String getDigits() {
 
     return this.digits;
   }
 
-  /**
-   * @return the {@link #getDigits() digits} and integer number. Will be {@code -1} if no {@link #getDigits() digits}
-   *         are present.
-   */
+  /// @return the [digits][#getDigits()] and integer number. Will be `-1` if no [digits][#getDigits()]
+  ///         are present.
   public int getNumber() {
 
     return this.number;
   }
 
-  /**
-   * @return the next {@link VersionSegment} or {@code null} if this is the tail of the {@link VersionNumber}.
-   */
+  /// @return the next [VersionSegment] or `null` if this is the tail of the [VersionNumber].
   public VersionSegment getNext() {
 
     return this.next;
   }
 
-  /**
-   * @return the next {@link VersionSegment} or the empty segment if this is the tail of the {@link VersionNumber}.
-   */
+  /// @return the next [VersionSegment] or the empty segment if this is the tail of the [VersionNumber].
   VersionSegment getNextOrEmpty() {
 
     if (this.next == null) {
@@ -133,17 +113,14 @@ public class VersionSegment implements VersionObject<VersionSegment> {
     return this.next;
   }
 
-  /**
-   * A valid {@link VersionSegment} has to meet the following requirements:
-   * <ul>
-   * <li>The {@link #getSeparator() separator} may not be {@link String#length() longer} than a single character (e.g.
-   * ".-_1" or "--1" are not considered valid).</li>
-   * <li>The {@link #getSeparator() separator} may only contain the characters '.', '-', or '_' (e.g. " 1" or "ö1" are
-   * not considered valid).</li>
-   * <li>The combination of {@link #getPhase() phase} and {@link #getNumber() number} has to be
-   * {@link VersionPhase#isValid(int) valid} (e.g. "pineapple-pen1" or "donut" are not considered valid).</li>
-   * </ul>
-   */
+  /// A valid [VersionSegment] has to meet the following requirements:
+  ///
+  /// - The [separator][#getSeparator()] may not be [longer][String#length()] than a single character (e.g.
+  /// ".-_1" or "--1" are not considered valid).
+  /// - The [separator][#getSeparator()] may only contain the characters '.', '-', or '_' (e.g. " 1" or "ö1" are
+  /// not considered valid).
+  /// - The combination of [phase][#getPhase()] and [number][#getNumber()] has to be
+  /// [valid][VersionPhase#isValid(int)] (e.g. "pineapple-pen1" or "donut" are not considered valid).
   @Override
   public boolean isValid() {
 
@@ -195,14 +172,12 @@ public class VersionSegment implements VersionObject<VersionSegment> {
     }
   }
 
-  /**
-   * @return the {@link VersionLetters} that represent a {@link VersionLetters#isDevelopmentPhase() development phase}
-   *         searching from this {@link VersionSegment} to all {@link #getNext() next segments}. Will be
-   *         {@link VersionPhase#NONE} if no {@link VersionPhase#isDevelopmentPhase() development phase} was found and
-   *         {@link VersionPhase#UNDEFINED} if multiple {@link VersionPhase#isDevelopmentPhase() development phase}s
-   *         have been found.
-   * @see VersionNumber#getDevelopmentPhase()
-   */
+  /// @return the [VersionLetters] that represent a [development phase][VersionLetters#isDevelopmentPhase()]
+  ///         searching from this [VersionSegment] to all [next segments][#getNext()]. Will be
+  ///         [VersionPhase#NONE] if no [development phase][VersionPhase#isDevelopmentPhase()] was found and
+  ///         [VersionPhase#UNDEFINED] if multiple [development phase][VersionPhase#isDevelopmentPhase()]s
+  ///         have been found.
+  /// @see VersionNumber#getDevelopmentPhase()
   protected VersionLetters getDevelopmentPhase() {
 
     VersionLetters result = VersionLetters.EMPTY;
@@ -220,16 +195,14 @@ public class VersionSegment implements VersionObject<VersionSegment> {
     return result;
   }
 
-  /**
-   * {@link VersionNumber#incrementSegment(int, boolean)} Increments a version} recursively per {@link VersionSegment}.
-   *
-   * @param digitKeepCount the number of leading {@link VersionSegment}s with {@link VersionSegment#getDigits() digits}
-   *        to keep untouched. Will be {@code 0} for the segment to increment and negative for the segments to set to
-   *        zero.
-   * @param keepLetters {@code true} to keep {@link VersionSegment#getLetters() letters} from modified segments,
-   *        {@code false} to drop them.
-   * @return the new {@link VersionSegment}.
-   */
+  /// [VersionNumber#incrementSegment(int, boolean)] Increments a version} recursively per [VersionSegment].
+  ///
+  /// @param digitKeepCount the number of leading [VersionSegment]s with [digits][VersionSegment#getDigits()]
+  ///        to keep untouched. Will be `0` for the segment to increment and negative for the segments to set to
+  ///        zero.
+  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments,
+  ///        `false` to drop them.
+  /// @return the new [VersionSegment].
   VersionSegment increment(int digitKeepCount, boolean keepLetters) {
 
     String newSeparator = this.separator;
@@ -275,9 +248,7 @@ public class VersionSegment implements VersionObject<VersionSegment> {
     return new VersionSegment(nextSegment, newSeparator, newLetters, newDigits, newNumber);
   }
 
-  /**
-   * @return the number of {@link VersionSegment}s with {@link VersionSegment#getDigits() digits}.
-   */
+  /// @return the number of [VersionSegment]s with [digits][VersionSegment#getDigits()].
   int countDigits() {
 
     int count = 0;

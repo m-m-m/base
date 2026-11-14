@@ -4,32 +4,26 @@ package io.github.mmm.base.range;
 
 import java.util.Objects;
 
-/**
- * Implementation of {@link WritableRange} for {@code UiNumericInput}.
- *
- * @param <V> type of the contained values.
- * @since 1.0.0
- */
+/// Implementation of [WritableRange] for `UiNumericInput`.
+///
+/// @param <V> type of the contained values.
+/// @since 1.0.0
 public abstract class AbstractRangeBean<V extends Comparable<?>> extends AbstractRange<V> implements WritableRange<V> {
 
   private V min;
 
   private V max;
 
-  /**
-   * The constructor.
-   */
+  /// The constructor.
   public AbstractRangeBean() {
 
     super();
   }
 
-  /**
-   * The constructor.
-   *
-   * @param min the {@link #getMin() minimum}.
-   * @param max the {@link #getMax() maximum}.
-   */
+  /// The constructor.
+  ///
+  /// @param min the [minimum][#getMin()].
+  /// @param max the [maximum][#getMax()].
   public AbstractRangeBean(V min, V max) {
 
     super();
@@ -69,9 +63,7 @@ public abstract class AbstractRangeBean<V extends Comparable<?>> extends Abstrac
     onValueChange();
   }
 
-  /**
-   * Called whenever {@link #getMin() min} or {@link #getMax() max} changes.
-   */
+  /// Called whenever [min][#getMin()] or [max][#getMax()] changes.
   protected void onValueChange() {
 
   }

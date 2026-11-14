@@ -6,12 +6,10 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link ObjectNotFoundException}.
- */
+/// Test of [ObjectNotFoundException].
 class ObjectNotFoundExceptionTest extends Assertions {
 
-  /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object)}. */
+  /// Test [ObjectNotFoundException#ObjectNotFoundException(Object)].
   @Test
   void testSimple() {
 
@@ -23,7 +21,7 @@ class ObjectNotFoundExceptionTest extends Assertions {
     assertThat(exception.getLocalizedMessage()).isEqualTo("Could not find " + name + ".");
   }
 
-  /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object, Object)}. */
+  /// Test [ObjectNotFoundException#ObjectNotFoundException(Object, Object)].
   @Test
   void testWithKey() {
 
@@ -36,7 +34,7 @@ class ObjectNotFoundExceptionTest extends Assertions {
     assertThat(exception.getLocalizedMessage()).isEqualTo("Could not find " + name + " for key '" + key + "'.");
   }
 
-  /** Test {@link ObjectNotFoundException#ObjectNotFoundException(Object, Object, Object, Throwable)}. */
+  /// Test [ObjectNotFoundException#ObjectNotFoundException(Object, Object, Object, Throwable)].
   @Test
   void testWithKeyAndOptions() {
 

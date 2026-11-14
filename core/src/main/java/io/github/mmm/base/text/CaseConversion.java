@@ -4,14 +4,12 @@ package io.github.mmm.base.text;
 
 import java.util.Locale;
 
-/**
- * Represents the different character cases and allows {@link #convert(String) conversion}.
- *
- * @since 1.0.0
- */
+/// Represents the different character cases and allows [conversion][#convert(String)].
+///
+/// @since 1.0.0
 public enum CaseConversion {
 
-  /** Convert {@link String#toLowerCase() to lower case}. */
+  /// Convert [to lower case][String#toLowerCase()].
   LOWER_CASE {
     @Override
     public void append(StringBuilder sb, String text) {
@@ -35,7 +33,7 @@ public enum CaseConversion {
     }
   },
 
-  /** Convert {@link String#toUpperCase() to upper case}. */
+  /// Convert [to upper case][String#toUpperCase()].
   UPPER_CASE {
     @Override
     public void append(StringBuilder sb, String text) {
@@ -59,7 +57,7 @@ public enum CaseConversion {
     }
   },
 
-  /** Do not convert (keep original case). */
+  /// Do not convert (keep original case).
   ORIGINAL_CASE {
     @Override
     public void append(StringBuilder sb, String text) {
@@ -68,27 +66,21 @@ public enum CaseConversion {
     }
   };
 
-  /**
-   * The character representing {@link #ORIGINAL_CASE} in {@link #ofExample(char, boolean) examples}. Was chosen so it
-   * can be used in java names (including packages), paths and URIs but is unlikely to conflict with other semantical
-   * usage. However, this choice is arbitrarily.
-   */
+  /// The character representing [#ORIGINAL_CASE] in [examples][#ofExample(char, boolean)]. Was chosen so it
+  /// can be used in java names (including packages), paths and URIs but is unlikely to conflict with other semantical
+  /// usage. However, this choice is arbitrarily.
   public static final char EXAMPLE_CHAR_FOR_ORIGINAL_CASE = '$';
 
-  /**
-   * @param string the original {@link String}.
-   * @return the converted {@link String}.
-   */
+  /// @param string the original [String].
+  /// @return the converted [String].
   public String convert(String string) {
 
     return convert(string, null);
   }
 
-  /**
-   * @param string the original {@link String}.
-   * @param locale the explicit {@link Locale} to use. In most cases you want to use {@link #convert(String)} instead.
-   * @return the converted {@link String}.
-   */
+  /// @param string the original [String].
+  /// @param locale the explicit [Locale] to use. In most cases you want to use [#convert(String)] instead.
+  /// @return the converted [String].
   public String convert(String string, Locale locale) {
 
     if (string == null) {
@@ -105,10 +97,8 @@ public enum CaseConversion {
     }
   }
 
-  /**
-   * @param c the original character.
-   * @return the converted character.
-   */
+  /// @param c the original character.
+  /// @return the converted character.
   public char convert(char c) {
 
     switch (this) {
@@ -122,17 +112,13 @@ public enum CaseConversion {
     }
   }
 
-  /**
-   * @param sb the {@link StringBuilder} to {@link StringBuilder#append(String) append} to.
-   * @param text the text to append.
-   */
+  /// @param sb the [StringBuilder] to [append][StringBuilder#append(String)] to.
+  /// @param text the text to append.
   public abstract void append(StringBuilder sb, String text);
 
-  /**
-   * @param c the character to {@link #convert(char) convert}.
-   * @return the {@link #convert(char) converted} character {@code c} but {@link #EXAMPLE_CHAR_FOR_ORIGINAL_CASE} if
-   *         this is {@link #ORIGINAL_CASE}.
-   */
+  /// @param c the character to [convert][#convert(char)].
+  /// @return the [converted][#convert(char)] character `c` but [#EXAMPLE_CHAR_FOR_ORIGINAL_CASE] if
+  ///         this is [#ORIGINAL_CASE].
   public char asExample(char c) {
 
     if (this == CaseConversion.ORIGINAL_CASE) {
@@ -142,13 +128,11 @@ public enum CaseConversion {
     }
   }
 
-  /**
-   * @param c the example character.
-   * @param strict if the character has to be an upper/lower case letter or {@link #EXAMPLE_CHAR_FOR_ORIGINAL_CASE}.
-   * @return {@link #UPPER_CASE} if the given character is {@link Character#isUpperCase(char) upper case},
-   *         {@link #LOWER_CASE} if the given character is {@link Character#isLowerCase(char) lower case}, and
-   *         {@link #ORIGINAL_CASE} otherwise (might need to be remapped or handled specially).
-   */
+  /// @param c the example character.
+  /// @param strict if the character has to be an upper/lower case letter or [#EXAMPLE_CHAR_FOR_ORIGINAL_CASE].
+  /// @return [#UPPER_CASE] if the given character is [upper case][Character#isUpperCase(char)],
+  ///         [#LOWER_CASE] if the given character is [lower case][Character#isLowerCase(char)], and
+  ///         [#ORIGINAL_CASE] otherwise (might need to be remapped or handled specially).
   public static CaseConversion ofExample(char c, boolean strict) {
 
     if (Character.isUpperCase(c)) {
@@ -163,21 +147,17 @@ public enum CaseConversion {
     }
   }
 
-  /**
-   * @param caseConversion the {@link CaseConversion} to test. May be {@code null}.
-   * @return {@code true} if the given {@link CaseConversion} is {@link #LOWER_CASE} or {@link #UPPER_CASE}.
-   */
+  /// @param caseConversion the [CaseConversion] to test. May be `null`.
+  /// @return `true` if the given [CaseConversion] is [#LOWER_CASE] or [#UPPER_CASE].
   public static boolean isCaseChange(CaseConversion caseConversion) {
 
     return (caseConversion != null) && (caseConversion != ORIGINAL_CASE);
   }
 
-  /**
-   * @param case1 the first {@link CaseConversion}.
-   * @param case2 the second {@link CaseConversion}.
-   * @return {@code true} if both {@link CaseConversion}s are incompatible to each other. This means they are not same
-   *         and are both {@link #isCaseChange(CaseConversion) case changing}. Otherwise {@code false}.
-   */
+  /// @param case1 the first [CaseConversion].
+  /// @param case2 the second [CaseConversion].
+  /// @return `true` if both [CaseConversion]s are incompatible to each other. This means they are not same
+  ///         and are both [case changing][#isCaseChange(CaseConversion)]. Otherwise `false`.
   public static boolean areIncompatible(CaseConversion case1, CaseConversion case2) {
 
     return (case1 != case2) && isCaseChange(case1) && isCaseChange(case2);

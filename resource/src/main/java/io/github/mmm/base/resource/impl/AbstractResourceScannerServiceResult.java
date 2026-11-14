@@ -6,18 +6,14 @@ import java.util.Iterator;
 
 import io.github.mmm.base.resource.ResourceScannerServiceResult;
 
-/**
- * Abstract base implementation of {@link ResourceScannerServiceResult}.
- */
+/// Abstract base implementation of [ResourceScannerServiceResult].
 public abstract class AbstractResourceScannerServiceResult implements ResourceScannerServiceResult {
 
   private final String serviceClassName;
 
-  /**
-   * The constructor.
-   *
-   * @param serviceClassName the {@link #getServiceClassName() serviceClassName}
-   */
+  /// The constructor.
+  ///
+  /// @param serviceClassName the [serviceClassName][#getServiceClassName()]
   public AbstractResourceScannerServiceResult(String serviceClassName) {
 
     super();
@@ -30,9 +26,7 @@ public abstract class AbstractResourceScannerServiceResult implements ResourceSc
     return this.serviceClassName;
   }
 
-  /**
-   * Ensures this object is read-only (immutable).
-   */
+  /// Ensures this object is read-only (immutable).
   public abstract void makeReadOnly();
 
   @Override

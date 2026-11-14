@@ -4,28 +4,20 @@ package io.github.mmm.base.resource;
 
 import java.util.stream.Stream;
 
-/**
- * Interface for the result of {@link ResourceScannerService}.
- *
- * @since 1.0.0
- */
+/// Interface for the result of [ResourceScannerService].
+///
+/// @since 1.0.0
 public interface ResourceScannerServiceResult {
 
-  /**
-   * @return the {@link Class#getName() qualified name} of the {@link ResourceScannerService}.
-   */
+  /// @return the [qualified name][Class#getName()] of the [ResourceScannerService].
   String getServiceClassName();
 
-  /**
-   * @param serviceName the {@link Class#getName() qualified name} of the {@link ResourceScannerService}.
-   * @return the {@link Stream} of {@link ResourcePath#getPath() resource paths} provided to the specified
-   *         {@link ResourceScannerService}.
-   */
+  /// @param serviceName the [qualified name][Class#getName()] of the [ResourceScannerService].
+  /// @return the [Stream] of [resource paths][ResourcePath#getPath()] provided to the specified
+  ///         [ResourceScannerService].
   Stream<String> getResourcePaths();
 
-  /**
-   * @return the {@link Stream} of {@link Class}es provided to the specified {@link ResourceScannerService}.
-   */
+  /// @return the [Stream] of [Class]es provided to the specified [ResourceScannerService].
   Stream<Class<?>> getClasses();
 
 }

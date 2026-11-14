@@ -14,15 +14,11 @@ import org.junit.jupiter.api.Test;
 import io.github.mmm.test.ObjectHelper;
 import io.github.mmm.test.TestValues;
 
-/**
- * Test of {@link CaseSyntax}.
- */
+/// Test of [CaseSyntax].
 class CaseSyntaxTest extends Assertions {
 
-  /**
-   * Test of {@link CaseSyntax#of(Character, CaseConversion, CaseConversion, CaseConversion)} with standardized
-   * {@link CaseSyntax} constants.
-   */
+  /// Test of [CaseSyntax#of(Character, CaseConversion, CaseConversion, CaseConversion)] with standardized
+  /// [CaseSyntax] constants.
   @Test
   void testOfStandardized() {
 
@@ -55,9 +51,7 @@ class CaseSyntaxTest extends Assertions {
     assertThat(CaseSyntax.of(separator, LOWER_CASE, UPPER_CASE)).isSameAs(CaseSyntax.CAML_SPACE_CASE);
   }
 
-  /**
-   * Test of {@link CaseSyntax#of(Character, CaseConversion, CaseConversion, CaseConversion)} with customized variants.
-   */
+  /// Test of [CaseSyntax#of(Character, CaseConversion, CaseConversion, CaseConversion)] with customized variants.
   @Test
   void testOfCustomized() {
 
@@ -70,9 +64,7 @@ class CaseSyntaxTest extends Assertions {
         .isEqualTo("$$Custom~Case");
   }
 
-  /**
-   * Test of {@link CaseSyntax#ofExample(String, boolean)} with {@code standardize} parameter set to {@code true}.
-   */
+  /// Test of [CaseSyntax#ofExample(String, boolean)] with `standardize` parameter set to `true`.
   @Test
   void testOfExampleStandardized() {
 
@@ -110,9 +102,7 @@ class CaseSyntaxTest extends Assertions {
     }
   }
 
-  /**
-   * Test of {@link CaseSyntax#ofExample(String, boolean)} with examples of minimal length.
-   */
+  /// Test of [CaseSyntax#ofExample(String, boolean)] with examples of minimal length.
   @Test
   void testOfExampleMinimal() {
 
@@ -136,9 +126,7 @@ class CaseSyntaxTest extends Assertions {
         .isEqualTo(CaseSyntax.of(null, LOWER_CASE, ORIGINAL_CASE, ORIGINAL_CASE));
   }
 
-  /**
-   * Test of {@link CaseSyntax#convert(String)} with some specific cases not covered else where.
-   */
+  /// Test of [CaseSyntax#convert(String)] with some specific cases not covered else where.
   @Test
   void testConvert() {
 
@@ -160,9 +148,7 @@ class CaseSyntaxTest extends Assertions {
         .isEqualTo("เดกทมปญหาทางการเรยนรบางคนสามารถเรยนรวมกบเดกปกตได");
   }
 
-  /**
-   * Test of {@link CaseSyntax#ofExample(String, boolean)} in combination with {@link CaseSyntax#convert(String)}.
-   */
+  /// Test of [CaseSyntax#ofExample(String, boolean)] in combination with [CaseSyntax#convert(String)].
   @Test
   void testCombined() {
 
@@ -198,9 +184,7 @@ class CaseSyntaxTest extends Assertions {
     }
   }
 
-  /**
-   * Test of {@link CaseSyntax#ofExample(String, boolean)} with invalid values.
-   */
+  /// Test of [CaseSyntax#ofExample(String, boolean)] with invalid values.
   @Test
   void testOfExampleInvalidValues() {
 
@@ -252,9 +236,7 @@ class CaseSyntaxTest extends Assertions {
     }
   }
 
-  /**
-   * Test of {@link CaseSyntax#normalizeExample(String)}.
-   */
+  /// Test of [CaseSyntax#normalizeExample(String)].
   @Test
   void testNormalizeExample() {
 
@@ -266,9 +248,7 @@ class CaseSyntaxTest extends Assertions {
     assertThat(CaseSyntax.normalizeExample("A-B-C-D")).isEqualTo("abcd");
   }
 
-  /**
-   * Test of {@link CaseSyntax#equals(Object)} and {@link CaseSyntax#hashCode()}.
-   */
+  /// Test of [CaseSyntax#equals(Object)] and [CaseSyntax#hashCode()].
   @Test
   void testEqualsAndHashCode() {
 

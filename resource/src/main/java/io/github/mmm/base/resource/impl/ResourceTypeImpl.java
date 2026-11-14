@@ -12,9 +12,7 @@ import io.github.mmm.base.type.JavaType;
 import io.github.mmm.base.type.impl.JavaTypeImpl;
 import io.github.mmm.base.type.impl.JavaTypeReader;
 
-/**
- * Implementation of {@link ResourceType}.
- */
+/// Implementation of [ResourceType].
 public final class ResourceTypeImpl extends AbstractResourceFileImpl implements ResourceType {
 
   private static final Logger LOG = LoggerFactory.getLogger(ResourceTypeImpl.class);
@@ -25,14 +23,12 @@ public final class ResourceTypeImpl extends AbstractResourceFileImpl implements 
 
   private JavaType javaType;
 
-  /**
-   * The constructor.
-   *
-   * @param moduleAccess the {@link #getModuleAccess() module access}.
-   * @param path the {@link #getPath() path}.
-   * @param simpleName the {@link #getSimpleName() simple name}.
-   * @param parent the {@link #getParent() package folder}.
-   */
+  /// The constructor.
+  ///
+  /// @param moduleAccess the [module access][#getModuleAccess()].
+  /// @param path the [path][#getPath()].
+  /// @param simpleName the [simple name][#getSimpleName()].
+  /// @param parent the [package folder][#getParent()].
   public ResourceTypeImpl(ModuleAccess moduleAccess, String path, String simpleName, ResourcePackage parent) {
 
     super(moduleAccess, path, simpleName, parent);
@@ -66,14 +62,12 @@ public final class ResourceTypeImpl extends AbstractResourceFileImpl implements 
     return this.javaType;
   }
 
-  /**
-   * @param name the {@link Class#getName() class name}.
-   * @param classLoader the explicit {@link ClassLoader} to use or {@code null} to use {@link Class#forName(String)}.
-   * @param returnNullOnException - {@code true} to log a potential {@link Exception} and return {@code null},
-   *        {@code false} to re-throw as {@link RuntimeException}.
-   * @return the loaded {@link Class}. May be {@code null} if {@code returnNullOnException} was {@code true} and
-   *         class-loading failed.
-   */
+  /// @param name the [class name][Class#getName()].
+  /// @param classLoader the explicit [ClassLoader] to use or `null` to use [Class#forName(String)].
+  /// @param returnNullOnException - `true` to log a potential [Exception] and return `null`,
+  ///        `false` to re-throw as [RuntimeException].
+  /// @return the loaded [Class]. May be `null` if `returnNullOnException` was `true` and
+  ///         class-loading failed.
   public static Class<?> loadClass(String name, ClassLoader classLoader, boolean returnNullOnException) {
 
     try {
@@ -91,10 +85,8 @@ public final class ResourceTypeImpl extends AbstractResourceFileImpl implements 
     }
   }
 
-  /**
-   * @param resourcePath the {@link #getPath() resource path} of a potential {@link Class}.
-   * @return the loaded {@link Class} or {@code null} if not a {@link Class} or loading failed.
-   */
+  /// @param resourcePath the [resource path][#getPath()] of a potential [Class].
+  /// @return the loaded [Class] or `null` if not a [Class] or loading failed.
   public static Class<?> loadClassFromResourcePath(String resourcePath) {
 
     if (!resourcePath.endsWith(SUFFIX_CLASS)) {

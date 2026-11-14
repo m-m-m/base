@@ -2,18 +2,16 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.version;
 
-/**
- * Enum with the available categories of a {@link Character} for a {@link VersionSegment}.
- */
+/// Enum with the available categories of a [Character] for a [VersionSegment].
 enum CharCategory {
 
-  /** Category for {@link VersionSegment#getSeparator() separator} characters. */
+  /// Category for [separator][VersionSegment#getSeparator()] characters.
   SEPARATOR,
 
-  /** Category for {@link VersionSegment#getLetters() letter} characters. */
+  /// Category for [letter][VersionSegment#getLetters()] characters.
   LETTER,
 
-  /** Category for {@link VersionSegment#getDigits() digit} characters. */
+  /// Category for [digit][VersionSegment#getDigits()] characters.
   DIGIT;
 
   public static CharCategory of(char c) {

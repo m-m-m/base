@@ -6,9 +6,7 @@ import java.lang.classfile.constantpool.PoolEntry;
 
 import io.github.mmm.base.number.NumberCodec;
 
-/**
- * Constant pool of class file structure.
- */
+/// Constant pool of class file structure.
 class ConstantPool {
 
   private final Object[] pool;

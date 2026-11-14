@@ -7,12 +7,10 @@ import java.util.Iterator;
 
 import io.github.mmm.base.metainfo.MetaInfo;
 
-/**
- * Empty {@link MetaInfo} implementation.
- */
+/// Empty [MetaInfo] implementation.
 public final class MetaInfoEmpty extends AbstractMetaInfo {
 
-  /** The singleton instance. */
+  /// The singleton instance.
   public static final MetaInfoEmpty INSTANCE = new MetaInfoEmpty();
 
   private MetaInfoEmpty() {

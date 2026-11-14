@@ -4,9 +4,7 @@ package io.github.mmm.base.text;
 
 import java.util.Objects;
 
-/**
- * A message that occurred whilst reading (parsing) or writing (formatting) textual data.
- */
+/// A message that occurred whilst reading (parsing) or writing (formatting) textual data.
 public class TextFormatMessage implements TextPosition {
 
   private final int line;
@@ -17,14 +15,12 @@ public class TextFormatMessage implements TextPosition {
 
   private final String text;
 
-  /**
-   * The constructor.
-   *
-   * @param line the {@link #getLine() line}.
-   * @param column the {@link #getColumn() column}.
-   * @param type the {@link #getType() type}.
-   * @param text the {@link #getText() text}.
-   */
+  /// The constructor.
+  ///
+  /// @param line the [line][#getLine()].
+  /// @param column the [column][#getColumn()].
+  /// @param type the [type][#getType()].
+  /// @param text the [text][#getText()].
   public TextFormatMessage(int line, int column, String text, TextFormatMessageType type) {
 
     super();
@@ -48,17 +44,13 @@ public class TextFormatMessage implements TextPosition {
     return this.column;
   }
 
-  /**
-   * @return the {@link TextFormatMessageType}.
-   */
+  /// @return the [TextFormatMessageType].
   public TextFormatMessageType getType() {
 
     return this.type;
   }
 
-  /**
-   * @return the message text.
-   */
+  /// @return the message text.
   public String getText() {
 
     return this.text;

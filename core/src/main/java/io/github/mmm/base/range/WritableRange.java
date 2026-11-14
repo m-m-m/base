@@ -2,22 +2,16 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.range;
 
-/**
- * A mutable {@link Range} allowing to {@link #setMin(Comparable) set minimum} and {@link #setMax(Comparable) maximum}.
- *
- * @param <V> type of the contained values.
- * @since 1.0.0
- */
+/// A mutable [Range] allowing to [set minimum][#setMin(Comparable)] and [maximum][#setMax(Comparable)].
+///
+/// @param <V> type of the contained values.
+/// @since 1.0.0
 public interface WritableRange<V extends Comparable<?>> extends Range<V> {
 
-  /**
-   * @param min the new value of {@link #getMin()}.
-   */
+  /// @param min the new value of [#getMin()].
   void setMin(V min);
 
-  /**
-   * @param max the new value of {@link #getMax()}.
-   */
+  /// @param max the new value of [#getMax()].
   void setMax(V max);
 
 }

@@ -4,35 +4,27 @@ package io.github.mmm.base.resource;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
 
-/**
- * Interface for the result of {@link ResourceScanner}.
- *
- * @since 1.0.0
- */
+/// Interface for the result of [ResourceScanner].
+///
+/// @since 1.0.0
 public interface ResourceScannerResult extends Iterable<ResourceScannerServiceResult> {
 
-  /**
-   * @param serviceName the {@link Class#getName() qualified name} of the {@link ResourceScannerService}.
-   * @return the corresponding {@link ResourceScannerServiceResult} or {@code null} the given {@code serviceName} was
-   *         not provided.
-   */
+  /// @param serviceName the [qualified name][Class#getName()] of the [ResourceScannerService].
+  /// @return the corresponding [ResourceScannerServiceResult] or `null` the given `serviceName` was
+  ///         not provided.
   ResourceScannerServiceResult get(String serviceName);
 
-  /**
-   * @param service the {@link Class} reflecting the {@link ResourceScannerService}.
-   * @return the corresponding {@link ResourceScannerServiceResult} or {@code null} the given {@code service} was not
-   *         provided.
-   */
+  /// @param service the [Class] reflecting the [ResourceScannerService].
+  /// @return the corresponding [ResourceScannerServiceResult] or `null` the given `service` was not
+  ///         provided.
   default ResourceScannerServiceResult get(Class<? extends ResourceScannerService> service) {
 
     return get(service.getName());
   }
 
-  /**
-   * @param service the {@link Class} reflecting the {@link ResourceScannerService}.
-   * @return the corresponding {@link ResourceScannerServiceResult} or {@code null} the given {@code service} was not
-   *         provided.
-   */
+  /// @param service the [Class] reflecting the [ResourceScannerService].
+  /// @return the corresponding [ResourceScannerServiceResult] or `null` the given `service` was not
+  ///         provided.
   default ResourceScannerServiceResult getRequired(Class<? extends ResourceScannerService> service) {
 
     ResourceScannerServiceResult result = get(service);

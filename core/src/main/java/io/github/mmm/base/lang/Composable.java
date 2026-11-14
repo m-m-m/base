@@ -6,29 +6,23 @@ import java.util.Iterator;
 
 import io.github.mmm.base.impl.ComposableIterator;
 
-/**
- * Interface for an object that may contain {@link #getChild(int) children}.
- *
- * @param <C> type of the children. Should typically be the sub-type implementing this interface itself.
- * @since 1.0.0
- */
+/// Interface for an object that may contain [children][#getChild(int)].
+///
+/// @param <C> type of the children. Should typically be the sub-type implementing this interface itself.
+/// @since 1.0.0
 public interface Composable<C> extends Iterable<C> {
 
-  /**
-   * @return the number of contained {@link #getChild(int) children}.
-   * @see #getChild(int)
-   * @see java.util.Collection#size()
-   */
+  /// @return the number of contained [children][#getChild(int)].
+  /// @see #getChild(int)
+  /// @see java.util.Collection#size()
   int getChildCount();
 
-  /**
-   * Gets the child-object at the given {@code index}.
-   *
-   * @param index is the index of the child to get.
-   * @return the requested child or {@code null} if no such child exists because the given {@code index} is not in the
-   *         range from {@code 0} to <code>{@link #getChildCount() child-count} - 1</code>.
-   * @see java.util.List#get(int)
-   */
+  /// Gets the child-object at the given `index`.
+  ///
+  /// @param index is the index of the child to get.
+  /// @return the requested child or `null` if no such child exists because the given `index` is not in the
+  ///         range from `0` to `[child-count][#getChildCount()] - 1`.
+  /// @see java.util.List#get(int)
   C getChild(int index);
 
   @Override

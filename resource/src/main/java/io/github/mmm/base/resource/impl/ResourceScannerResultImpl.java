@@ -11,16 +11,12 @@ import io.github.mmm.base.resource.ResourceScannerResult;
 import io.github.mmm.base.resource.ResourceScannerService;
 import io.github.mmm.base.resource.ResourceScannerServiceResult;
 
-/**
- * Implementation of {@link ResourceScannerResult}
- */
+/// Implementation of [ResourceScannerResult]
 public class ResourceScannerResultImpl implements ResourceScannerResult {
 
   private Map<String, AbstractResourceScannerServiceResult> map;
 
-  /**
-   * The constructor.
-   */
+  /// The constructor.
   public ResourceScannerResultImpl() {
 
     this.map = new HashMap<>();
@@ -38,19 +34,15 @@ public class ResourceScannerResultImpl implements ResourceScannerResult {
     return this.map.get(serviceName);
   }
 
-  /**
-   * @param serviceName the {@link Class#getName() qualified name} of the {@link ResourceScannerService}.
-   * @return the corresponding {@link ResourceScannerServiceResult}. Will be created if not found.
-   */
+  /// @param serviceName the [qualified name][Class#getName()] of the [ResourceScannerService].
+  /// @return the corresponding [ResourceScannerServiceResult]. Will be created if not found.
   public ResourceScannerServiceResultResources getOrCreate(String serviceName) {
 
     return (ResourceScannerServiceResultResources) this.map.computeIfAbsent(serviceName,
         ResourceScannerServiceResultResources::new);
   }
 
-  /**
-   * Ensures this object is read-only (immutable).
-   */
+  /// Ensures this object is read-only (immutable).
   public void makeReadOnly() {
 
     this.map.values().forEach(AbstractResourceScannerServiceResult::makeReadOnly);

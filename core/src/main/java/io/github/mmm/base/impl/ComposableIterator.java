@@ -6,24 +6,20 @@ import java.util.Iterator;
 
 import io.github.mmm.base.lang.Composable;
 
-/**
- * {@link Iterator} for {@link Composable}.
- *
- * @param <C> type of iterated children.
- *
- * @since 1.0.0
- */
+/// [Iterator] for [Composable].
+///
+/// @param <C> type of iterated children.
+///
+/// @since 1.0.0
 public class ComposableIterator<C> implements Iterator<C> {
 
   private final Composable<C> composable;
 
   private int index;
 
-  /**
-   * The constructor.
-   * 
-   * @param composable the {@link Composable} to iterate.
-   */
+  /// The constructor.
+  ///
+  /// @param composable the [Composable] to iterate.
   public ComposableIterator(Composable<C> composable) {
 
     super();

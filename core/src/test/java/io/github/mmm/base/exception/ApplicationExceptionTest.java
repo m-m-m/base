@@ -7,12 +7,10 @@ import java.util.Locale;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link ApplicationException}.
- */
+/// Test of [ApplicationException].
 class ApplicationExceptionTest extends Assertions {
 
-  /** Test {@link ApplicationException#getCode()} */
+  /// Test [ApplicationException#getCode()]
   @Test
   void testWithCode() {
 

@@ -2,22 +2,18 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.placement;
 
-/**
- * This enum contains the available values for the alignment of an object.
- *
- * @see HorizontalAlignment
- * @see VerticalAlignment
- */
+/// This enum contains the available values for the alignment of an object.
+///
+/// @see HorizontalAlignment
+/// @see VerticalAlignment
 public enum Alignment {
 
-  /**
-   * the component will be horizontally and vertically centered. <br>
-   * <code>
-   * ...<br>
-   * .<b>X</b>.<br>
-   * ...<br>
-   * </code>
-   */
+  /// the component will be horizontally and vertically centered.
+  /// `
+  /// ...
+  /// .**X**.
+  /// ...
+  /// `
   CENTER("c", "center") {
 
     @Override
@@ -27,14 +23,12 @@ public enum Alignment {
     }
   },
 
-  /**
-   * the component will be located at the top and horizontally centered. <br>
-   * <code>
-   * .<b>X</b>.<br>
-   * ...<br>
-   * ...<br>
-   * </code>
-   */
+  /// the component will be located at the top and horizontally centered.
+  /// `
+  /// .**X**.
+  /// ...
+  /// ...
+  /// `
   TOP("n", "top") {
 
     @Override
@@ -44,14 +38,12 @@ public enum Alignment {
     }
   },
 
-  /**
-   * the component will be located at the bottom and horizontally centered. <br>
-   * <code>
-   * ...<br>
-   * ...<br>
-   * .<b>X</b>.<br>
-   * </code>
-   */
+  /// the component will be located at the bottom and horizontally centered.
+  /// `
+  /// ...
+  /// ...
+  /// .**X**.
+  /// `
   BOTTOM("s", "bottom") {
 
     @Override
@@ -62,14 +54,12 @@ public enum Alignment {
 
   },
 
-  /**
-   * the component will be located at the left and vertically centered. <br>
-   * <code>
-   * ...<br>
-   * <b>X</b>..<br>
-   * ...<br>
-   * </code>
-   */
+  /// the component will be located at the left and vertically centered.
+  /// `
+  /// ...
+  /// **X**..
+  /// ...
+  /// `
   LEFT("w", "left") {
 
     @Override
@@ -80,14 +70,12 @@ public enum Alignment {
 
   },
 
-  /**
-   * the component will be located at the right and vertically centered. <br>
-   * <code>
-   * ...<br>
-   * ..<b>X</b><br>
-   * ...<br>
-   * </code>
-   */
+  /// the component will be located at the right and vertically centered.
+  /// `
+  /// ...
+  /// ..**X**
+  /// ...
+  /// `
   RIGHT("e", "right") {
 
     @Override
@@ -98,14 +86,12 @@ public enum Alignment {
 
   },
 
-  /**
-   * the component will be located at the right and vertically centered. <br>
-   * <code>
-   * <b>X</b>..<br>
-   * ...<br>
-   * ...<br>
-   * </code>
-   */
+  /// the component will be located at the right and vertically centered.
+  /// `
+  /// **X**..
+  /// ...
+  /// ...
+  /// `
   TOP_LEFT("nw", "top left") {
 
     @Override
@@ -116,14 +102,12 @@ public enum Alignment {
 
   },
 
-  /**
-   * the component will be located at the right and vertically centered. <br>
-   * <code>
-   * ..<b>X</b><br>
-   * ...<br>
-   * ...<br>
-   * </code>
-   */
+  /// the component will be located at the right and vertically centered.
+  /// `
+  /// ..**X**
+  /// ...
+  /// ...
+  /// `
   TOP_RIGHT("ne", "top right") {
 
     @Override
@@ -134,14 +118,12 @@ public enum Alignment {
 
   },
 
-  /**
-   * the component will be located at the right and vertically centered. <br>
-   * <code>
-   * ...<br>
-   * ...<br>
-   * <b>X</b>..<br>
-   * </code>
-   */
+  /// the component will be located at the right and vertically centered.
+  /// `
+  /// ...
+  /// ...
+  /// **X**..
+  /// `
   BOTTOM_LEFT("sw", "bottom left") {
 
     @Override
@@ -152,14 +134,12 @@ public enum Alignment {
 
   },
 
-  /**
-   * the component will be located at the right and vertically centered. <br>
-   * <code>
-   * ...<br>
-   * ...<br>
-   * ..<b>X</b><br>
-   * </code>
-   */
+  /// the component will be located at the right and vertically centered.
+  /// `
+  /// ...
+  /// ...
+  /// ..**X**
+  /// `
   BOTTOM_RIGHT("se", "bottom right") {
 
     @Override
@@ -174,21 +154,17 @@ public enum Alignment {
 
   private final String title;
 
-  /**
-   * The constructor.
-   *
-   * @param syntax is the {@link #getSyntax() syntax}.
-   * @param title is the {@link #toString() string representation}.
-   */
+  /// The constructor.
+  ///
+  /// @param syntax is the [syntax][#getSyntax()].
+  /// @param title is the [string representation][#toString()].
   private Alignment(String syntax, String title) {
 
     this.syntax = syntax;
     this.title = title;
   }
 
-  /**
-   * @return the compact ASCII syntax.
-   */
+  /// @return the compact ASCII syntax.
   public String getSyntax() {
 
     return this.syntax;
@@ -200,12 +176,10 @@ public enum Alignment {
     return this.title;
   }
 
-  /**
-   * This method gets the {@link Alignment} with the given {@link #getSyntax() value}.
-   *
-   * @param value is the {@link #getSyntax() value} of the requested {@link Alignment}.
-   * @return the requested {@link Alignment}.
-   */
+  /// This method gets the [Alignment] with the given [value][#getSyntax()].
+  ///
+  /// @param value is the [value][#getSyntax()] of the requested [Alignment].
+  /// @return the requested [Alignment].
   public static Alignment fromValue(String value) {
 
     for (Alignment alignment : values()) {
@@ -216,11 +190,9 @@ public enum Alignment {
     return null;
   }
 
-  /**
-   * This method gets the horizontal part of the alignment.
-   *
-   * @return the {@link HorizontalAlignment}.
-   */
+  /// This method gets the horizontal part of the alignment.
+  ///
+  /// @return the [HorizontalAlignment].
   public HorizontalAlignment toHorizontalAlignment() {
 
     if ((this == TOP_LEFT) || (this == LEFT) || (this == BOTTOM_LEFT)) {
@@ -232,11 +204,9 @@ public enum Alignment {
     }
   }
 
-  /**
-   * This method gets the vertical part of the alignment.
-   *
-   * @return the {@link VerticalAlignment}.
-   */
+  /// This method gets the vertical part of the alignment.
+  ///
+  /// @return the [VerticalAlignment].
   public VerticalAlignment toVerticalAlignment() {
 
     if ((this == TOP_LEFT) || (this == TOP) || (this == TOP_RIGHT)) {
@@ -248,14 +218,12 @@ public enum Alignment {
     }
   }
 
-  /**
-   * This method extracts the {@link Orientation#HORIZONTAL horizontal} or {@link Orientation#VERTICAL vertical} part of
-   * this alignment.
-   *
-   * @param orientation is the {@link Orientation} of the requested part.
-   * @return the {@link Alignment} from {@link #toHorizontalAlignment()} if orientation is
-   *         {@link Orientation#HORIZONTAL}, or {@link #toVerticalAlignment()} otherwise.
-   */
+  /// This method extracts the [horizontal][Orientation#HORIZONTAL] or [vertical][Orientation#VERTICAL] part of
+  /// this alignment.
+  ///
+  /// @param orientation is the [Orientation] of the requested part.
+  /// @return the [Alignment] from [#toHorizontalAlignment()] if orientation is
+  ///         [Orientation#HORIZONTAL], or [#toVerticalAlignment()] otherwise.
   public Alignment toAlignment(Orientation orientation) {
 
     if (orientation == Orientation.HORIZONTAL) {
@@ -265,16 +233,12 @@ public enum Alignment {
     }
   }
 
-  /**
-   * This method gets the inverse alignment.
-   *
-   * @return the inverse alignment. E.g. {@link #BOTTOM_RIGHT} for {@link #TOP_LEFT}. Returns itself if {@link #CENTER}.
-   */
+  /// This method gets the inverse alignment.
+  ///
+  /// @return the inverse alignment. E.g. [#BOTTOM_RIGHT] for [#TOP_LEFT]. Returns itself if [#CENTER].
   public abstract Alignment getMirrored();
 
-  /**
-   * @return the corresponding {@link Direction} or {@code null} for {@link #CENTER}.
-   */
+  /// @return the corresponding [Direction] or `null` for [#CENTER].
   public Direction toDirection() {
 
     switch (this) {
@@ -301,12 +265,10 @@ public enum Alignment {
     }
   }
 
-  /**
-   * This is the inverse operation for {@link #toDirection()}.
-   *
-   * @param direction is the {@link Direction}. May be {@code null} for {@link #CENTER}.
-   * @return the corresponding {@link Alignment}.
-   */
+  /// This is the inverse operation for [#toDirection()].
+  ///
+  /// @param direction is the [Direction]. May be `null` for [#CENTER].
+  /// @return the corresponding [Alignment].
   public static Alignment fromDirection(Direction direction) {
 
     if (direction == null) {

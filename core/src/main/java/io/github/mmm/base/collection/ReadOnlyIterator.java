@@ -5,21 +5,17 @@ package io.github.mmm.base.collection;
 import java.util.Iterator;
 import java.util.Objects;
 
-/**
- * Implementation of {@link Iterator} as a read-only view on an existing {@link Iterator} instance.
- *
- * @param <E> type of the elements to iterate.
- * @since 1.0.0
- */
+/// Implementation of [Iterator] as a read-only view on an existing [Iterator] instance.
+///
+/// @param <E> type of the elements to iterate.
+/// @since 1.0.0
 public class ReadOnlyIterator<E> implements Iterator<E> {
 
   private final Iterator<? extends E> delegate;
 
-  /**
-   * The constructor.
-   *
-   * @param iterator is the {@link Iterator} to adapt.
-   */
+  /// The constructor.
+  ///
+  /// @param iterator is the [Iterator] to adapt.
   public ReadOnlyIterator(Iterator<? extends E> iterator) {
 
     super();

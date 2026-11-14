@@ -4,55 +4,46 @@ package io.github.mmm.base.text;
 
 import java.util.Locale;
 
-/**
- * Simple helper for case conversion like {@link #toLowerCase(String)} or {@link #toUpperCase(String)}. This seems
- * pointless in the first place but prevents typical programming mistakes. Many developers will expect that
- * <code>"HI".{@link String#toLowerCase() toLowerCase()}</code> returns {@code "hi"}. However, this is not always the
- * case! {@link String#toLowerCase()} will actually do {@link String#toLowerCase(Locale)
- * toLowerCase}({@link Locale#getDefault()}). The latter operation is obviously a {@link Locale} sensitive operation and
- * can behave differently depending on the given {@link Locale}. So e.g. if your {@link Locale} is actually Turkish
- * ({@code tr_TR} resp. {@code tr-TR}) the result of <code>"HI".{@link String#toLowerCase() toLowerCase()}</code> will
- * actually be {@code "hı"} (notice the missing dot on the i character!). This can lead to serious bugs when creating
- * filenames, URLs or the like via case conversion. Due to such bug nobody with Turkish locale could install Lotus Notes
- * 8.5.1 when it was released.<br>
- * Simply use this small helper as indirection to the standard {@link String} case operations to prevent such mistakes
- * and also to document this fact.
- *
- * @since 1.0.0
- */
+/// Simple helper for case conversion like [#toLowerCase(String)] or [#toUpperCase(String)]. This seems
+/// pointless in the first place but prevents typical programming mistakes. Many developers will expect that
+/// `"HI".[toLowerCase()][String#toLowerCase()]` returns `"hi"`. However, this is not always the
+/// case! [String#toLowerCase()] will actually do [toLowerCase][String#toLowerCase(Locale)]([Locale#getDefault()]). The latter operation is obviously a [Locale] sensitive operation and
+/// can behave differently depending on the given [Locale]. So e.g. if your [Locale] is actually Turkish
+/// (`tr_TR` resp. `tr-TR`) the result of `"HI".[toLowerCase()][String#toLowerCase()]` will
+/// actually be `"hı"` (notice the missing dot on the i character!). This can lead to serious bugs when creating
+/// filenames, URLs or the like via case conversion. Due to such bug nobody with Turkish locale could install Lotus Notes
+/// 8.5.1 when it was released.
+/// Simply use this small helper as indirection to the standard [String] case operations to prevent such mistakes
+/// and also to document this fact.
+///
+/// @since 1.0.0
 public final class CaseHelper {
 
-  /** The standard locale to use instead of {@link Locale#getDefault()}. */
+  /// The standard locale to use instead of [Locale#getDefault()].
   static final Locale STANDARD_LOCALE = Locale.ROOT;
 
-  /**
-   * Construction prohibited.
-   */
+  /// Construction prohibited.
   private CaseHelper() {
 
     super();
   }
 
-  /**
-   * Indirection for {@link String#toLowerCase(Locale)} with a standard {@link Locale} to prevent accidents. See
-   * {@link CaseHelper} type description for details.
-   *
-   * @param string is the {@link String}.
-   * @return the result of {@link String#toLowerCase(Locale)}.
-   * @since 4.0.0
-   */
+  /// Indirection for [String#toLowerCase(Locale)] with a standard [Locale] to prevent accidents. See
+  /// [CaseHelper] type description for details.
+  ///
+  /// @param string is the [String].
+  /// @return the result of [String#toLowerCase(Locale)].
+  /// @since 4.0.0
   public static String toLowerCase(String string) {
 
     return string.toLowerCase(STANDARD_LOCALE);
   }
 
-  /**
-   * Indirection for {@link String#toLowerCase(Locale)}.
-   *
-   * @param string is the {@link String}.
-   * @param locale is the {@link Locale}.
-   * @return the result of {@link String#toLowerCase(Locale)}.
-   */
+  /// Indirection for [String#toLowerCase(Locale)].
+  ///
+  /// @param string is the [String].
+  /// @param locale is the [Locale].
+  /// @return the result of [String#toLowerCase(Locale)].
   public static String toLowerCase(String string, Locale locale) {
 
     if (locale == null) {
@@ -61,25 +52,21 @@ public final class CaseHelper {
     return string.toLowerCase(locale);
   }
 
-  /**
-   * Indirection for {@link String#toUpperCase(Locale)} with a standard {@link Locale#US} to prevent accidents. See
-   * {@link CaseHelper} type description for details.
-   *
-   * @param string is the {@link String}.
-   * @return the result of {@link String#toUpperCase(Locale)}.
-   */
+  /// Indirection for [String#toUpperCase(Locale)] with a standard [Locale#US] to prevent accidents. See
+  /// [CaseHelper] type description for details.
+  ///
+  /// @param string is the [String].
+  /// @return the result of [String#toUpperCase(Locale)].
   public static String toUpperCase(String string) {
 
     return string.toUpperCase(STANDARD_LOCALE);
   }
 
-  /**
-   * Indirection for {@link String#toUpperCase(Locale)}.
-   *
-   * @param string is the {@link String}.
-   * @param locale is the {@link Locale}.
-   * @return the result of {@link String#toUpperCase(Locale)}.
-   */
+  /// Indirection for [String#toUpperCase(Locale)].
+  ///
+  /// @param string is the [String].
+  /// @param locale is the [Locale].
+  /// @return the result of [String#toUpperCase(Locale)].
   public static String toUpperCase(String string, Locale locale) {
 
     if (locale == null) {
@@ -88,10 +75,8 @@ public final class CaseHelper {
     return string.toUpperCase(locale);
   }
 
-  /**
-   * @param string is the {@link String}. May be {@code null}.
-   * @return the capitalized {@link String}.
-   */
+  /// @param string is the [String]. May be `null`.
+  /// @return the capitalized [String].
   public static String capitalize(String string) {
 
     if ((string != null) && !string.isEmpty()) {
@@ -104,10 +89,8 @@ public final class CaseHelper {
     return string;
   }
 
-  /**
-   * @param string is the {@link String}. May be {@code null}.
-   * @return the capitalized {@link String}.
-   */
+  /// @param string is the [String]. May be `null`.
+  /// @return the capitalized [String].
   public static String uncapitalize(String string) {
 
     if ((string != null) && !string.isEmpty()) {

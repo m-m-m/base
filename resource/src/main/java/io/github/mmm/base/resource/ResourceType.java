@@ -2,15 +2,13 @@ package io.github.mmm.base.resource;
 
 import io.github.mmm.base.type.JavaType;
 
-/**
- * {@link ResourceFile} pointing to a Java type as {@link Class}.
- */
+/// [ResourceFile] pointing to a Java type as [Class].
 public interface ResourceType extends ResourcePath {
 
-  /** {@link #getPath() Path} of {@link #isModuleInfo() module-info}. */
+  /// [Path][#getPath()] of [module-info][#isModuleInfo()].
   public static final String MODULE_INFO_CLASS = "module-info.class";
 
-  /** {@link #getPath() Path} of {@link #isPackageInfo() package-info}. */
+  /// [Path][#getPath()] of [package-info][#isPackageInfo()].
   public static final String PACKAGE_INFO_CLASS = "package-info.class";
 
   @Override
@@ -19,52 +17,39 @@ public interface ResourceType extends ResourcePath {
     return true;
   }
 
-  /**
-   * @return the {@link Class#forName(String) loaded} {@link Class}. Will be {@code null} for {@link #isModuleInfo()
-   *         module-info}.
-   * @throws RuntimeException if class-loading failed.
-   * @see #loadType()
-   */
+  /// @return the [loaded][Class#forName(String)] [Class]. Will be `null` for [module-info][#isModuleInfo()].
+  /// @throws RuntimeException if class-loading failed.
+  /// @see #loadType()
   Class<?> loadClass();
 
-  /**
-   * @return the {@link JavaType} as "preview" of {@link #loadClass()}. Allows to see if the class is "relevant" before
-   *         triggering actual {@link #loadClass() class-loading} while scanning classes. Here "relevant" could be all
-   *         classes implementing a specific interface or all records, etc.
-   * @throws RuntimeException if loading class-file failed.
-   * @see #loadClass()
-   */
+  /// @return the [JavaType] as "preview" of [#loadClass()]. Allows to see if the class is "relevant" before
+  ///         triggering actual [class-loading][#loadClass()] while scanning classes. Here "relevant" could be all
+  ///         classes implementing a specific interface or all records, etc.
+  /// @throws RuntimeException if loading class-file failed.
+  /// @see #loadClass()
   JavaType loadType();
 
-  /**
-   * @return {@code true} if this is a {@code package-info.class} file, {@code false} otherwise.
-   */
+  /// @return `true` if this is a `package-info.class` file, `false` otherwise.
   default boolean isPackageInfo() {
 
     return getPath().endsWith(PACKAGE_INFO_CLASS);
   }
 
-  /**
-   * @return {@code true} if this is the {@code module-info.class} file, {@code false} otherwise.
-   */
+  /// @return `true` if this is the `module-info.class` file, `false` otherwise.
   default boolean isModuleInfo() {
 
     return getPath().equals(MODULE_INFO_CLASS);
   }
 
-  /**
-   * @return {@code true} if this is an inner type file, {@code false} otherwise (top-level type).
-   */
+  /// @return `true` if this is an inner type file, `false` otherwise (top-level type).
   default boolean isInnerType() {
 
     return getPath().contains("$");
   }
 
-  /**
-   * @param path the {@link ResourcePath}. May be {@code null}.
-   * @return the {@link #loadClass() loaded} {@link Class} or {@code null} if the given {@link ResourcePath} is not a
-   *         {@link ResourceType} or could not be loaded.
-   */
+  /// @param path the [ResourcePath]. May be `null`.
+  /// @return the [loaded][#loadClass()] [Class] or `null` if the given [ResourcePath] is not a
+  ///         [ResourceType] or could not be loaded.
   static Class<?> loadClass(ResourcePath path) {
 
     if (path instanceof ResourceType type) {

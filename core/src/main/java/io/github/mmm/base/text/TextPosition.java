@@ -2,19 +2,13 @@
  * http://www.apache.org/licenses/LICENSE-2.0 */
 package io.github.mmm.base.text;
 
-/**
- * Interface for an object that has a position in a text with {@link #getLine() line} and {@link #getColumn() column}
- * number.
- */
+/// Interface for an object that has a position in a text with [line][#getLine()] and [column][#getColumn()]
+/// number.
 public interface TextPosition {
 
-  /**
-   * @return the line number starting from {@code 1} for the first line.
-   */
+  /// @return the line number starting from `1` for the first line.
   int getLine();
 
-  /**
-   * @return the column number starting from {@code 1} for the first character in the {@link #getLine() line}.
-   */
+  /// @return the column number starting from `1` for the first character in the [line][#getLine()].
   int getColumn();
 }

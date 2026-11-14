@@ -8,20 +8,16 @@ import java.util.Objects;
 import io.github.mmm.base.exception.RuntimeIoException;
 import io.github.mmm.base.io.UncheckedAppendable;
 
-/**
- * Implementation of {@link UncheckedAppendable}.
- *
- * @since 1.0.0
- */
+/// Implementation of [UncheckedAppendable].
+///
+/// @since 1.0.0
 public class UncheckedAppendableWrapper implements UncheckedAppendable {
 
   private final Appendable appendable;
 
-  /**
-   * The constructor.
-   *
-   * @param appendable the {@link #unwrap() underlying} {@link Appendable} to wrap.
-   */
+  /// The constructor.
+  ///
+  /// @param appendable the [underlying][#unwrap()] [Appendable] to wrap.
   public UncheckedAppendableWrapper(Appendable appendable) {
 
     super();

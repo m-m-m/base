@@ -6,42 +6,36 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * Implementation of both {@link Iterator} and {@link Enumeration} to iterate a given array. For performance the array
- * is NOT copied so please note that modifications of the array given at construction will directly be reflected by this
- * {@link ArrayIterator}.
- *
- * @param <E> type of the elements to iterate.
- * @since 1.0.0
- */
+/// Implementation of both [Iterator] and [Enumeration] to iterate a given array. For performance the array
+/// is NOT copied so please note that modifications of the array given at construction will directly be reflected by this
+/// [ArrayIterator].
+///
+/// @param <E> type of the elements to iterate.
+/// @since 1.0.0
 public class ArrayIterator<E> implements Enumeration<E>, Iterator<E> {
 
-  /** The array to iterate/enumerate. */
+  /// The array to iterate/enumerate.
   private final E[] array;
 
-  /** The index where iteration stops. The item with this index will NOT be iterated. */
+  /// The index where iteration stops. The item with this index will NOT be iterated.
   private final int stopIndex;
 
-  /** The current index in {@code array}. */
+  /// The current index in `array`.
   private int index;
 
-  /**
-   * The constructor.
-   *
-   * @param array is the array to iterate/enumerate.
-   */
+  /// The constructor.
+  ///
+  /// @param array is the array to iterate/enumerate.
   public ArrayIterator(E[] array) {
 
     this(array, 0, (array == null) ? 0 : array.length - 1);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param array is the array to iterate/enumerate.
-   * @param start is the index of the first item to iterate/enumerate in {@code array}.
-   * @param end is the index of the last item to iterate/enumerate in {@code array}.
-   */
+  /// The constructor.
+  ///
+  /// @param array is the array to iterate/enumerate.
+  /// @param start is the index of the first item to iterate/enumerate in `array`.
+  /// @param end is the index of the last item to iterate/enumerate in `array`.
   public ArrayIterator(E[] array, int start, int end) {
 
     super();

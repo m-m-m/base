@@ -9,14 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
-/**
- * Test of {@link VersionNumber}.
- */
+/// Test of [VersionNumber].
 class VersionNumberTest extends Assertions {
 
-  /**
-   * Test of {@link VersionIdentifier#of(String)}.
-   */
+  /// Test of [VersionIdentifier#of(String)].
   @Test
   void testOf() {
 
@@ -54,9 +50,7 @@ class VersionNumberTest extends Assertions {
     assertThat(vid.getDevelopmentPhase()).isSameAs(VersionLetters.UNDEFINED);
   }
 
-  /**
-   * Test of {@link VersionNumber#isValid() valid} versions.
-   */
+  /// Test of [valid][VersionNumber#isValid()] versions.
   @ParameterizedTest
   // arrange
   @ValueSource(strings = { "1.0", "0.1", "2023.08.001", "2023-06-M1", "11.0.4_11.4", "5.2.23.RELEASE" })
@@ -70,9 +64,7 @@ class VersionNumberTest extends Assertions {
     assertThat(vid).hasToString(version);
   }
 
-  /**
-   * Test of in{@link VersionNumber#isValid() valid} versions.
-   */
+  /// Test of in[valid][VersionNumber#isValid()] versions.
   @ParameterizedTest
   // arrange
   @ValueSource(strings = { "0", "0.0", "1.0.pineapple-pen", "1.0-rc", ".1.0", "1.-0", "RC1", "Beta1", "donut",
@@ -87,9 +79,7 @@ class VersionNumberTest extends Assertions {
     assertThat(vid).hasToString(version);
   }
 
-  /**
-   * Test of {@link VersionNumber} with canonical version numbers and safe order.
-   */
+  /// Test of [VersionNumber] with canonical version numbers and safe order.
   @Test
   void testCompare() {
 
@@ -110,10 +100,7 @@ class VersionNumberTest extends Assertions {
     }
   }
 
-  /**
-   * Test of {@link VersionIdentifier#compareVersion(VersionIdentifier)} with {@link VersionComparisonResult#isUnsafe()
-   * unsafe results} and other edge-cases.
-   */
+  /// Test of [VersionIdentifier#compareVersion(VersionIdentifier)] with [unsafe results][VersionComparisonResult#isUnsafe()] and other edge-cases.
   @Test
   void testCompareSpecial() {
 
@@ -132,7 +119,7 @@ class VersionNumberTest extends Assertions {
     assertThat(v21_0_3_9).isGreaterThan(v21_35);
   }
 
-  /** Test of {@link VersionIdentifier#incrementSegment(int, boolean)} and related methods. */
+  /// Test of [VersionIdentifier#incrementSegment(int, boolean)] and related methods.
   @Test
   void testIncrement() {
 
@@ -170,7 +157,7 @@ class VersionNumberTest extends Assertions {
     assertThat(incremented).hasToString(expectedVersion);
   }
 
-  /** Test of {@link VersionIdentifier#incrementLastDigit(boolean)}. */
+  /// Test of [VersionIdentifier#incrementLastDigit(boolean)].
   @Test
   void testIncrementLastDigit() {
 
@@ -189,7 +176,7 @@ class VersionNumberTest extends Assertions {
     assertThat(incremented).hasToString(expectedVersion);
   }
 
-  /** Test of {@link VersionIdentifier#isStable()}. */
+  /// Test of [VersionIdentifier#isStable()].
   @Test
   void testIsStable() {
 

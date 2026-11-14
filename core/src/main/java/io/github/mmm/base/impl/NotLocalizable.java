@@ -8,19 +8,15 @@ import java.util.Locale;
 import io.github.mmm.base.exception.RuntimeIoException;
 import io.github.mmm.base.i18n.Localizable;
 
-/**
- * Dummy implementation of {@link Localizable} that does not support localization and simply ignores any given
- * {@link Locale}.
- */
+/// Dummy implementation of [Localizable] that does not support localization and simply ignores any given
+/// [Locale].
 public class NotLocalizable implements Localizable {
 
   private final String message;
 
-  /**
-   * The constructor.
-   *
-   * @param message the {@link #getMessage() message}.
-   */
+  /// The constructor.
+  ///
+  /// @param message the [message][#getMessage()].
   public NotLocalizable(String message) {
 
     super();

@@ -7,33 +7,29 @@ import io.github.mmm.base.resource.ResourcePackage;
 import io.github.mmm.base.resource.ResourcePath;
 import io.github.mmm.base.resource.ResourceType;
 
-/**
- * Implementation of {@link ResourcePath}.
- */
+/// Implementation of [ResourcePath].
 public abstract class ResourcePathImpl implements ResourcePath {
 
-  /** @see #getModuleAccess() */
+  /// @see #getModuleAccess()
   protected final ModuleAccess moduleAccess;
 
-  /** @see #getPath() */
+  /// @see #getPath()
   protected final String path;
 
-  /** @see #getName() */
+  /// @see #getName()
   protected final String name;
 
-  /** @see #getSimpleName() */
+  /// @see #getSimpleName()
   protected final String simpleName;
 
   private final ResourcePackage parent;
 
-  /**
-   * The constructor.
-   *
-   * @param moduleAccess the {@link #getModuleAccess() module access}.
-   * @param path the {@link #getPath() path}.
-   * @param simpleName the {@link #getSimpleName() simple name}.
-   * @param parent the {@link #getParent() parent}.
-   */
+  /// The constructor.
+  ///
+  /// @param moduleAccess the [module access][#getModuleAccess()].
+  /// @param path the [path][#getPath()].
+  /// @param simpleName the [simple name][#getSimpleName()].
+  /// @param parent the [parent][#getParent()].
   public ResourcePathImpl(ModuleAccess moduleAccess, String path, String simpleName, ResourcePackage parent) {
 
     super();

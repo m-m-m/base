@@ -7,34 +7,28 @@ import java.util.Comparator;
 import io.github.mmm.base.compare.NumberComparator;
 import io.github.mmm.base.number.NumberType;
 
-/**
- * Implementation of {@link NumberRange} as immutable type.
- *
- * @param <N> type of the {@link Number} value. Unfortunately {@link Number} does not implement {@link Comparable}.
- * @since 1.0.0
- */
+/// Implementation of [NumberRange] as immutable type.
+///
+/// @param <N> type of the [Number] value. Unfortunately [Number] does not implement [Comparable].
+/// @since 1.0.0
 public class NumberRangeType<N extends Number & Comparable<?>> extends RangeType<N> implements NumberRange<N> {
 
   private NumberType<N> type;
 
-  /**
-   * The constructor.
-   *
-   * @param min - see {@link #getMin()}. To create an open range use the minimum value.
-   * @param max - see {@link #getMax()}. To create an open range use the maximum value.
-   */
+  /// The constructor.
+  ///
+  /// @param min - see [#getMin()]. To create an open range use the minimum value.
+  /// @param max - see [#getMax()]. To create an open range use the maximum value.
   public NumberRangeType(N min, N max) {
 
     this(null, min, max);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param type the {@link #getType() number type}.
-   * @param min - see {@link #getMin()}. To create an open range use the minimum value.
-   * @param max - see {@link #getMax()}. To create an open range use the maximum value.
-   */
+  /// The constructor.
+  ///
+  /// @param type the [number type][#getType()].
+  /// @param min - see [#getMin()]. To create an open range use the minimum value.
+  /// @param max - see [#getMax()]. To create an open range use the maximum value.
   public NumberRangeType(NumberType<N> type, N min, N max) {
 
     super(min, max);

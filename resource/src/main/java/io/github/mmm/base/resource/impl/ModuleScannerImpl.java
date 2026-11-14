@@ -28,14 +28,12 @@ import io.github.mmm.base.resource.ModuleScanner;
 import io.github.mmm.base.resource.ResourceMap;
 import io.github.mmm.base.resource.ResourcePath;
 
-/**
- * Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).
- */
+/// Fast and simple scanner of modules and their content (similar to classpath scanning before JPMS).
 public final class ModuleScannerImpl implements ModuleScanner {
 
   private static final Logger LOG = LoggerFactory.getLogger(ModuleScannerImpl.class);
 
-  /** @see ModuleScanner#get() */
+  /// @see ModuleScanner#get()
   public static final ModuleScannerImpl INSTANCE = new ModuleScannerImpl();
 
   private final ModuleLayer moduleLayer;

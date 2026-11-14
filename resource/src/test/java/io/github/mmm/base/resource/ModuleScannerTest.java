@@ -21,9 +21,7 @@ import io.github.mmm.base.lang.ValueType;
 import io.github.mmm.base.type.JavaType;
 import io.github.mmm.base.type.JavaTypeKind;
 
-/**
- * Test of {@link ModuleScanner}.
- */
+/// Test of [ModuleScanner].
 class ModuleScannerTest extends Assertions {
 
   @Test

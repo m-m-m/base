@@ -8,25 +8,21 @@ import java.util.Objects;
 
 import io.github.mmm.base.metainfo.MetaInfo;
 
-/**
- * Implementation of {@link MetaInfo} as wrapper of {@link Map}.
- *
- * @since 1.0.0
- */
+/// Implementation of [MetaInfo] as wrapper of [Map].
+///
+/// @since 1.0.0
 public abstract class MetaInfoInherited extends AbstractMetaInfo {
 
-  /** @see #getParent() */
+  /// @see #getParent()
   protected final MetaInfoInherited parent;
 
-  /** @see #getKeyPrefix() */
+  /// @see #getKeyPrefix()
   protected final String keyPrefix;
 
-  /**
-   * The constructor.
-   *
-   * @param parent the {@link #getParent() parent}.
-   * @param keyPrefix the {@link #getKeyPrefix() key prefix}.
-   */
+  /// The constructor.
+  ///
+  /// @param parent the [parent][#getParent()].
+  /// @param keyPrefix the [key prefix][#getKeyPrefix()].
   public MetaInfoInherited(MetaInfoInherited parent, String keyPrefix) {
 
     super();
@@ -59,10 +55,8 @@ public abstract class MetaInfoInherited extends AbstractMetaInfo {
     return new MetaInfoInheritedIterator(this);
   }
 
-  /**
-   * @return the {@link Iterator} of the plain keys of this {@link MetaInfoInherited} without filtering or inheritance.
-   * @see #iterator()
-   */
+  /// @return the [Iterator] of the plain keys of this [MetaInfoInherited] without filtering or inheritance.
+  /// @see #iterator()
   protected abstract Iterator<String> plainIterator();
 
   @Override

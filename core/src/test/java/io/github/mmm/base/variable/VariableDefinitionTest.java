@@ -10,9 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
 
-/**
- * Test of {@link VariableDefinition}.
- */
+/// Test of [VariableDefinition].
 class VariableDefinitionTest extends Assertions {
 
   @Test

@@ -8,12 +8,10 @@ import java.util.Locale.Builder;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-/**
- * Test of {@link LocaleHelper}.
- */
+/// Test of [LocaleHelper].
 class LocaleHelperTest extends Assertions {
 
-  /** Test of {@link LocaleHelper#toInfix(java.util.Locale)} */
+  /// Test of [LocaleHelper#toInfix(java.util.Locale)]
   @Test
   void testToInfix() {
 
@@ -28,7 +26,7 @@ class LocaleHelperTest extends Assertions {
     assertThat(LocaleHelper.toInfix(locale("", "", "variant"))).isEqualTo("___variant");
   }
 
-  /** Test of {@link LocaleHelper#toInfixes(java.util.Locale)} */
+  /// Test of [LocaleHelper#toInfixes(java.util.Locale)]
   @Test
   void testToInfixes() {
 
@@ -43,7 +41,7 @@ class LocaleHelperTest extends Assertions {
     assertThat(LocaleHelper.toInfixes(locale("", "", "variant"))).containsExactly("___variant", "");
   }
 
-  /** Test of {@link LocaleHelper#fromString(String)} */
+  /// Test of [LocaleHelper#fromString(String)]
   @Test
   void testFromString() {
 

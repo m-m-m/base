@@ -10,14 +10,12 @@ import java.util.function.Function;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
 
-/**
- * Definition of a variable for a {@link VariableMap}. It is a simple container for the {@link #getName() name} of the
- * variable with its {@link #getDefaultValue()} and its {@link #getType() type} making the
- * {@link VariableMap#get(VariableDefinition) access of the value} type-safe.
- *
- * @param <T> type of the value for this option. See {@link #getType()}.
- * @since 1.0.0
- */
+/// Definition of a variable for a [VariableMap]. It is a simple container for the [name][#getName()] of the
+/// variable with its [#getDefaultValue()] and its [type][#getType()] making the
+/// [access of the value][VariableMap#get(VariableDefinition)] type-safe.
+///
+/// @param <T> type of the value for this option. See [#getType()].
+/// @since 1.0.0
 public class VariableDefinition<T> {
 
   private static final Function<Object, String> DEFAULT_FORMATTER = Object::toString;
@@ -34,56 +32,48 @@ public class VariableDefinition<T> {
 
   private final Function<T, String> formatter;
 
-  /**
-   * The constructor.
-   *
-   * @param name the {@link #getName() name}.
-   * @param type the {@link #getType() type}.
-   * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
-   */
+  /// The constructor.
+  ///
+  /// @param name the [name][#getName()].
+  /// @param type the [type][#getType()].
+  /// @param parser the [Function] to [parse][#parse(String)] the value from [String].
   public VariableDefinition(String name, Class<T> type, Function<String, T> parser) {
 
     this(name, type, null, true, parser);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param name the {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @param required the {@link #isRequired() required} flag.
-   * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
-   */
+  /// The constructor.
+  ///
+  /// @param name the [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @param required the [required][#isRequired()] flag.
+  /// @param parser the [Function] to [parse][#parse(String)] the value from [String].
   public VariableDefinition(String name, T defaultValue, boolean required, Function<String, T> parser) {
 
     this(name, null, defaultValue, required, parser);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param name the {@link #getName() name}.
-   * @param type the {@link #getType() type}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @param required the {@link #isRequired() required} flag.
-   * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
-   */
+  /// The constructor.
+  ///
+  /// @param name the [name][#getName()].
+  /// @param type the [type][#getType()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @param required the [required][#isRequired()] flag.
+  /// @param parser the [Function] to [parse][#parse(String)] the value from [String].
   @SuppressWarnings("unchecked")
   public VariableDefinition(String name, Class<T> type, T defaultValue, boolean required, Function<String, T> parser) {
 
     this(name, type, defaultValue, required, parser, (Function<T, String>) DEFAULT_FORMATTER);
   }
 
-  /**
-   * The constructor.
-   *
-   * @param name the {@link #getName() name}.
-   * @param type the {@link #getType() type}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @param required the {@link #isRequired() required} flag.
-   * @param parser the {@link Function} to {@link #parse(String) parse} the value from {@link String}.
-   * @param formatter the {@link Function} to {@link #format(Object) format} the value to {@link String}.
-   */
+  /// The constructor.
+  ///
+  /// @param name the [name][#getName()].
+  /// @param type the [type][#getType()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @param required the [required][#isRequired()] flag.
+  /// @param parser the [Function] to [parse][#parse(String)] the value from [String].
+  /// @param formatter the [Function] to [format][#format(Object)] the value to [String].
   @SuppressWarnings("unchecked")
   public VariableDefinition(String name, Class<T> type, T defaultValue, boolean required, Function<String, T> parser,
       Function<T, String> formatter) {
@@ -108,40 +98,32 @@ public class VariableDefinition<T> {
     this.formatter = formatter;
   }
 
-  /**
-   * @return the name of the variable used as {@link Map#containsKey(Object) key} to
-   *         {@link VariableMap#get(VariableDefinition) get its value}.
-   */
+  /// @return the name of the variable used as [key][Map#containsKey(Object)] to
+  ///         [get its value][VariableMap#get(VariableDefinition)].
   public String getName() {
 
     return this.name;
   }
 
-  /**
-   * @return the {@link Class} reflecting the value of this variable.
-   */
+  /// @return the [Class] reflecting the value of this variable.
   public Class<T> getType() {
 
     return this.type;
   }
 
-  /**
-   * @param map the {@link Map} to get the value from.
-   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the
-   *         {@link #getDefaultValue() default}.
-   */
+  /// @param map the [Map] to get the value from.
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the
+  ///         [default][#getDefaultValue()].
   public T get(Map<String, ?> map) {
 
     return get(map, null);
   }
 
-  /**
-   * @param map the {@link Map} to get the value from.
-   * @param fallback the value returned if the given {@link Map} does not contain the value or {@code null} to retrieve
-   *        the {@link #getDefaultValue() default value} in such case.
-   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the {@code fallback} or
-   *         {@link #getDefaultValue() default}.
-   */
+  /// @param map the [Map] to get the value from.
+  /// @param fallback the value returned if the given [Map] does not contain the value or `null` to retrieve
+  ///        the [default value][#getDefaultValue()] in such case.
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the `fallback` or
+  ///         [default][#getDefaultValue()].
   public T get(Map<String, ?> map, T fallback) {
 
     Object value = map.get(this.name);
@@ -157,23 +139,19 @@ public class VariableDefinition<T> {
     return this.type.cast(value);
   }
 
-  /**
-   * @param properties the {@link Properties} to get the value from.
-   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the
-   *         {@link #getDefaultValue() default}.
-   */
+  /// @param properties the [Properties] to get the value from.
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the
+  ///         [default][#getDefaultValue()].
   public T get(Properties properties) {
 
     return get(properties, null);
   }
 
-  /**
-   * @param properties the {@link Properties} to get the value from.
-   * @param fallback the value returned if the given {@link Map} does not contain the value or {@code null} to retrieve
-   *        the {@link #getDefaultValue() default value} in such case.
-   * @return the value from this {@link VariableDefinition} {@link #getName() name} as key or the {@code fallback} or
-   *         {@link #getDefaultValue() default}.
-   */
+  /// @param properties the [Properties] to get the value from.
+  /// @param fallback the value returned if the given [Map] does not contain the value or `null` to retrieve
+  ///        the [default value][#getDefaultValue()] in such case.
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the `fallback` or
+  ///         [default][#getDefaultValue()].
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public T get(Properties properties, T fallback) {
 
@@ -181,11 +159,9 @@ public class VariableDefinition<T> {
     return get(map, fallback);
   }
 
-  /**
-   * @param map the {@link Map} where to {@link Map#put(Object, Object) set} the {@code value}.
-   * @param value the value to set. If {@code null} nothing will be set.
-   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
-   */
+  /// @param map the [Map] where to [set][Map#put(Object, Object)] the `value`.
+  /// @param value the value to set. If `null` nothing will be set.
+  /// @return the [previous value][Map#put(Object, Object)]. May be `null`.
   public T set(Map<String, Object> map, T value) {
 
     Object old;
@@ -200,11 +176,9 @@ public class VariableDefinition<T> {
     return this.type.cast(old);
   }
 
-  /**
-   * @param properties the {@link Properties} where to {@link Map#put(Object, Object) set} the {@code value}.
-   * @param value the value to set. If {@code null} nothing will be set.
-   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
-   */
+  /// @param properties the [Properties] where to [set][Map#put(Object, Object)] the `value`.
+  /// @param value the value to set. If `null` nothing will be set.
+  /// @return the [previous value][Map#put(Object, Object)]. May be `null`.
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public T set(Properties properties, T value) {
 
@@ -212,32 +186,26 @@ public class VariableDefinition<T> {
     return set(map, value);
   }
 
-  /**
-   * @param map the {@link Map} where to {@link Map#put(Object, Object) set} the {@code value}.
-   * @param value the value to set as {@link String}. If {@code null} nothing will be set.
-   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
-   */
+  /// @param map the [Map] where to [set][Map#put(Object, Object)] the `value`.
+  /// @param value the value to set as [String]. If `null` nothing will be set.
+  /// @return the [previous value][Map#put(Object, Object)]. May be `null`.
   public T setAsString(Map<String, Object> map, String value) {
 
     return set(map, parse(value));
   }
 
-  /**
-   * @param properties the {@link Properties} where to {@link Map#put(Object, Object) set} the {@code value}.
-   * @param value the value to set as {@link String}. If {@code null} nothing will be set.
-   * @return the {@link Map#put(Object, Object) previous value}. May be {@code null}.
-   */
+  /// @param properties the [Properties] where to [set][Map#put(Object, Object)] the `value`.
+  /// @param value the value to set as [String]. If `null` nothing will be set.
+  /// @return the [previous value][Map#put(Object, Object)]. May be `null`.
   public T setAsString(Properties properties, String value) {
 
     return set(properties, parse(value));
   }
 
-  /**
-   * @param map the {@link Map} where the {@code value} should be {@link Map#putIfAbsent(Object, Object) set if absent}.
-   * @param value the value to set if absent. If {@code null} nothing will be set.
-   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
-   *         and has been sent.
-   */
+  /// @param map the [Map] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
+  /// @param value the value to set if absent. If `null` nothing will be set.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
+  ///         and has been sent.
   public T setIfAbsent(Map<String, Object> map, T value) {
 
     Object old;
@@ -252,13 +220,10 @@ public class VariableDefinition<T> {
     return this.type.cast(old);
   }
 
-  /**
-   * @param properties the {@link Properties} where the {@code value} should be {@link Map#putIfAbsent(Object, Object)
-   *        set if absent}.
-   * @param value the value to set if absent. If {@code null} nothing will be set.
-   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
-   *         and has been sent.
-   */
+  /// @param properties the [Properties] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
+  /// @param value the value to set if absent. If `null` nothing will be set.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
+  ///         and has been sent.
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public T setIfAbsent(Properties properties, T value) {
 
@@ -266,33 +231,26 @@ public class VariableDefinition<T> {
     return setIfAbsent(map, value);
   }
 
-  /**
-   * @param map the {@link Map} where the {@code value} should be {@link Map#putIfAbsent(Object, Object) set if absent}.
-   * @param value the value to set if absent as {@link String}. If {@code null} nothing will be set.
-   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
-   *         and has been sent.
-   */
+  /// @param map the [Map] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
+  /// @param value the value to set if absent as [String]. If `null` nothing will be set.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
+  ///         and has been sent.
   public T setIfAbsentAsString(Map<String, Object> map, String value) {
 
     return setIfAbsent(map, parse(value));
   }
 
-  /**
-   * @param properties the {@link Properties} where the {@code value} should be {@link Map#putIfAbsent(Object, Object)
-   *        set if absent}.
-   * @param value the value to set if absent as {@link String}. If {@code null} nothing will be set.
-   * @return the {@link Map#putIfAbsent(Object, Object) already existing value} or {@code null} if the value was absent
-   *         and has been sent.
-   */
+  /// @param properties the [Properties] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
+  /// @param value the value to set if absent as [String]. If `null` nothing will be set.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
+  ///         and has been sent.
   public T setIfAbsentAsString(Properties properties, String value) {
 
     return setIfAbsent(properties, parse(value));
   }
 
-  /**
-   * @param value the value as {@link String}.
-   * @return the parsed value.
-   */
+  /// @param value the value as [String].
+  /// @return the parsed value.
   public final T parse(String value) {
 
     if (value == null) {
@@ -301,19 +259,15 @@ public class VariableDefinition<T> {
     return this.parser.apply(value);
   }
 
-  /**
-   * @return the result of {@link #parse(String)} if {@code null} is given as argument.
-   */
+  /// @return the result of [#parse(String)] if `null` is given as argument.
   protected T parseNull() {
 
     return null;
   }
 
-  /**
-   * @param value the value to format.
-   * @return the formatted value as {@link String}.
-   * @see Object#toString()
-   */
+  /// @param value the value to format.
+  /// @return the formatted value as [String].
+  /// @see Object#toString()
   public String format(T value) {
 
     if (value == null) {
@@ -322,26 +276,20 @@ public class VariableDefinition<T> {
     return this.formatter.apply(value);
   }
 
-  /**
-   * @return the result of {@link #format(Object)} if {@code null} is given as argument.
-   */
+  /// @return the result of [#format(Object)] if `null` is given as argument.
   protected String formatNull() {
 
     return null;
   }
 
-  /**
-   * @return the optional default value to use if the variable is not explicitly defined.
-   */
+  /// @return the optional default value to use if the variable is not explicitly defined.
   public T getDefaultValue() {
 
     return this.defaultValue;
   }
 
-  /**
-   * @return {@code true} if required and {@link #getDefaultValue() default value} is {@code null} so
-   *         {@link #get(Map, Object) getting} without a default will fail, {@code false} otherwise.
-   */
+  /// @return `true` if required and [default value][#getDefaultValue()] is `null` so
+  ///         [getting][#get(Map, Object)] without a default will fail, `false` otherwise.
   public boolean isRequired() {
 
     return this.required;
@@ -353,73 +301,59 @@ public class VariableDefinition<T> {
     return this.name;
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<String> ofString(String name) {
 
     return new VariableDefinition<>(name, String.class, null, true, s -> s);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<String> ofString(String name, String defaultValue) {
 
     return new VariableDefinition<>(name, String.class, defaultValue, false, s -> s);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Boolean> ofBoolean(String name) {
 
     return new VariableDefinition<>(name, Boolean.class, null, true, Boolean::parseBoolean);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Boolean> ofBoolean(String name, Boolean defaultValue) {
 
     return new VariableDefinition<>(name, Boolean.class, defaultValue, false, Boolean::parseBoolean);
   }
 
-  /**
-   * @param <E> type of the {@link Enum}.
-   * @param name the variable {@link #getName() name}.
-   * @param enumClass the {@link Class} reflecting the {@link Enum}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param <E> type of the [Enum].
+  /// @param name the variable [name][#getName()].
+  /// @param enumClass the [Class] reflecting the [Enum].
+  /// @return the specified [VariableDefinition].
   public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, Class<E> enumClass) {
 
     return new VariableDefinition<>(name, enumClass, null, true, s -> Enum.valueOf(enumClass, s));
   }
 
-  /**
-   * @param <E> type of the {@link Enum}.
-   * @param name the variable {@link #getName() name}.
-   * @param enumClass the {@link Class} reflecting the {@link Enum}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param <E> type of the [Enum].
+  /// @param name the variable [name][#getName()].
+  /// @param enumClass the [Class] reflecting the [Enum].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, Class<E> enumClass, E defaultValue) {
 
     return new VariableDefinition<>(name, enumClass, defaultValue, false, s -> Enum.valueOf(enumClass, s));
   }
 
-  /**
-   * @param <E> type of the {@link Enum}.
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}. Must not be {@code null}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param <E> type of the [Enum].
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()]. Must not be `null`.
+  /// @return the specified [VariableDefinition].
   @SuppressWarnings("unchecked")
   public static <E extends Enum<E>> VariableDefinition<E> ofEnum(String name, E defaultValue) {
 
@@ -427,77 +361,61 @@ public class VariableDefinition<T> {
     return new VariableDefinition<>(name, enumClass, defaultValue, false, s -> Enum.valueOf(enumClass, s));
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Integer> ofInteger(String name) {
 
     return new VariableDefinition<>(name, Integer.class, null, true, Integer::valueOf);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Integer> ofInteger(String name, Integer defaultValue) {
 
     return new VariableDefinition<>(name, Integer.class, defaultValue, false, Integer::valueOf);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Long> ofLong(String name) {
 
     return new VariableDefinition<>(name, Long.class, null, true, Long::valueOf);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Long> ofLong(String name, Long defaultValue) {
 
     return new VariableDefinition<>(name, Long.class, defaultValue, false, Long::valueOf);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Double> ofDouble(String name) {
 
     return new VariableDefinition<>(name, Double.class, null, true, Double::valueOf);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Double> ofDouble(String name, Double defaultValue) {
 
     return new VariableDefinition<>(name, Double.class, defaultValue, false, Double::valueOf);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Duration> ofDuration(String name) {
 
     return new VariableDefinition<>(name, Duration.class, null, true, Duration::parse);
   }
 
-  /**
-   * @param name the variable {@link #getName() name}.
-   * @param defaultValue the {@link #getDefaultValue() default value}.
-   * @return the specified {@link VariableDefinition}.
-   */
+  /// @param name the variable [name][#getName()].
+  /// @param defaultValue the [default value][#getDefaultValue()].
+  /// @return the specified [VariableDefinition].
   public static VariableDefinition<Duration> ofDuration(String name, Duration defaultValue) {
 
     return new VariableDefinition<>(name, Duration.class, defaultValue, false, Duration::parse);

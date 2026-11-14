@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Default implementation of {@link TextFormatMessageHandler}.
- */
+/// Default implementation of [TextFormatMessageHandler].
 public abstract class AbstractTextFormatMessageHandler implements TextFormatMessageHandler {
 
   private final boolean throwOnError;
@@ -17,13 +15,10 @@ public abstract class AbstractTextFormatMessageHandler implements TextFormatMess
 
   private List<TextFormatMessage> messages;
 
-  /**
-   * The constructor.
-   *
-   * @param throwOnError - {@code true} to throw a {@link RuntimeException} when an {@link TextFormatMessageType#ERROR
-   *        error} {@link TextFormatMessage message} is {@link #handle(TextFormatMessage) handled}.
-   * @param collectMessages the flag for {@link #isCollectMessages()}.
-   */
+  /// The constructor.
+  ///
+  /// @param throwOnError - `true` to throw a [RuntimeException] when an [error][TextFormatMessageType#ERROR] [message][TextFormatMessage] is [handled][#handle(TextFormatMessage)].
+  /// @param collectMessages the flag for [#isCollectMessages()].
   public AbstractTextFormatMessageHandler(boolean throwOnError, boolean collectMessages) {
 
     super();
@@ -43,17 +38,15 @@ public abstract class AbstractTextFormatMessageHandler implements TextFormatMess
     }
   }
 
-  /**
-   * Method to allow custom handling or even transformation of {@link TextFormatMessage}s. Does nothing by default and
-   * may be overridden e.g. to log messages and throw a {@link RuntimeException} in case of an
-   * {@link TextFormatMessageType#ERROR error}.
-   *
-   * @param message the {@link TextFormatMessage} to handle.
-   * @return the given {@link TextFormatMessage} or potentially a transformation.
-   * @throws RuntimeException in case the {@link TextFormatMessage} should immediately lead to an exception aborting any
-   *         further processing. By default {@link TextFormatMessage}s should be collected in
-   *         {@link TextFormatProcessor#getMessages()} in order to allow maximum fault-tolerance.
-   */
+  /// Method to allow custom handling or even transformation of [TextFormatMessage]s. Does nothing by default and
+  /// may be overridden e.g. to log messages and throw a [RuntimeException] in case of an
+  /// [error][TextFormatMessageType#ERROR].
+  ///
+  /// @param message the [TextFormatMessage] to handle.
+  /// @return the given [TextFormatMessage] or potentially a transformation.
+  /// @throws RuntimeException in case the [TextFormatMessage] should immediately lead to an exception aborting any
+  ///         further processing. By default [TextFormatMessage]s should be collected in
+  ///         [TextFormatProcessor#getMessages()] in order to allow maximum fault-tolerance.
   public TextFormatMessage handle(TextFormatMessage message) {
 
     if (this.throwOnError && (message.getType() == TextFormatMessageType.ERROR)) {
@@ -62,11 +55,9 @@ public abstract class AbstractTextFormatMessageHandler implements TextFormatMess
     return message;
   }
 
-  /**
-   * @return {@code true} to collect {@link TextFormatProcessor#getMessages() messages} (default) or {@code null} if no
-   *         {@link TextFormatMessage} should be collected and {@link TextFormatProcessor#getMessages()} will always
-   *         return the {@link java.util.Collections#emptyList() empty list}.
-   */
+  /// @return `true` to collect [messages][TextFormatProcessor#getMessages()] (default) or `null` if no
+  ///         [TextFormatMessage] should be collected and [TextFormatProcessor#getMessages()] will always
+  ///         return the [empty list][java.util.Collections#emptyList()].
   public boolean isCollectMessages() {
 
     return this.collectMessages;

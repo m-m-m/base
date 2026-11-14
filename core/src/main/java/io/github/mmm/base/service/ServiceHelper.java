@@ -13,11 +13,9 @@ import org.slf4j.LoggerFactory;
 import io.github.mmm.base.exception.DuplicateObjectException;
 import io.github.mmm.base.exception.ObjectNotFoundException;
 
-/**
- * Helper class for {@link ServiceLoader}.
- *
- * @since 1.0.0
- */
+/// Helper class for [ServiceLoader].
+///
+/// @since 1.0.0
 public final class ServiceHelper {
 
   private static final Logger LOG = LoggerFactory.getLogger(ServiceHelper.class);
@@ -26,25 +24,21 @@ public final class ServiceHelper {
 
   }
 
-  /**
-   * @param <S> type of the service.
-   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
-   *        and holds the {@code uses} statement in its {@code module-info}.
-   * @return the requested service.
-   */
+  /// @param <S> type of the service.
+  /// @param serviceLoader the [ServiceLoader] that has to be provided from the module declaring the service API
+  ///        and holds the `uses` statement in its `module-info`.
+  /// @return the requested service.
   public static final <S> S singleton(ServiceLoader<S> serviceLoader) {
 
     return singleton(serviceLoader, true);
   }
 
-  /**
-   * @param <S> type of the service.
-   * @param unique - {@code true} if an exception is thrown if the service is not unique, {@code false} otherwise (allow
-   *        overriding default).
-   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
-   *        and holds the {@code uses} statement in its {@code module-info}.
-   * @return the requested service.
-   */
+  /// @param <S> type of the service.
+  /// @param unique - `true` if an exception is thrown if the service is not unique, `false` otherwise (allow
+  ///        overriding default).
+  /// @param serviceLoader the [ServiceLoader] that has to be provided from the module declaring the service API
+  ///        and holds the `uses` statement in its `module-info`.
+  /// @return the requested service.
   public static final <S> S singleton(ServiceLoader<S> serviceLoader, boolean unique) {
 
     S service = null;
@@ -97,24 +91,20 @@ public final class ServiceHelper {
     return className.startsWith("io.github.mmm.");
   }
 
-  /**
-   * @param <S> type of the service.
-   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
-   *        and holds the {@code uses} statement in its {@code module-info}.
-   * @param services the {@link Collection} where to add the services from the given {@link ServiceLoader}.
-   */
+  /// @param <S> type of the service.
+  /// @param serviceLoader the [ServiceLoader] that has to be provided from the module declaring the service API
+  ///        and holds the `uses` statement in its `module-info`.
+  /// @param services the [Collection] where to add the services from the given [ServiceLoader].
   public static final <S> void all(ServiceLoader<S> serviceLoader, Collection<S> services) {
 
     all(serviceLoader, services, 1);
   }
 
-  /**
-   * @param <S> type of the service.
-   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
-   *        and holds the {@code uses} statement in its {@code module-info}.
-   * @param services the {@link Collection} where to add the services from the given {@link ServiceLoader}.
-   * @param min the minimum number of services required.
-   */
+  /// @param <S> type of the service.
+  /// @param serviceLoader the [ServiceLoader] that has to be provided from the module declaring the service API
+  ///        and holds the `uses` statement in its `module-info`.
+  /// @param services the [Collection] where to add the services from the given [ServiceLoader].
+  /// @param min the minimum number of services required.
   public static final <S> void all(ServiceLoader<S> serviceLoader, Collection<S> services, int min) {
 
     int serviceCount = 0;
@@ -127,28 +117,24 @@ public final class ServiceHelper {
     }
   }
 
-  /**
-   * @param <S> type of the service.
-   * @param <K> type of the {@link Map} key.
-   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
-   *        and holds the {@code uses} statement in its {@code module-info}.
-   * @param services the {@link Collection} where to add the services from the given {@link ServiceLoader}.
-   * @param keyFunction the {@link Function} to get the {@link Map} key from the service.
-   */
+  /// @param <S> type of the service.
+  /// @param <K> type of the [Map] key.
+  /// @param serviceLoader the [ServiceLoader] that has to be provided from the module declaring the service API
+  ///        and holds the `uses` statement in its `module-info`.
+  /// @param services the [Collection] where to add the services from the given [ServiceLoader].
+  /// @param keyFunction the [Function] to get the [Map] key from the service.
   public static final <S, K> void all(ServiceLoader<S> serviceLoader, Map<K, S> services, Function<S, K> keyFunction) {
 
     all(serviceLoader, services, keyFunction, 1);
   }
 
-  /**
-   * @param <S> type of the service.
-   * @param <K> type of the {@link Map} key.
-   * @param serviceLoader the {@link ServiceLoader} that has to be provided from the module declaring the service API
-   *        and holds the {@code uses} statement in its {@code module-info}.
-   * @param services the {@link Collection} where to add the services from the given {@link ServiceLoader}.
-   * @param keyFunction the {@link Function} to get the {@link Map} key from the service.
-   * @param min the minimum number of services required.
-   */
+  /// @param <S> type of the service.
+  /// @param <K> type of the [Map] key.
+  /// @param serviceLoader the [ServiceLoader] that has to be provided from the module declaring the service API
+  ///        and holds the `uses` statement in its `module-info`.
+  /// @param services the [Collection] where to add the services from the given [ServiceLoader].
+  /// @param keyFunction the [Function] to get the [Map] key from the service.
+  /// @param min the minimum number of services required.
   public static final <S, K> void all(ServiceLoader<S> serviceLoader, Map<K, S> services, Function<S, K> keyFunction,
       int min) {
 

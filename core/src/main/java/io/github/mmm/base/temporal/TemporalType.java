@@ -15,15 +15,13 @@ import java.time.temporal.Temporal;
 
 import io.github.mmm.base.lang.ValueType;
 
-/**
- * Extends {@link ValueType} for {@link Temporal} types.
- *
- * @param <V> the {@link #getType() type type}.
- * @since 1.0.0
- */
+/// Extends [ValueType] for [Temporal] types.
+///
+/// @param <V> the [type type][#getType()].
+/// @since 1.0.0
 public abstract class TemporalType<V> extends ValueType<V> {
 
-  /** {@link TemporalType} for {@link Instant}. */
+  /// [TemporalType] for [Instant].
   public static final TemporalType<Instant> INSTANT = new TemporalType<>(Instant.class) {
     @Override
     public Instant parse(String value) {
@@ -35,7 +33,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link LocalDate}. */
+  /// [TemporalType] for [LocalDate].
   public static final TemporalType<LocalDate> LOCAL_DATE = new TemporalType<>(LocalDate.class) {
     @Override
     public LocalDate parse(String value) {
@@ -47,7 +45,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link LocalTime}. */
+  /// [TemporalType] for [LocalTime].
   public static final TemporalType<LocalTime> LOCAL_TIME = new TemporalType<>(LocalTime.class) {
     @Override
     public LocalTime parse(String value) {
@@ -59,7 +57,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link LocalDateTime}. */
+  /// [TemporalType] for [LocalDateTime].
   public static final TemporalType<LocalDateTime> LOCAL_DATE_TIME = new TemporalType<>(LocalDateTime.class) {
     @Override
     public LocalDateTime parse(String value) {
@@ -71,7 +69,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link ZonedDateTime}. */
+  /// [TemporalType] for [ZonedDateTime].
   public static final TemporalType<ZonedDateTime> ZONED_DATE_TIME = new TemporalType<>(ZonedDateTime.class) {
     @Override
     public ZonedDateTime parse(String value) {
@@ -83,7 +81,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link OffsetDateTime}. */
+  /// [TemporalType] for [OffsetDateTime].
   public static final TemporalType<OffsetDateTime> OFFSET_DATE_TIME = new TemporalType<>(OffsetDateTime.class) {
     @Override
     public OffsetDateTime parse(String value) {
@@ -95,7 +93,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link Duration}. */
+  /// [TemporalType] for [Duration].
   public static final TemporalType<Duration> DURATION = new TemporalType<>(Duration.class) {
     @Override
     public Duration parse(String value) {
@@ -107,7 +105,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link Period}. */
+  /// [TemporalType] for [Period].
   public static final TemporalType<Period> PERIOD = new TemporalType<>(Period.class) {
     @Override
     public Period parse(String value) {
@@ -119,7 +117,7 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /** {@link TemporalType} for {@link MonthDay}. */
+  /// [TemporalType] for [MonthDay].
   public static final TemporalType<MonthDay> MONTH_DAY = new TemporalType<>(MonthDay.class) {
     @Override
     public MonthDay parse(String value) {
@@ -131,11 +129,9 @@ public abstract class TemporalType<V> extends ValueType<V> {
     }
   };
 
-  /**
-   * The constructor.
-   *
-   * @param type the {@link #getType() value type}.
-   */
+  /// The constructor.
+  ///
+  /// @param type the [value type][#getType()].
   public TemporalType(Class<V> type) {
 
     super(type);
