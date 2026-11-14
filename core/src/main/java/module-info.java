@@ -3,14 +3,12 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  */
 
-/**
- * Provides fundamental APIs and helper classes.
- *
- * @provides io.github.mmm.base.temporal.TemporalConverter
- * @provides io.github.mmm.base.exception.GlobalExceptionHandler
- * @uses io.github.mmm.base.exception.GlobalExceptionHandler
- * @uses io.github.mmm.base.temporal.TemporalConverter
- */
+/// Provides fundamental APIs and helper classes.
+///
+/// @provides io.github.mmm.base.temporal.TemporalConverter
+/// @provides io.github.mmm.base.exception.GlobalExceptionHandler
+/// @uses io.github.mmm.base.exception.GlobalExceptionHandler
+/// @uses io.github.mmm.base.temporal.TemporalConverter
 module io.github.mmm.base {
 
   requires static org.slf4j;

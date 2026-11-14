@@ -51,8 +51,8 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
 
   /// @param value is the vale to clip. May be `null`.
   /// @param wrap - `true` for [#wrap(Number)], `false` for [#clip(Comparable)].
-  /// @return [clip][#clip(Comparable)] if `wrap` was `false` and [wrap][#wrap(Number)] otherwise
-  ///         (if `wrap` was `true`).
+  /// @return if `wrap` was `false` then [clip][#clip(Comparable)] is returned and [wrap][#wrap(Number)] otherwise (if
+  ///         `wrap` was `true`).
   default N clip(N value, boolean wrap) {
 
     if (wrap) {
@@ -62,11 +62,10 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
   }
 
   /// @param factor the scaled value in the range from `0` to `1`.
-  /// @return the value within this range scaled by the given `factor`. It will be [min][#getMin()] in case
-  ///         the given `factor` is `0`, while `0` is used in case [min][#getMin()] is
-  ///         `null`. In case the `factor` is `1`, it will return [max][#getMax()] or the maximum
-  ///         value instead of `null`. Any other factor is interpolated between [min][#getMin()] and
-  ///         [max][#getMax()].
+  /// @return the value within this range scaled by the given `factor`. It will be [min][#getMin()] in case the given
+  ///         `factor` is `0`, while `0` is used in case [min][#getMin()] is `null`. In case the `factor` is `1`, it will
+  ///         return [max][#getMax()] or the maximum value instead of `null`. Any other factor is interpolated between
+  ///         [min][#getMin()] and [max][#getMax()].
   default N fromFactor(double factor) {
 
     N minimum = getMin();
@@ -96,10 +95,9 @@ public interface NumberRange<N extends Number & Comparable<?>> extends Range<N> 
   }
 
   /// @param value the value within this range.
-  /// @return the scaled value. It will be [min][#getMin()] in case the given `factor` is `0`, while
-  ///         `0` is used in case [min][#getMin()] is `null`. In case the `factor` is `1`,
-  ///         it will return [max][#getMax()] or the maximum value instead of `null`. Any other factor is
-  ///         interpolated between [min][#getMin()] and [max][#getMax()].
+  /// @return the scaled value. It will be [min][#getMin()] in case the given `factor` is `0`, while `0` is used in case
+  ///         [min][#getMin()] is `null`. In case the `factor` is `1`, it will return [max][#getMax()] or the maximum
+  ///         value instead of `null`. Any other factor is interpolated between [min][#getMin()] and [max][#getMax()].
   default double toFactor(N value) {
 
     NumberType<N> type = getType();

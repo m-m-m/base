@@ -4,12 +4,10 @@ package io.github.mmm.base.range;
 
 import java.util.Comparator;
 
-/// This class represents a range from [minimum][#getMin()] to [maximum][#getMax()]. Implementations shall
-/// validate at construction so a given [Range] should always be valid.
-/// **ATTENTION:**
-/// The [minimum][#getMin()] and [maximum][#getMax()] may be `null` for [unbounded
- ranges][#unbounded()]. It is still recommended to use fixed bounds such as [Long#MAX_VALUE]. However, for types such as
-/// [java.math.BigDecimal] this is not possible.
+/// This class represents a range from [minimum][#getMin()] to [maximum][#getMax()]. Implementations shall validate at
+/// construction so a given [Range] should always be valid. **ATTENTION:** The [minimum][#getMin()] and
+/// [maximum][#getMax()] may be `null` for [unbounded ranges][#unbounded()]. It is still recommended to use fixed bounds
+/// such as [Long#MAX_VALUE]. However, for types such as [java.math.BigDecimal] this is not possible.
 ///
 /// @param <V> type of the contained values.
 /// @since 1.0.0
@@ -52,9 +50,9 @@ public interface Range<V extends Comparable<?>> {
   ///         [min][#getMin()] if both boundaries are not `null`.
   V getMax();
 
-  /// @return the [Comparator] used to [compare][Comparator#compare(Object, Object)] values of this
-  ///         [Range]. The default implementation assumes that the value type implements [Comparable]. If you
-  ///         want to use other value types you need to override this method.
+  /// @return the [Comparator] used to [compare][Comparator#compare(Object, Object)] values of this [Range]. The default
+  ///         implementation assumes that the value type implements [Comparable]. If you want to use other value types
+  ///         you need to override this method.
   @SuppressWarnings({ "unchecked", "rawtypes" })
   default Comparator<? super V> getComparator() {
 
@@ -65,9 +63,8 @@ public interface Range<V extends Comparable<?>> {
   /// [maximum][#getMax()].
   ///
   /// @param value is the vale to check.
-  /// @return `true` if contained ([minimum][#getMin()] `<=` `value` `>=`
-  ///         [maximum][#getMax()]), `false` otherwise. If the given value is `null`, `false` will
-  ///         be returned.
+  /// @return `true` if contained ([minimum][#getMin()] `<=` `value` `>=` [maximum][#getMax()]), `false` otherwise. If
+  ///         the given value is `null`, `false` will be returned.
   default boolean contains(V value) {
 
     if (value == null) {
@@ -76,13 +73,13 @@ public interface Range<V extends Comparable<?>> {
     return value == clip(value);
   }
 
-  /// This method clips the given `value` so the result is [contained][#contains(Comparable)] in this
-  /// [Range] unless the given `value` is `null`.
+  /// This method clips the given `value` so the result is [contained][#contains(Comparable)] in this [Range] unless the
+  /// given `value` is `null`.
   ///
   /// @param value is the vale to clip. May be `null`.
-  /// @return the given `value` clipped to this range. If the given `value` is less than the [minimum][#getMin()], that [minimum][#getMin()] will be returned. If the given `value` is greater than the
-  ///         [maximum][#getMax()], that [maximum][#getMax()] will be returned. Otherwise the given
-  ///         `value` is returned.
+  /// @return the given `value` clipped to this range. If the given `value` is less than the [minimum][#getMin()], that
+  ///         [minimum][#getMin()] will be returned. If the given `value` is greater than the [maximum][#getMax()], that
+  ///         [maximum][#getMax()] will be returned. Otherwise the given `value` is returned.
   default V clip(V value) {
 
     if (value == null) {
@@ -129,9 +126,9 @@ public interface Range<V extends Comparable<?>> {
   }
 
   /// @param range the [Range] to build the intersection with.
-  /// @return the intersection of this [Range] with the given [Range] that is a [Range] with the
-  ///         highest [minimum][#getMin()] and the lowest [maximum][#getMax()] of the two ranges to intersect.
-  ///         In case the [Range]s have no intersection [Range#invalid()] is returned.
+  /// @return the intersection of this [Range] with the given [Range] that is a [Range] with the highest
+  ///         [minimum][#getMin()] and the lowest [maximum][#getMax()] of the two ranges to intersect. In case the
+  ///         [Range]s have no intersection [Range#invalid()] is returned.
   Range<V> intersection(Range<V> range);
 
   /// @return true if this [Range] is [unbounded][#unbounded()].
@@ -150,16 +147,16 @@ public interface Range<V extends Comparable<?>> {
   }
 
   /// @param <T> type of the [contained value][#contains(Comparable)].
-  /// @return the unbounded [Range] instance [containing][#contains(Comparable)] all values (with
-  ///         [#getMin()] and [#getMax()] being `null`).
+  /// @return the unbounded [Range] instance [containing][#contains(Comparable)] all values (with [#getMin()] and
+  ///         [#getMax()] being `null`).
   static <T extends Comparable<?>> Range<T> unbounded() {
 
     return RangeType.UNBOUNDED;
   }
 
   /// @param <T> type of the [contained value][#contains(Comparable)].
-  /// @return the invalid [Range] instance [containing][#contains(Comparable)] no values at all (with
-  ///         [#getMin()] and [#getMax()] being `null`).
+  /// @return the invalid [Range] instance [containing][#contains(Comparable)] no values at all (with [#getMin()] and
+  ///         [#getMax()] being `null`).
   static <T extends Comparable<?>> Range<T> invalid() {
 
     return RangeType.INVALID;

@@ -66,9 +66,9 @@ public enum CaseConversion {
     }
   };
 
-  /// The character representing [#ORIGINAL_CASE] in [examples][#ofExample(char, boolean)]. Was chosen so it
-  /// can be used in java names (including packages), paths and URIs but is unlikely to conflict with other semantical
-  /// usage. However, this choice is arbitrarily.
+  /// The character representing [#ORIGINAL_CASE] in [examples][#ofExample(char, boolean)]. Was chosen so it can be used
+  /// in java names (including packages), paths and URIs but is unlikely to conflict with other semantical usage.
+  /// However, this choice is arbitrarily.
   public static final char EXAMPLE_CHAR_FOR_ORIGINAL_CASE = '$';
 
   /// @param string the original [String].
@@ -117,8 +117,8 @@ public enum CaseConversion {
   public abstract void append(StringBuilder sb, String text);
 
   /// @param c the character to [convert][#convert(char)].
-  /// @return the [converted][#convert(char)] character `c` but [#EXAMPLE_CHAR_FOR_ORIGINAL_CASE] if
-  ///         this is [#ORIGINAL_CASE].
+  /// @return the [converted][#convert(char)] character `c` but [#EXAMPLE_CHAR_FOR_ORIGINAL_CASE] if this is
+  ///         [#ORIGINAL_CASE].
   public char asExample(char c) {
 
     if (this == CaseConversion.ORIGINAL_CASE) {
@@ -130,9 +130,9 @@ public enum CaseConversion {
 
   /// @param c the example character.
   /// @param strict if the character has to be an upper/lower case letter or [#EXAMPLE_CHAR_FOR_ORIGINAL_CASE].
-  /// @return [#UPPER_CASE] if the given character is [upper case][Character#isUpperCase(char)],
-  ///         [#LOWER_CASE] if the given character is [lower case][Character#isLowerCase(char)], and
-  ///         [#ORIGINAL_CASE] otherwise (might need to be remapped or handled specially).
+  /// @return value [#UPPER_CASE] if the given character is [upper case][Character#isUpperCase(char)], [#LOWER_CASE] if
+  ///         the given character is [lower case][Character#isLowerCase(char)], and [#ORIGINAL_CASE] otherwise (might
+  ///         need to be remapped or handled specially).
   public static CaseConversion ofExample(char c, boolean strict) {
 
     if (Character.isUpperCase(c)) {
@@ -156,8 +156,8 @@ public enum CaseConversion {
 
   /// @param case1 the first [CaseConversion].
   /// @param case2 the second [CaseConversion].
-  /// @return `true` if both [CaseConversion]s are incompatible to each other. This means they are not same
-  ///         and are both [case changing][#isCaseChange(CaseConversion)]. Otherwise `false`.
+  /// @return `true` if both [CaseConversion]s are incompatible to each other. This means they are not same and are both
+  ///         [case changing][#isCaseChange(CaseConversion)]. Otherwise `false`.
   public static boolean areIncompatible(CaseConversion case1, CaseConversion case2) {
 
     return (case1 != case2) && isCaseChange(case1) && isCaseChange(case2);

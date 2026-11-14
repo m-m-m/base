@@ -13,14 +13,11 @@ import io.github.mmm.base.i18n.Localizable;
 
 /// Extends [RuntimeException] with the following features:
 ///
-/// - a [UUID][#getUuid()] unique per exception instance automatically generated once per exception
-/// [chain][#getCause()].
+/// - a [UUID][#getUuid()] unique per exception instance automatically generated once per exception [chain][#getCause()].
 /// - an [error code][#getCode()] that should be unique per exception type.
-/// - distinction between [technical][#isTechnical()] exceptions and exceptions [intended for
- end-users][#isForUser()].
+/// - distinction between [technical][#isTechnical()] exceptions and exceptions [intended for end-users][#isForUser()].
 ///
-/// **NOTE:**
-/// Exceptions should only occur in unexpected or undesired situations. Never use exceptions for control flows.
+/// **NOTE:** Exceptions should only occur in unexpected or undesired situations. Never use exceptions for control flows.
 public abstract class ApplicationException extends RuntimeException implements Localizable {
 
   private static final long serialVersionUID = 1L;
@@ -69,8 +66,8 @@ public abstract class ApplicationException extends RuntimeException implements L
   ///
   /// @param message the [message][#getMessage()] describing the problem briefly.
   /// @param cause the [cause][#getCause()] of this exception. May be `null`.
-  /// @param uuid the explicit [UUID][#getUuid()] or `null` to initialize by default (from given
-  ///        [Throwable] or as new [UUID]).
+  /// @param uuid the explicit [UUID][#getUuid()] or `null` to initialize by default (from given [Throwable] or as
+  ///        new [UUID]).
   protected ApplicationException(String message, Throwable cause, UUID uuid) {
 
     this(Localizable.ofStatic(message));
@@ -80,8 +77,8 @@ public abstract class ApplicationException extends RuntimeException implements L
   ///
   /// @param message the [NLS message][#getNlsMessage()] describing the problem briefly.
   /// @param cause the [cause][#getCause()] of this exception. May be `null`.
-  /// @param uuid the explicit [UUID][#getUuid()] or `null` to initialize by default (from given
-  ///        [Throwable] or as new [UUID]).
+  /// @param uuid the explicit [UUID][#getUuid()] or `null` to initialize by default (from given [Throwable] or as
+  ///        new [UUID]).
   protected ApplicationException(Localizable message, Throwable cause, UUID uuid) {
 
     super(cause);
@@ -103,14 +100,12 @@ public abstract class ApplicationException extends RuntimeException implements L
     return UUID.randomUUID();
   }
 
-  /// This method gets the [UUID] of this [ApplicationException]. When a new [ApplicationException] is
-  /// created, a [UUID] is assigned. In case the [ApplicationException] is created from another
-  /// [ApplicationException] as cause, the existing [UUID] will be used from that cause. Otherwise a new
-  /// [UUID] is generated.
-  /// The [UUID] will appear in the [stacktrace][#printStackTrace()] but NOT in the
-  /// [message][Throwable#getMessage()]. It will therefore be written to log-files if this exception is logged. If
-  /// you supply the [UUID] to the end-user, he can provide it with the problem report so an administrator or
-  /// software developer can easily find the stacktrace in the log-files.
+  /// This method gets the [UUID] of this [ApplicationException]. When a new [ApplicationException] is created, a
+  /// [UUID] is assigned. In case the [ApplicationException] is created from another [ApplicationException] as cause, the
+  /// existing [UUID] will be used from that cause. Otherwise a new [UUID] is generated. The [UUID] will appear in the
+  /// [stacktrace][#printStackTrace()] but NOT in the [message][Throwable#getMessage()]. It will therefore be written to
+  /// log-files if this exception is logged. If you supply the [UUID] to the end-user, he can provide it with the problem
+  /// report so an administrator or software developer can easily find the stacktrace in the log-files.
   ///
   /// @return the [UUID] of this object.
   public final UUID getUuid() {
@@ -118,17 +113,17 @@ public abstract class ApplicationException extends RuntimeException implements L
     return this.uuid;
   }
 
-  /// ATTENTION: Logging frameworks like logback do not follow Java exception standards and write [#toString()] but
-  /// only [#getMessage()] of the [Exception] together with the stacktrace into the log. Since an
-  /// [ApplicationException] contains additional information like [UUID][#getUuid()] and [code][#getCode()] that needs to be logged we are forced to return the message from this method in the following form:
+  /// ATTENTION: Logging frameworks like logback do not follow Java exception standards and write [#toString()] but only
+  /// [#getMessage()] of the [Exception] together with the stacktrace into the log. Since an
+  /// [ApplicationException] contains additional information like [UUID][#getUuid()] and [code][#getCode()] that needs to
+  /// be logged we are forced to return the message from this method in the following form:
   ///
   /// ```[[«code»][#getCode()]: ][«message»][#getNlsMessage()]
   /// «uuid»
   /// ```
   ///
-  /// Please note that the [code][#getCode()] is omitted if the [#getCode()] method is not overridden and
-  /// returning a custom code.
-  /// In case you want to get the plain exception message, you therefore need to either call
+  /// Please note that the [code][#getCode()] is omitted if the [#getCode()] method is not overridden and returning a
+  /// custom code. In case you want to get the plain exception message, you therefore need to either call
   /// [#getLocalizedMessage()] or use [#getNlsMessage()].
   ///
   /// @return the untranslated message in the form specified above.
@@ -238,13 +233,12 @@ public abstract class ApplicationException extends RuntimeException implements L
   /// Determines if this is a _technical exception_.
   ///
   /// - A technical exception is an unexpected situation that is to be logged on error level and should be analyzed by
-  /// the operators or software developers of the system. Further in such case the end-user can typically do nothing
-  /// about the problem (except to retry his operation) and will typically not understand the problem. Therefore a
-  /// generic message should be [displayed to the end-user][#isForUser()] in such case.
-  /// - A non technical exception is called _user failure_. It is an undesired but NOT abnormal situation (e.g.
-  /// a mandatory field was not filled). It should be logged on a level less than error (typically info). The
-  /// [message][#getMessage()] is typically [intended for to end-users][#isForUser()] and has to be easy to
-  /// understand.
+  ///   the operators or software developers of the system. Further in such case the end-user can typically do nothing
+  ///   about the problem (except to retry his operation) and will typically not understand the problem. Therefore a
+  ///   generic message should be [displayed to the end-user][#isForUser()] in such case.
+  /// - A non technical exception is called _user failure_. It is an undesired but NOT abnormal situation (e.g. a
+  ///   mandatory field was not filled). It should be logged on a level less than error (typically info). The
+  ///   [message][#getMessage()] is typically [intended for to end-users][#isForUser()] and has to be easy to understand.
   ///
   /// This separation is intentionally not done via inheritance of technical and business exception base classes to allow
   /// reuse. However, if you want to have it this way, create such classes on your own derived from this class.
@@ -258,22 +252,23 @@ public abstract class ApplicationException extends RuntimeException implements L
     return true;
   }
 
-  /// **Note:** Please consider using `net.sf.mmm.nls.exception.NlsException` with i18n support in case you are
-  /// creating exceptions for end-users.
+  /// **Note:** Please consider using `net.sf.mmm.nls.exception.NlsException` with i18n support in case you are creating
+  /// exceptions for end-users.
   ///
-  /// @return `true` if the [message][#getMessage()] of this exception is for end-users (or clients),
-  ///         `false` otherwise (for internal [technical][#isTechnical()] errors).
+  /// @return `true` if the [message][#getMessage()] of this exception is for end-users (or clients), `false` otherwise
+  ///         (for internal [technical][#isTechnical()] errors).
   public boolean isForUser() {
 
     return !isTechnical();
   }
 
-  /// This method gets the _code_ that identifies the detailed type of this object. While [UUID][#getUuid()]
-  /// is unique per instance of a [ApplicationException] this code is a short and readable identifier representing
-  /// the [ApplicationException] [Class]. The default implementation returns the [simple name][Class#getSimpleName()]. However, the code should remain stable after refactoring (so at least after the rename the previous
-  /// code should be returned as [String] literal). This code may be used as a compact identifier to reference the
-  /// related problem or information as well as for automatic tests of error situations that should remain stable even if
-  /// the message text gets improved or the locale is unknown.
+  /// This method gets the _code_ that identifies the detailed type of this object. While [UUID][#getUuid()] is unique
+  /// per instance of a [ApplicationException] this code is a short and readable identifier representing the
+  /// [ApplicationException] [Class]. The default implementation returns the [simple name][Class#getSimpleName()].
+  /// However, the code should remain stable after refactoring (so at least after the rename the previous code should be
+  /// returned as [String] literal). This code may be used as a compact identifier to reference the related problem or
+  /// information as well as for automatic tests of error situations that should remain stable even if the message text
+  /// gets improved or the locale is unknown.
   ///
   /// @return the error code.
   public String getCode() {
@@ -297,8 +292,8 @@ public abstract class ApplicationException extends RuntimeException implements L
     return toString(locale, null).toString();
   }
 
-  /// [appends][Appendable#append(CharSequence)] the localized string representation of this exception. It is
-  /// defined as following:
+  /// [appends][Appendable#append(CharSequence)] the localized string representation of this exception. It is defined as
+  /// following:
   ///
   /// ```
   /// «[classname][Class#getName()]»: [«[custom-code][#getCode()]»: ]«[message][#getLocalizedMessage(Locale)]»

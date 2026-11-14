@@ -4,7 +4,8 @@ package io.github.mmm.base.version;
 
 import java.util.Objects;
 
-/// Data-type to represent a [VersionNumber] in a structured way and allowing [comparison][#compareVersion(VersionNumber)] of [VersionNumber]s.
+/// Data-type to represent a [VersionNumber] in a structured way and allowing
+/// [comparison][#compareVersion(VersionNumber)] of [VersionNumber]s.
 public final class VersionNumber implements VersionObject<VersionNumber> {
 
   private final VersionSegment start;
@@ -43,8 +44,7 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
     this.valid = isValid && hasPositiveNumber;
   }
 
-  /// @return the first [VersionSegment] of this [VersionNumber]. To get other segments use
-  ///         [VersionSegment#getNext()].
+  /// @return the first [VersionSegment] of this [VersionNumber]. To get other segments use [VersionSegment#getNext()].
   public VersionSegment getStart() {
 
     return this.start;
@@ -53,15 +53,17 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
   /// A valid [VersionNumber] has to meet the following requirements:
   ///
   /// - All [segments][VersionSegment] themselves are [valid][VersionSegment#isValid()].
-  /// - The [start][#getStart()] [segment][VersionSegment] shall have an [empty][String#isEmpty()]
-  /// [separator][VersionSegment#getSeparator()] (e.g. ".1.0" or "-1-2" are not considered valid).
-  /// - The [start][#getStart()] [segment][VersionSegment] shall have an [empty][String#isEmpty()]
-  /// [letter-sequence][VersionSegment#getLettersString()] (e.g. "RC1" or "beta" are not considered valid).
-  /// - Have at least one [segment][VersionSegment] with a positive [number][VersionSegment#getNumber()]
-  /// (e.g. "0.0.0" or "0.alpha" are not considered valid).
+  /// - The [start][#getStart()] [segment][VersionSegment] shall have an
+  ///   [empty][String#isEmpty()] [separator][VersionSegment#getSeparator()] (e.g. ".1.0" or "-1-2" are not considered
+  ///   valid).
+  /// - The [start][#getStart()] [segment][VersionSegment] shall have an
+  ///   [empty][String#isEmpty()] [letter-sequence][VersionSegment#getLettersString()] (e.g. "RC1" or "beta" are not
+  ///   considered valid).
+  /// - Have at least one [segment][VersionSegment] with a positive [number][VersionSegment#getNumber()] (e.g. "0.0.0" or
+  ///   "0.alpha" are not considered valid).
   /// - Have at max one [segment][VersionSegment] with a [phase][VersionSegment#getPhase()] that is a real
-  /// [development phase][VersionPhase#isDevelopmentPhase()] (e.g. "1.alpha1.beta2" or "1.0.rc1-milestone2" are not
-  /// considered valid).
+  ///   [development phase][VersionPhase#isDevelopmentPhase()] (e.g. "1.alpha1.beta2" or "1.0.rc1-milestone2" are not
+  ///   considered valid).
   @Override
   public boolean isValid() {
 
@@ -77,8 +79,8 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// @return the [development phase][VersionLetters#isDevelopmentPhase()] of this [VersionNumber]. Will be
   ///         [VersionLetters#EMPTY] if no development phase is specified in any [VersionSegment] and will be
-  ///         [VersionLetters#UNDEFINED] if more than one [development
-         phase][VersionLetters#isDevelopmentPhase()] is specified (e.g. "1.0-alpha1.rc2").
+  ///         [VersionLetters#UNDEFINED] if more than one [development phase][VersionLetters#isDevelopmentPhase()] is
+  ///         specified (e.g. "1.0-alpha1.rc2").
   public VersionLetters getDevelopmentPhase() {
 
     return this.developmentPhase;
@@ -114,10 +116,10 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// Increment the specified segment. For examples see `VersionIdentifierTest.testIncrement()`.
   ///
-  /// @param digitNumber the index of the [VersionSegment] to increment. All segments before will remain untouched
-  ///        and all following segments will be set to zero.
-  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments,
-  ///        `false` to drop them.
+  /// @param digitNumber the index of the [VersionSegment] to increment. All segments before will remain untouched and
+  ///        all following segments will be set to zero.
+  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments, `false` to drop
+  ///        them.
   /// @return the incremented [VersionNumber].
   public VersionNumber incrementSegment(int digitNumber, boolean keepLetters) {
 
@@ -127,8 +129,8 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// Increment the first digit (major version).
   ///
-  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments,
-  ///        `false` to drop them.
+  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments, `false` to drop
+  ///        them.
   /// @return the incremented [VersionNumber].
   /// @see #incrementSegment(int, boolean)
   public VersionNumber incrementMajor(boolean keepLetters) {
@@ -138,8 +140,8 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// Increment the second digit (minor version).
   ///
-  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments,
-  ///        `false` to drop them.
+  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments, `false` to drop
+  ///        them.
   /// @return the incremented [VersionNumber].
   /// @see #incrementSegment(int, boolean)
   public VersionNumber incrementMinor(boolean keepLetters) {
@@ -149,8 +151,8 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// Increment the third digit (patch or micro version).
   ///
-  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments,
-  ///        `false` to drop them.
+  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments, `false` to drop
+  ///        them.
   /// @return the incremented [VersionNumber].
   /// @see #incrementSegment(int, boolean)
   public VersionNumber incrementPatch(boolean keepLetters) {
@@ -160,8 +162,8 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// Increment the last segment.
   ///
-  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments,
-  ///        `false` to drop them.
+  /// @param keepLetters `true` to keep [letters][VersionSegment#getLetters()] from modified segments, `false` to drop
+  ///        them.
   /// @return the incremented [VersionNumber].
   /// @see #incrementSegment(int, boolean)
   public VersionNumber incrementLastDigit(boolean keepLetters) {
@@ -223,8 +225,8 @@ public final class VersionNumber implements VersionObject<VersionNumber> {
 
   /// @param v1 the first [VersionNumber].
   /// @param v2 the second [VersionNumber].
-  /// @param treatNullAsNegativeInfinity `true` to treat `null` as negative infinity, `false` otherwise
-  ///        (positive infinity).
+  /// @param treatNullAsNegativeInfinity `true` to treat `null` as negative infinity, `false` otherwise (positive
+  ///        infinity).
   /// @return the null-safe [comparison][#compareVersion(VersionNumber)] of the two [VersionNumber]s.
   public static VersionComparisonResult compareVersion(VersionNumber v1, VersionNumber v2,
       boolean treatNullAsNegativeInfinity) {
