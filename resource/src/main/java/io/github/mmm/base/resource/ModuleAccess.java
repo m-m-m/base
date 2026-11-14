@@ -10,9 +10,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-/// Simple wrapper for [ResolvedModule] and [Module].
-/// **ATTENTION**: Please consider using [ResourceScanner] over find methods like [#findResources()] if
-/// you want to do resource scanning efficiently during application bootstrapping.
+/// Simple wrapper for [ResolvedModule] and [Module]. **ATTENTION**: Please consider using [ResourceScanner] over find
+/// methods like [#findResources()] if you want to do resource scanning efficiently during application bootstrapping.
 public interface ModuleAccess {
 
   /// @return the [ResolvedModule].
@@ -22,9 +21,9 @@ public interface ModuleAccess {
   Module get();
 
   /// @param packageName the [package name][Package#getName()] to check.
-  /// @return `true` if the [Module] is [open][ModuleDescriptor#isOpen()],
-  ///         [automatic][ModuleDescriptor#isAutomatic()], or [exports the package
-         unconditionally][Module#isOpen(String)].
+  /// @return `true` if the [Module] is
+  ///         [open][ModuleDescriptor#isOpen()], [automatic][ModuleDescriptor#isAutomatic()], or [exports the package
+  ///         unconditionally][Module#isOpen(String)].
   boolean isOpen(String packageName);
 
   /// @return `true` if this is a java module (starting with "java." such as "java.base"), `false` otherwise.
@@ -47,8 +46,7 @@ public interface ModuleAccess {
   }
 
   /// @param prefix the expected prefix of the [module name][Module#getName()]. E.g. "org.apache.".
-  /// @return `true` if the [module name][Module#getName()] starts with the given `prefix`,
-  ///         `false` otherwise.
+  /// @return `true` if the [module name][Module#getName()] starts with the given `prefix`, `false` otherwise.
   default boolean hasPrefix(String prefix) {
 
     Module module = get();
@@ -64,18 +62,16 @@ public interface ModuleAccess {
   ResourceMap findResources();
 
   /// @param <T> type of the expected [ResourcePath]. If your [Predicate] guarantees to only accept
-  ///        [ResourceType], [ResourcePackage], or [ResourceFile] you can directly receive the result
-  ///        accordingly.
-  /// @param filter the [Predicate] used to [test][Predicate#test(Object)] which entries shall be accepted and
-  ///        returned as [resource][ResourcePath]. If you only need few specific [resources][ResourcePath],
-  ///        this method is slightly more efficient than [#findResources()] that needs to create all resource
-  ///        objects.
+  ///        [ResourceType], [ResourcePackage], or [ResourceFile] you can directly receive the result accordingly.
+  /// @param filter the [Predicate] used to [test][Predicate#test(Object)] which entries shall be accepted and returned
+  ///        as [resource][ResourcePath]. If you only need few specific [resources][ResourcePath], this method is
+  ///        slightly more efficient than [#findResources()] that needs to create all resource objects.
   /// @return the [List] of the matching [resources][ResourcePath].
   /// @see #findResources()
   <T extends ResourcePath> List<T> findResources(Predicate<String> filter);
 
-  /// @return the [List] of entries (path of file or folder) from this module. Entries use slash as separator and
-  ///         have no leading slash and folders and with a trailing slash. Examples are "java/lang/" or
+  /// @return the [List] of entries (path of file or folder) from this module. Entries use slash as separator and have
+  ///         no leading slash and folders and with a trailing slash. Examples are "java/lang/" or
   ///         "java/lang/String.class".
   /// @see #findResources()
   default List<String> findEntries() {
@@ -105,8 +101,8 @@ public interface ModuleAccess {
     return findEntries(e -> (e.endsWith(".class")) ? e.substring(0, e.length() - 6).replace('/', '.') : null);
   }
 
-  /// @param mapper the [Function] used to [map][Function#apply(Object)] an entry to the desired result or to
-  ///        `null` in order to filter and exclude the entry.
+  /// @param mapper the [Function] used to [map][Function#apply(Object)] an entry to the desired result or to `null` in
+  ///        order to filter and exclude the entry.
   /// @return the [List] of mapped entries (path of file or folder) from this module.
   /// @see #findEntries()
   /// @see #findResources()
@@ -121,11 +117,10 @@ public interface ModuleAccess {
     }
   }
 
-  /// @param predicate the [Predicate] used to [test][Predicate#test(Object)] which entries shall be accepted.
-  ///        You may always return `false` to visit all entries and potentially collect them internally in your
-  ///        [Predicate].
-  /// @return `true` if at least one entry was found [accepted][Predicate#test(Object)] by the given
-  ///         [Predicate], `false` otherwise.
+  /// @param predicate the [Predicate] used to [test][Predicate#test(Object)] which entries shall be accepted. You may
+  ///        always return `false` to visit all entries and potentially collect them internally in your [Predicate].
+  /// @return `true` if at least one entry was found [accepted][Predicate#test(Object)] by the given [Predicate], `false`
+  ///         otherwise.
   /// @see #findEntries()
   /// @see #findResources()
   default boolean hasEntries(Predicate<String> predicate) {
