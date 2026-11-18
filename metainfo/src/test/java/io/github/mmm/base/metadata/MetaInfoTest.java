@@ -144,7 +144,7 @@ class MetaInfoTest extends Assertions {
     assertThat(toString(metaInfo)).isEqualTo("{key1=42, key2=true, key3=magicValue}");
   }
 
-  /// Test of [MetaInfo#with(String)].
+  /// Test of [MetaInfo#withPrefix(String)].
   @Test
   void testWithPrefix() {
 
@@ -153,7 +153,7 @@ class MetaInfoTest extends Assertions {
     MetaInfo metaInfo = MetaInfo.empty().with(map);
     metaInfo = metaInfo.with(new Properties());
     // act
-    metaInfo = metaInfo.with("prefix.");
+    metaInfo = metaInfo.withPrefix("prefix.");
     // assert
     assertThat(metaInfo.size()).isEqualTo(2);
     assertThat(metaInfo).containsExactlyInAnyOrder("name", "version");
@@ -211,7 +211,7 @@ class MetaInfoTest extends Assertions {
     assertThat(config.get(MetaInfo.KEY_SOURCE)).endsWith("application.properties").doesNotEndWith("app-config/application.properties");
 
     // test with prefix
-    MetaInfo foo = systemProperties.with("foo.");
+    MetaInfo foo = systemProperties.withPrefix("foo.");
     assertThat(foo.get("bar")).isEqualTo("foo.bar");
     foo = MetaInfo.empty().with(foo.asProperties());
     assertThat(foo.get("bar")).isEqualTo("foo.bar");

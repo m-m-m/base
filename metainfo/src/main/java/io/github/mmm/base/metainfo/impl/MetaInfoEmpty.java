@@ -49,7 +49,7 @@ public final class MetaInfoEmpty extends AbstractMetaInfo {
   }
 
   @Override
-  public MetaInfo with(String keyPrefix) {
+  public MetaInfo withPrefix(String keyPrefix) {
 
     return this;
   }

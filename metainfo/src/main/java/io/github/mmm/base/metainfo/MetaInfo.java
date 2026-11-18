@@ -13,10 +13,33 @@ import io.github.mmm.base.metainfo.impl.MetaInfoEmpty;
 import io.github.mmm.base.number.NumberType;
 import io.github.mmm.base.variable.VariableDefinition;
 
-/// Interface for meta-information similar to [java.util.Properties] but more sophisticated. Implements [Iterable] allowing to [iterate][#iterator()] the
-/// available meta-information keys. Use [#empty()] to get the empty instance and then call any `with` method to extended with real data. Example to show usage:
+/// Interface for meta-information similar to [java.util.Properties] but more sophisticated.
 ///
+/// The [MetaInfo] API provides various methods to read your configuration properties easily and comfortable. Here is an example:
+/// ```java
+/// MetaInfo config = MetaInfo.config();
+/// MetaInfo eventBus = config.with("event.bus.");
+/// String host = eventBus.get("host", "localhost"); // use "localhost" as default if event.bus.host is undefined.
+/// int port = eventBus.getAsInteger("port", 1791); // default for event.bus.port is 1791.
+/// String password = eventBus.getRequired("password"); // throw an exception if event.bus.password is undefined.
+/// ...
 /// ```
+/// With [VariableDefinition] we offer an even more powerful concept for type-safe access to configuration properties.
+/// ```java
+/// public static final VariableDefinition<String> KEY_HOST = VariableDefinition.ofString("host", "localhost");
+/// public static final VariableDefinition<Integer> KEY_PORT = VariableDefinition.ofInteger("port", 1791);
+/// public static final VariableDefinition<String> KEY_PASSWORD = VariableDefinition.ofString("host", null);
+/// ...
+/// MetaInfo eventBus = ...;
+/// String host = eventBus.getRequired(KEY_HOST); // defaults to "localhost", same as get(KEY_HOST)
+/// String port = eventBus.getRequired(KEY_PORT); // defaults to 1791, same as get(KEY_PORT)
+/// String password = eventBus.getRequired(KEY_PASSWORD); // throws exception if undefined since default was declared as `null`.
+/// ```
+///
+/// Implements [Iterable] allowing to [iterate][#iterator()] the available meta-information keys. Use [#empty()] to get the empty instance and then call any
+/// `with` method to extended with real data. Example to show usage:
+///
+/// ```java
 /// `@`[io.github.mmm.base.metainfo.impl.MetaInfoValues]({"key1=value1", "key2=value2"})
 /// public class AnnotatedClass {
 ///   public static void main(String[] args) {
@@ -394,7 +417,7 @@ public interface MetaInfo extends Iterable<String> {
   /// @param keyPrefix the [key prefix][#getKeyPrefix()].
   /// @return a new [MetaInfo] that wraps this [MetaInfo] with all its parents using the given [key prefix][#getKeyPrefix()]. The resulting [MetaInfo] will
   ///         return `null` as [parent][#getParent()].
-  MetaInfo with(String keyPrefix);
+  MetaInfo withPrefix(String keyPrefix);
 
   /// @return a new [Properties] instance with all values from this [MetaInfo].
   default Properties asProperties() {
@@ -428,40 +451,26 @@ public interface MetaInfo extends Iterable<String> {
     return MetaInfoEmpty.INSTANCE;
   }
 
-  /// This method provides a full-fledged application configuration allowing to configure your application on the
-  /// following levels:
+  /// This method provides a full-fledged application configuration allowing to configure your application on the following levels:
   /// 1. `application.properties` found in the current working directory or on your Java class-/module-path.
   /// 2. [System environment variables][System#getenv()]
   /// 3. `app-config/application.properties` found in the current working directory or on your Java class-/module-path.
   /// 4. [System properties][System#getProperties()]
   ///
-  /// Variables defined on an earlier level can be overridden by variables on a deeper level. Typically, you will ship
-  /// your application with some `application.properties` in the "root package" placed in
-  /// `src/main/resources/application.properties` (see 1.). There you define default settings reasonable for every
-  /// environment. When using containers (e.g. docker), you typically configure applications via environment variables
-  /// (see 2.) that will add and override to these defaults. Maybe you need some special configuration for a particular
-  /// environment that you want to manage more explicitly. You can put that in the file
-  /// `./app-config/application.properties` relative to the working directory from where your application gets started
-  /// (see 3.). Here, you can add and override to the previous configuration (e.g. setting `db.default.url`). Finally,
-  /// you can explicitly add and override all of that with explicit system properties. For example, if your start script
-  /// is explicitly launching your application with `-Ddb.default.url=jdbc:postgresql://localhost/appdb` this will take
-  /// highest precedence overriding any other configuration.
+  /// Variables defined on an earlier level can be overridden by variables on a deeper level. Typically, you will ship your application with some
+  /// `application.properties` in the "root package" placed in `src/main/resources/application.properties` (see 1.). There you define default settings reasonable
+  /// for every environment. When using containers (e.g. docker), you typically configure applications via environment variables (see 2.) that will add and
+  /// override to these defaults. Maybe you need some special configuration for a particular environment that you want to manage more explicitly. You can put
+  /// that in the file `./app-config/application.properties` relative to the working directory from where your application gets started (see 3.). Here, you can
+  /// add and override to the previous configuration (e.g. setting `db.default.url`). Finally, you can explicitly add and override all of that with explicit
+  /// system properties. For example, if your start script is explicitly launching your application with `-Ddb.default.url=jdbc:postgresql://localhost/appdb`
+  /// this will take highest precedence overriding any other configuration.
   ///
-  /// Why did we chose `app-config` instead of `config` following spring-boot? This is because `config` is a legal Java
-  /// package and will be protected by the JPMS (Java Platform Module System) forcing you to always open or export that
-  /// package in your `module-info.java` causing confusion and complexity. Unlike spring-boot this framework was designed
-  /// for JPMS from the start.
+  /// Why did we chose `app-config` instead of `config` following spring-boot? This is because `config` is a legal Java package and will be protected by the JPMS
+  /// (Java Platform Module System) forcing you to always open or export that package in your `module-info.java` causing confusion and complexity. Unlike
+  /// spring-boot this framework was designed for JPMS from the start.
   ///
-  /// To summarise, all you need to do for building a flexible application is getting your configuration via
-  /// `MetaInfo.config()`. The [MetaInfo] API provides various methods to read your configuration properties. Here is an
-  /// example:
-  /// ```java
-  /// MetaInfo config = MetaInfo.config();
-  /// MetaInfo eventBus = config.with("event.bus.");
-  /// String host = eventBus.get("host", "localhost"); // use "localhost" as default if event.bus.host is undefined.
-  /// int port = eventBus.getAsInteger("port", 1791); // default for event.bus.port is 1791.
-  /// String password = eventBus.getRequired("password"); // throw an exception if event.bus.password is undefined.
-  /// ```
+  /// To summarise, all you need to do for building a flexible application is getting your configuration via `MetaInfo.config()`.
   ///
   /// @return the [MetaInfo] with the configuration for the running application.
   static MetaInfo config() {

@@ -60,7 +60,7 @@ public abstract class MetaInfoInherited extends AbstractMetaInfo {
   protected abstract Iterator<String> plainIterator();
 
   @Override
-  public MetaInfo with(String prefix) {
+  public MetaInfo withPrefix(String prefix) {
 
     return new MetaInfoPrefixed(this, prefix);
   }

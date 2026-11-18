@@ -10,9 +10,8 @@ import java.util.function.Function;
 
 import io.github.mmm.base.exception.ObjectNotFoundException;
 
-/// Definition of a variable for a [VariableMap]. It is a simple container for the [name][#getName()] of the
-/// variable with its [#getDefaultValue()] and its [type][#getType()] making the
-/// [access of the value][VariableMap#get(VariableDefinition)] type-safe.
+/// Definition of a variable for `io.github.mmm.base.metainfo.MetaInfo` or [VariableMap]. It is a simple container for the [name][#getName()] of the variable
+/// with its [#getDefaultValue()] and its [type][#getType()] making the [access of the value][VariableMap#get(VariableDefinition)] type-safe.
 ///
 /// @param <T> type of the value for this option. See [#getType()].
 /// @since 1.0.0
@@ -75,8 +74,7 @@ public class VariableDefinition<T> {
   /// @param parser the [Function] to [parse][#parse(String)] the value from [String].
   /// @param formatter the [Function] to [format][#format(Object)] the value to [String].
   @SuppressWarnings("unchecked")
-  public VariableDefinition(String name, Class<T> type, T defaultValue, boolean required, Function<String, T> parser,
-      Function<T, String> formatter) {
+  public VariableDefinition(String name, Class<T> type, T defaultValue, boolean required, Function<String, T> parser, Function<T, String> formatter) {
 
     super();
     Objects.requireNonNull(name);
@@ -98,8 +96,7 @@ public class VariableDefinition<T> {
     this.formatter = formatter;
   }
 
-  /// @return the name of the variable used as [key][Map#containsKey(Object)] to
-  ///         [get its value][VariableMap#get(VariableDefinition)].
+  /// @return the name of the variable used as [key][Map#containsKey(Object)] to [get its value][VariableMap#get(VariableDefinition)].
   public String getName() {
 
     return this.name;
@@ -112,18 +109,16 @@ public class VariableDefinition<T> {
   }
 
   /// @param map the [Map] to get the value from.
-  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the
-  ///         [default][#getDefaultValue()].
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the [default][#getDefaultValue()].
   public T get(Map<String, ?> map) {
 
     return get(map, null);
   }
 
   /// @param map the [Map] to get the value from.
-  /// @param fallback the value returned if the given [Map] does not contain the value or `null` to retrieve
-  ///        the [default value][#getDefaultValue()] in such case.
-  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the `fallback` or
-  ///         [default][#getDefaultValue()].
+  /// @param fallback the value returned if the given [Map] does not contain the value or `null` to retrieve the [default value][#getDefaultValue()] in such
+  ///        case.
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the `fallback` or [default][#getDefaultValue()].
   public T get(Map<String, ?> map, T fallback) {
 
     Object value = map.get(this.name);
@@ -140,18 +135,16 @@ public class VariableDefinition<T> {
   }
 
   /// @param properties the [Properties] to get the value from.
-  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the
-  ///         [default][#getDefaultValue()].
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the [default][#getDefaultValue()].
   public T get(Properties properties) {
 
     return get(properties, null);
   }
 
   /// @param properties the [Properties] to get the value from.
-  /// @param fallback the value returned if the given [Map] does not contain the value or `null` to retrieve
-  ///        the [default value][#getDefaultValue()] in such case.
-  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the `fallback` or
-  ///         [default][#getDefaultValue()].
+  /// @param fallback the value returned if the given [Map] does not contain the value or `null` to retrieve the [default value][#getDefaultValue()] in such
+  ///        case.
+  /// @return the value from this [VariableDefinition] [name][#getName()] as key or the `fallback` or [default][#getDefaultValue()].
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public T get(Properties properties, T fallback) {
 
@@ -204,8 +197,7 @@ public class VariableDefinition<T> {
 
   /// @param map the [Map] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
   /// @param value the value to set if absent. If `null` nothing will be set.
-  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
-  ///         and has been sent.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent and has been sent.
   public T setIfAbsent(Map<String, Object> map, T value) {
 
     Object old;
@@ -222,8 +214,7 @@ public class VariableDefinition<T> {
 
   /// @param properties the [Properties] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
   /// @param value the value to set if absent. If `null` nothing will be set.
-  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
-  ///         and has been sent.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent and has been sent.
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public T setIfAbsent(Properties properties, T value) {
 
@@ -233,8 +224,7 @@ public class VariableDefinition<T> {
 
   /// @param map the [Map] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
   /// @param value the value to set if absent as [String]. If `null` nothing will be set.
-  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
-  ///         and has been sent.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent and has been sent.
   public T setIfAbsentAsString(Map<String, Object> map, String value) {
 
     return setIfAbsent(map, parse(value));
@@ -242,8 +232,7 @@ public class VariableDefinition<T> {
 
   /// @param properties the [Properties] where the `value` should be [set if absent][Map#putIfAbsent(Object, Object)].
   /// @param value the value to set if absent as [String]. If `null` nothing will be set.
-  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent
-  ///         and has been sent.
+  /// @return the [already existing value][Map#putIfAbsent(Object, Object)] or `null` if the value was absent and has been sent.
   public T setIfAbsentAsString(Properties properties, String value) {
 
     return setIfAbsent(properties, parse(value));
@@ -288,8 +277,8 @@ public class VariableDefinition<T> {
     return this.defaultValue;
   }
 
-  /// @return `true` if required and [default value][#getDefaultValue()] is `null` so
-  ///         [getting][#get(Map, Object)] without a default will fail, `false` otherwise.
+  /// @return `true` if required and [default value][#getDefaultValue()] is `null` so [getting][#get(Map, Object)] without a default will fail,
+  ///         `false` otherwise.
   public boolean isRequired() {
 
     return this.required;
