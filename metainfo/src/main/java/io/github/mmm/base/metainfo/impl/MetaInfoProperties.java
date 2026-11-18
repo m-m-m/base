@@ -37,6 +37,9 @@ public final class MetaInfoProperties extends MetaInfoCollection {
   @Override
   protected String getPlain(boolean inherit, String key) {
 
+    if (KEY_SOURCE.getName().equals(key) && this.properties == System.getProperties()) {
+      return VALUE_SOURCE_SYSTEM_PROPERTIES;
+    }
     return this.properties.getProperty(key);
   }
 

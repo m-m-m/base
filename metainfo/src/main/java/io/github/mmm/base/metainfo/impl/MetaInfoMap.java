@@ -45,6 +45,9 @@ public final class MetaInfoMap extends MetaInfoCollection {
   @Override
   protected String getPlain(boolean inherit, String key) {
 
+    if (KEY_SOURCE.getName().equals(key) && this.map == System.getenv()) {
+      return VALUE_SOURCE_SYSTEM_ENVIRONMENT;
+    }
     return this.map.get(key);
   }
 

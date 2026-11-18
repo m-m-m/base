@@ -27,7 +27,7 @@ public abstract class AbstractCharFilter implements CharFilter {
 
   /// @return the computed [description][#getDescription()]. Will be called once on the first call of
   ///         [#getDescription()] in case `null` was given at [construction time][#AbstractCharFilter(String)] for lazy
-  ///         initialization. In such case this method has to be overridden.
+  ///         initialisation. In such case this method has to be overridden.
   protected String computeDescription() {
 
     throw new IllegalStateException("No description provided and computeDescription not implemented.");

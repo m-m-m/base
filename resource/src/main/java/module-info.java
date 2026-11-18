@@ -11,7 +11,7 @@
  */
 module io.github.mmm.base.resource {
 
-  requires io.github.mmm.base;
+  requires transitive io.github.mmm.base;
 
   requires org.slf4j;
 

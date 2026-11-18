@@ -24,22 +24,22 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     return null;
   }
 
-  /// @return `this` instance as [MetaInfoInherited] to be used as [parent][#getParent()] of a new child
-  ///         (see `with` methods) or `null` if this is the empty instance.
+  /// @return `this` instance as [MetaInfoInherited] to be used as [parent][#getParent()] of a new child (see `with` methods) or `null` if this is the
+  ///         empty instance.
   protected MetaInfoInherited asParent() {
 
     return null;
   }
 
-  /// @param inherit the inherit flag from [#get(boolean, String)]. Typically to be ignored but may be used in
-  ///        special cases.
+  /// @param inherit the inherit flag from [#get(boolean, String)]. Typically to be ignored but may be used in special cases.
   /// @param key the key of the requested meta-information.
-  /// @return the value of the meta-information for the given `key` without inheritance from [parent][#getParent()]. Will be `null` if no value is defined for the given `key`.
+  /// @return the value of the meta-information for the given `key` without inheritance from [parent][#getParent()]. Will be `null` if no value is defined for
+  ///         the given `key`.
   /// @see #get(boolean, String)
   protected abstract String getPlain(boolean inherit, String key);
 
   @Override
-  public String get(boolean inherit, String key) {
+  public final String get(boolean inherit, String key) {
 
     return getInternal(inherit, key, null);
   }
@@ -69,12 +69,11 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     }
   }
 
-  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to
-  ///        only return plain meta-information defined in this [MetaInfo] itself.
+  /// @param inherit - `true` to inherit meta-information from the [parent][#getParent()], `false` to only return plain meta-information defined in this
+  ///        [MetaInfo] itself.
   /// @param key the key of the requested meta-information.
   /// @param stop the ancestor [AbstractMetaInfo] where to stop inheriting.
-  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined
-  ///         for the given `key`.
+  /// @return the value of the meta-information for the given `key`. Will be `null` if no value is defined for the given `key`.
   public String getInternal(boolean inherit, String key, MetaInfo stop) {
 
     String value = getPlain(inherit, qualifyKey(key));
@@ -82,7 +81,7 @@ public abstract class AbstractMetaInfo implements MetaInfo {
     if ((value == null) && inherit) {
       AbstractMetaInfo parent = getParent();
       if ((parent != null) && (parent != stop)) {
-        value = parent.get(true, key);
+        value = parent.getInternal(true, key, stop);
       }
     }
     return value;
@@ -100,8 +99,8 @@ public abstract class AbstractMetaInfo implements MetaInfo {
   }
 
   /// @param key the raw key.
-  /// @return the unqualified key with the [key prefix][#getKeyPrefix()] removed. Will be `null` if the key
-  ///         was `null` or the key did not [start with][String#startsWith(String)] the [key prefix][#getKeyPrefix()].
+  /// @return the unqualified key with the [key prefix][#getKeyPrefix()] removed. Will be `null` if the key was `null` or the key did not
+  ///         [start with][String#startsWith(String)] the [key prefix][#getKeyPrefix()].
   protected String unqualifyKey(String key) {
 
     String keyPrefix = getKeyPrefix();

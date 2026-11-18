@@ -28,7 +28,8 @@ public class MetaInfoPrefixedIterator extends AbstractIterator<String> {
   protected String findNext() {
 
     while (this.iterator.hasNext()) {
-      String key = this.metaInfo.unqualifyKey(this.iterator.next());
+      String rawKey = this.iterator.next();
+      String key = this.metaInfo.unqualifyKey(rawKey);
       if (key != null) {
         return key;
       }

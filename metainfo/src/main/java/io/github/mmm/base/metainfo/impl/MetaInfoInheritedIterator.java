@@ -32,9 +32,9 @@ public class MetaInfoInheritedIterator extends AbstractIterator<String> {
 
     while (this.iterator != null) {
       while (this.iterator.hasNext()) {
-        String key = this.currentMetaInfo.unqualifyKey(this.iterator.next());
-        if ((key != null) && ((this.currentMetaInfo == this.metaInfo)
-            || (this.metaInfo.getInternal(true, key, this.currentMetaInfo) == null))) {
+        String rawKey = this.iterator.next();
+        String key = this.currentMetaInfo.unqualifyKey(rawKey);
+        if ((key != null) && ((this.currentMetaInfo == this.metaInfo) || (this.metaInfo.getInternal(true, key, this.currentMetaInfo) == null))) {
           return key;
         }
       }

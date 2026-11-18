@@ -149,9 +149,9 @@ class MetaInfoTest extends Assertions {
   void testWithPrefix() {
 
     // arrange
-    Map<String, String> map = Map.of("prefix.name", "Name", "other.value", "Value", "prefix.version", "1.0", "prefix",
-        "Prefix");
+    Map<String, String> map = Map.of("prefix.name", "Name", "other.value", "Value", "prefix.version", "1.0", "prefix", "Prefix");
     MetaInfo metaInfo = MetaInfo.empty().with(map);
+    metaInfo = metaInfo.with(new Properties());
     // act
     metaInfo = metaInfo.with("prefix.");
     // assert
@@ -173,8 +173,48 @@ class MetaInfoTest extends Assertions {
     map.put("version", "1.1");
     MetaInfo metaInfo2 = metaInfo.with(map);
     // and assert
-    assertThat(toString(metaInfo2))
-        .isEqualTo("{name=Name, other.value=Value, prefix=Prefix, prefix.name=Name, prefix.version=1.0, version=1.1}");
+    assertThat(toString(metaInfo2)).isEqualTo("{name=Name, other.value=Value, prefix=Prefix, prefix.name=Name, prefix.version=1.0, version=1.1}");
+  }
+
+  /// Test of [MetaInfo#config()].
+  @Test
+  void testConfig() {
+
+    // arrange
+    MetaInfo systemProperties = null;
+
+    // act
+    systemProperties = MetaInfo.config();
+
+    // assert
+    assertThat(systemProperties.get("app")).isEqualTo("app-name-overridden"); // assert overridden in app-config/application.properties
+    assertThat(systemProperties.get("foo")).isEqualTo("foo-value"); // declared only in application.properties
+    assertThat(systemProperties.get("foo.bar")).isEqualTo("foo.bar"); // declared only in application.properties
+    assertThat(systemProperties.get("bar")).isEqualTo("bar-value"); // declared only in app-config/application.properties
+    assertThat(systemProperties.get("java.version")).startsWith("25.");
+    assertThat(systemProperties.get(MetaInfo.KEY_SOURCE)).isEqualTo(MetaInfo.VALUE_SOURCE_SYSTEM_PROPERTIES);
+    // MetaInfo is immutable
+    systemProperties.asMap().put("app", "modified");
+    assertThat(systemProperties.get("app")).isEqualTo("app-name-overridden");
+
+    // systemProperties MetaInfo inherits from app-config application.properties
+    MetaInfo appConfig = systemProperties.getParent();
+    assertThat(appConfig.get(MetaInfo.KEY_SOURCE)).endsWith("app-config/application.properties");
+
+    // app-config MetaInfo inherits from systemEnvironment
+    MetaInfo systemEnv = appConfig.getParent();
+    assertThat(systemEnv.get("app")).isEqualTo("app-name");
+    assertThat(systemEnv.get(MetaInfo.KEY_SOURCE)).isEqualTo(MetaInfo.VALUE_SOURCE_SYSTEM_ENVIRONMENT);
+
+    // systemEnvironment MetaInfo inherits from root application.properties
+    MetaInfo config = systemEnv.getParent();
+    assertThat(config.get(MetaInfo.KEY_SOURCE)).endsWith("application.properties").doesNotEndWith("app-config/application.properties");
+
+    // test with prefix
+    MetaInfo foo = systemProperties.with("foo.");
+    assertThat(foo.get("bar")).isEqualTo("foo.bar");
+    foo = MetaInfo.empty().with(foo.asProperties());
+    assertThat(foo.get("bar")).isEqualTo("foo.bar");
   }
 
 }
